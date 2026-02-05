@@ -11,10 +11,10 @@
   --color-accent: #222222;       /* 10% - Text, CTAs */
   
   /* Accent Colors */
-  --color-yellow: #FBE7C6;       /* Warm, creative */
-  --color-pink: #FFAEBC;         /* Friendly, approachable */
-  --color-blue: #A0E7E5;         /* Tech, innovation */
-  --color-mint: #B4F8C8;         /* Fresh, growth */
+  --color-yellow: #F5A623;       /* Warm, creative - golden amber */
+  --color-pink: #FF6B8A;         /* Friendly, approachable - vibrant coral */
+  --color-blue: #4ECDC4;         /* Tech, innovation - rich teal */
+  --color-mint: #2ECC71;         /* Fresh, growth - vibrant green */
   
   /* Semantic Colors */
   --color-background: var(--color-primary);
@@ -69,6 +69,20 @@
   --color-blue: var(--color-blue);
   --color-mint: var(--color-mint);
   
+  /* Background semantic colors */
+  --color-background-primary: var(--color-primary);
+  --color-background-secondary: var(--color-secondary);
+  
+  /* Text semantic colors */
+  --color-text-primary: var(--color-foreground);
+  --color-text-secondary: var(--color-muted);
+  
+  /* Accent colors with alpha for utilities */
+  --color-accent-blue: var(--color-blue);
+  --color-accent-pink: var(--color-pink);
+  --color-accent-mint: var(--color-mint);
+  --color-accent-yellow: var(--color-yellow);
+  
   /* Fonts */
   --font-heading: var(--font-besley);
   --font-body: var(--font-montserrat);
@@ -93,6 +107,13 @@
 
 html {
   scroll-behavior: smooth;
+  /* Hide scrollbar but keep scroll functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 body {
@@ -289,6 +310,16 @@ a:hover {
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+
+/* Slow Spin Animation for Chat Button */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
 
 /* ============================================
    Focus & Accessibility

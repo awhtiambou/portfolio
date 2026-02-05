@@ -2,20 +2,22 @@
 
 export interface Project {
   id: string;
+  slug: string;
   title: string;
   description: string;
   longDescription?: string;
-  image: string;
+  image?: string;
   technologies: string[];
+  category: ProjectCategory;
   liveUrl?: string;
   githubUrl?: string;
   featured?: boolean;
   startDate: string;
   endDate?: string;
-  category: ProjectCategory;
+  status?: 'completed' | 'in-progress' | 'planned';
 }
 
-export type ProjectCategory = 'web' | 'mobile' | 'design' | 'other';
+export type ProjectCategory = 'ml' | 'ai' | 'devops' | 'mlops' | 'web' | 'mobile' | 'design' | 'other';
 
 export interface Experience {
   id: string;
@@ -26,6 +28,7 @@ export interface Experience {
   technologies: string[];
   startDate: string;
   endDate?: string;
+  current?: boolean;
   location: string;
   logo?: string;
 }
@@ -39,8 +42,11 @@ export interface Education {
   achievements?: string[];
   startDate: string;
   endDate?: string;
+  current?: boolean;
   location: string;
   logo?: string;
+  gpa?: string;
+  courses?: string[];
 }
 
 export interface Skill {
@@ -51,7 +57,19 @@ export interface Skill {
 }
 
 export type SkillLevel = 'beginner' | 'intermediate' | 'advanced' | 'expert';
-export type SkillCategory = 'frontend' | 'backend' | 'tools' | 'design' | 'soft-skills' | 'other';
+export type SkillCategory = 
+  | 'ml'           // Machine Learning
+  | 'ai'           // Artificial Intelligence
+  | 'data'         // Data Science & Analytics
+  | 'mlops'        // MLOps & Model Deployment
+  | 'devops'       // DevOps & CI/CD
+  | 'cloud'        // Cloud Platforms (AWS, GCP, Azure)
+  | 'frontend'     // Frontend Development
+  | 'backend'      // Backend Development
+  | 'tools'        // Development Tools & Frameworks
+  | 'databases'    // Databases & Data Storage
+  | 'soft-skills'  // Communication, Leadership, etc.
+  | 'other';
 
 export interface ContactFormData {
   name: string;
@@ -61,9 +79,9 @@ export interface ContactFormData {
 }
 
 export interface SocialLink {
-  platform: string;
+  name: string;
   url: string;
-  icon?: string;
+  icon: string;
 }
 
 export interface SEOProps {

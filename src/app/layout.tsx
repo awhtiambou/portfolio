@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Besley, Montserrat } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getLocale } from "next-intl/server";
 import { ThemeProvider, MUIProvider } from "@/providers";
+import { CustomCursor } from "@/components/ui";
 import "./globals.css";
 
 const besley = Besley({
@@ -27,28 +30,28 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio.dev"),
+  metadataBase: new URL("https://awhtiambou.com"),
   title: {
-    default: "Portfolio | Your Name",
+    default: "Portfolio | Abdoul-Wahabou H. Tiambou",
     template: "%s | Portfolio",
   },
-  description: "Personal portfolio showcasing my work, experience, and skills in web development.",
-  keywords: ["portfolio", "web developer", "software engineer", "projects"],
-  authors: [{ name: "Your Name" }],
-  creator: "Your Name",
+  description: "Personal portfolio showcasing my work, experience, and skills in computer science.",
+  keywords: ["portfolio", "computer science", "software engineer", "projects", "experience", "skills", "Abdoul-Wahabou H. Tiambou", "AI/ML Engineer", "Full-Stack Developer"],
+  authors: [{ name: "Abdoul-Wahabou H. Tiambou" }],
+  creator: "Abdoul-Wahabou H. Tiambou",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://portfolio.dev",
+    url: "https://awhtiambou.com",
     siteName: "Portfolio",
-    title: "Portfolio | Your Name",
-    description: "Personal portfolio showcasing my work, experience, and skills in web development.",
+    title: "Portfolio | Abdoul-Wahabou H. Tiambou",
+    description: "Personal portfolio showcasing my work, experience, and skills in computer science.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio | Your Name",
-    description: "Personal portfolio showcasing my work, experience, and skills in web development.",
-    creator: "@yourhandle",
+    title: "Portfolio | Abdoul-Wahabou H. Tiambou",
+    description: "Personal portfolio showcasing my work, experience, and skills in computer science.",
+    creator: "@awhtiambou",
   },
   robots: {
     index: true,
@@ -56,19 +59,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${besley.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider>
-          <MUIProvider>
-            {children}
-          </MUIProvider>
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider>
+            <MUIProvider>
+              <CustomCursor />
+              {children}
+            </MUIProvider>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

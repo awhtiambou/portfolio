@@ -13,10 +13,10 @@ export const colors = {
     accent: '#FFFFFF',       // 10% - Text, CTAs
   },
   accents: {
-    yellow: '#FBE7C6',       // Warm, creative
-    pink: '#FFAEBC',         // Friendly, approachable
-    blue: '#A0E7E5',         // Tech, innovation
-    mint: '#B4F8C8',         // Fresh, growth
+    yellow: '#F5A623',       // Warm, creative - golden amber
+    pink: '#FF6B8A',         // Friendly, approachable - vibrant coral
+    blue: '#4ECDC4',         // Tech, innovation - rich teal
+    mint: '#2ECC71',         // Fresh, growth - vibrant green
   },
 } as const;
 

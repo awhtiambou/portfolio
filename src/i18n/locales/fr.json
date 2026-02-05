@@ -1,0 +1,85 @@
+{
+  "common": {
+    "home": "Accueil",
+    "about": "À propos",
+    "experience": "Expérience",
+    "education": "Éducation",
+    "projects": "Projets",
+    "contact": "Contact",
+    "getInTouch": "Me Contacter",
+    "viewWork": "Voir Mes Projets",
+    "learnMore": "En Savoir Plus",
+    "viewAll": "Voir Tout",
+    "sendMessage": "Envoyer le Message",
+    "currentlyAvailable": "Disponible pour Travailler",
+    "email": "Email",
+    "location": "Localisation",
+    "call": "Appeler",
+    "blog": "Blog",
+    "newsletter": "Newsletter"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis",
+    "title": "Ingénieur IA/ML",
+    "subtitle": "Développeur Full-Stack",
+    "description": "Passionné par la création de systèmes intelligents et d'applications évolutives. Spécialisé en apprentissage automatique, deep learning et développement web moderne."
+  },
+  "about": {
+    "title": "À Propos de Moi",
+    "subtitle": "Apprenez à me connaître",
+    "bio1": "Je suis un ingénieur IA/ML et développeur Full-Stack passionné, expert dans la création de systèmes intelligents et d'applications web évolutives.",
+    "bio2": "Actuellement en cours d'études en informatique, je combine connaissances académiques et expérience pratique en apprentissage automatique, deep learning et développement moderne.",
+    "bio3": "Mon parcours dans la tech a commencé par la curiosité de comprendre comment les machines peuvent apprendre et prendre des décisions. Aujourd'hui, je travaille sur des projets allant du traitement du langage naturel à la vision par ordinateur.",
+    "yearsExperience": "Années d'Expérience",
+    "projectsCompleted": "Projets Réalisés"
+  },
+  "skills": {
+    "title": "Compétences",
+    "subtitle": "Technologies et outils que j'utilise"
+  },
+  "experience": {
+    "title": "Expérience",
+    "subtitle": "Mon parcours professionnel",
+    "current": "Actuel",
+    "present": "Présent"
+  },
+  "projects": {
+    "title": "Projets Phares",
+    "subtitle": "Quelques-uns de mes travaux récents",
+    "viewProject": "Voir le Projet",
+    "viewCode": "Voir le Code",
+    "inProgress": "En Cours"
+  },
+  "education": {
+    "title": "Éducation",
+    "subtitle": "Mon parcours académique"
+  },
+  "contact": {
+    "title": "Me Contacter",
+    "subtitle": "Une question ou envie de collaborer ?",
+    "description": "Je suis toujours ouvert à discuter de nouveaux projets, d'idées créatives ou d'opportunités de collaboration.",
+    "form": {
+      "name": "Nom",
+      "email": "Email",
+      "subject": "Sujet",
+      "message": "Message",
+      "namePlaceholder": "Votre nom",
+      "emailPlaceholder": "votre@email.com",
+      "subjectPlaceholder": "De quoi s'agit-il ?",
+      "messagePlaceholder": "Votre message...",
+      "submit": "Envoyer le Message",
+      "sending": "Envoi en cours...",
+      "success": "Message envoyé ! Merci de m'avoir contacté.",
+      "error": "Une erreur s'est produite. Veuillez réessayer."
+    }
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "connect": "Connexion",
+    "rights": "Tous droits réservés."
+  },
+  "menu": {
+    "toggleMenu": "Basculer le menu",
+    "toggleTheme": "Basculer le thème"
+  }
+}

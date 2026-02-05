@@ -121,8 +121,18 @@ export const tapScale = {
 };
 
 // Card hover effect
-export const cardHover = {
-  y: -4,
-  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
-  transition: { duration: 0.2 },
+export const cardHover: Variants = {
+  rest: {
+    y: 0,
+    boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+  },
+  hover: {
+    y: -4,
+    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
+    transition: { duration: 0.2 },
+  },
+  tap: {
+    y: -2,
+    scale: 0.98,
+  },
 };

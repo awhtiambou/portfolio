@@ -1,0 +1,85 @@
+{
+  "common": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "education": "Education",
+    "projects": "Projects",
+    "contact": "Contact",
+    "getInTouch": "Get In Touch",
+    "viewWork": "View My Work",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "sendMessage": "Send Message",
+    "currentlyAvailable": "Available for Work",
+    "email": "Email",
+    "location": "Location",
+    "call": "Call",
+    "blog": "Blog",
+    "newsletter": "Newsletter"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "title": "AI/ML Engineer",
+    "subtitle": "Full-Stack Developer",
+    "description": "Passionate about building intelligent systems and scalable applications. Specializing in machine learning, deep learning, and modern web development."
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Get to know me better",
+    "bio1": "I'm a passionate AI/ML Engineer and Full-Stack Developer with expertise in building intelligent systems and scalable web applications.",
+    "bio2": "Currently pursuing my degree in Computer Science, I combine academic knowledge with hands-on experience in machine learning, deep learning, and modern development.",
+    "bio3": "My journey in tech started with curiosity about how machines can learn and make decisions. Today, I work on projects ranging from natural language processing to computer vision.",
+    "yearsExperience": "Years Experience",
+    "projectsCompleted": "Projects Completed"
+  },
+  "skills": {
+    "title": "Skills & Expertise",
+    "subtitle": "Technologies and tools I work with"
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "My professional journey",
+    "current": "Current",
+    "present": "Present"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Some of my recent work",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "inProgress": "In Progress"
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "My academic background"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Have a question or want to work together?",
+    "description": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "your@email.com",
+      "subjectPlaceholder": "What's this about?",
+      "messagePlaceholder": "Your message...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent! Thank you for reaching out.",
+      "error": "Something went wrong. Please try again."
+    }
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "connect": "Connect",
+    "rights": "All rights reserved."
+  },
+  "menu": {
+    "toggleMenu": "Toggle menu",
+    "toggleTheme": "Toggle theme"
+  }
+}
