@@ -42,9 +42,9 @@ export function UnderlinedAnimatedLink({
       style={isActive ? { color: colorValues[underlineColor] } : undefined}
       data-cursor="pointer"
     >
-      <span className="relative">
+      <span className="relative font-heading">
         {children}
-        
+
         {/* Underline container */}
         <span className="absolute -bottom-1 left-0 w-full h-[2px] overflow-hidden">
           {/* Active state - full underline */}
@@ -55,7 +55,7 @@ export function UnderlinedAnimatedLink({
             animate={{ scaleX: isActive ? 1 : 0 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           />
-          
+
           {/* Hover state - animated underline */}
           <motion.span
             className="absolute inset-0 origin-left"
@@ -65,9 +65,9 @@ export function UnderlinedAnimatedLink({
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           />
         </span>
-        
+
         {/* Hover effect - slides in from left, slides out to right */}
-        <span 
+        <span
           className={cn(
             "absolute -bottom-1 left-0 w-full h-[2px]",
             "origin-left scale-x-0 group-hover:scale-x-100",

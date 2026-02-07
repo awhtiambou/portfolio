@@ -5,10 +5,11 @@ import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
 import { socialLinks } from "@/config/navigation";
 import { localeFlags, type Locale } from "@/i18n";
+import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
+import { MeshGradientBackground, CircleArrowLink } from "@/components/ui";
 
 // Navigation items with translation keys
 const navItemsConfig = [
@@ -30,19 +31,19 @@ interface MenuDrawerProps {
 // Icons
 const GithubIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
   </svg>
 );
 
 const LinkedinIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
   </svg>
 );
 
 const TwitterIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
 
@@ -55,22 +56,22 @@ const socialIconMap: Record<string, React.FC> = {
 // Animation variants
 const backdropVariants = {
   hidden: { opacity: 0 },
-  visible: { 
+  visible: {
     opacity: 1,
     transition: { duration: 0.3 }
   },
-  exit: { 
+  exit: {
     opacity: 0,
     transition: { duration: 0.3, delay: 0.2 }
   }
 };
 
 const drawerVariants: Variants = {
-  hidden: { 
+  hidden: {
     clipPath: "circle(0% at calc(100% - 60px) 40px)",
     opacity: 0,
   },
-  visible: { 
+  visible: {
     clipPath: "circle(150% at calc(100% - 60px) 40px)",
     opacity: 1,
     transition: {
@@ -80,7 +81,7 @@ const drawerVariants: Variants = {
       duration: 0.8,
     }
   },
-  exit: { 
+  exit: {
     clipPath: "circle(0% at calc(100% - 60px) 40px)",
     opacity: 0,
     transition: {
@@ -103,8 +104,8 @@ const menuItemVariants: Variants = {
       ease: [0.25, 0.1, 0.25, 1],
     },
   }),
-  exit: { 
-    opacity: 0, 
+  exit: {
+    opacity: 0,
     x: -30,
     transition: { duration: 0.2 }
   }
@@ -135,31 +136,6 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
 
   const isDark = mounted && resolvedTheme === "dark";
 
-  // Theme-aware gradient backgrounds - matching HeroSection with darker accent colors
-  const baseGradient = isDark
-    ? "linear-gradient(135deg, rgba(245, 166, 35, 0.15) 0%, rgba(255, 107, 138, 0.1) 25%, rgba(46, 204, 113, 0.08) 50%, rgba(78, 205, 196, 0.12) 75%, rgba(245, 166, 35, 0.1) 100%)"
-    : "linear-gradient(135deg, rgba(245, 166, 35, 0.5) 0%, rgba(255, 107, 138, 0.35) 25%, rgba(46, 204, 113, 0.25) 50%, rgba(78, 205, 196, 0.4) 75%, rgba(245, 166, 35, 0.3) 100%)";
-
-  // Theme-aware orb colors - matching HeroSection with darker accent colors
-  const orbColors = {
-    pink: isDark 
-      ? "radial-gradient(circle, rgba(255, 107, 138, 0.25) 0%, transparent 70%)"
-      : "radial-gradient(circle, rgba(255, 107, 138, 0.6) 0%, transparent 70%)",
-    blue: isDark
-      ? "radial-gradient(circle, rgba(78, 205, 196, 0.2) 0%, transparent 70%)"
-      : "radial-gradient(circle, rgba(78, 205, 196, 0.55) 0%, transparent 70%)",
-    mint: isDark
-      ? "radial-gradient(circle, rgba(46, 204, 113, 0.2) 0%, transparent 70%)"
-      : "radial-gradient(circle, rgba(46, 204, 113, 0.5) 0%, transparent 70%)",
-    yellow: isDark
-      ? "radial-gradient(circle, rgba(245, 166, 35, 0.25) 0%, transparent 70%)"
-      : "radial-gradient(circle, rgba(245, 166, 35, 0.6) 0%, transparent 70%)",
-  };
-
-  // Theme-aware text colors
-  const textColor = isDark ? "text-white" : "text-gray-900";
-  const textSecondaryColor = isDark ? "text-white/60" : "text-gray-600";
-  const linkHoverColor = isDark ? "hover:text-white" : "hover:text-gray-900";
 
   return (
     <AnimatePresence>
@@ -175,93 +151,23 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
             onClick={onClose}
           />
 
-          {/* Drawer with theme-aware gradient background */}
+          {/* Drawer with mesh gradient background */}
           <motion.div
             ref={constraintsRef}
             variants={drawerVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={cn(
-              "fixed inset-0 z-40 overflow-hidden transition-colors duration-300",
-              isDark ? "bg-[#222222]" : "bg-white"
-            )}
+            className="fixed inset-0 z-40 overflow-hidden flex items-center justify-center  "
           >
-            {/* Gradient overlay matching HeroSection */}
-            <div 
-              className="absolute inset-0 transition-all duration-500"
-              style={{ background: baseGradient }}
-            />
-            
-            {/* Animated gradient orbs using brand colors */}
-            <div className="absolute inset-0 overflow-hidden">
-              {/* Pink orb */}
-              <motion.div
-                className="absolute -top-1/4 -left-1/4 w-2/3 h-2/3 rounded-full blur-3xl"
-                style={{ background: orbColors.pink }}
-                animate={{
-                  x: [0, 150, 0],
-                  y: [0, 100, 0],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              {/* Blue orb */}
-              <motion.div
-                className="absolute top-1/3 -right-1/4 w-1/2 h-1/2 rounded-full blur-3xl"
-                style={{ background: orbColors.blue }}
-                animate={{
-                  x: [0, -100, 0],
-                  y: [0, 80, 0],
-                  scale: [1, 1.15, 1],
-                }}
-                transition={{
-                  duration: 25,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              {/* Mint orb */}
-              <motion.div
-                className="absolute -bottom-1/4 left-1/4 w-1/2 h-1/2 rounded-full blur-3xl"
-                style={{ background: orbColors.mint }}
-                animate={{
-                  x: [0, 80, 0],
-                  y: [0, -60, 0],
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{
-                  duration: 18,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              {/* Yellow orb */}
-              <motion.div
-                className="absolute top-1/2 right-1/3 w-1/3 h-1/3 rounded-full blur-2xl"
-                style={{ background: orbColors.yellow }}
-                animate={{
-                  x: [0, -60, 0],
-                  y: [0, 50, 0],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 22,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </div>
+            {/* Mesh Gradient Background with Tiambou Watermark */}
+            <MeshGradientBackground showWatermark={true} animated={true} />
 
             {/* Content */}
-            <div className="relative h-full flex flex-col lg:flex-row px-8 md:px-16 lg:px-24 py-24 md:py-32">
+            <div className="relative z-10 h-full flex flex-col lg:flex-row w-[calc(100%-2rem)] lg:w-[calc(80%)]">
               {/* Left: Navigation Links */}
               <div className="flex-1 flex flex-col justify-center">
-                <nav className="space-y-2 md:space-y-4">
+                <nav className="space-y-2 md:space-y-4 lg:space-y-6">
                   {navItemsConfig.map((item, i) => (
                     <motion.div
                       key={item.href}
@@ -270,30 +176,39 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                       initial="hidden"
                       animate="visible"
                       exit="exit"
+                      className="w-fit"
                     >
-                      <Link
-                        href={item.href}
-                        onClick={onClose}
-                        className="group flex items-center gap-4"
-                        data-cursor-text="Go"
-                      >
-                        <motion.span
-                          className={`text-4xl md:text-6xl lg:text-7xl font-heading font-bold transition-colors ${isDark ? 'text-white/90 hover:text-white' : 'text-gray-900/90 hover:text-gray-900'}`}
-                          whileHover={{ x: 20, color: "#4ECDC4" }}
-                          transition={{ duration: 0.2 }}
+                      <div className="w-fit">
+                        <CircleArrowLink
+                          href={item.href}
+                          onClick={onClose}
+                          data-cursor-text="Go"
+                          circleClassName={cn(
+                            "w-12 h-12 md:w-16 md:h-16 border-2",
+                            isDark ? "border-white/20" : "border-gray-900/20"
+                          )}
                         >
-                          {t(item.key).toUpperCase()}
-                        </motion.span>
-                        {item.href === "/projects" && (
-                          <span className="text-2xl md:text-4xl">🚀</span>
-                        )}
-                      </Link>
+                          <motion.span
+                            className={`text-4xl md:text-6xl lg:text-7xl font-heading font-bold transition-colors ${isDark ? 'text-white/90 hover:text-white' : 'text-gray-900/90 hover:text-gray-900'}`}
+                            whileHover={{ x: 20, color: "#4ECDC4" }}
+                            transition={{ duration: 0.2 }}
+                            style={{
+                              fontFamily: "Besley"
+                            }}
+                          >
+                            {t(item.key).toUpperCase()}
+                          </motion.span>
+                          {item.href === "/projects" && (
+                            <span className="text-2xl md:text-4xl ml-4">🚀</span>
+                          )}
+                        </CircleArrowLink>
+                      </div>
                     </motion.div>
                   ))}
                 </nav>
 
                 {/* Bottom links */}
-                <motion.div 
+                <motion.div
                   className={`mt-12 flex flex-wrap gap-6 text-sm font-medium ${isDark ? 'text-white/60' : 'text-gray-600'}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -305,7 +220,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                   <Link href="#" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
                     {t("newsletter").toUpperCase()}
                   </Link>
-                  <button 
+                  <button
                     onClick={onLocaleChange}
                     className={`transition-colors flex items-center gap-2 ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}
                   >
@@ -315,7 +230,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
               </div>
 
               {/* Right: Contact Info */}
-              <div className="lg:w-80 flex flex-col justify-center mt-12 lg:mt-0 lg:items-end text-right">
+              <div className="hidden lg:flex lg:w-80 flex-col justify-center mt-12 lg:mt-0 lg:items-end text-right">
                 {/* Decorative dot */}
                 <motion.div
                   className={`hidden lg:block w-3 h-3 rounded-full mb-12 ${isDark ? 'bg-white/80' : 'bg-gray-800/80'}`}
@@ -411,10 +326,10 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
               <Link
                 href="/contact"
                 onClick={onClose}
-                className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-300 transition-colors shadow-lg"
+                className="relative w-16 h-16 md:w-28 md:h-28 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-300 transition-colors shadow-lg"
                 data-cursor-text="Chat"
               >
-                <span className="text-2xl md:text-3xl">👋</span>
+                <span className="text-2xl md:text-4xl">👋</span>
                 {/* Rotating text around button */}
                 <svg
                   className="absolute w-full h-full animate-spin-slow"

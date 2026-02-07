@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Besley, Montserrat } from "next/font/google";
+import { Besley, Montserrat, Pacifico } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale } from "next-intl/server";
 import { ThemeProvider, MUIProvider } from "@/providers";
@@ -17,6 +17,14 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+// Bold signature-style font for watermark - thick, friendly strokes
+const pacifico = Pacifico({
+  variable: "--font-signature",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -69,7 +77,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${besley.variable} ${montserrat.variable} antialiased`}>
+      <body className={`${besley.variable} ${montserrat.variable} ${pacifico.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <MUIProvider>

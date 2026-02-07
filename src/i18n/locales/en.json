@@ -21,13 +21,15 @@
   "hero": {
     "greeting": "Hello, I'm",
     "title": "AI/ML Engineer",
-    "subtitle": "Full-Stack Developer",
-    "description": "Passionate about building intelligent systems and scalable applications. Specializing in machine learning, deep learning, and modern web development."
+    "subtitle": "Software Engineer",
+    "description": "Passionate about building intelligent systems and scalable applications. Specializing in machine learning, deep learning, and modern software development.",
+    "available": "Available for Work",
+    "learnMore": "Learn More"
   },
   "about": {
     "title": "About Me",
     "subtitle": "Get to know me better",
-    "bio1": "I'm a passionate AI/ML Engineer and Full-Stack Developer with expertise in building intelligent systems and scalable web applications.",
+    "bio1": "I'm a passionate AI/ML Engineer and Software Engineer with expertise in building intelligent systems and scalable web applications.",
     "bio2": "Currently pursuing my degree in Computer Science, I combine academic knowledge with hands-on experience in machine learning, deep learning, and modern development.",
     "bio3": "My journey in tech started with curiosity about how machines can learn and make decisions. Today, I work on projects ranging from natural language processing to computer vision.",
     "yearsExperience": "Years Experience",

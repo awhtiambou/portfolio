@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/navigation";
 import { locales, type Locale } from "@/i18n";
-import { MenuToggle, UnderlinedAnimatedLink, FlagIcon } from "@/components/ui";
+import { MenuToggle, CircleArrowLink, FlagIcon } from "@/components/ui";
 import { MenuDrawer } from "./MenuDrawer";
 
 // Navigation items with translation keys
@@ -18,7 +18,6 @@ const navItemsConfig = [
   { key: "home", href: "/" },
   { key: "about", href: "/about" },
   { key: "experience", href: "/experience" },
-  { key: "education", href: "/education" },
   { key: "projects", href: "/projects" },
   { key: "contact", href: "/contact" },
 ];
@@ -70,7 +69,7 @@ export function Header() {
   const isDark = mounted && resolvedTheme === "dark";
   const logoSrc = isDark
     ? "/assets/images/logo-for-dark-theme-transparent-cropped.png"
-    : "/assets/images/logo-for-light-theme-cropped.jpg";
+    : "/assets/images/logo-for-light-theme-transparent-cropped.png";
 
   return (
     <>
@@ -79,13 +78,13 @@ export function Header() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)]"
+        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] lg:w-[calc(80%)]"
       >
         <motion.nav
           className={cn(
             "flex items-center justify-end lg:justify-between gap-4 md:gap-8 mx-auto w-full rounded-2xl transition-all duration-300 border",
             isScrolled || isMenuOpen
-              ? isDark 
+              ? isDark
                 ? "bg-background-secondary/90 backdrop-blur-xl shadow-lg border-white/10"
                 : "bg-white/95 backdrop-blur-xl shadow-lg border-gray-200"
               : isDark
@@ -124,17 +123,24 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation - Hidden on Mobile */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-2">
             {navItemsConfig.slice(0, 4).map((item) => {
               return (
-                <UnderlinedAnimatedLink
+                <CircleArrowLink
                   key={item.href}
                   href={item.href}
                   isActive={pathname === item.href}
-                  underlineColor={isDark ? "yellow" : "mint"}
+                  className="text-sm font-medium font-heading"
+                  circleClassName="hidden lg:flex w-6 h-6 border-[1.5px]"
                 >
-                  {t(item.key)}
-                </UnderlinedAnimatedLink>
+                  <motion.span
+                    style={{
+                      fontFamily: "Besley"
+                    }}
+                  >
+                    {t(item.key)}
+                  </motion.span>
+                </CircleArrowLink>
               );
             })}
           </div>

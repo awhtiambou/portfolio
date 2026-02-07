@@ -21,13 +21,15 @@
   "hero": {
     "greeting": "Bonjour, je suis",
     "title": "Ingénieur IA/ML",
-    "subtitle": "Développeur Full-Stack",
-    "description": "Passionné par la création de systèmes intelligents et d'applications évolutives. Spécialisé en apprentissage automatique, deep learning et développement web moderne."
+    "subtitle": "Ingénieur Logiciel",
+    "description": "Passionné par la création de systèmes intelligents et d'applications évolutives. Spécialisé en apprentissage automatique, deep learning et développement logiciel moderne.",
+    "available": "Je suis disponible",
+    "learnMore": "En Savoir Plus"
   },
   "about": {
     "title": "À Propos de Moi",
     "subtitle": "Apprenez à me connaître",
-    "bio1": "Je suis un ingénieur IA/ML et développeur Full-Stack passionné, expert dans la création de systèmes intelligents et d'applications web évolutives.",
+    "bio1": "Je suis un ingénieur IA/ML et ingénieur logiciel passionné, expert dans la création de systèmes intelligents et d'applications web évolutives.",
     "bio2": "Actuellement en cours d'études en informatique, je combine connaissances académiques et expérience pratique en apprentissage automatique, deep learning et développement moderne.",
     "bio3": "Mon parcours dans la tech a commencé par la curiosité de comprendre comment les machines peuvent apprendre et prendre des décisions. Aujourd'hui, je travaille sur des projets allant du traitement du langage naturel à la vision par ordinateur.",
     "yearsExperience": "Années d'Expérience",

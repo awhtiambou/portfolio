@@ -23,7 +23,7 @@ export function CustomCursor() {
   // Smooth cursor position with spring physics
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  
+
   const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
@@ -140,7 +140,8 @@ export function CustomCursor() {
             className="absolute inset-0 rounded-full border-2 border-white"
             animate={{
               scale: isClicking ? 0.8 : 1,
-              borderWidth: isHovering ? 2 : 1,
+              borderWidth: isHovering ? 0 : 1,
+              backgroundColor: isHovering ? "#ffffff" : "transparent",
             }}
             transition={{ duration: 0.15 }}
           />
