@@ -63,9 +63,8 @@ export function ExperienceSection() {
               <motion.div
                 key={exp.id}
                 variants={fadeInUp}
-                className={`relative flex flex-col md:flex-row gap-8 ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
+                className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
+                  }`}
               >
                 {/* Timeline dot */}
                 <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-accent-blue rounded-full transform -translate-x-1/2 mt-6 z-10" />
@@ -106,12 +105,6 @@ export function ExperienceSection() {
             ))}
           </div>
         </div>
-
-        <motion.div variants={fadeInUp} className="text-center mt-12">
-          <Button href="/experience" variant="outline">
-            View Full Experience
-          </Button>
-        </motion.div>
       </motion.div>
     </Section>
   );

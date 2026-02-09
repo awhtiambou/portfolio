@@ -18,16 +18,47 @@ export type NavItem = {
   label: string;
   href: string;
   external?: boolean;
+  translationKey?: string;
 };
 
-export const navItems: NavItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Experience', href: '/experience' },
-  { label: 'Education', href: '/education' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Contact', href: '/contact' },
+export type SectionLink = {
+  label: string;
+  href: string;
+  description?: string;
+  translationKey?: string;
+};
+
+// Header navigation - only main pages
+export const headerNavItems: NavItem[] = [
+  { label: 'Home', href: '/', translationKey: 'home' },
+  { label: 'About', href: '/about', translationKey: 'about' },
+  { label: 'Projects', href: '/projects', translationKey: 'projects' },
+  { label: 'Blog', href: '/blog', translationKey: 'blog' },
 ];
+
+// Full navigation for MenuDrawer - includes pages and section anchors
+export const drawerNavItems: NavItem[] = [
+  { label: 'Home', href: '/', translationKey: 'home' },
+  { label: 'About', href: '/about', translationKey: 'about' },
+  { label: 'Projects', href: '/projects', translationKey: 'projects' },
+  { label: 'Contact', href: '/contact', translationKey: 'contact' },
+  { label: 'Blog', href: '/blog', translationKey: 'blog' },
+];
+
+// Section links for About page (used in MenuDrawer)
+export const aboutSectionLinks: SectionLink[] = [
+  { label: 'Experience', href: '/about#experience', description: 'My professional journey', translationKey: 'experience' },
+  { label: 'Skills', href: '/about#skills', description: 'Technologies I work with', translationKey: 'skills' },
+  { label: 'Education', href: '/about#education', description: 'Academic background', translationKey: 'education' },
+];
+
+// Newsletter link (goes to contact page section)
+export const newsletterLink: SectionLink = {
+  label: 'Newsletter',
+  href: '/contact#newsletter',
+  description: 'Subscribe to updates',
+  translationKey: 'newsletter',
+};
 
 export type SocialLinkNav = {
   name: string;
@@ -41,9 +72,11 @@ export const socialLinks: SocialLinkNav[] = [
   { name: 'Twitter', url: 'https://twitter.com/awhtiambou', icon: 'twitter' },
 ];
 
-export const mainNav = navItems;
+// Legacy exports for backward compatibility
+export const navItems = headerNavItems;
+export const mainNav = headerNavItems;
 
 export const footerNav = {
-  main: navItems,
+  main: drawerNavItems,
   social: socialLinks,
 } as const;

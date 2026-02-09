@@ -23,7 +23,7 @@ export function HeroSection() {
     return (
         <section className="relative min-h-screen">
             {/* Desktop Layout */}
-            <div className="hidden lg:flex min-h-screen">
+            <div className="hidden md:flex min-h-screen">
                 <MeshGradientBackground showWatermark={false} animated={true} />
                 {/* Left Side - Content */}
                 <div className="relative w-1/2 min-h-screen flex items-center">
@@ -80,7 +80,7 @@ export function HeroSection() {
                                 variants={fadeInUp}
                                 className="flex flex-wrap gap-4 pt-2"
                             >
-                                <MagneticButton href="/contact">
+                                <MagneticButton href="/contact" backgroundColor="var(--color-yellow)" style={{fontWeight: 600, backgroundColor: 'var(--color-yellow)'}}>
                                     {t("common.getInTouch")}
                                 </MagneticButton>
                                 <FillButton href="/projects" fillColor="var(--color-foreground)" className="group">
@@ -123,9 +123,9 @@ export function HeroSection() {
             </div>
 
             {/* Mobile/Tablet Layout */}
-            <div className="lg:hidden min-h-screen flex flex-col">
+            <div className="md:hidden min-h-screen flex flex-col">
                 {/* Content Section */}
-                <div className="relative flex-1 flex items-center px-6 sm:px-8 py-24">
+                <div className="relative flex-1 flex items-center px-6 sm:px-8 pt-24 pb-12">
                     {/* Mesh Gradient Background */}
                     <MeshGradientBackground showWatermark={true} animated={true} />
 
@@ -134,7 +134,7 @@ export function HeroSection() {
                         variants={staggerContainer}
                         initial="hidden"
                         animate="visible"
-                        className="relative z-10 space-y-6 max-w-xl"
+                        className="relative z-10 space-y-4 md:space-y-6 max-w-xl"
                     >
                         {/* Availability Badge */}
                         <motion.div
@@ -160,7 +160,7 @@ export function HeroSection() {
                             <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary leading-tight">
                                 {t("hero.title")}
                             </h1>
-                            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-accent-pink leading-tight mt-1">
+                            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-accent-pink leading-tight">
                                 {t("hero.subtitle")}
                             </h2>
                         </motion.div>
@@ -178,7 +178,7 @@ export function HeroSection() {
                             variants={fadeInUp}
                             className="flex flex-wrap gap-4 pt-2"
                         >
-                            <MagneticButton href="/contact">
+                            <MagneticButton backgroundColor="var(--color-yellow)" href="/contact">
                                 {t("common.getInTouch")}
                             </MagneticButton>
                             <FillButton href="/projects" fillColor="var(--color-foreground)" className="group">
@@ -198,20 +198,13 @@ export function HeroSection() {
                     </motion.div>
                 </div>
 
-                {/* Image Section - Full width below content on mobile */}
-                <div className="relative w-full h-[50vh] sm:h-[60vh]">
-                    <Image
-                        src="/assets/images/me-coding.jpg"
-                        alt={profile.name}
-                        fill
-                        className="object-cover object-center"
-                        priority
-                        sizes="100vw"
-                    />
-                </div>
             </div>
-            {/* Scroll Mouse Indicator */}
-            <div className="absolute bottom-10 right-10 z-20">
+            {/* Scroll Mouse Indicator for Mobile */}
+            <div className="block md:hidden absolute bottom-5 right-2 z-20">
+                <ScrollMouse />
+            </div>
+            {/* Scroll Mouse Indicator for Desktop */}
+            <div className="hidden md:block absolute bottom-10 left-10 z-20">
                 <ScrollMouse />
                 <p className="text-text-secondary text-xs uppercase font-medium mt-2">Scroll down</p>
             </div>

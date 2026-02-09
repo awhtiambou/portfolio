@@ -16,7 +16,9 @@
     "location": "Location",
     "call": "Call",
     "blog": "Blog",
-    "newsletter": "Newsletter"
+    "newsletter": "Newsletter",
+    "skills": "Skills",
+    "testimonials": "Testimonials"
   },
   "hero": {
     "greeting": "Hello, I'm",
@@ -83,5 +85,11 @@
   "menu": {
     "toggleMenu": "Toggle menu",
     "toggleTheme": "Toggle theme"
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "What people are saying",
+    "seeMore": "See more",
+    "seeLess": "See less"
   }
 }

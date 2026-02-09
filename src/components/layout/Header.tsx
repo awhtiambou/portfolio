@@ -8,19 +8,16 @@ import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { siteConfig } from "@/config/navigation";
+import { siteConfig, headerNavItems } from "@/config/navigation";
 import { locales, type Locale } from "@/i18n";
 import { MenuToggle, CircleArrowLink, FlagIcon } from "@/components/ui";
 import { MenuDrawer } from "./MenuDrawer";
 
-// Navigation items with translation keys
-const navItemsConfig = [
-  { key: "home", href: "/" },
-  { key: "about", href: "/about" },
-  { key: "experience", href: "/experience" },
-  { key: "projects", href: "/projects" },
-  { key: "contact", href: "/contact" },
-];
+// Navigation items from config (Home, About, Projects, Blog)
+const navItemsConfig = headerNavItems.map(item => ({
+  key: item.translationKey || item.label.toLowerCase(),
+  href: item.href,
+}));
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,7 +75,7 @@ export function Header() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] lg:w-[calc(80%)]"
+        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] lg:w-[calc(90%)] xl:w-[calc(80%)]"
       >
         <motion.nav
           className={cn(
@@ -106,7 +103,7 @@ export function Header() {
             data-cursor-text="Home"
           >
             <motion.div
-              className="relative w-28 h-20 lg:w-32 lg:h-20 overflow-hidden rounded-lg"
+              className="relative w-24 h-18 lg:w-32 lg:h-20 overflow-hidden rounded-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -124,7 +121,7 @@ export function Header() {
 
           {/* Desktop Navigation - Hidden on Mobile */}
           <div className="hidden lg:flex items-center gap-2">
-            {navItemsConfig.slice(0, 4).map((item) => {
+            {navItemsConfig.map((item) => {
               return (
                 <CircleArrowLink
                   key={item.href}

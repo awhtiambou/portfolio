@@ -6,18 +6,18 @@ export const profile = {
   firstName: "Abdoul-Wahabou",
   lastName: "Tiambou",
   nickname: "AWH",
-  
+
   title: "AI/ML Engineer & Full-Stack Developer",
   tagline: "Building intelligent systems and scalable applications",
-  
-  email: "contact@awhtiambou.com",
-  phone: "+1 (XXX) XXX-XXXX", // Update with real number
-  location: "Available for Remote Work",
+
+  email: "awhtiambou@kalfou.app",
+  phone: "+1 (581) 447-8028",
+  location: "Quebec, Canada",
   timezone: "EST",
-  
+
   bio: {
     short: "Passionate AI/ML Engineer and Full-Stack Developer with expertise in building intelligent systems and scalable web applications.",
-    
+
     long: `I'm a passionate AI/ML Engineer and Full-Stack Developer with a deep interest in 
     building intelligent systems that solve real-world problems. Currently pursuing my degree 
     in Computer Science, I combine academic knowledge with hands-on experience in machine 
@@ -29,7 +29,7 @@ export const profile = {
 
     When I'm not coding, you can find me exploring new technologies, contributing to open-source 
     projects, or sharing knowledge through technical writing and mentoring.`,
-    
+
     paragraphs: [
       "I'm a passionate AI/ML Engineer and Full-Stack Developer with a deep interest in building intelligent systems that solve real-world problems.",
       "Currently pursuing my degree in Computer Science, I combine academic knowledge with hands-on experience in machine learning, deep learning, and modern web development.",
@@ -37,18 +37,18 @@ export const profile = {
       "When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge through technical writing and mentoring.",
     ],
   },
-  
+
   avatar: "/images/avatar.jpg",
   resume: "/resume.pdf",
-  
+
   // Social links
   social: {
     github: "https://github.com/awhtiambou",
-    linkedin: "https://linkedin.com/in/awhtiambou",
+    linkedin: "https://www.linkedin.com/in/abdoul-wahabou-h-tiambou-475099210/",
     twitter: "https://twitter.com/awhtiambou",
     email: "mailto:contact@awhtiambou.com",
   } as const,
-  
+
   // Stats for display
   stats: {
     yearsExperience: 3,
@@ -56,7 +56,7 @@ export const profile = {
     technologiesMastered: 25,
     coffeeCups: 1000,
   },
-  
+
   // Interests and hobbies
   interests: [
     "Artificial Intelligence",
@@ -66,7 +66,7 @@ export const profile = {
     "Technical Writing",
     "Mentoring",
   ],
-  
+
   // Currently working on / learning
   current: {
     learning: ["Advanced MLOps", "System Design", "Rust"],

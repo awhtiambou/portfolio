@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { Section, Container } from "@/components/layout";
+import { Section } from "@/components/layout";
 import { Badge, SectionTitle, Text, Card } from "@/components/ui";
+import { ExperienceSection, EducationSection, TestimonialsSection } from "@/components/sections";
 import { profile } from "@/data/profile";
 import { skills, skillCategoryConfig } from "@/data/skills";
 import type { SkillCategory } from "@/types";
@@ -86,6 +85,9 @@ export default function AboutPage() {
         </div>
       </Section>
 
+      {/* Experience Section - With anchor for navigation */}
+      <ExperienceSection />
+
       {/* Skills Section */}
       <Section id="skills" variant="alternate">
         <SectionTitle
@@ -112,10 +114,10 @@ export default function AboutPage() {
                         skill.level === "expert"
                           ? "accent-pink"
                           : skill.level === "advanced"
-                          ? "accent-blue"
-                          : skill.level === "intermediate"
-                          ? "accent-mint"
-                          : "accent-yellow"
+                            ? "accent-blue"
+                            : skill.level === "intermediate"
+                              ? "accent-mint"
+                              : "accent-yellow"
                       }
                       size="sm"
                     >
@@ -144,6 +146,9 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
+
+      {/* Education Section - With anchor for navigation */}
+      <EducationSection />
 
       {/* Currently Section */}
       <Section>
@@ -205,6 +210,9 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+
+      {/* Testimonials Section */}
+      <TestimonialsSection />
     </main>
   );
 }

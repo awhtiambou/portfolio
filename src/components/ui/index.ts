@@ -11,3 +11,4 @@ export { MeshGradientBackground } from "./MeshGradientBackground";
 export { FillButton, SlideTextButton, MagneticButton } from "./AnimatedButtons";
 export { CircleArrowLink } from "./CircleArrowLink";
 export { ScrollMouse } from "./ScrollMouse";
+export { AnimatedLoading } from "./AnimatedLoading";

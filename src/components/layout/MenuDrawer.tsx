@@ -5,21 +5,17 @@ import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
-import { socialLinks } from "@/config/navigation";
+import { socialLinks, drawerNavItems, aboutSectionLinks, newsletterLink } from "@/config/navigation";
 import { localeFlags, type Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { MeshGradientBackground, CircleArrowLink } from "@/components/ui";
 
-// Navigation items with translation keys
-const navItemsConfig = [
-  { key: "home", href: "/" },
-  { key: "about", href: "/about" },
-  { key: "experience", href: "/experience" },
-  { key: "education", href: "/education" },
-  { key: "projects", href: "/projects" },
-  { key: "contact", href: "/contact" },
-];
+// Use navigation config for drawer items
+const navItemsConfig = drawerNavItems.map(item => ({
+  key: item.translationKey || item.label.toLowerCase(),
+  href: item.href,
+}));
 
 interface MenuDrawerProps {
   isOpen: boolean;
@@ -164,10 +160,10 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
             <MeshGradientBackground showWatermark={true} animated={true} />
 
             {/* Content */}
-            <div className="relative z-10 h-full flex flex-col lg:flex-row w-[calc(100%-2rem)] lg:w-[calc(80%)]">
+            <div className="relative z-10 min-h-full flex flex-col md:flex-row justify-center w-[calc(100%-2rem)] lg:w-[calc(90%)] xl:lg:w-[calc(80%)]">
               {/* Left: Navigation Links */}
-              <div className="flex-1 flex flex-col justify-center">
-                <nav className="space-y-2 md:space-y-4 lg:space-y-6">
+              <div className="w-full md:w-auto md:flex-1 mt-20 lg:mt-0 flex flex-col justify-center items-center md:items-start">
+                <nav className="w-full md:w-auto space-y-6 md:space-y-4 lg:space-y-6 flex md:block flex-col items-center md:items-start">
                   {navItemsConfig.map((item, i) => (
                     <motion.div
                       key={item.href}
@@ -178,7 +174,24 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                       exit="exit"
                       className="w-fit"
                     >
-                      <div className="w-fit">
+                      {/**Mobile */}
+                      <div className="w-fit flex md:hidden">
+                        <motion.span
+                          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold transition-colors ${isDark ? 'text-white/90 hover:text-white' : 'text-gray-900/90 hover:text-gray-900'}`}
+                          whileHover={{ x: 20, color: "#4ECDC4" }}
+                          transition={{ duration: 0.2 }}
+                          style={{
+                            fontFamily: "Besley"
+                          }}
+                        >
+                          {t(item.key).toUpperCase()}
+                        </motion.span>
+                        {item.href === "/projects" && (
+                          <span className="text-2xl md:text-4xl ml-4">🚀</span>
+                        )}
+                      </div>
+                      {/**Desktop */}
+                      <div className="w-fit hidden md:block">
                         <CircleArrowLink
                           href={item.href}
                           onClick={onClose}
@@ -189,7 +202,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                           )}
                         >
                           <motion.span
-                            className={`text-4xl md:text-6xl lg:text-7xl font-heading font-bold transition-colors ${isDark ? 'text-white/90 hover:text-white' : 'text-gray-900/90 hover:text-gray-900'}`}
+                            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold transition-colors ${isDark ? 'text-white/90 hover:text-white' : 'text-gray-900/90 hover:text-gray-900'}`}
                             whileHover={{ x: 20, color: "#4ECDC4" }}
                             transition={{ duration: 0.2 }}
                             style={{
@@ -209,17 +222,28 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
 
                 {/* Bottom links */}
                 <motion.div
-                  className={`mt-12 flex flex-wrap gap-6 text-sm font-medium ${isDark ? 'text-white/60' : 'text-gray-600'}`}
+                  className={`w-full mt-10 md:mt-12 w-full md:w-auto flex flex-wrap justify-center md:justify-start gap-6 text-sm font-medium ${isDark ? 'text-white/60' : 'text-gray-600'}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8 }}
                 >
-                  <Link href="#" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
+                  <Link href="/blog" onClick={onClose} className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
                     {t("blog").toUpperCase()}
                   </Link>
-                  <Link href="#" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
+                  <Link href="/contact#newsletter" onClick={onClose} className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
                     {t("newsletter").toUpperCase()}
                   </Link>
+                  {/* Section Links */}
+                  {aboutSectionLinks.map((section) => (
+                    <Link
+                      key={section.href}
+                      href={section.href}
+                      onClick={onClose}
+                      className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}
+                    >
+                      {t(section.translationKey || section.label.toLowerCase()).toUpperCase()}
+                    </Link>
+                  ))}
                   <button
                     onClick={onLocaleChange}
                     className={`transition-colors flex items-center gap-2 ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}
@@ -230,7 +254,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
               </div>
 
               {/* Right: Contact Info */}
-              <div className="hidden lg:flex lg:w-80 flex-col justify-center mt-12 lg:mt-0 lg:items-end text-right">
+              <div className="flex lg:w-80 flex-col justify-center mt-6 lg:mt-0 lg:items-end text-center md:text-right">
                 {/* Decorative dot */}
                 <motion.div
                   className={`hidden lg:block w-3 h-3 rounded-full mb-12 ${isDark ? 'bg-white/80' : 'bg-gray-800/80'}`}
@@ -239,13 +263,14 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                   transition={{ delay: 0.6, type: "spring" }}
                 />
 
-                <div className="space-y-8">
+                <div className="space-y-0 md:space-y-8 lg:space-y-8 hidden flex md:block w-full md:w-auto justify-between">
                   {/* Email */}
                   <motion.div
                     custom={0}
                     variants={contactItemVariants}
                     initial="hidden"
                     animate="visible"
+                    className=""
                   >
                     <p className="text-xs tracking-widest text-accent-blue mb-1">EMAIL</p>
                     <a
@@ -290,7 +315,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
 
                 {/* Social Links */}
                 <motion.div
-                  className="mt-12 flex gap-4 lg:justify-end"
+                  className="mt-0 md:mt-10 flex gap-4 items-center justify-center md:justify-end"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.9 }}
@@ -318,7 +343,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
 
             {/* Chat button */}
             <motion.div
-              className="absolute bottom-8 right-8"
+              className="absolute bottom-2 right-2 md:bottom-8 md:right-8"
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 1, type: "spring" }}
@@ -326,7 +351,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
               <Link
                 href="/contact"
                 onClick={onClose}
-                className="relative w-16 h-16 md:w-28 md:h-28 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-300 transition-colors shadow-lg"
+                className="relative w-20 h-20 md:w-28 md:h-28 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-300 transition-colors shadow-lg"
                 data-cursor-text="Chat"
               >
                 <span className="text-2xl md:text-4xl">👋</span>

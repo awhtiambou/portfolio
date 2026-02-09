@@ -88,12 +88,6 @@ export function EducationSection() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div variants={fadeInUp} className="text-center mt-12">
-          <Button href="/education" variant="outline">
-            View Full Education
-          </Button>
-        </motion.div>
       </motion.div>
     </Section>
   );
