@@ -6,12 +6,12 @@
     "education": "Education",
     "projects": "Projects",
     "contact": "Contact",
-    "getInTouch": "Get In Touch",
-    "viewWork": "View My Work",
-    "learnMore": "Learn More",
-    "viewAll": "View All",
-    "sendMessage": "Send Message",
-    "currentlyAvailable": "Available for Work",
+    "getInTouch": "Get in touch",
+    "viewWork": "View my work",
+    "learnMore": "Learn more",
+    "viewAll": "View all",
+    "sendMessage": "Send message",
+    "currentlyAvailable": "Available for work",
     "email": "Email",
     "location": "Location",
     "call": "Call",
@@ -26,7 +26,8 @@
     "subtitle": "Software Engineer",
     "description": "Passionate about building intelligent systems and scalable applications. Specializing in machine learning, deep learning, and modern software development.",
     "available": "Available for Work",
-    "learnMore": "Learn More"
+    "learnMoreAvailability": "Learn more",
+    "getToKnowMe": "More of me"
   },
   "about": {
     "title": "About Me",
@@ -39,7 +40,35 @@
   },
   "skills": {
     "title": "Skills & Expertise",
-    "subtitle": "Technologies and tools I work with"
+    "subtitle": "Technologies and tools I work with to build intelligent systems and modern applications.",
+    "viewAll": "See All Skills",
+    "proficiency": "Proficiency",
+    "categories": {
+      "ml": {
+        "tagline": "Building intelligent models that learn and adapt.",
+        "description": "From neural networks to ensemble methods, I design ML solutions that solve real-world problems."
+      },
+      "ai": {
+        "tagline": "Crafting AI solutions that push boundaries.",
+        "description": "Specializing in NLP, computer vision, and LLMs to create intelligent, context-aware systems."
+      },
+      "frontend": {
+        "tagline": "Creating beautiful, responsive interfaces.",
+        "description": "Building modern web experiences with React, Next.js, and cutting-edge UI frameworks."
+      },
+      "backend": {
+        "tagline": "Engineering robust server-side systems.",
+        "description": "Designing scalable APIs and microservices that power complex applications."
+      },
+      "devops": {
+        "tagline": "Streamlining deployment and operations.",
+        "description": "Automating workflows with Docker, CI/CD pipelines, and infrastructure as code."
+      },
+      "cloud": {
+        "tagline": "Scaling applications in the cloud.",
+        "description": "Deploying and managing applications on AWS, GCP, and Azure with best practices."
+      }
+    }
   },
   "experience": {
     "title": "Experience",

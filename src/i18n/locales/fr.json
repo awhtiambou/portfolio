@@ -26,7 +26,8 @@
     "subtitle": "Ingénieur Logiciel",
     "description": "Passionné par la création de systèmes intelligents et d'applications évolutives. Spécialisé en apprentissage automatique, deep learning et développement logiciel moderne.",
     "available": "Je suis disponible",
-    "learnMore": "En Savoir Plus"
+    "learnMoreAvailability": "En savoir plus",
+    "getToKnowMe": "Plus sur moi"
   },
   "about": {
     "title": "À Propos de Moi",
@@ -39,7 +40,35 @@
   },
   "skills": {
     "title": "Compétences",
-    "subtitle": "Technologies et outils que j'utilise"
+    "subtitle": "Technologies et outils que j'utilise pour créer des systèmes intelligents et des applications modernes.",
+    "viewAll": "Voir Toutes les Compétences",
+    "proficiency": "Maîtrise",
+    "categories": {
+      "ml": {
+        "tagline": "Construire des modèles intelligents qui apprennent et s'adaptent.",
+        "description": "Des réseaux de neurones aux méthodes d'ensemble, je conçois des solutions ML pour résoudre des problèmes réels."
+      },
+      "ai": {
+        "tagline": "Créer des solutions IA qui repoussent les limites.",
+        "description": "Spécialisé en NLP, vision par ordinateur et LLMs pour créer des systèmes intelligents et contextuels."
+      },
+      "frontend": {
+        "tagline": "Créer des interfaces belles et responsives.",
+        "description": "Construire des expériences web modernes avec React, Next.js et des frameworks UI de pointe."
+      },
+      "backend": {
+        "tagline": "Concevoir des systèmes serveur robustes.",
+        "description": "Concevoir des APIs scalables et des microservices qui alimentent des applications complexes."
+      },
+      "devops": {
+        "tagline": "Optimiser le déploiement et les opérations.",
+        "description": "Automatiser les workflows avec Docker, les pipelines CI/CD et l'infrastructure as code."
+      },
+      "cloud": {
+        "tagline": "Faire évoluer les applications dans le cloud.",
+        "description": "Déployer et gérer des applications sur AWS, GCP et Azure avec les meilleures pratiques."
+      }
+    }
   },
   "experience": {
     "title": "Expérience",

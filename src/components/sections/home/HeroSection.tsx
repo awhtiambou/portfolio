@@ -50,7 +50,7 @@ export function HeroSection() {
                                     href="/contact"
                                     className="text-accent-blue text-sm font-medium hover:underline inline-flex items-center gap-1"
                                 >
-                                    {t("hero.learnMore")}
+                                    {t("hero.learnMoreAvailability")}
                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M2.5 6H9.5M9.5 6L6.5 3M9.5 6L6.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
@@ -80,11 +80,11 @@ export function HeroSection() {
                                 variants={fadeInUp}
                                 className="flex flex-wrap gap-4 pt-2"
                             >
-                                <MagneticButton href="/contact" backgroundColor="var(--color-yellow)" style={{fontWeight: 600, backgroundColor: 'var(--color-yellow)'}}>
+                                <MagneticButton href="/contact" backgroundColor="var(--color-yellow)" style={{ fontWeight: 600, backgroundColor: 'var(--color-yellow)' }}>
                                     {t("common.getInTouch")}
                                 </MagneticButton>
-                                <FillButton href="/projects" fillColor="var(--color-foreground)" className="group">
-                                    {t("common.viewWork")}
+                                <FillButton href="/about" fillColor="var(--color-foreground)" className="group">
+                                    {t("hero.getToKnowMe")}
                                     <svg
                                         width="16"
                                         height="16"
@@ -148,7 +148,7 @@ export function HeroSection() {
                                 href="/contact"
                                 className="text-accent-blue text-sm font-medium hover:underline inline-flex items-center gap-1"
                             >
-                                {t("hero.learnMore")}
+                                {t("hero.learnMoreAvailability")}
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2.5 6H9.5M9.5 6L6.5 3M9.5 6L6.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>

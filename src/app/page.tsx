@@ -1,13 +1,12 @@
 import { Header, Footer } from "@/components/layout";
 import {
   HeroSection,
-  AboutSection,
   SkillsSection,
   ExperienceSection,
   ProjectsSection,
   TestimonialsSection,
   ContactSection,
-} from "@/components/sections";
+} from "@/components/sections/home";
 
 export default function Home() {
   return (
@@ -15,7 +14,6 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
-        <AboutSection />
         <SkillsSection />
         <ExperienceSection />
         <ProjectsSection />

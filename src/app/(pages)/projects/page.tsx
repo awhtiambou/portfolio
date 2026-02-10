@@ -1,144 +1,17 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Section } from "@/components/layout";
-import { Card, CardContent, Badge, SectionTitle, Text } from "@/components/ui";
-import { projects } from "@/data/projects";
-import type { Project } from "@/types";
+import { ProjectsHeroSection, ProjectsFilterSection, ProjectsGridSection } from "@/components/sections/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
   description: "Explore my portfolio of AI/ML, web development, and software engineering projects.",
 };
 
-const categoryColors: Record<Project["category"], string> = {
-  ml: "accent-blue",
-  ai: "accent-pink",
-  devops: "accent-mint",
-  mlops: "accent-yellow",
-  web: "accent-blue",
-  mobile: "accent-pink",
-  design: "accent-mint",
-  other: "default",
-};
-
-const categoryLabels: Record<Project["category"], string> = {
-  ml: "Machine Learning",
-  ai: "Artificial Intelligence",
-  devops: "DevOps",
-  mlops: "MLOps",
-  web: "Web Development",
-  mobile: "Mobile",
-  design: "Design",
-  other: "Other",
-};
-
 export default function ProjectsPage() {
-  // Get unique categories
-  const categories = Array.from(new Set(projects.map((p) => p.category)));
-
   return (
     <main className="pt-20">
-      {/* Hero */}
-      <Section variant="alternate" spacing="lg">
-        <div className="text-center max-w-3xl mx-auto">
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-text-primary mb-4">
-            Projects
-          </h1>
-          <Text size="lg" variant="muted">
-            A collection of my work in AI/ML, web development, and software engineering.
-            Each project represents a unique challenge and learning opportunity.
-          </Text>
-        </div>
-      </Section>
-
-      {/* Filter Tags (static for now) */}
-      <Section spacing="sm">
-        <div className="flex flex-wrap justify-center gap-3">
-          <Badge variant="primary" size="md" className="cursor-pointer">
-            All Projects
-          </Badge>
-          {categories.map((category) => (
-            <Badge key={category} variant="outline" size="md" className="cursor-pointer hover:bg-background-secondary">
-              {categoryLabels[category]}
-            </Badge>
-          ))}
-        </div>
-      </Section>
-
-      {/* Projects Grid */}
-      <Section>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <Link key={project.id} href={`/projects/${project.slug}`}>
-              <Card variant="elevated" className="h-full group overflow-hidden">
-                {/* Project Image */}
-                <div className="relative h-52 -mx-6 -mt-6 mb-4 bg-gradient-to-br from-accent-blue/20 via-accent-pink/10 to-accent-yellow/20 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center text-5xl">
-                    {project.category === "ml" && "🤖"}
-                    {project.category === "ai" && "🧠"}
-                    {project.category === "mlops" && "⚙️"}
-                    {project.category === "web" && "🌐"}
-                    {project.category === "devops" && "🔧"}
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-background-secondary via-transparent to-transparent" />
-                  
-                  {/* Status badge */}
-                  {project.status === "in-progress" && (
-                    <div className="absolute top-4 right-4">
-                      <Badge variant="accent-yellow" size="sm">In Progress</Badge>
-                    </div>
-                  )}
-                </div>
-
-                <CardContent>
-                  {/* Category */}
-                  <Badge
-                    variant={categoryColors[project.category] as "accent-blue" | "accent-pink" | "accent-mint" | "accent-yellow" | "default"}
-                    size="sm"
-                    className="mb-3"
-                  >
-                    {categoryLabels[project.category]}
-                  </Badge>
-
-                  {/* Title */}
-                  <h2 className="font-heading font-semibold text-xl text-text-primary mb-2 group-hover:text-accent-blue transition-colors">
-                    {project.title}
-                  </h2>
-
-                  {/* Description */}
-                  <p className="text-text-secondary text-sm mb-4 line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {project.technologies.slice(0, 4).map((tech) => (
-                      <Badge key={tech} variant="outline" size="sm">
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.technologies.length > 4 && (
-                      <Badge variant="outline" size="sm">
-                        +{project.technologies.length - 4}
-                      </Badge>
-                    )}
-                  </div>
-
-                  {/* Links */}
-                  <div className="flex gap-4 text-sm">
-                    {project.githubUrl && (
-                      <span className="text-accent-blue">GitHub →</span>
-                    )}
-                    {project.liveUrl && (
-                      <span className="text-accent-pink">Live Demo →</span>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </Section>
+      <ProjectsHeroSection />
+      <ProjectsFilterSection />
+      <ProjectsGridSection />
     </main>
   );
 }
