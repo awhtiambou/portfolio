@@ -1,5 +1,7 @@
 // Common types used across the portfolio
 
+import { IconBaseProps } from "react-icons/lib";
+
 export interface Project {
   id: string;
   slug: string;
@@ -70,6 +72,15 @@ export type SkillCategory =
   | 'databases'    // Databases & Data Storage
   | 'soft-skills'  // Communication, Leadership, etc.
   | 'other';
+
+export interface MasteredTechnology {
+  name: string;
+  title: string;
+  icon?: IconBaseProps;
+  iconColor: string;
+  logoImageUrl?: string;
+  bgColor?: string
+}
 
 export interface ContactFormData {
   name: string;

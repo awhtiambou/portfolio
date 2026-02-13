@@ -136,3 +136,31 @@ export const cardHover: Variants = {
     scale: 0.98,
   },
 };
+
+export const marqueeLeft: Variants = {
+  animate: {
+    x: [0, -1000], 
+    transition: {
+      x: {
+        repeat: Infinity,
+        repeatType: "loop",
+        duration: 20,
+        ease: "linear",
+      },
+    },
+  },
+};
+
+export const marqueeRight: Variants = {
+  animate: {
+    x: [-1000, 0], 
+    transition: {
+      x: {
+        repeat: Infinity,
+        repeatType: "loop",
+        duration: 20,
+        ease: "linear",
+      },
+    },
+  },
+};

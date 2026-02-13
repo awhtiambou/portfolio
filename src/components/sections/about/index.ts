@@ -4,5 +4,5 @@ export { ExperienceSection } from "./ExperienceSection";
 export { SkillsSection } from "./SkillsSection";
 export { EducationSection } from "./EducationSection";
 export { CurrentlySection } from "./CurrentlySection";
-export { InterestsSection } from "./InterestsSection";
+export { RandomFactsSection } from "./RandomFactsSection";
 export { TestimonialsSection } from "./TestimonialsSection";

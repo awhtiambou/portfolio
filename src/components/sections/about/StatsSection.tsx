@@ -1,38 +1,37 @@
 "use client";
-
-import { Section } from "@/components/layout";
-import { Text } from "@/components/ui";
 import { profile } from "@/data/profile";
+import { useTranslations } from "next-intl";
 
 export function StatsSection() {
+    const t = useTranslations();
+    
     return (
-        <Section>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center p-6 bg-background-secondary rounded-xl">
-                    <div className="font-heading text-4xl font-bold text-accent-blue mb-2">
-                        {profile.stats.yearsExperience}+
-                    </div>
-                    <Text variant="muted">Years Experience</Text>
+        <div className="py-20 flex justify-center">
+            <div className="container grid grid-cols-2 md:grid-cols-4 gap-10">
+                {/* Years of Experience */}
+                <div className="border-l pl-5 py-0 flex flex-col justify-between">
+                    <div className="text-4xl font-semibold" style={{fontFamily: "Besley"}}>{profile.stats.yearsExperience}+</div>
+                    <div className="font-medium mt-1">{t("about.stats.yearsOfExperienceLabel")}</div>
                 </div>
-                <div className="text-center p-6 bg-background-secondary rounded-xl">
-                    <div className="font-heading text-4xl font-bold text-accent-pink mb-2">
-                        {profile.stats.projectsCompleted}+
-                    </div>
-                    <Text variant="muted">Projects Completed</Text>
+
+                {/* Technologies Mastered */}
+                <div className="border-l pl-5 py-0 flex flex-col justify-between">
+                    <div className="text-4xl font-semibold" style={{fontFamily: "Besley"}}>{profile.stats.technologiesMastered}+</div>
+                    <div className="font-medium mt-1">{t("about.stats.technologiesMasteredLabel")}</div>
                 </div>
-                <div className="text-center p-6 bg-background-secondary rounded-xl">
-                    <div className="font-heading text-4xl font-bold text-accent-mint mb-2">
-                        {profile.stats.technologiesMastered}+
-                    </div>
-                    <Text variant="muted">Technologies</Text>
+
+                {/* Projects Completed */}
+                <div className="border-l pl-5 py-0 flex flex-col justify-between">
+                    <div className="text-4xl font-semibold" style={{fontFamily: "Besley"}}>{profile.stats.projectsCompleted}+</div>
+                    <div className="font-medium mt-1">{t("about.stats.projectsCompletedLabel")}</div>
                 </div>
-                <div className="text-center p-6 bg-background-secondary rounded-xl">
-                    <div className="font-heading text-4xl font-bold text-accent-yellow mb-2">
-                        {profile.stats.coffeeCups}+
-                    </div>
-                    <Text variant="muted">Cups of Coffee</Text>
+
+                {/* Coffee Cups */}
+                <div className="border-l pl-5 py-0 flex flex-col justify-between">
+                    <div className="text-4xl font-semibold" style={{fontFamily: "Besley"}}>{profile.stats.coffeeCups}+</div>
+                    <div className="font-medium mt-1">{t("about.stats.coffeeCupsLabel")}</div>
                 </div>
             </div>
-        </Section>
+        </div>
     );
 }

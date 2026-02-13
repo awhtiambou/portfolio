@@ -12,3 +12,5 @@ export { FillButton, SlideTextButton, MagneticButton } from "./AnimatedButtons";
 export { CircleArrowLink } from "./CircleArrowLink";
 export { ScrollMouse } from "./ScrollMouse";
 export { AnimatedLoading } from "./AnimatedLoading";
+export { TiltCard } from "./TiltCard";
+export { GlassCardStack } from "./GlassCardStack";

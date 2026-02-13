@@ -80,6 +80,20 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 }
 
 /**
+ * Mélange un tableau de manière équitable.
+ * @param array Le tableau à mélanger (modifié sur place).
+ * @returns Le tableau mélangé.
+ */
+export function getShuffledArray<T> (array: T[]): T[] {
+    const newArr = [...array];
+    for (let i = newArr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+    }
+    return newArr;
+};
+
+/**
  * Check if we're on the client side
  */
 export const isClient = typeof window !== 'undefined';

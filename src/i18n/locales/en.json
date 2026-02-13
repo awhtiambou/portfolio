@@ -18,7 +18,8 @@
     "blog": "Blog",
     "newsletter": "Newsletter",
     "skills": "Skills",
-    "testimonials": "Testimonials"
+    "testimonials": "Testimonials",
+    "downloadMyResume": "Download my resume"
   },
   "hero": {
     "greeting": "Hello, I'm",
@@ -30,13 +31,47 @@
     "getToKnowMe": "More of me"
   },
   "about": {
-    "title": "About Me",
+    "title": "Hi, Abdoul here!",
     "subtitle": "Get to know me better",
     "bio1": "I'm a passionate AI/ML Engineer and Software Engineer with expertise in building intelligent systems and scalable web applications.",
     "bio2": "Currently pursuing my degree in Computer Science, I combine academic knowledge with hands-on experience in machine learning, deep learning, and modern development.",
     "bio3": "My journey in tech started with curiosity about how machines can learn and make decisions. Today, I work on projects ranging from natural language processing to computer vision.",
     "yearsExperience": "Years Experience",
-    "projectsCompleted": "Projects Completed"
+    "projectsCompleted": "Projects Completed",
+    "stats": {
+      "yearsOfExperienceLabel": "Years dedicated to crafting solutions",
+      "technologiesMasteredLabel": "Technologies in my arsenal",
+      "projectsCompletedLabel": " diverse projects successfully shipped",
+      "coffeeCupsLabel": "Cups of high-octane fuel consumed"
+    },
+    "randomFacts": {
+      "title": "Random facts about me",
+      "description": "When I'm not training models or debugging complex algorithms, I'm usually recharging my own neural network. Here’s a glimpse into the human side of the stack—what drives me, what fuels me, and what keeps me grounded.",
+      "coffee": {
+        "title": "My fuel source",
+        "description": "I don't just drink coffee; I compile it into code. It is the essential training data for my daily productivity."
+      },
+      "dream": {
+        "title": "My dream",
+        "description": "To leverage Artificial Intelligence to create systems that leave a lasting, positive dent in the universe. I want to build technology that improves lives on a global scale."
+      },
+      "soccer": {
+        "title": "Soccer",
+        "description": "My favorite way to clear the cache. Whether watching or playing, it’s the only place where running in loops is actually a good strategy."
+      },
+      "priorities": {
+        "title": "My priorities",
+        "description": "Family comes first, always. After that? Writing clean code, devouring personal growth books, and never deploying to production on a Friday."
+      },
+      "roots": {
+        "title": "My Roots",
+        "description": "Born and raised in Niger. My heritage shapes my perspective, my values, and keeps me grounded no matter where code takes me."
+      },
+      "location": {
+        "title": "My HQ",
+        "description": "Based in Quebec, Canada. Surviving the sub-zero winters thanks to the heat from my GPU."
+      }
+    }
   },
   "skills": {
     "title": "Skills & Expertise",
@@ -85,7 +120,52 @@
   },
   "education": {
     "title": "Education",
-    "subtitle": "My academic background"
+    "subtitle": "My academic background & lifelong learning",
+    "items": {
+      "master": {
+        "degree": "Master of Science (MSc)",
+        "field": "Computer Science",
+        "institution": "Université du Québec à Chicoutimi",
+        "location": "Chicoutimi, QC, Canada",
+        "description": "Specialization in AI, Machine Learning, Deep Learning, and Computer Vision. Conducting applied research on 3D reconstruction using HoloLens 2.",
+        "achievements": {
+          "gpa": "Cumulative GPA: 4.0/4.3",
+          "research": "Research Assistant at LIARA Lab",
+          "paper": "Co-authored scientific paper for UCAml 2025"
+        }
+      },
+      "bachelor": {
+        "degree": "Bachelor's Degree",
+        "field": "Computer Science",
+        "institution": "Université de Monastir",
+        "location": "Monastir, Tunisia",
+        "description": "Comprehensive curriculum in software engineering and computer science fundamentals. Graduated as Valedictorian.",
+        "achievements": {
+          "rank": "Ranked 1st in class (Valedictorian)",
+          "project": "Best Capstone Project Award (18.5/20)",
+          "officer": "Academic Officer for ANEST"
+        }
+      },
+      "life": {
+        "degree": "Ph.D in Curiosity",
+        "field": "Continuous Improvement",
+        "institution": "School of Life",
+        "location": "Global",
+        "description": "Because the documentation updates faster than the curriculum. Committed to learning something new every single day.",
+        "achievements": {
+          "reading": "Reading 1 Personal Growth Book/Month",
+          "trends": "Keeping up with AI Trends",
+          "debugging": "Debugging Life"
+        }
+      }
+    },
+    "certifications": {
+      "title": "Certifications",
+      "mlops": "Machine Learning in Production (MLOps)",
+      "dl": "Deep Learning Specialization",
+      "aws": "AWS Cloud Practitioner Essentials",
+      "linux": "Linux Essentials"
+    }
   },
   "contact": {
     "title": "Get In Touch",

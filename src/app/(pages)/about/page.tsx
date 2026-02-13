@@ -6,8 +6,8 @@ import {
   SkillsSection,
   EducationSection,
   CurrentlySection,
-  InterestsSection,
-  TestimonialsSection
+  TestimonialsSection,
+  RandomFactsSection
 } from "@/components/sections/about";
 
 export const metadata: Metadata = {
@@ -23,9 +23,8 @@ export default function AboutPage() {
       <ExperienceSection />
       <SkillsSection />
       <EducationSection />
-      <CurrentlySection />
-      <InterestsSection />
       <TestimonialsSection />
+      <RandomFactsSection />
     </main>
   );
 }

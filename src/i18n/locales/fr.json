@@ -18,7 +18,8 @@
     "blog": "Blog",
     "newsletter": "Newsletter",
     "skills": "Compétences",
-    "testimonials": "Témoignages"
+    "testimonials": "Témoignages",
+    "downloadMyResume": "Télécharger mon C.V"
   },
   "hero": {
     "greeting": "Bonjour, je suis",
@@ -36,7 +37,41 @@
     "bio2": "Actuellement en cours d'études en informatique, je combine connaissances académiques et expérience pratique en apprentissage automatique, deep learning et développement moderne.",
     "bio3": "Mon parcours dans la tech a commencé par la curiosité de comprendre comment les machines peuvent apprendre et prendre des décisions. Aujourd'hui, je travaille sur des projets allant du traitement du langage naturel à la vision par ordinateur.",
     "yearsExperience": "Années d'Expérience",
-    "projectsCompleted": "Projets Réalisés"
+    "projectsCompleted": "Projets Réalisés",
+    "stats": {
+      "yearsOfExperienceLabel": "Années à concevoir des solutions numériques",
+      "technologiesMasteredLabel": "Technologies et frameworks dans mon arsenal",
+      "projectsCompletedLabel": "Projets divers livrés avec succès",
+      "coffeeCupsLabel": "Tasses de cafés haute performance"
+    },
+    "randomFacts": {
+      "title": "Moi, en vrac",
+      "description": "Quand je n'entraîne pas de modèles ou que je ne débogue pas d'algorithmes complexes, je recharge mon propre réseau de neurones. Voici un aperçu du côté humain de la stack : ce qui me motive, ce qui m'alimente et ce qui me garde les pieds sur terre.",
+      "coffee": {
+        "title": "Mon carburant",
+        "description": "Je ne bois pas juste du café, je le compile en code. C'est la donnée d'entraînement essentielle à ma productivité quotidienne."
+      },
+      "dream": {
+        "title": "Mon rêve",
+        "description": "Utiliser l'intelligence artificielle pour créer des systèmes qui laisseront une marque positive et durable dans l'univers. Je veux bâtir des technologies qui améliorent concrètement des vies à l'échelle mondiale."
+      },
+      "soccer": {
+        "title": "Football",
+        "description": "Ma façon préférée de vider la cache. Que ce soit en jouant ou en regardant, c'est le seul endroit où courir en rond est une bonne stratégie."
+      },
+      "priorities": {
+        "title": "Mes priorités",
+        "description": "La famille avant tout, toujours. Ensuite ? Écrire du code propre, dévorer des livres de développement personnel et ne jamais déployer en prod un vendredi."
+      },
+      "roots": {
+        "title": "Mes Racines",
+        "description": "Né et grandi au Niger 🇳🇪. Mon héritage façonne ma perspective, mes valeurs et me garde ancré, peu importe où le code me mène."
+      },
+      "location": {
+        "title": "Mon QG",
+        "description": "Basé au Québec, Canada. Je survis aux hivers glaciaux grâce à la chaleur dégagée par mon GPU."
+      }
+    }
   },
   "skills": {
     "title": "Compétences",
@@ -85,7 +120,52 @@
   },
   "education": {
     "title": "Éducation",
-    "subtitle": "Mon parcours académique"
+    "subtitle": "Mon parcours académique et apprentissage continu",
+    "items": {
+      "master": {
+        "degree": "Maîtrise (MSc)",
+        "field": "Informatique",
+        "institution": "Université du Québec à Chicoutimi",
+        "location": "Chicoutimi, QC, Canada",
+        "description": "Spécialisation en IA, Apprentissage Automatique, Deep Learning et Vision par Ordinateur. Recherche appliquée sur la reconstruction 3D avec HoloLens 2.",
+        "achievements": {
+          "gpa": "Moyenne cumulative : 4.0/4.3",
+          "research": "Assistant de recherche au laboratoire LIARA",
+          "paper": "Co-auteur d'un article scientifique pour UCAml 2025"
+        }
+      },
+      "bachelor": {
+        "degree": "Licence",
+        "field": "Sciences de l'Informatique",
+        "institution": "Université de Monastir",
+        "location": "Monastir, Tunisie",
+        "description": "Cursus complet en génie logiciel et fondamentaux de l'informatique. Major de promotion.",
+        "achievements": {
+          "rank": "Classé 1er de la cohorte (Major)",
+          "project": "Prix du meilleur projet de fin d'études (18.5/20)",
+          "officer": "Responsable académique pour l'ANEST"
+        }
+      },
+      "life": {
+        "degree": "Doctorat en Curiosité",
+        "field": "Amélioration Continue",
+        "institution": "École de la Vie",
+        "location": "Monde",
+        "description": "Parce que la documentation change plus vite que le programme scolaire. Engagé à apprendre quelque chose de nouveau chaque jour.",
+        "achievements": {
+          "reading": "1 livre de développement personnel / mois",
+          "trends": "Veille technologique IA constante",
+          "debugging": "Débogage de la vie quotidienne"
+        }
+      }
+    },
+    "certifications": {
+      "title": "Certifications",
+      "mlops": "Machine Learning in Production (MLOps)",
+      "dl": "Spécialisation Deep Learning",
+      "aws": "AWS Cloud Practitioner Essentials",
+      "linux": "Linux Essentials"
+    }
   },
   "contact": {
     "title": "Me Contacter",

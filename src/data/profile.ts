@@ -54,7 +54,7 @@ export const profile = {
     yearsExperience: 3,
     projectsCompleted: 15,
     technologiesMastered: 25,
-    coffeeCups: 1000,
+    coffeeCups: "1,000",
   },
 
   // Interests and hobbies
@@ -105,3 +105,31 @@ export function getFormattedName(format: "full" | "first" | "nickname" = "full")
       return profile.name;
   }
 }
+
+export type RandomFact = {
+  name: "coffee" | "dream" | "soccer" | "priorities";
+  image: string; // Path to the image in public folder
+};
+
+export const randomFacts = [
+    {
+      name: "coffee",
+      image: "/assets/images/facts/coffee.jpg",
+    },
+    {
+      name: "dream",
+      image: "/assets/images/facts/dream.jpg",
+    },
+    {
+      name: "soccer",
+      image: "/assets/images/facts/soccer.jpg",
+    },
+    {
+      name: "location",
+      image: "/images/facts/saguenay.jpg",
+    },
+    {
+      name: "roots", 
+      image: "/assets/images/facts/niger.jpg",
+    },
+  ] as RandomFact[]
