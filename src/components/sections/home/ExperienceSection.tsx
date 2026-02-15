@@ -42,7 +42,7 @@ const featuredExperiences: Experience[] = [
 
 export function ExperienceSection() {
   return (
-    <Section id="experience" variant="alternate">
+    <Section id="experience" variant="default">
       <motion.div
         variants={staggerContainer}
         initial="hidden"

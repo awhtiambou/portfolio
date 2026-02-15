@@ -61,55 +61,7 @@ const quoteVariants = {
     },
 };
 
-// Sand/Noise texture component with animated particles
-function SandTexture({ isDark }: { isDark: boolean }) {
-    return (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {/* Base noise texture using SVG filter */}
-            <svg className="absolute w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <filter id="noiseFilter">
-                        <feTurbulence
-                            type="fractalNoise"
-                            baseFrequency="0.9"
-                            numOctaves="4"
-                            stitchTiles="stitch"
-                        />
-                        <feColorMatrix type="saturate" values="0" />
-                    </filter>
-                </defs>
-                <rect width="100%" height="100%" filter="url(#noiseFilter)" opacity={isDark ? "0.15" : "0.08"} />
-            </svg>
 
-            {/* Floating particles */}
-            {[...Array(20)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className={cn(
-                        "absolute rounded-full",
-                        isDark ? "bg-white/20" : "bg-gray-900/10"
-                    )}
-                    style={{
-                        width: Math.random() * 3 + 1,
-                        height: Math.random() * 3 + 1,
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                    }}
-                    animate={{
-                        y: [0, -30, 0],
-                        opacity: [0.2, 0.6, 0.2],
-                    }}
-                    transition={{
-                        duration: 3 + Math.random() * 4,
-                        repeat: Infinity,
-                        delay: Math.random() * 2,
-                        ease: "easeInOut",
-                    }}
-                />
-            ))}
-        </div>
-    );
-}
 
 // Quote mark component
 function QuoteMark({ className, isDark }: { className?: string; isDark: boolean }) {
@@ -330,7 +282,7 @@ export function TestimonialsSection() {
     // Loading state with skeleton
     if (!mounted) {
         return (
-            <section id="testimonials" className="relative py-16 md:py-24 overflow-hidden bg-gray-100 dark:bg-[#0a0a1a]">
+            <section id="testimonials" className="relative py-16 md:py-24 overflow-hidden">
                 <div className="container relative z-10">
                     {/* Header skeleton */}
                     <div className="mb-12">
@@ -390,38 +342,7 @@ export function TestimonialsSection() {
 
     return (
         <section id="testimonials" className="relative py-16 md:py-24 overflow-hidden">
-            {/* Complex gradient background - Theme aware */}
-            <div className={cn(
-                "absolute inset-0",
-                isDark
-                    ? "bg-gradient-to-br from-[#0a0a1a] via-[#0f1628] to-[#1a0a1a]"
-                    : "bg-gradient-to-br from-[#f8f6f3] via-[#f0ebe5] to-[#f5f0eb]"
-            )} />
 
-            {/* Secondary gradient overlay */}
-            <div className={cn(
-                "absolute inset-0",
-                isDark
-                    ? "bg-[radial-gradient(ellipse_at_top_left,_rgba(78,205,196,0.15)_0%,_transparent_50%),radial-gradient(ellipse_at_bottom_right,_rgba(255,107,138,0.12)_0%,_transparent_50%)]"
-                    : "bg-[radial-gradient(ellipse_at_top_left,_rgba(255,107,138,0.1)_0%,_transparent_50%),radial-gradient(ellipse_at_bottom_right,_rgba(78,205,196,0.08)_0%,_transparent_50%)]"
-            )} />
-
-            {/* Accent color spots */}
-            <div className={cn(
-                "absolute top-1/4 -left-32 w-64 h-64 rounded-full blur-3xl",
-                isDark ? "bg-accent-blue/20" : "bg-accent-blue/15"
-            )} />
-            <div className={cn(
-                "absolute bottom-1/4 -right-32 w-80 h-80 rounded-full blur-3xl",
-                isDark ? "bg-accent-blue/15" : "bg-accent-blue/10"
-            )} />
-            <div className={cn(
-                "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl opacity-50",
-                isDark ? "bg-accent-yellow/10" : "bg-accent-mint/10"
-            )} />
-
-            {/* Sand/Noise texture overlay */}
-            <SandTexture isDark={isDark} />
 
             {/* Content container */}
             <div className="container relative z-10">

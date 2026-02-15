@@ -79,14 +79,14 @@ export function Header() {
       >
         <motion.nav
           className={cn(
-            "flex items-center justify-end lg:justify-between gap-4 md:gap-8 mx-auto w-full rounded-2xl transition-all duration-300 border",
+            "relative flex items-center justify-end lg:justify-between gap-4 md:gap-8 mx-auto w-full rounded-2xl transition-all duration-300",
             isScrolled || isMenuOpen
               ? isDark
-                ? "bg-background-secondary/90 backdrop-blur-xl shadow-lg border-white/10"
-                : "bg-white/95 backdrop-blur-xl shadow-lg border-gray-200"
+                ? "bg-[#1a1a1a]/60 backdrop-blur-xl shadow-xl border-white/10"
+                : "bg-white/60 backdrop-blur-xl shadow-xl border-white/40"
               : isDark
-                ? "bg-background-secondary/70 backdrop-blur-md border-white/5"
-                : "bg-white/85 backdrop-blur-md shadow-md border-gray-100"
+                ? "bg-[#1a1a1a]/40 backdrop-blur-md border-white/5"
+                : "bg-white/40 backdrop-blur-md shadow-sm border-white/30"
           )}
           style={{
             paddingLeft: "1.5rem",
@@ -96,6 +96,18 @@ export function Header() {
           }}
           layout
         >
+          {/* Noise Texture Overlay */}
+          <div className="rounded-2xl absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]">
+            <svg className="w-full h-full">
+              <filter id="headerNoise">
+                <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+              </filter>
+              <rect width="100%" height="100%" filter="url(#headerNoise)" />
+            </svg>
+          </div>
+
+          {/* Subtle Gradient Shine */}
+          <div className={`rounded-2xl absolute inset-0 z-0 bg-gradient-to-b ${isDark ? 'from-white/5 to-transparent' : 'from-white/40 to-transparent'} pointer-events-none`} />
           {/* Logo */}
           <Link
             href="/"

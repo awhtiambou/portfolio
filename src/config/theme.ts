@@ -3,7 +3,7 @@
 
 export const colors = {
   light: {
-    primary: '#FFFFFF',      // 60% - Main background
+    primary: '#f3f4f6',      // 60% - Main background
     secondary: '#F8F8F8',    // 30% - Cards, sections
     accent: '#222222',       // 10% - Text, CTAs
   },
@@ -18,6 +18,25 @@ export const colors = {
     blue: '#4ECDC4',         // Tech, innovation - rich teal
     mint: '#2ECC71',         // Fresh, growth - vibrant green
   },
+  backgrounds: {
+    noise: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+    light: {
+      mesh: `
+        radial-gradient(at 0% 0%, rgba(245, 166, 35, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(255, 107, 138, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(78, 205, 196, 0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(46, 204, 113, 0.15) 0px, transparent 50%)
+      `,
+    },
+    dark: {
+      mesh: `
+        radial-gradient(at 0% 0%, rgba(245, 166, 35, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(255, 107, 138, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(78, 205, 196, 0.1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(46, 204, 113, 0.1) 0px, transparent 50%)
+      `,
+    },
+  }
 } as const;
 
 export const typography = {

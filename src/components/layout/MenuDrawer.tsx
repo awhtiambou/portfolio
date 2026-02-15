@@ -9,7 +9,7 @@ import { socialLinks, drawerNavItems, aboutSectionLinks, newsletterLink } from "
 import { localeFlags, type Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
-import { MeshGradientBackground, CircleArrowLink } from "@/components/ui";
+import { CircleArrowLink, LiveSignature } from "@/components/ui";
 
 // Use navigation config for drawer items
 const navItemsConfig = drawerNavItems.map(item => ({
@@ -146,6 +146,19 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
             className="fixed inset-0 z-40"
             onClick={onClose}
           />
+          {/* Watermark Signature - Integrated better */}
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center pointer-events-none opacity-[0.05] dark:opacity-[0.1] z-50 overflow-visible"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isDark ? 0.1 : 0.05 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {/* Huge container to ensure no clipping, rotated slightly */}
+            <div className="w-[150vw] h-[150vh] flex items-center justify-center transform -rotate-15 translate-y-32">
+              <LiveSignature className="w-full h-full" />
+            </div>
+          </motion.div>
 
           {/* Drawer with mesh gradient background */}
           <motion.div
@@ -154,10 +167,56 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-40 overflow-hidden flex items-center justify-center  "
+            className="fixed inset-0 z-40 overflow-hidden flex items-center justify-center"
           >
-            {/* Mesh Gradient Background with Tiambou Watermark */}
-            <MeshGradientBackground showWatermark={true} animated={true} />
+            {/* Rich Background Layer */}
+            <div className="absolute inset-0 z-0">
+              {/* Base Background Color */}
+              <div className={`absolute inset-0 transition-colors duration-500 ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#f8f8f8]'}`} />
+
+              {/* Mesh Gradients */}
+              <div className="absolute inset-0 opacity-40 dark:opacity-30">
+                <div
+                  className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full mix-blend-screen blur-[100px] animate-pulse"
+                  style={{ backgroundColor: isDark ? '#4ECDC4' : '#F5A623', animationDuration: '8s' }}
+                />
+                <div
+                  className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full mix-blend-screen blur-[120px] animate-pulse"
+                  style={{ backgroundColor: isDark ? '#FF6B8A' : '#4ECDC4', animationDuration: '10s', animationDelay: '1s' }}
+                />
+                <div
+                  className="absolute top-[40%] left-[30%] w-[50vw] h-[50vw] rounded-full mix-blend-screen blur-[90px] animate-pulse"
+                  style={{ backgroundColor: isDark ? '#F5A623' : '#FF6B8A', animationDuration: '12s', animationDelay: '2s' }}
+                />
+              </div>
+
+              {/* Noise Texture */}
+              <div
+                className="absolute inset-0 z-[1] pointer-events-none"
+                style={{
+                  opacity: isDark ? 0.35 : 0.3,
+                  mixBlendMode: isDark ? "overlay" : "soft-light",
+                }}
+              >
+                <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                  <filter id="menuNoiseFilter">
+                    <feTurbulence
+                      type="fractalNoise"
+                      baseFrequency="0.8"
+                      numOctaves="3"
+                      stitchTiles="stitch"
+                    />
+                    <feColorMatrix type="saturate" values="0" />
+                    <feComponentTransfer>
+                      <feFuncR type="linear" slope="3" intercept="-1" />
+                      <feFuncG type="linear" slope="3" intercept="-1" />
+                      <feFuncB type="linear" slope="3" intercept="-1" />
+                    </feComponentTransfer>
+                  </filter>
+                  <rect width="100%" height="100%" filter="url(#menuNoiseFilter)" />
+                </svg>
+              </div>
+            </div>
 
             {/* Content */}
             <div className="relative z-10 min-h-full flex flex-col md:flex-row justify-center w-[calc(100%-2rem)] lg:w-[calc(90%)] xl:lg:w-[calc(80%)]">

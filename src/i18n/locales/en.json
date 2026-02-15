@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "title": "Portfolio | Abdoul-Wahabou H. Tiambou",
+    "description": "Personal portfolio showcasing my work, experience, and skills in computer science."
+  },
   "common": {
     "home": "Home",
     "about": "About",
@@ -116,7 +120,29 @@
     "subtitle": "Some of my recent work",
     "viewProject": "View Project",
     "viewCode": "View Code",
-    "inProgress": "In Progress"
+    "inProgress": "In Progress",
+    "items": {
+      "ml-sentiment-analysis": {
+        "title": "ML Sentiment Analysis Engine",
+        "description": "A deep learning model for real-time sentiment analysis using transformers and BERT, achieving 94% accuracy on benchmark datasets."
+      },
+      "ai-chatbot-platform": {
+        "title": "AI Chatbot Platform",
+        "description": "An intelligent chatbot platform using LLMs with RAG architecture for contextual conversations and document Q&A."
+      },
+      "mlops-pipeline": {
+        "title": "End-to-End MLOps Pipeline",
+        "description": "A comprehensive MLOps infrastructure with automated training, testing, model versioning, and deployment workflows."
+      },
+      "computer-vision-detection": {
+        "title": "Object Detection System",
+        "description": "Real-time object detection system using YOLO for industrial quality control applications."
+      },
+      "portfolio-website": {
+        "title": "Personal Portfolio",
+        "description": "Modern portfolio website built with Next.js, TypeScript, and Tailwind CSS featuring dark mode and smooth animations."
+      }
+    }
   },
   "education": {
     "title": "Education",

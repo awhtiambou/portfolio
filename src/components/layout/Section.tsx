@@ -28,9 +28,9 @@ const spacingClasses = {
 };
 
 const variantClasses = {
-  default: "bg-background-primary",
-  alternate: "bg-background-secondary",
-  accent: "bg-accent-blue/10",
+  default: "bg-transparent",
+  alternate: "bg-transparent",
+  accent: "bg-transparent",
 };
 
 export const Section = forwardRef<HTMLElement, SectionProps>(

@@ -1,55 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Section } from "@/components/layout";
 import { Card, CardContent, Badge, SectionTitle, Button } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import type { Project } from "@/types";
-
-// Placeholder projects - will be replaced with actual data
-const featuredProjects: Project[] = [
-  {
-    id: "1",
-    slug: "ml-sentiment-analysis",
-    title: "ML Sentiment Analysis",
-    description: "A deep learning model for sentiment analysis using transformers and BERT.",
-    longDescription: "Full description here...",
-    image: "/projects/sentiment.png",
-    technologies: ["Python", "PyTorch", "Transformers", "FastAPI"],
-    category: "ml",
-    featured: true,
-    startDate: "2024-01",
-    status: "completed",
-  },
-  {
-    id: "2",
-    slug: "ai-chatbot",
-    title: "AI Chatbot Platform",
-    description: "An intelligent chatbot using LLMs with RAG architecture.",
-    longDescription: "Full description here...",
-    image: "/projects/chatbot.png",
-    technologies: ["Python", "LangChain", "OpenAI", "Vector DB"],
-    category: "ai",
-    featured: true,
-    startDate: "2024-06",
-    status: "in-progress",
-  },
-  {
-    id: "3",
-    slug: "mlops-pipeline",
-    title: "MLOps Pipeline",
-    description: "End-to-end ML pipeline with automated training, testing, and deployment.",
-    longDescription: "Full description here...",
-    image: "/projects/mlops.png",
-    technologies: ["Docker", "Kubernetes", "MLflow", "GitHub Actions"],
-    category: "mlops",
-    featured: true,
-    startDate: "2024-03",
-    status: "completed",
-  },
-];
+import { getFeaturedProjects } from "@/data/projects";
 
 const categoryColors = {
   ml: "accent-blue",
@@ -63,6 +20,9 @@ const categoryColors = {
 } as const;
 
 export function ProjectsSection() {
+  const t = useTranslations();
+  const featuredProjects = getFeaturedProjects();
+
   return (
     <Section id="projects">
       <motion.div
@@ -72,8 +32,8 @@ export function ProjectsSection() {
         viewport={{ once: true }}
       >
         <SectionTitle
-          title="Featured Projects"
-          subtitle="Some of my recent work"
+          title={t("projects.title")}
+          subtitle={t("projects.subtitle")}
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -104,12 +64,12 @@ export function ProjectsSection() {
 
                     {/* Title */}
                     <h3 className="font-heading font-semibold text-lg text-text-primary mb-2 group-hover:text-accent-blue transition-colors">
-                      {project.title}
+                      {t(`projects.items.${project.slug}.title`)}
                     </h3>
 
                     {/* Description */}
                     <p className="text-text-secondary text-sm mb-4 line-clamp-2">
-                      {project.description}
+                       {t(`projects.items.${project.slug}.description`)}
                     </p>
 
                     {/* Technologies */}
@@ -134,10 +94,11 @@ export function ProjectsSection() {
 
         <motion.div variants={fadeInUp} className="text-center mt-12">
           <Button href="/projects" variant="outline">
-            View All Projects
+            {t("projects.viewCode")}
           </Button>
         </motion.div>
       </motion.div>
     </Section>
   );
 }
+

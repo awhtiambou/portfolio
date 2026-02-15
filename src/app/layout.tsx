@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Besley, Montserrat, Pacifico } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getLocale } from "next-intl/server";
+import { getMessages, getLocale, getTranslations } from "next-intl/server";
 import { ThemeProvider, MUIProvider } from "@/providers";
-import { CustomCursor } from "@/components/ui";
+import { CustomCursor, GlobalBackground } from "@/components/ui";
 import "./globals.css";
 
 const besley = Besley({
@@ -37,35 +37,42 @@ export const viewport: Viewport = {
   ],
 };
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://awhtiambou.com"),
-  title: {
-    default: "Portfolio | Abdoul-Wahabou H. Tiambou",
-    template: "%s | Portfolio",
-  },
-  description: "Personal portfolio showcasing my work, experience, and skills in computer science.",
-  keywords: ["portfolio", "computer science", "software engineer", "projects", "experience", "skills", "Abdoul-Wahabou H. Tiambou", "AI/ML Engineer", "Full-Stack Developer"],
-  authors: [{ name: "Abdoul-Wahabou H. Tiambou" }],
-  creator: "Abdoul-Wahabou H. Tiambou",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://awhtiambou.com",
-    siteName: "Portfolio",
-    title: "Portfolio | Abdoul-Wahabou H. Tiambou",
-    description: "Personal portfolio showcasing my work, experience, and skills in computer science.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Portfolio | Abdoul-Wahabou H. Tiambou",
-    description: "Personal portfolio showcasing my work, experience, and skills in computer science.",
-    creator: "@awhtiambou",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
+  return {
+    metadataBase: new URL("https://awhtiambou.com"),
+    title: {
+      default: t("title"),
+      template: "%s | Portfolio",
+    },
+    description: t("description"),
+    keywords: ["portfolio", "computer science", "software engineer", "projects", "experience", "skills", "Abdoul-Wahabou H. Tiambou", "AI/ML Engineer", "Full-Stack Developer"],
+    authors: [{ name: "Abdoul-Wahabou H. Tiambou" }],
+    creator: "Abdoul-Wahabou H. Tiambou",
+    openGraph: {
+      type: "website",
+      locale: locale === "fr" ? "fr_CA" : "en_US",
+      url: "https://awhtiambou.com",
+      siteName: "Portfolio",
+      title: t("title"),
+      description: t("description"),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      creator: "@awhtiambou",
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -82,6 +89,7 @@ export default async function RootLayout({
           <ThemeProvider>
             <MUIProvider>
               <CustomCursor />
+              <GlobalBackground />
               {children}
             </MUIProvider>
           </ThemeProvider>

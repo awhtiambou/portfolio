@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { MagneticButton, FillButton, MeshGradientBackground, ScrollMouse } from "@/components/ui";
+import { MagneticButton, FillButton, ScrollMouse, TiltCard } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { profile } from "@/data/profile";
 
@@ -24,7 +24,6 @@ export function HeroSection() {
         <section className="relative min-h-screen">
             {/* Desktop Layout */}
             <div className="hidden md:flex min-h-screen">
-                <MeshGradientBackground showWatermark={false} animated={true} />
                 {/* Left Side - Content */}
                 <div className="relative w-1/2 min-h-screen flex items-center">
                     {/* Content */}
@@ -101,33 +100,42 @@ export function HeroSection() {
                     </div>
                 </div>
 
-                {/* Right Side - Image with Diagonal Clip */}
-                <div className="relative w-1/2 min-h-screen">
-                    {/* Diagonal clipped image */}
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            clipPath: "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)",
-                        }}
+                {/* Right Side - Image with Diagonal Clip & Tilt */}
+                <motion.div
+                    className="relative w-1/2 min-h-screen"
+                    initial={{ x: 100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+                >
+                    <TiltCard
+                        className="w-full h-full [clip-path:polygon(20%_0,100%_0,100%_100%,0%_100%)] backface-visible"
+                        intensity={40}
+                        glowOpacity={0.4}
+                        glowColor="rgba(255,255,255,0.4)"
                     >
-                        <Image
-                            src="/assets/images/me-coding.jpg"
-                            alt={profile.name}
-                            fill
-                            className="object-cover object-center"
-                            priority
-                            sizes="50vw"
-                        />
-                    </div>
-                </div>
+                        <div
+                            className="absolute inset-0 w-full h-full"
+                            data-cursor-text={profile.name}
+                        >
+                            <Image
+                                src="/assets/images/me-coding.jpg"
+                                alt={profile.name}
+                                fill
+                                className="object-cover object-center"
+                                priority
+                                sizes="50vw"
+                            />
+
+
+                        </div>
+                    </TiltCard>
+                </motion.div>
             </div>
 
             {/* Mobile/Tablet Layout */}
             <div className="md:hidden min-h-screen flex flex-col">
                 {/* Content Section */}
                 <div className="relative flex-1 flex items-center px-6 sm:px-8 pt-24 pb-12">
-                    {/* Mesh Gradient Background */}
-                    <MeshGradientBackground showWatermark={true} animated={true} />
 
                     {/* Content */}
                     <motion.div
