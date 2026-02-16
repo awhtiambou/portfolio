@@ -42,7 +42,8 @@ export const colors = {
 export const typography = {
   fonts: {
     heading: 'var(--font-besley)',
-    body: 'var(--font-montserrat)',
+    body: 'var(--font-work-sans)',
+    accent: 'var(--font-inter)',
   },
   weights: {
     normal: 400,

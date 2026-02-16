@@ -114,7 +114,6 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                     {/* Testimonial text */}
                     <div className="flex-grow mb-6">
                         <motion.p
-                            style={{ fontFamily: "var(--font-montserrat)" }}
                             className={cn(
                                 "text-lg md:text-xl leading-relaxed font-body italic pl-8",
                                 isDark ? "text-white/90" : "text-gray-900"
@@ -341,9 +340,7 @@ export function TestimonialsSection() {
     }
 
     return (
-        <section id="testimonials" className="relative py-16 md:py-24 overflow-hidden">
-
-
+        <section id="testimonials" className="relative max-w-7xl mx-auto py-16 md:py-24 overflow-hidden">
             {/* Content container */}
             <div className="container relative z-10">
                 <motion.div
@@ -362,9 +359,8 @@ export function TestimonialsSection() {
                             {t("subtitle")}
                         </p>
                         <h2
-                            style={{ fontFamily: "Besley" }}
                             className={cn(
-                                "text-4xl md:text-5xl lg:text-6xl xl:text-7xl uppercase tracking-wider",
+                                "text-4xl md:text-5xl lg:text-6xl xl:text-7xl uppercase tracking-wider font-heading",
                                 isDark ? "text-white" : "text-gray-900"
                             )}
                         >

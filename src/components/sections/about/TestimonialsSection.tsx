@@ -114,9 +114,8 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                     {/* Testimonial text */}
                     <div className="flex-grow mb-6">
                         <motion.p
-                            style={{ fontFamily: "var(--font-montserrat)" }}
                             className={cn(
-                                "text-lg md:text-xl leading-relaxed font-body italic pl-8",
+                                "text-lg md:text-xl leading-relaxed font-body pl-8",
                                 isDark ? "text-white/90" : "text-gray-900"
                             )}
                             initial={{ opacity: 0 }}
@@ -341,10 +340,7 @@ export function TestimonialsSection() {
     }
 
     return (
-        <section id="testimonials" className="relative py-16 md:py-24 overflow-hidden">
-            {/* Sand/Noise texture overlay */}
-
-
+        <section id="testimonials" className="relative max-w-7xl mx-auto py-16 md:py-24 overflow-hidden">
             {/* Content container */}
             <div className="container relative z-10">
                 <motion.div
@@ -356,16 +352,14 @@ export function TestimonialsSection() {
                     {/* Header */}
                     <motion.div variants={itemVariants} className="mb-12">
                         <p className={cn(
-                            "text-xl md:text-2xl mb-0 italic font-medium",
-
+                            "text-xl md:text-2xl mb-0 italic font-light font-body",
                             isDark ? "text-accent-yellow" : "text-accent-blue"
                         )}>
                             {t("subtitle")}
                         </p>
                         <h2
-                            style={{ fontFamily: "Besley" }}
                             className={cn(
-                                "text-4xl md:text-5xl lg:text-6xl xl:text-7xl uppercase tracking-wider",
+                                "text-4xl md:text-5xl lg:text-6xl xl:text-7xl uppercase tracking-wider font-accent",
                                 isDark ? "text-white" : "text-gray-900"
                             )}
                         >

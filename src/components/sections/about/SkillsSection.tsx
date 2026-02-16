@@ -168,9 +168,8 @@ function SkillCardContent({ category, isDark, t, isTop }: SkillCardContentProps)
 
                 {/* Tagline */}
                 <h3
-                    style={{ fontFamily: "var(--font-besley)" }}
                     className={cn(
-                        "text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-3",
+                        "text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-3 font-heading",
                         isDark ? "text-white" : "text-gray-900"
                     )}
                 >
@@ -351,9 +350,8 @@ export function SkillsSection() {
                     <motion.div variants={itemVariants} className="text-center md:text-left relative z-20">
                         {/* Title */}
                         <h2
-                            style={{ fontFamily: "var(--font-besley)" }}
                             className={cn(
-                                "text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wide",
+                                "text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wide font-heading",
                                 isDark ? "text-white" : "text-gray-900"
                             )}
                         >

@@ -96,7 +96,8 @@
 
   /* Fonts */
   --font-heading: var(--font-besley);
-  --font-body: var(--font-montserrat);
+  --font-body: var(--font-work-sans);
+  --font-accent: var(--font-inter);
   --font-signature: var(--font-signature);
 
   /* Tailwind v4 utilise l'échelle de spacing par défaut */
@@ -135,9 +136,22 @@ html::-webkit-scrollbar {
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
-  font-family: var(--font-montserrat), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   line-height: 1.6;
   transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Explicit Font Utilities */
+.font-heading {
+  font-family: var(--font-besley), Georgia, serif;
+}
+
+.font-body {
+  font-family: var(--font-work-sans), system-ui, sans-serif;
+}
+
+.font-accent {
+  font-family: var(--font-inter), sans-serif;
 }
 
 /* ============================================
@@ -299,6 +313,8 @@ a:hover {
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
+  font-family: var(--font-accent);
+  text-transform: uppercase;
 }
 
 .tag-yellow {

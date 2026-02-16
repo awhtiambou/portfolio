@@ -31,7 +31,7 @@ Built an end-to-end sentiment analysis system using state-of-the-art NLP techniq
 - < 100ms inference time
 - Successfully processed 1M+ requests
     `,
-    image: "/projects/sentiment-analysis.png",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
     technologies: ["Python", "PyTorch", "Transformers", "BERT", "FastAPI", "Docker", "MLflow"],
     category: "ml",
     featured: true,
@@ -66,7 +66,7 @@ Developed a sophisticated chatbot platform leveraging Large Language Models with
 - Real-time WebSocket communication
 - Modular architecture for easy extension
     `,
-    image: "/projects/chatbot-platform.png",
+    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=2606&auto=format&fit=crop",
     technologies: ["Python", "LangChain", "OpenAI", "Pinecone", "Next.js", "WebSocket", "Redis"],
     category: "ai",
     featured: true,
@@ -99,7 +99,7 @@ Designed and implemented a production-grade MLOps pipeline that automates the en
 - MLflow for experiment tracking
 - Prometheus + Grafana for monitoring
     `,
-    image: "/projects/mlops-pipeline.png",
+    image: "https://images.unsplash.com/photo-1558494949-efc5e60c94ef?q=80&w=2670&auto=format&fit=crop",
     technologies: ["Docker", "Kubernetes", "MLflow", "GitHub Actions", "Prometheus", "Grafana", "Terraform"],
     category: "mlops",
     featured: true,
@@ -127,7 +127,7 @@ Built a computer vision system for automated quality control in manufacturing, d
 - Integration with existing systems
 - Detailed reporting dashboard
     `,
-    image: "/projects/object-detection.png",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop",
     technologies: ["Python", "PyTorch", "YOLOv8", "OpenCV", "ONNX", "TensorRT", "FastAPI"],
     category: "ml",
     featured: false,
@@ -155,7 +155,7 @@ This very website you're viewing! A modern, responsive portfolio showcasing my w
 - SEO optimized
 - Performance optimized
     `,
-    image: "/projects/portfolio.png",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2670&auto=format&fit=crop",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "MUI"],
     category: "web",
     featured: false,

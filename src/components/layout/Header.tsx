@@ -12,7 +12,6 @@ import { siteConfig, headerNavItems } from "@/config/navigation";
 import { locales, type Locale } from "@/i18n";
 import { MenuToggle, CircleArrowLink, FlagIcon } from "@/components/ui";
 import { MenuDrawer } from "./MenuDrawer";
-
 // Navigation items from config (Home, About, Projects, Blog)
 const navItemsConfig = headerNavItems.map(item => ({
   key: item.translationKey || item.label.toLowerCase(),
@@ -139,14 +138,10 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   isActive={pathname === item.href}
-                  className="text-sm font-medium font-heading"
+                  className="text-sm font-heading"
                   circleClassName="hidden lg:flex w-6 h-6 border-[1.5px]"
                 >
-                  <motion.span
-                    style={{
-                      fontFamily: "Besley"
-                    }}
-                  >
+                  <motion.span className="font-heading tracking-wider" style={pathname === item.href ? { fontWeight: 700 } : { fontWeight: 400 }}>
                     {t(item.key)}
                   </motion.span>
                 </CircleArrowLink>
@@ -160,7 +155,7 @@ export function Header() {
             <motion.button
               onClick={toggleLocale}
               className={cn(
-                "hidden md:flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-sm font-medium",
+                "hidden md:flex items-center gap-2 px-3 py-2 rounded-full transition-colors text-sm font-accent font-medium",
               )}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
