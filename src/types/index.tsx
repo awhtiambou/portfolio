@@ -1,5 +1,3 @@
-// Common types used across the portfolio
-
 import { IconBaseProps } from "react-icons/lib";
 
 export interface Project {
@@ -9,8 +7,9 @@ export interface Project {
   description: string;
   longDescription?: string;
   image?: string;
+  images?: string[];
   technologies: string[];
-  category: ProjectCategory;
+  categories: ProjectCategory[];
   liveUrl?: string;
   githubUrl?: string;
   featured?: boolean;
@@ -19,7 +18,7 @@ export interface Project {
   status?: 'completed' | 'in-progress' | 'planned';
 }
 
-export type ProjectCategory = 'ml' | 'ai' | 'devops' | 'mlops' | 'web' | 'mobile' | 'design' | 'other';
+export type ProjectCategory = 'ml' | 'ai' | 'devops' | 'mlops' | 'web' | 'mobile' | 'design' | 'backend' | 'other';
 
 export interface Experience {
   id: string;
@@ -59,7 +58,7 @@ export interface Skill {
 }
 
 export type SkillLevel = 'beginner' | 'intermediate' | 'advanced' | 'expert';
-export type SkillCategory = 
+export type SkillCategory =
   | 'ml'           // Machine Learning
   | 'ai'           // Artificial Intelligence
   | 'data'         // Data Science & Analytics

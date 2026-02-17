@@ -3,6 +3,41 @@
     "title": "Portfolio | Abdoul-Wahabou H. Tiambou",
     "description": "Personal portfolio showcasing my work, experience, and skills in computer science."
   },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Some of my recent work",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "planned": "Planned",
+    "items": {
+      "thoraxvision-pulmonary-disease-detection": {
+        "title": "ThoraxVision",
+        "description": "AI-powered web application for detecting pulmonary diseases from chest X-rays using deep learning. Features YOLO-based detection with 80% accuracy on NIH dataset."
+      },
+      "mrlabelling-3d-reconstruction-hololens": {
+        "title": "MrLabelling",
+        "description": "Research project on automatic 3D object segmentation and reconstruction from HoloLens 2 data for mixed reality applications in smart environments."
+      },
+      "tiamshop-ecommerce-platform": {
+        "title": "Tiamshop",
+        "description": "Full-stack e-commerce platform for electronics sales with ASP.NET Core backend and React frontend. Features complete product management, order processing, and delivery tracking."
+      },
+      "kalfou-transportation-ecosystem": {
+        "title": "Kalfou",
+        "description": "Comprehensive transportation platform with ride-hailing, package delivery, and food delivery services. Built with microservices architecture featuring 1 API, 3 mobile apps, and 3 web applications."
+      },
+      "mrlabelling-ai-annotation-platform": {
+        "title": "MrLabelling",
+        "description": "Advanced annotation platform for machine learning datasets. Supports image labeling, bounding boxes, segmentation masks, and collaborative annotation workflows."
+      },
+      "personal-portfolio-website": {
+        "title": "Personal Portfolio",
+        "description": "Modern, high-performance portfolio built with Next.js 15, featuring advanced animations, dark/light themes, and full English/French internationalization."
+      }
+    }
+  },
   "common": {
     "home": "Home",
     "about": "About",
@@ -49,8 +84,8 @@
       "coffeeCupsLabel": "Cups of high-octane fuel consumed"
     },
     "randomFacts": {
-      "title": "Random facts about me",
-      "description": "When I'm not training models or debugging complex algorithms, I'm usually recharging my own neural network. Here’s a glimpse into the human side of the stack—what drives me, what fuels me, and what keeps me grounded.",
+      "title": "Random facts",
+      "description": "When I'm not training models or debugging complex algorithms, I'm usually recharging my own neural network. Here's a glimpse into the human side of the stack—what drives me, what fuels me, and what keeps me grounded.",
       "coffee": {
         "title": "My fuel source",
         "description": "I don't just drink coffee; I compile it into code. It is the essential training data for my daily productivity."
@@ -61,7 +96,7 @@
       },
       "soccer": {
         "title": "Soccer",
-        "description": "My favorite way to clear the cache. Whether watching or playing, it’s the only place where running in loops is actually a good strategy."
+        "description": "My favorite way to clear the cache. Whether watching or playing, it's the only place where running in loops is actually a good strategy."
       },
       "priorities": {
         "title": "My priorities",
@@ -114,35 +149,6 @@
     "subtitle": "My professional journey",
     "current": "Current",
     "present": "Present"
-  },
-  "projects": {
-    "title": "Featured Projects",
-    "subtitle": "Some of my recent work",
-    "viewProject": "View Project",
-    "viewCode": "View Code",
-    "inProgress": "In Progress",
-    "items": {
-      "ml-sentiment-analysis": {
-        "title": "ML Sentiment Analysis Engine",
-        "description": "A deep learning model for real-time sentiment analysis using transformers and BERT, achieving 94% accuracy on benchmark datasets."
-      },
-      "ai-chatbot-platform": {
-        "title": "AI Chatbot Platform",
-        "description": "An intelligent chatbot platform using LLMs with RAG architecture for contextual conversations and document Q&A."
-      },
-      "mlops-pipeline": {
-        "title": "End-to-End MLOps Pipeline",
-        "description": "A comprehensive MLOps infrastructure with automated training, testing, model versioning, and deployment workflows."
-      },
-      "computer-vision-detection": {
-        "title": "Object Detection System",
-        "description": "Real-time object detection system using YOLO for industrial quality control applications."
-      },
-      "portfolio-website": {
-        "title": "Personal Portfolio",
-        "description": "Modern portfolio website built with Next.js, TypeScript, and Tailwind CSS featuring dark mode and smooth animations."
-      }
-    }
   },
   "education": {
     "title": "Education",

@@ -3,6 +3,41 @@
     "title": "Portfolio | Abdoul-Wahabou H. Tiambou",
     "description": "Portfolio personnel présentant mes travaux, mon expérience et mes compétences en informatique."
   },
+  "projects": {
+    "title": "Projets Phares",
+    "subtitle": "Quelques-uns de mes travaux récents",
+    "viewProject": "Voir le Projet",
+    "viewCode": "Voir le Code",
+    "inProgress": "En Cours",
+    "completed": "Terminé",
+    "planned": "Planifié",
+    "items": {
+      "thoraxvision-pulmonary-disease-detection": {
+        "title": "ThoraxVision",
+        "description": "Application web propulsée par l'IA pour détecter les maladies pulmonaires à partir de radiographies thoraciques. Détection basée sur YOLO avec 80% de précision sur le dataset NIH."
+      },
+      "mrlabelling-3d-reconstruction-hololens": {
+        "title": "MrLabelling",
+        "description": "Projet de recherche sur la segmentation automatique d'objets 3D et la reconstruction à partir de données HoloLens 2 pour applications de réalité mixte dans les environnements intelligents."
+      },
+      "tiamshop-ecommerce-platform": {
+        "title": "Tiamshop",
+        "description": "Plateforme e-commerce full-stack pour la vente de produits électroniques avec backend ASP.NET Core et frontend React. Comprend la gestion complète des produits, le traitement des commandes et le suivi des livraisons."
+      },
+      "kalfou-transportation-ecosystem": {
+        "title": "Kalfou",
+        "description": "Plateforme de transport complète avec services de covoiturage, livraison de colis et livraison de nourriture. Construite avec architecture microservices : 1 API, 3 apps mobiles et 3 applications web."
+      },
+      "mrlabelling-ai-annotation-platform": {
+        "title": "MrLabelling",
+        "description": "Plateforme d'annotation avancée pour jeux de données d'apprentissage automatique. Supporte l'étiquetage d'images, boîtes englobantes, masques de segmentation et flux de travail d'annotation collaborative."
+      },
+      "personal-portfolio-website": {
+        "title": "Portfolio Personnel",
+        "description": "Portfolio moderne et performant construit avec Next.js 15, avec animations avancées, thèmes clair/sombre et internationalisation complète anglais/français."
+      }
+    }
+  },
   "common": {
     "home": "Accueil",
     "about": "À propos",
@@ -114,35 +149,6 @@
     "subtitle": "Mon parcours professionnel",
     "current": "Actuel",
     "present": "Présent"
-  },
-  "projects": {
-    "title": "Projets Phares",
-    "subtitle": "Quelques-uns de mes travaux récents",
-    "viewProject": "Voir le Projet",
-    "viewCode": "Voir le Code",
-    "inProgress": "En Cours",
-    "items": {
-      "ml-sentiment-analysis": {
-        "title": "Moteur d'Analyse de Sentiment ML",
-        "description": "Un modèle de deep learning pour l'analyse de sentiment en temps réel utilisant des transformers et BERT, atteignant 94% de précision."
-      },
-      "ai-chatbot-platform": {
-        "title": "Plateforme Chatbot IA",
-        "description": "Une plateforme de chatbot intelligente utilisant des LLM avec une architecture RAG pour des conversations contextuelles et des Q&A sur documents."
-      },
-      "mlops-pipeline": {
-        "title": "Pipeline MLOps de A à Z",
-        "description": "Une infrastructure MLOps complète avec entraînement automatisé, tests, versionnage de modèles et workflows de déploiement."
-      },
-      "computer-vision-detection": {
-        "title": "Système de Détection d'Objets",
-        "description": "Système de détection d'objets en temps réel utilisant YOLO pour des applications de contrôle qualité industriel."
-      },
-      "portfolio-website": {
-        "title": "Portfolio Personnel",
-        "description": "Site portfolio moderne construit avec Next.js, TypeScript et Tailwind CSS, avec mode sombre et animations fluides."
-      }
-    }
   },
   "education": {
     "title": "Éducation",

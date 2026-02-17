@@ -352,7 +352,7 @@ export function TestimonialsSection() {
                     {/* Header */}
                     <motion.div variants={itemVariants} className="mb-12">
                         <p className={cn(
-                            "text-xl md:text-2xl mb-0 italic font-medium",
+                            "text-xl md:text-2xl mb-0 italic font-thin font-heading",
 
                             isDark ? "text-accent-yellow" : "text-accent-blue"
                         )}>

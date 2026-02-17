@@ -9,25 +9,27 @@ import { Project } from "@/types";
 import { useTheme } from "next-themes";
 import { GoArrowUpRight } from "react-icons/go";
 
-// Colors for the spotlight effect based on category
-const categoryColors: Record<Project["category"], string> = {
+// Colors for the spotlight effect based on primary category
+const categoryColors: Record<Project["categories"][0], string> = {
     ml: "rgba(59, 130, 246, 0.15)", // blue
     ai: "rgba(236, 72, 153, 0.15)", // pink
     devops: "rgba(16, 185, 129, 0.15)", // mint/green
     mlops: "rgba(245, 166, 35, 0.15)", // yellow
     web: "rgba(59, 130, 246, 0.15)", // blue
     mobile: "rgba(236, 72, 153, 0.15)", // pink
+    backend: "rgba(99, 102, 241, 0.15)", // indigo
     design: "rgba(46, 204, 113, 0.15)", // mint
     other: "rgba(107, 114, 128, 0.15)", // gray
 };
 
-const categoryLabels: Record<Project["category"], string> = {
+const categoryLabels: Record<Project["categories"][0], string> = {
     ml: "Machine Learning",
     ai: "Artificial Intelligence",
     devops: "DevOps",
     mlops: "MLOps",
     web: "Web App",
     mobile: "Mobile App",
+    backend: "Backend",
     design: "Design",
     other: "Other",
 };
@@ -46,8 +48,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         mouseY.set(clientY - top);
     }
 
-    // Dynamic gradient background
-    const bg = useMotionTemplate`radial-gradient(650px circle at ${mouseX}px ${mouseY}px, ${categoryColors[project.category]}, transparent 40%)`;
+    // Use first category for spotlight color
+    const primaryCategory = project.categories[0];
+    const bg = useMotionTemplate`radial-gradient(650px circle at ${mouseX}px ${mouseY}px, ${categoryColors[primaryCategory]}, transparent 40%)`;
 
     return (
         <motion.div
@@ -81,9 +84,12 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                                 />
                             ) : (
                                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 text-6xl">
-                                    {project.category === "ml" && "🤖"}
-                                    {project.category === "ai" && "🧠"}
-                                    {project.category === "web" && "🌐"}
+                                    {primaryCategory === "ml" && "🤖"}
+                                    {primaryCategory === "ai" && "🧠"}
+                                    {primaryCategory === "web" && "🌐"}
+                                    {primaryCategory === "mobile" && "📱"}
+                                    {primaryCategory === "backend" && "⚙️"}
+                                    {primaryCategory === "design" && "🎨"}
                                 </div>
                             )}
 
@@ -99,7 +105,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                             <div
                                 style={{ fontWeight: 800 }}
                                 className={cn(
-                                    "text-center md:text-left text-2xl md:text-3xl xl:text-4xl font-black font-heading uppercase tracking-wider mb-4 transition-colors duration-300",
+                                    "text-center md:text-left text-2xl md:text-3xl xl:text-4xl font-black font-heading uppercase tracking-widest mb-4 transition-colors duration-300",
                                     isDark ? "text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/90" : "text-gray-900",
                                     "transition-transform duration-500 group-hover:scale-[1.02]"
                                 )}>
@@ -108,24 +114,27 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
                             {/* Arrow Icon for Desktop */}
                             <motion.div
-                                className="hidden md:flex items-center justify-center w-12 h-12 rounded-full border border-gray-200 dark:border-white/10 text-gray-400 dark:text-white/40 transition-all duration-300 group-hover:bg-white group-hover:text-black group-hover:border-transparent group-hover:scale-110 group-hover:-translate-y-1 group-hover:translate-x-1"
+                                className={cn(
+                                    "hidden md:flex items-center justify-center w-12 h-12 rounded-full border transition-all duration-300 group-hover:bg-white group-hover:text-black group-hover:border-transparent group-hover:scale-110 group-hover:-translate-y-1 group-hover:translate-x-1",
+                                    isDark ? "border-white/10 text-white/40" : "border-gray-500 text-gray-500"
+                                )}
                             >
                                 <GoArrowUpRight className="w-8 h-8" />
                             </motion.div>
                         </div>
 
-                        <div className="w-full flex flex-wrap flex-col md:flex-row items-center md:items-start gap-x-4 gap-y-2 mb-6 text-base md:text-lg font-accent ">
-                            <span className="text-color-foreground" style={{ fontWeight: 500 }}>{categoryLabels[project.category]}</span>
-                            <span className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-white/20" />
-                            <span className="text-color-foreground" style={{ fontWeight: 400 }}>{project.technologies.slice(0, 4).join(", ")}</span>
-                        </div>
+                        {/* Categories and Technologies */}
+                        <span className="text-color-foreground text-base md:text-lg font-accent" style={{ fontWeight: 600 }}>
+                            {project.categories.map(cat => categoryLabels[cat]).join(" • ")}
+                        </span>
+                        <span className="text-sm text-color-foreground font-accent mt-2" style={{ fontWeight: 400 }}>{project.technologies.slice(0, 4).join(", ")}</span>
 
-                        {/* Tags */}
-                        <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-auto">
-                            {/* Custom Badge Style for this layout */}
-                            {[{ name: categoryLabels[project.category], type: 'main' }, ...project.technologies.slice(0, 4).map(t => ({ name: t, type: 'tech' }))].map((tag, i) => (
+                        {/* Tags - Show all categories plus some technologies */}
+                        <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-4">
+                            {/* Category badges */}
+                            {project.categories.map((cat, i) => (
                                 <span
-                                    key={i}
+                                    key={`cat-${i}`}
                                     className={cn(
                                         "px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300",
                                         isDark
@@ -133,7 +142,21 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                                             : "bg-gray-100 text-gray-700 border border-gray-200 group-hover:bg-gray-200"
                                     )}
                                 >
-                                    {tag.name}
+                                    {categoryLabels[cat]}
+                                </span>
+                            ))}
+                            {/* Technology badges */}
+                            {project.technologies.slice(0, 3).map((tech, i) => (
+                                <span
+                                    key={`tech-${i}`}
+                                    className={cn(
+                                        "px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300",
+                                        isDark
+                                            ? "bg-white/5 text-white/70 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10"
+                                            : "bg-gray-100 text-gray-700 border border-gray-200 group-hover:bg-gray-200"
+                                    )}
+                                >
+                                    {tech}
                                 </span>
                             ))}
                         </div>
@@ -157,4 +180,3 @@ export function ProjectsGridSection({ projects }: ProjectsGridSectionProps) {
         </div>
     );
 }
-

@@ -140,6 +140,7 @@ export function Header() {
                   isActive={pathname === item.href}
                   className="text-sm font-heading"
                   circleClassName="hidden lg:flex w-6 h-6 border-[1.5px]"
+                  activeColor={isDark ? "var(--color-yellow)" : "var(--color-blue)"}
                 >
                   <motion.span className="font-heading tracking-wider" style={pathname === item.href ? { fontWeight: 700 } : { fontWeight: 400 }}>
                     {t(item.key)}

@@ -115,7 +115,7 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                     <div className="flex-grow mb-6">
                         <motion.p
                             className={cn(
-                                "text-lg md:text-xl leading-relaxed font-body pl-8",
+                                "text-lg md:text-xl leading-relaxed font-body italic pl-8",
                                 isDark ? "text-white/90" : "text-gray-900"
                             )}
                             initial={{ opacity: 0 }}
@@ -352,14 +352,15 @@ export function TestimonialsSection() {
                     {/* Header */}
                     <motion.div variants={itemVariants} className="mb-12">
                         <p className={cn(
-                            "text-xl md:text-2xl mb-0 italic font-light font-body",
+                            "text-xl md:text-2xl mb-0 italic font-thin font-heading",
+
                             isDark ? "text-accent-yellow" : "text-accent-blue"
                         )}>
                             {t("subtitle")}
                         </p>
                         <h2
                             className={cn(
-                                "text-4xl md:text-5xl lg:text-6xl xl:text-7xl uppercase tracking-wider font-accent",
+                                "text-4xl md:text-5xl lg:text-6xl xl:text-7xl uppercase tracking-wider font-heading",
                                 isDark ? "text-white" : "text-gray-900"
                             )}
                         >

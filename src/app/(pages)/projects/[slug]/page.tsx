@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
-  
+
   if (!project) {
     return { title: "Project Not Found" };
   }
@@ -37,7 +37,7 @@ export default async function ProjectPage({ params }: Props) {
 
   // Get related projects (same category, different project)
   const relatedProjects = projects
-    .filter((p) => p.category === project.category && p.id !== project.id)
+    .filter((p) => p.categories.includes(project.categories[0]) && p.id !== project.id)
     .slice(0, 3);
 
   return (
@@ -69,9 +69,13 @@ export default async function ProjectPage({ params }: Props) {
             <div className="lg:col-span-2">
               {/* Category & Status */}
               <div className="flex flex-wrap gap-2 mb-4">
-                <Badge variant="accent-blue" size="md">
-                  {project.category.toUpperCase()}
-                </Badge>
+                {
+                  project.categories.map((category) => (
+                    <Badge key={category} variant="accent-blue" size="md">
+                      {category.toUpperCase()}
+                    </Badge>
+                  ))
+                }
                 {project.status === "in-progress" && (
                   <Badge variant="accent-yellow" size="md">In Progress</Badge>
                 )}
@@ -138,11 +142,11 @@ export default async function ProjectPage({ params }: Props) {
         <Container size="lg">
           <div className="relative aspect-video rounded-2xl bg-gradient-to-br from-accent-blue/20 via-accent-pink/10 to-accent-yellow/20 overflow-hidden flex items-center justify-center">
             <span className="text-8xl">
-              {project.category === "ml" && "🤖"}
-              {project.category === "ai" && "🧠"}
-              {project.category === "mlops" && "⚙️"}
-              {project.category === "web" && "🌐"}
-              {project.category === "devops" && "🔧"}
+              {project.categories.includes("ml") && "🤖"}
+              {project.categories.includes("ai") && "🧠"}
+              {project.categories.includes("mlops") && "⚙️"}
+              {project.categories.includes("web") && "🌐"}
+              {project.categories.includes("devops") && "🔧"}
             </span>
           </div>
         </Container>
@@ -202,7 +206,7 @@ export default async function ProjectPage({ params }: Props) {
                 <Link key={relatedProject.id} href={`/projects/${relatedProject.slug}`}>
                   <div className="bg-background-primary rounded-xl p-6 hover:shadow-lg transition-shadow">
                     <Badge variant="outline" size="sm" className="mb-3">
-                      {relatedProject.category}
+                      {relatedProject.categories[0].toUpperCase()}
                     </Badge>
                     <h3 className="font-heading font-semibold text-lg text-text-primary mb-2">
                       {relatedProject.title}

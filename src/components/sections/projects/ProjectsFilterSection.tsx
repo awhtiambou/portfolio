@@ -10,13 +10,14 @@ import { useTranslations } from "use-intl";
 import { FiChevronDown } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 
-const categoryLabels: Record<Project["category"], string> = {
-    ml: "Machine Learning",
-    ai: "Artificial Intelligence",
+const categoryLabels: Record<ProjectCategory, string> = {
+    ml: "ML",
+    ai: "AI",
     devops: "DevOps",
     mlops: "MLOps",
-    web: "Web Development",
+    web: "Web",
     mobile: "Mobile",
+    backend: "Backend",
     design: "Design",
     other: "Other",
 };
@@ -64,7 +65,7 @@ export function ProjectsFilterSection({ categories, selectedCategory, onCategory
         setIsDropdownOpen(false);
     };
 
-    const currentLabel = selectedCategory ? categoryLabels[selectedCategory] : "All Services";
+    const currentLabel = selectedCategory ? categoryLabels[selectedCategory] : "All Projects";
 
     return (
         <div className="w-full flex justify-center items-center mb-6 relative z-30">
@@ -119,7 +120,7 @@ export function ProjectsFilterSection({ categories, selectedCategory, onCategory
                                         : isDark ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-black"
                                 )}
                             >
-                                All Services
+                                All Projects
                             </button>
 
                             {categories.map((category) => (
