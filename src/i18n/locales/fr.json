@@ -4,37 +4,367 @@
     "description": "Portfolio personnel présentant mes travaux, mon expérience et mes compétences en informatique."
   },
   "projects": {
-    "title": "Projets Phares",
+    "title": "Projets en vedette",
     "subtitle": "Quelques-uns de mes travaux récents",
-    "viewProject": "Voir le Projet",
-    "viewCode": "Voir le Code",
-    "inProgress": "En Cours",
+    "viewProject": "Voir le projet",
+    "viewCode": "Voir le code",
+    "relatedWork": "Projets similaires",
+    "moreProjects": "Encore plus",
+    "viewAllProjects": "Voir tous les projets",
+    "inProgress": "En cours",
     "completed": "Terminé",
     "planned": "Planifié",
     "items": {
-      "thoraxvision-pulmonary-disease-detection": {
-        "title": "ThoraxVision",
-        "description": "Application web propulsée par l'IA pour détecter les maladies pulmonaires à partir de radiographies thoraciques. Détection basée sur YOLO avec 80% de précision sur le dataset NIH."
+      "kalfou-transportation-ecosystem": {
+        "title": "Kalfou",
+        "description": "Plateforme de transport complète avec services de covoiturage, livraison de colis et livraison de nourriture. Architecture microservices avec 1 API, 3 applications mobiles et 3 applications web.",
+        "sections": {
+          "vision": {
+            "label": "Vision du projet",
+            "heading": "Une plateforme. Trois services.",
+            "text": "Kalfou est un écosystème de transport et de livraison à grande échelle, conçu pour servir plusieurs segments d'utilisateurs via une plateforme unifiée. Le système intègre le **covoiturage**, la **livraison de colis** et la **livraison de nourriture** en une solution cohérente et évolutive.",
+            "stat0": {
+              "label": "Services",
+              "note": "Taxi · Courses · Colis"
+            },
+            "stat1": {
+              "label": "Apps Mobiles",
+              "note": "Client · Chauffeur · Commerce"
+            },
+            "stat2": {
+              "label": "Apps Web",
+              "note": "Site Web · Proprietaire · Admin"
+            },
+            "stat3": {
+              "label": "API",
+              "note": "Backend microservices unifié"
+            }
+          },
+          "coverImage": {
+            "alt": "Plateforme de transport Kalfou"
+          },
+          "architecture": {
+            "label": "Architecture système",
+            "heading": "Microservices backend",
+            "text": "L'API Centrale (ASP.NET Core) est la passerelle unifiée pour toutes les applications clientes. Les services sont séparés par domaine — Gestion des utilisateurs, Service de trajet, Service de livraison, Service de paiement — communiquant de manière asynchrone via Azure Service Bus.",
+            "list": {
+              "0": "API RESTful unifiée au service de toutes les applications clientes",
+              "1": "Suivi de localisation en temps réel avec SignalR",
+              "2": "Authentification et autorisation basées sur JWT",
+              "3": "Limitation de débit et pattern de passerelle API",
+              "4": "Cache Redis pour les sessions et les données chaudes",
+              "5": "Traitement des paiements conforme PCI DSS"
+            },
+            "img0": {
+              "alt": "Diagramme d'architecture API",
+              "caption": "Structure de l'API microservices"
+            },
+            "img1": {
+              "alt": "Vue d'ensemble des apps mobiles",
+              "caption": "Applications mobiles multiplateformes"
+            }
+          },
+          "mobile": {
+            "label": "Applications Mobiles",
+            "heading": "Applications Flutter pour chaque rôle",
+            "text": "Trois applications Flutter distinctes partagent un système de design commun et une couche d'authentification, chacune adaptée à un rôle d'utilisateur spécifique.",
+            "list": {
+              "0": "**App Client** — Demander des trajets, commander de la nourriture, envoyer des colis, chat intégré, évaluations",
+              "1": "**App Chauffeur** — Accepter des trajets, navigation en temps réel, tableau de bord des gains, mode hors ligne",
+              "2": "**App Livreur** — Accepter des livraisons, optimisation d'itinéraire, preuve de livraison (photo/signature)"
+            },
+            "img": {
+              "alt": "Écrans des applications mobiles",
+              "caption": "Interfaces mobiles Client, Chauffeur et Livreur"
+            }
+          },
+          "adminImage": {
+            "alt": "Tableau de bord Admin",
+            "caption": "Tableau de bord Admin — visibilité complète de la plateforme"
+          },
+          "web": {
+            "label": "Applications Web",
+            "heading": "Trois portails, une base de code",
+            "list": {
+              "0": "**Portail Client** — Version web optimisée pour bureau de l'application mobile avec recherche avancée et gestion des réservations",
+              "1": "**Tableau de bord Restaurant** — Gestion des menus, suivi des commandes en temps réel, analytics et promotions",
+              "2": "**Tableau de bord Admin** — Surveillance complète de la plateforme, gestion des utilisateurs, détection de fraude et reporting financier"
+            }
+          },
+          "stack": {
+            "label": "Stack Technique",
+            "heading": "Conçu pour évoluer",
+            "text": "L'infrastructure fonctionne sur **Azure** avec des conteneurs Docker orchestrés par Kubernetes, permettant une mise à l'échelle horizontale de tous les services. Le CI/CD est géré par Azure DevOps avec des tests automatisés à chaque étape.",
+            "callout": {
+              "title": "Conception de la Base de Données",
+              "content": "Plus de 30 tables normalisées avec indexation géospatiale pour les requêtes de localisation en temps réel. La stratégie de partitionnement gère les événements de trajet et de livraison à haute fréquence à grande échelle."
+            },
+            "img0": {
+              "alt": "Infrastructure cloud",
+              "caption": "Infrastructure cloud Azure"
+            },
+            "img1": {
+              "alt": "Pipeline DevOps",
+              "caption": "CI/CD & monitoring"
+            }
+          },
+          "impact": {
+            "label": "Impact Business",
+            "stat0": {
+              "label": "Fatigue applicative",
+              "note": "Multi-services dans une seule app"
+            },
+            "stat1": {
+              "label": "Efficacité",
+              "note": "Pool unifié chauffeurs/livreurs"
+            },
+            "stat2": {
+              "label": "Charges opérationnelles",
+              "note": "Admin centralisé réduit les coûts"
+            },
+            "stat3": {
+              "label": "Emploi",
+              "note": "L'économie de plateforme crée des emplois locaux"
+            }
+          }
+        }
       },
       "mrlabelling-3d-reconstruction-hololens": {
         "title": "MrLabelling",
-        "description": "Projet de recherche sur la segmentation automatique d'objets 3D et la reconstruction à partir de données HoloLens 2 pour applications de réalité mixte dans les environnements intelligents."
+        "description": "Plateforme de recherche pour la segmentation et reconstruction automatique d'objets 3D à partir de données HoloLens 2. Combine YOLO, Mask R-CNN et SAM avec 80% de précision pour applications de réalité mixte.",
+        "sections": {
+          "overview": {
+            "label": "Vue d'Ensemble",
+            "heading": "Reconstruction 3D pour la Réalité Mixte",
+            "text": "MrLabelling est un projet de recherche développé dans le cadre de ma maîtrise à l'UQAC. La plateforme automatise la segmentation et la reconstruction 3D d'objets à partir des données capteurs du Microsoft HoloLens 2, au service des applications MR pour environnements intelligents et de la création de jeux de données ML de haute qualité.",
+            "stat0": {
+              "label": "Précision",
+              "note": "Sur dataset HoloLens personnalisé"
+            },
+            "stat1": {
+              "label": "Objets",
+              "note": "Reconstruits avec succès"
+            },
+            "stat2": {
+              "label": "Modèles",
+              "note": "YOLO · Mask R-CNN · SAM"
+            },
+            "stat3": {
+              "label": "Publication",
+              "note": "Springer LNNS"
+            }
+          },
+          "coverImage": {
+            "alt": "Environnement de réalité mixte"
+          },
+          "pipeline": {
+            "label": "Pipeline IA",
+            "heading": "Segmentation multi-modèles",
+            "list": {
+              "0": "**YOLO** — Détection rapide d'objets, performance temps réel, génération de boîtes englobantes",
+              "1": "**Mask R-CNN** — Segmentation d'instances au pixel près, détection multi-classe",
+              "2": "**SAM (Segment Anything)** — Segmentation zéro-shot, annotation interactive point-à-clic"
+            },
+            "img0": {
+              "alt": "Capture HoloLens",
+              "caption": "Scan spatial HoloLens 2"
+            },
+            "img1": {
+              "alt": "Sortie de segmentation",
+              "caption": "Pipeline de segmentation IA"
+            }
+          },
+          "reconstruction": {
+            "label": "Pipeline de Reconstruction",
+            "heading": "Du scan au maillage 3D",
+            "list": {
+              "0": "**Capture** — Scan spatial HoloLens 2 avec fusion de capteurs RGB-D",
+              "1": "**Segmentation** — Détection et masquage d'objets par modèle IA",
+              "2": "**Annotation** — Raffinement manuel si nécessaire via la plateforme d'annotation",
+              "3": "**Reconstruction** — Génération de maillage par deep learning OccupancyNet",
+              "4": "**Validation** — Assurance qualité et métriques de précision",
+              "5": "**Export** — Formats OBJ, PLY, FBX"
+            },
+            "img0": {
+              "alt": "Résultat de reconstruction 3D",
+              "caption": "Sortie maillage 3D"
+            },
+            "img1": {
+              "alt": "Application MR",
+              "caption": "Superposition réalité mixte"
+            }
+          },
+          "publication": {
+            "label": "Production Académique",
+            "callout": {
+              "title": "Recherche Publiée",
+              "content": "Co-auteur de l'article : Automatic 3D Object Segmentation and Reconstruction from HoloLens 2 Data for Mixed Reality in Smart Environments — soumis à UCAml 2025, 17e Conférence Internationale sur l'Informatique Ubiquitaire et l'Intelligence Ambiante. Publié dans Springer Lecture Notes in Networks and Systems."
+            }
+          }
+        }
       },
       "tiamshop-ecommerce-platform": {
         "title": "Tiamshop",
-        "description": "Plateforme e-commerce full-stack pour la vente de produits électroniques avec backend ASP.NET Core et frontend React. Comprend la gestion complète des produits, le traitement des commandes et le suivi des livraisons."
-      },
-      "kalfou-transportation-ecosystem": {
-        "title": "Kalfou",
-        "description": "Plateforme de transport complète avec services de covoiturage, livraison de colis et livraison de nourriture. Construite avec architecture microservices : 1 API, 3 apps mobiles et 3 applications web."
-      },
-      "mrlabelling-ai-annotation-platform": {
-        "title": "MrLabelling",
-        "description": "Plateforme d'annotation avancée pour jeux de données d'apprentissage automatique. Supporte l'étiquetage d'images, boîtes englobantes, masques de segmentation et flux de travail d'annotation collaborative."
+        "description": "Plateforme e-commerce full-stack pour la vente de produits électroniques avec backend ASP.NET Core et frontend React. Prix du meilleur projet de fin d'études (18,5/20).",
+        "sections": {
+          "overview": {
+            "label": "Vue d'Ensemble",
+            "heading": "E-commerce conçu pour le Niger",
+            "text": "Tiamshop est une plateforme e-commerce full-stack spécialisée dans l'électronique, développée comme mon projet de fin d'études de licence. Elle répond à la demande croissante d'achats en ligne de confiance au Niger — récompensée du **Prix du Meilleur Projet de Fin d'Études (18,5/20)**.",
+            "stat0": {
+              "label": "Produits",
+              "note": "Catalogue électronique"
+            },
+            "stat1": {
+              "label": "Récompense",
+              "note": "Meilleur projet de fin d'études"
+            },
+            "stat2": {
+              "label": "Sprints",
+              "note": "Scrum sur 6 mois"
+            },
+            "stat3": {
+              "label": "Modes de paiement",
+              "note": "Airtel · Orange · Espèces"
+            }
+          },
+          "coverImage": {
+            "alt": "Vitrine Tiamshop"
+          },
+          "features": {
+            "label": "Fonctionnalités",
+            "heading": "Trois rôles utilisateurs, une plateforme",
+            "list": {
+              "0": "**Client** — Parcourir 70+ produits, filtrage avancé, panier persistant, suivi de commande en temps réel",
+              "1": "**Admin** — CRUD produits complet, validation des commandes, contrôle des stocks, attribution des livraisons par secteur, analytics",
+              "2": "**Livreur** — Voir les livraisons assignées par zone, marquer comme en cours ou terminé"
+            },
+            "img0": {
+              "alt": "Vitrine",
+              "caption": "Vitrine client"
+            },
+            "img1": {
+              "alt": "Tableau de bord Admin",
+              "caption": "Tableau de bord Admin"
+            }
+          },
+          "architecture": {
+            "label": "Architecture",
+            "callout": {
+              "title": "Stack Technique",
+              "content": "Backend : ASP.NET Core Web API avec auth JWT, SQL Server + Entity Framework Core + Dapper, emails transactionnels Mailgun. Frontend : React + TypeScript, Redux Toolkit, Tailwind CSS + Material-UI. Déployé sur Azure App Service + Netlify via CI/CD GitHub Actions."
+            },
+            "img": {
+              "alt": "Gestion des commandes",
+              "caption": "Flux de gestion des commandes et livraisons"
+            }
+          }
+        }
       },
       "personal-portfolio-website": {
         "title": "Portfolio Personnel",
-        "description": "Portfolio moderne et performant construit avec Next.js 15, avec animations avancées, thèmes clair/sombre et internationalisation complète anglais/français."
+        "description": "Portfolio moderne et performant construit avec Next.js 15, avec animations avancées, thèmes clair/sombre et internationalisation complète anglais/français.",
+        "sections": {
+          "overview": {
+            "label": "Vue d'Ensemble",
+            "heading": "Ce site même",
+            "text": "Un portfolio moderne et méticuleusement conçu avec **Next.js 15 App Router** — React Server Components, SSR + SSG, internationalisation complète anglais/français via next-intl, et thématique sombre/clair transparente.",
+            "stat0": {
+              "label": "Framework",
+              "note": "App Router + RSC"
+            },
+            "stat1": {
+              "label": "Langues",
+              "note": "Anglais & Français"
+            },
+            "stat2": {
+              "label": "Thèmes",
+              "note": "Sombre & Clair"
+            },
+            "stat3": {
+              "label": "Animations",
+              "note": "Framer Motion"
+            }
+          },
+          "coverImage": {
+            "alt": "Site portfolio"
+          },
+          "highlights": {
+            "label": "Points Forts",
+            "list": {
+              "0": "Next.js 15 App Router avec React Server Components",
+              "1": "i18n complet avec next-intl (EN/FR) et routage sensible à la locale",
+              "2": "Transitions de page Framer Motion et révélations au défilement",
+              "3": "Mode sombre/clair avec variables CSS et détection des préférences système",
+              "4": "TypeScript strict, ESLint, Prettier, commits conventionnels",
+              "5": "CI/CD automatisé via Vercel"
+            },
+            "img0": {
+              "alt": "Système de design",
+              "caption": "Composants & système de design"
+            },
+            "img1": {
+              "alt": "Environnement de développement",
+              "caption": "Environnement de développement"
+            }
+          }
+        }
+      },
+      "thoraxvision-pulmonary-disease-detection": {
+        "title": "ThoraxVision",
+        "description": "Application web propulsée par l'IA pour détecter les maladies pulmonaires à partir de radiographies thoraciques. Détection basée sur YOLO avec 80% de précision sur le dataset NIH.",
+        "sections": {
+          "overview": {
+            "label": "Vue d'Ensemble",
+            "heading": "Diagnostic pulmonaire assisté par IA",
+            "text": "ThoraxVision est une application de deep learning qui aide les professionnels de santé à diagnostiquer les maladies pulmonaires à partir de radiographies thoraciques, combinant la vision par ordinateur avec une interface web clinique intuitive.",
+            "stat0": {
+              "label": "Précision",
+              "note": "Dataset de test NIH"
+            },
+            "stat1": {
+              "label": "Modèle",
+              "note": "Adapté à l'imagerie médicale"
+            },
+            "stat2": {
+              "label": "Temps de diagnostic",
+              "note": "vs. des heures manuellement"
+            },
+            "stat3": {
+              "label": "Dataset",
+              "note": "Des milliers de radios annotées"
+            }
+          },
+          "coverImage": {
+            "alt": "Analyse de radiographie thoracique"
+          },
+          "features": {
+            "label": "Fonctionnalités Clés",
+            "list": {
+              "0": "Détection multi-maladies YOLO (pneumonie, tuberculose, et plus)",
+              "1": "Intégration des données patient pour un contexte de diagnostic complet",
+              "2": "API RESTful Flask pour intégration aux systèmes médicaux existants",
+              "3": "Analyse en temps réel — résultats en quelques secondes",
+              "4": "Conteneurisation Docker pour un déploiement portable",
+              "5": "API open-source pour la recherche médicale"
+            },
+            "img0": {
+              "alt": "Interface de détection",
+              "caption": "Interface de détection"
+            },
+            "img1": {
+              "alt": "Résultats du modèle",
+              "caption": "Métriques de performance du modèle"
+            }
+          },
+          "impact": {
+            "label": "Impact",
+            "callout": {
+              "title": "Valeur Clinique",
+              "content": "Réduit le temps de diagnostic de plusieurs heures à quelques secondes. Conçu pour un déploiement local autonome et pour l'intégration dans des systèmes médicaux tiers via l'API REST open-source."
+            }
+          }
+        }
       }
     }
   },
@@ -219,9 +549,20 @@
     }
   },
   "footer": {
+    "cta": "Contactez-moi",
+    "rights": "Tous droits réservés.",
+    "privacy": "Politique de confidentialité",
+    "builtWith": "Construit avec Next.js & ♥",
     "navigation": "Navigation",
-    "connect": "Connexion",
-    "rights": "Tous droits réservés."
+    "connect": "Réseaux",
+    "newsletter": {
+      "tagline": "Restez informé sur l'IA, le développement full-stack et mes projets en cours.",
+      "emailLabel": "EMAIL",
+      "placeholder": "Votre email",
+      "submit": "S'abonner",
+      "successMsg": "Vous êtes inscrit ! Merci.",
+      "errorMsg": "Veuillez entrer une adresse email valide."
+    }
   },
   "menu": {
     "toggleMenu": "Basculer le menu",

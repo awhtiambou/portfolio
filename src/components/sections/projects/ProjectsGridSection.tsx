@@ -99,9 +99,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                     </div>
 
                     {/* Content Section */}
-                    <div className="flex-1 flex flex-col items-center md:items-start w-full">
+                    <div className="flex-1 flex flex-col items-center justify-center md:justify-start md:items-start w-full">
                         {/* Title */}
-                        <div className="flex items-center md:items-start justify-between w-full group/title gap-5">
+                        <div className="flex items-center md:items-start justify-center md:justify-between w-full group/title gap-5">
                             <div
                                 style={{ fontWeight: 800 }}
                                 className={cn(
@@ -124,7 +124,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                         </div>
 
                         {/* Categories and Technologies */}
-                        <span className="text-color-foreground text-base md:text-lg font-accent" style={{ fontWeight: 600 }}>
+                        <span className="text-color-foreground text-center md:text-left text-base md:text-lg font-accent" style={{ fontWeight: 600 }}>
                             {project.categories.map(cat => categoryLabels[cat]).join(" • ")}
                         </span>
                         <span className="text-sm text-color-foreground font-accent mt-2" style={{ fontWeight: 400 }}>{project.technologies.slice(0, 4).join(", ")}</span>

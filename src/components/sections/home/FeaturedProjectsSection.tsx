@@ -164,7 +164,7 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
                   "opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0"
                 )}
               >
-                {t("common.viewWork")}
+                {t("projects.viewProject")}
               </span>
               <motion.div
                 className={cn(
@@ -186,7 +186,7 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
             </div>
             {/* Mobile View Work Button */}
             <div className="flex md:hidden items-center gap-2 mt-2 text-sm font-medium text-blue-500 dark:text-blue-400">
-              {t("common.viewWork")} <GoArrowUpRight />
+              {t("projects.viewProject")} <GoArrowUpRight />
             </div>
           </div>
 
@@ -274,23 +274,25 @@ export function FeaturedProjectsSection() {
         </div>
 
         {/* View All Projects Link */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-12 md:mt-16 text-center"
-        >
-          <Link
-            href="/projects"
-            className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/20 transition-all duration-300 hover:gap-4"
+        <div className="flex">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            viewport={{ once: true }}
+            className="mt-12 md:mt-16 text-center"
           >
-            <span className="text-base md:text-lg font-accent font-medium">
-              {t("common.viewAll")} {t("common.projects")}
-            </span>
-            <GoArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </Link>
-        </motion.div>
+            <Link
+              href="/projects"
+              className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/20 transition-all duration-300 hover:gap-4"
+            >
+              <span className="text-base md:text-lg font-accent font-medium">
+                {t("projects.viewAllProjects")}
+              </span>
+              <GoArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </Link>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

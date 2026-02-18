@@ -1,13 +1,95 @@
 import { IconBaseProps } from "react-icons/lib";
 
+// ─── Project Section & Element System ─────────────────────────────────────────
+
+/**
+ * A single content element inside a project section.
+ * Each element knows what it is and how it wants to be displayed.
+ */
+export type ProjectElement =
+  | {
+    type: "text";
+    /** Supports **bold**, *italic*, `code` inline. Use \n for line breaks. */
+    content: string;
+  }
+  | {
+    type: "image";
+    src: string;
+    alt?: string;
+    /** @default "normal" */
+    size?: "small" | "normal" | "large";
+    caption?: string;
+  }
+  | {
+    type: "image-fullwidth";
+    src: string;
+    alt?: string;
+    /** Tailwind height class e.g. "h-[60vh]". @default "h-[70vh]" */
+    height?: string;
+    caption?: string;
+  }
+  | {
+    type: "image-grid";
+    images: { src: string; alt?: string; caption?: string }[];
+    /** Desktop column count. @default 2 */
+    cols?: 2 | 3 | 4;
+  }
+  | {
+    type: "stat-grid";
+    stats: { label: string; value: string; note?: string }[];
+  }
+  | {
+    type: "list";
+    items: string[];
+    /** @default "bullet" */
+    variant?: "bullet" | "numbered" | "check";
+  }
+  | {
+    type: "link-list";
+    links: { label: string; href: string; description?: string }[];
+  }
+  | {
+    type: "code";
+    language?: string;
+    content: string;
+  }
+  | {
+    type: "callout";
+    /** @default "info" */
+    variant?: "info" | "warning" | "success" | "tip";
+    title?: string;
+    content: string;
+  }
+  | {
+    type: "divider";
+  };
+
+/**
+ * A titled section grouping related elements.
+ * Uses the app's standard content width by default.
+ * Set fullwidth: true only for sections whose sole element is image-fullwidth.
+ */
+export interface ProjectSection {
+  /** Small-caps label above the heading, e.g. "System Architecture" */
+  label?: string;
+  heading?: string;
+  elements: ProjectElement[];
+  /** Break out of content width — use for fullwidth image-only sections */
+  fullwidth?: boolean;
+}
+
+// ─── Project ──────────────────────────────────────────────────────────────────
+
 export interface Project {
   id: string;
   slug: string;
+  /** English fallback — canonical lives in locale files */
   title: string;
+  /** English fallback — canonical lives in locale files */
   description: string;
-  longDescription?: string;
   image?: string;
-  images?: string[];
+  /** Replaces longDescription. Sections & elements drive the detail page layout. */
+  sections?: ProjectSection[];
   technologies: string[];
   categories: ProjectCategory[];
   liveUrl?: string;
@@ -15,10 +97,21 @@ export interface Project {
   featured?: boolean;
   startDate: string;
   endDate?: string;
-  status?: 'completed' | 'in-progress' | 'planned';
+  status?: "completed" | "in-progress" | "planned";
 }
 
-export type ProjectCategory = 'ml' | 'ai' | 'devops' | 'mlops' | 'web' | 'mobile' | 'design' | 'backend' | 'other';
+export type ProjectCategory =
+  | "ml"
+  | "ai"
+  | "devops"
+  | "mlops"
+  | "web"
+  | "mobile"
+  | "design"
+  | "backend"
+  | "other";
+
+// ─── Other types (unchanged) ──────────────────────────────────────────────────
 
 export interface Experience {
   id: string;
@@ -57,20 +150,20 @@ export interface Skill {
   icon?: string;
 }
 
-export type SkillLevel = 'beginner' | 'intermediate' | 'advanced' | 'expert';
+export type SkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
 export type SkillCategory =
-  | 'ml'           // Machine Learning
-  | 'ai'           // Artificial Intelligence
-  | 'data'         // Data Science & Analytics
-  | 'mlops'        // MLOps & Model Deployment
-  | 'devops'       // DevOps & CI/CD
-  | 'cloud'        // Cloud Platforms (AWS, GCP, Azure)
-  | 'frontend'     // Frontend Development
-  | 'backend'      // Backend Development
-  | 'tools'        // Development Tools & Frameworks
-  | 'databases'    // Databases & Data Storage
-  | 'soft-skills'  // Communication, Leadership, etc.
-  | 'other';
+  | "ml"
+  | "ai"
+  | "data"
+  | "mlops"
+  | "devops"
+  | "cloud"
+  | "frontend"
+  | "backend"
+  | "tools"
+  | "databases"
+  | "soft-skills"
+  | "other";
 
 export interface MasteredTechnology {
   name: string;
@@ -78,7 +171,7 @@ export interface MasteredTechnology {
   icon?: IconBaseProps;
   iconColor: string;
   logoImageUrl?: string;
-  bgColor?: string
+  bgColor?: string;
 }
 
 export interface ContactFormData {
@@ -99,9 +192,8 @@ export interface SEOProps {
   description?: string;
   image?: string;
   url?: string;
-  type?: 'website' | 'article';
+  type?: "website" | "article";
 }
 
-// Utility types
 export type WithClassName<T = object> = T & { className?: string };
 export type WithChildren<T = object> = T & { children?: React.ReactNode };

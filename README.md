@@ -51,7 +51,7 @@ The navigation system is built to handle complex responsive requirements:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/portfolio.git
+   git clone https://github.com/awhtiambou/portfolio.git
    cd portfolio
    ```
 

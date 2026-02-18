@@ -5,7 +5,7 @@ export const profile = {
   name: "Abdoul-Wahabou H. Tiambou",
   firstName: "Abdoul-Wahabou",
   lastName: "Tiambou",
-  nickname: "AWH",
+  nickname: "AWHT",
 
   title: "AI/ML Engineer & Full-Stack Developer",
   tagline: "Building intelligent systems and scalable applications",
@@ -112,24 +112,24 @@ export type RandomFact = {
 };
 
 export const randomFacts = [
-    {
-      name: "coffee",
-      image: "/assets/images/facts/coffee.jpg",
-    },
-    {
-      name: "dream",
-      image: "/assets/images/facts/dream.jpg",
-    },
-    {
-      name: "soccer",
-      image: "/assets/images/facts/soccer.jpg",
-    },
-    {
-      name: "location",
-      image: "/images/facts/saguenay.jpg",
-    },
-    {
-      name: "roots", 
-      image: "/assets/images/facts/niger.jpg",
-    },
-  ] as RandomFact[]
+  {
+    name: "coffee",
+    image: "/assets/images/facts/coffee.jpg",
+  },
+  {
+    name: "dream",
+    image: "/assets/images/facts/dream.jpg",
+  },
+  {
+    name: "soccer",
+    image: "/assets/images/facts/soccer.jpg",
+  },
+  {
+    name: "location",
+    image: "/images/facts/saguenay.jpg",
+  },
+  {
+    name: "roots",
+    image: "/assets/images/facts/niger.jpg",
+  },
+] as RandomFact[]
