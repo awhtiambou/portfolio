@@ -21,7 +21,7 @@ import { useTranslations } from "next-intl";
 import { skillCategoryConfig, getSkillsByCategory, masteredTechnologies } from "@/data/skills";
 import type { MasteredTechnology, SkillCategory } from "@/types";
 import { cn, getShuffledArray } from "@/lib/utils";
-import Skeleton from "@mui/material/Skeleton";
+// MUI removed
 import { GlassCardStack } from "@/components/ui/GlassCardStack";
 import { marqueeLeft, marqueeRight } from "@/lib/animations";
 
@@ -308,14 +308,14 @@ export function SkillsSection() {
                 <div className="container relative z-10">
                     <div className="grid lg:grid-cols-3 gap-12 items-center">
                         <div>
-                            <Skeleton variant="text" width={300} height={48} className="mb-2 dark:!bg-white/10" />
-                            <Skeleton variant="text" width={350} height={48} className="mb-6 dark:!bg-white/10" />
-                            <Skeleton variant="text" width="100%" height={24} className="mb-2 dark:!bg-white/10" />
-                            <Skeleton variant="text" width="80%" height={24} className="mb-8 dark:!bg-white/10" />
-                            <Skeleton variant="rounded" width={160} height={48} className="dark:!bg-white/10" />
+                            <div className="w-[300px] h-12 bg-gray-300 dark:bg-white/10 animate-pulse rounded mb-2" />
+                            <div className="w-[350px] h-12 bg-gray-300 dark:bg-white/10 animate-pulse rounded mb-6" />
+                            <div className="w-full h-6 bg-gray-300 dark:bg-white/10 animate-pulse rounded mb-2" />
+                            <div className="w-[80%] h-6 bg-gray-300 dark:bg-white/10 animate-pulse rounded mb-8" />
+                            <div className="w-[160px] h-12 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
                         </div>
                         <div className="lg:col-span-2">
-                            <Skeleton variant="rounded" width="100%" height={480} className="rounded-3xl dark:!bg-white/10" />
+                            <div className="w-full h-[480px] bg-gray-300 dark:bg-white/10 animate-pulse rounded-3xl" />
                         </div>
                     </div>
                 </div>
@@ -328,104 +328,105 @@ export function SkillsSection() {
     const activeColors = cardGradientColors[activeCategory];
 
     return (
-        <section id="skills" className="relative py-20 md:py-32 overflow-hidden">
-            {/* Ambient background glow that follows the active card */}
-            <motion.div
-                className="absolute inset-0 pointer-events-none"
-                animate={{
-                    background: `radial-gradient(ellipse 60% 50% at 65% 50%, ${activeColors.primary}08 0%, transparent 70%)`,
-                }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-            />
-
-            <div className="container relative z-10">
+        <section id="skills" className="py-20 md:py-32 overflow-hidden w-full flex flex-col items-center justify-center">
+            <div className="app-container">
                 <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-16 items-center"
-                >
-                    {/* Left side: Header content */}
-                    <motion.div variants={itemVariants} className="text-center md:text-left relative z-20">
-                        {/* Title */}
-                        <h2
-                            className={cn(
-                                "text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wide font-heading",
-                                isDark ? "text-white" : "text-gray-900"
-                            )}
-                        >
-                            {t("title")}
-                        </h2>
+                    className="absolute inset-0 pointer-events-none"
+                    animate={{
+                        background: `radial-gradient(ellipse 60% 50% at 65% 50%, ${activeColors.primary}08 0%, transparent 70%)`,
+                    }}
+                    transition={{ duration: 1.2, ease: "easeInOut" }}
+                />
 
-                        {/* Description */}
-                        <p className={cn(
-                            "text-lg md:text-xl mb-8 leading-relaxed",
-                            isDark ? "text-white/70" : "text-gray-600"
-                        )}>
-                            {t("subtitle")}
-                        </p>
-
-                        {/* Active category indicator */}
-                        <motion.div
-                            className="hidden md:flex items-center gap-3"
-                            key={activeCategory}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            <div
-                                className="w-3 h-3 rounded-full"
-                                style={{
-                                    background: `linear-gradient(135deg, ${activeColors.primary}, ${activeColors.secondary})`,
-                                    boxShadow: `0 0 12px ${activeColors.primary}60`,
-                                }}
-                            />
-                            <span
-                                className="text-sm font-medium tracking-wide"
-                                style={{ color: activeColors.primary }}
+                <div className="relative z-10">
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-16 items-center"
+                    >
+                        {/* Left side: Header content */}
+                        <motion.div variants={itemVariants} className="text-center md:text-left relative z-20">
+                            {/* Title */}
+                            <h2
+                                className={cn(
+                                    "text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wide font-heading",
+                                    isDark ? "text-white" : "text-gray-900"
+                                )}
                             >
-                                {skillCategoryConfig[activeCategory].label}
-                            </span>
-                            <span className={cn(
-                                "text-xs",
-                                isDark ? "text-white/40" : "text-gray-400"
+                                {t("title")}
+                            </h2>
+
+                            {/* Description */}
+                            <p className={cn(
+                                "text-lg md:text-xl mb-8 leading-relaxed",
+                                isDark ? "text-white/70" : "text-gray-600"
                             )}>
-                                — {activeIndex + 1}/{featuredCategories.length}
-                            </span>
+                                {t("subtitle")}
+                            </p>
+
+                            {/* Active category indicator */}
+                            <motion.div
+                                className="hidden md:flex items-center gap-3"
+                                key={activeCategory}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                <div
+                                    className="w-3 h-3 rounded-full"
+                                    style={{
+                                        background: `linear-gradient(135deg, ${activeColors.primary}, ${activeColors.secondary})`,
+                                        boxShadow: `0 0 12px ${activeColors.primary}60`,
+                                    }}
+                                />
+                                <span
+                                    className="text-sm font-medium tracking-wide"
+                                    style={{ color: activeColors.primary }}
+                                >
+                                    {skillCategoryConfig[activeCategory].label}
+                                </span>
+                                <span className={cn(
+                                    "text-xs",
+                                    isDark ? "text-white/40" : "text-gray-400"
+                                )}>
+                                    — {activeIndex + 1}/{featuredCategories.length}
+                                </span>
+                            </motion.div>
+
+                            {/* Hint text */}
+                            <p className={cn(
+                                "text-xs mt-6",
+                                isDark ? "text-white/30" : "text-gray-400"
+                            )}>
+                                Click or swipe to shuffle →
+                            </p>
                         </motion.div>
 
-                        {/* Hint text */}
-                        <p className={cn(
-                            "text-xs mt-6",
-                            isDark ? "text-white/30" : "text-gray-400"
-                        )}>
-                            Click or swipe to shuffle →
-                        </p>
+                        {/* Right side: Glass Card Stack */}
+                        <motion.div variants={itemVariants} className="lg:col-span-2 relative z-10 min-h-[500px] md:min-h-[600px] flex items-center justify-center">
+                            <GlassCardStack
+                                items={featuredCategories}
+                                autoPlayInterval={5000}
+                                onActiveChange={handleActiveChange}
+                                isDark={isDark}
+                                className="w-full"
+                                renderCard={(category, _index, isTop) => (
+                                    <SkillCardContent
+                                        category={category}
+                                        isDark={isDark}
+                                        t={t}
+                                        isTop={isTop}
+                                    />
+                                )}
+                            />
+                        </motion.div>
                     </motion.div>
+                </div>
 
-                    {/* Right side: Glass Card Stack */}
-                    <motion.div variants={itemVariants} className="lg:col-span-2 relative z-10 min-h-[500px] md:min-h-[600px] flex items-center justify-center">
-                        <GlassCardStack
-                            items={featuredCategories}
-                            autoPlayInterval={5000}
-                            onActiveChange={handleActiveChange}
-                            isDark={isDark}
-                            className="w-full"
-                            renderCard={(category, _index, isTop) => (
-                                <SkillCardContent
-                                    category={category}
-                                    isDark={isDark}
-                                    t={t}
-                                    isTop={isTop}
-                                />
-                            )}
-                        />
-                    </motion.div>
-                </motion.div>
+
             </div>
-
-            {/* Tech marquee */}
             <div className="min-h-[300px] md:min-h-[500px] flex flex-col items-center justify-center gap-6 w-full overflow-hidden">
                 <div className="flex flex-col rotate-6 w-[150%] gap-6">
                     <TechRow items={firstHalf} variant={marqueeLeft} />

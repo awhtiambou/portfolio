@@ -12,10 +12,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main className="">
         <HeroSection />
         <SkillsSection />
-        <ExperienceSection />
         <FeaturedProjectsSection />
         <TestimonialsSection />
         <ContactSection />

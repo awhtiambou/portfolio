@@ -145,7 +145,7 @@ export function ProjectsFilterSection({ categories, selectedCategory, onCategory
             {/* Desktop Badge List View (hidden on xs/sm, visible on md+) */}
             <div
                 className={cn(
-                    "hidden md:flex flex-wrap gap-2 md:gap-4 py-2 md:py-2 px-4 md:px-3 rounded-2xl w-[calc(100%-2rem)] lg:w-[calc(90%)] xl:w-[calc(80%)]",
+                    "hidden md:flex flex-wrap gap-2 md:gap-4 py-2 md:py-2 px-4 md:px-3 rounded-2xl app-container",
                     isDark
                         ? "bg-[#1a1a1a]/60 backdrop-blur-xl shadow-xl border-white/10"
                         : "bg-white/60 backdrop-blur-xl shadow-xl border-white/40"

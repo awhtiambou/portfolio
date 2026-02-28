@@ -1,96 +1,86 @@
-import type { Experience } from "@/types";
+// experience.ts
+// Non-translatable fields (dates, urls, logos, technologies) live here as literals.
+// All human-readable strings are referenced by key and resolved from locale files.
 
-export const experiences: Experience[] = [
+export const experiences = [
+  // ─── 1. Kalfou — Co-founder & Lead Software Engineer ─────────────────────
   {
-    id: "exp-1",
-    company: "Tech Company Name",
-    position: "AI/ML Engineer",
-    location: "Remote",
-    startDate: "2024-01",
+    key: "kalfou",
+    logo: "/assets/images/experiences/kalfou.png",
+    url: "https://kalfou.app",
+    startDate: "2025-12",
+    endDate: null,
     current: true,
-    description:
-      "Working on cutting-edge machine learning solutions and deploying AI systems at scale.",
-    responsibilities: [
-      "Develop and deploy production-ready machine learning models",
-      "Build and maintain ML pipelines using modern MLOps practices",
-      "Collaborate with cross-functional teams to integrate AI features",
-      "Research and implement state-of-the-art ML techniques",
-      "Optimize model performance and reduce inference latency",
+    responsibilityKeys: [
+      "kalfou.r0", "kalfou.r1", "kalfou.r2",
+      "kalfou.r3", "kalfou.r4", "kalfou.r5",
     ],
     technologies: [
-      "Python",
-      "TensorFlow",
-      "PyTorch",
-      "AWS",
-      "Docker",
-      "Kubernetes",
-      "MLflow",
+      "ASP.NET Core 8", "Clean Architecture", "PostgreSQL",
+      "Flutter", "Dart", "React", "TypeScript",
+      "SignalR", "Docker", "AWS S3", "Firebase",
     ],
   },
+
+  // ─── 2. UQAC — Research Assistant at LIARA ───────────────────────────────
   {
-    id: "exp-2",
-    company: "Startup Inc",
-    position: "Full-Stack Developer",
-    location: "Hybrid",
-    startDate: "2023-06",
-    endDate: "2023-12",
-    description:
-      "Built scalable web applications and contributed to core product development.",
-    responsibilities: [
-      "Developed responsive frontend interfaces using React and TypeScript",
-      "Designed and implemented RESTful APIs with Node.js",
-      "Managed PostgreSQL databases and optimized queries",
-      "Implemented CI/CD pipelines using GitHub Actions",
-      "Participated in code reviews and mentored junior developers",
+    key: "uqac",
+    logo: "/assets/images/experiences/uqac.png",
+    url: "https://www.uqac.ca",
+    startDate: "2024-12",
+    endDate: "2025-07",
+    current: false,
+    responsibilityKeys: [
+      "uqac.r0", "uqac.r1", "uqac.r2",
+      "uqac.r3", "uqac.r4",
     ],
     technologies: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Node.js",
-      "PostgreSQL",
-      "Tailwind CSS",
-      "Git",
+      "Python", "PyTorch", "YOLO", "Mask R-CNN", "SAM",
+      "OccupancyNet", "OpenCV", "HoloLens 2", "Unity", "MRTK",
     ],
   },
+
+  // ─── 3. Université de Monastir — Software Engineering Intern ─────────────
   {
-    id: "exp-3",
-    company: "Research Lab",
-    position: "ML Research Assistant",
-    location: "On-site",
-    startDate: "2022-09",
+    key: "monastir",
+    logo: "/assets/images/experiences/u-monastir.jpg",
+    url: "https://www.enim.rnu.tn",
+    startDate: "2022-10",
     endDate: "2023-05",
-    description:
-      "Conducted research on natural language processing and computer vision applications.",
-    responsibilities: [
-      "Implemented and evaluated NLP models for text classification",
-      "Collaborated on research papers and presentations",
-      "Collected and preprocessed datasets for experiments",
-      "Developed visualization tools for model analysis",
+    current: false,
+    responsibilityKeys: [
+      "monastir.r0", "monastir.r1", "monastir.r2",
+      "monastir.r3", "monastir.r4",
     ],
     technologies: [
-      "Python",
-      "PyTorch",
-      "Transformers",
-      "BERT",
-      "Pandas",
-      "Matplotlib",
+      "ASP.NET Core", "C#", "React", "TypeScript",
+      "SQL Server", "Tailwind CSS", "Redux Toolkit", "Scrum",
     ],
   },
-];
 
-// Helper to get current experiences
-export function getCurrentExperiences(): Experience[] {
-  return experiences.filter((exp) => exp.current);
+  // ─── 4. Tiamtech — Freelance Web Developer ───────────────────────────────
+  {
+    key: "tiamtech",
+    logo: "/assets/images/experiences/tiamtech.jpg",
+    url: "#",
+    startDate: "2022-06",
+    endDate: "2023-09",
+    current: false,
+    responsibilityKeys: [
+      "tiamtech.r0", "tiamtech.r1", "tiamtech.r2",
+    ],
+    technologies: [
+      "React", "Next.js", "TypeScript",
+      "Tailwind CSS", "Node.js", "WordPress", "Figma",
+    ],
+  },
+] as const;
+
+export type ExperienceKey = typeof experiences[number]["key"];
+
+export function getCurrentExperiences() {
+  return experiences.filter(e => e.current);
 }
-
-// Helper to get past experiences
-export function getPastExperiences(): Experience[] {
-  return experiences.filter((exp) => !exp.current);
-}
-
-// Calculate total years of experience
-export function getTotalExperienceYears(): number {
-  // Placeholder - calculate based on actual dates
-  return 3;
+export function getPastExperiences() {
+  return experiences.filter(e => !e.current);
 }

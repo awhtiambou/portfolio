@@ -449,3 +449,16 @@ a:hover {
   white-space: nowrap;
   border: 0;
 }
+@layer utilities {
+  .app-container {
+    width: calc(100% - 2rem);
+    margin-left: auto;
+    margin-right: auto;
+    @media (min-width: 1024px) {
+      width: 90%;
+    }
+    @media (min-width: 1280px) {
+      width: 80%;
+    }
+  }
+}

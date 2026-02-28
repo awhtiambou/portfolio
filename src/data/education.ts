@@ -6,7 +6,7 @@ export const educationData = [
     endDate: "2025-06",
     current: true,
     achievementKeys: ["gpa", "research", "paper"],
-    logo: "/assets/images/facts/coffee.jpg",
+    logo: "/assets/images/education/uqac.png",
   },
   {
     key: "bachelor",
@@ -14,7 +14,7 @@ export const educationData = [
     endDate: "2023-07",
     current: false,
     achievementKeys: ["rank", "project", "officer"],
-    logo: "/assets/images/facts/coffee.jpg",
+    logo: "/assets/images/education/u-monastir.jpg",
   },
   {
     key: "life",
@@ -22,7 +22,7 @@ export const educationData = [
     endDate: "Present",
     current: true,
     achievementKeys: ["reading", "trends", "debugging"],
-    logo: "/assets/images/facts/coffee.jpg",
+    logo: "/assets/images/education/coursera.png",
   },
 ];
 

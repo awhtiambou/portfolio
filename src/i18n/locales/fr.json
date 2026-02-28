@@ -400,18 +400,32 @@
     "getToKnowMe": "Plus sur moi"
   },
   "about": {
-    "title": "À Propos de Moi",
-    "subtitle": "Apprenez à me connaître",
+    "title": "Moi c'est Abdoul",
+    "subtitle": "Plus de details",
     "bio1": "Je suis un ingénieur IA/ML et ingénieur logiciel passionné, expert dans la création de systèmes intelligents et d'applications web évolutives.",
     "bio2": "Actuellement en cours d'études en informatique, je combine connaissances académiques et expérience pratique en apprentissage automatique, deep learning et développement moderne.",
     "bio3": "Mon parcours dans la tech a commencé par la curiosité de comprendre comment les machines peuvent apprendre et prendre des décisions. Aujourd'hui, je travaille sur des projets allant du traitement du langage naturel à la vision par ordinateur.",
-    "yearsExperience": "Années d'Expérience",
-    "projectsCompleted": "Projets Réalisés",
     "stats": {
-      "yearsOfExperienceLabel": "Années à concevoir des solutions numériques",
-      "technologiesMasteredLabel": "Technologies et frameworks dans mon arsenal",
-      "projectsCompletedLabel": "Projets divers livrés avec succès",
-      "coffeeCupsLabel": "Tasses de cafés haute performance"
+      "yearsOfExperience": {
+        "value": "2",
+        "label": "Génie logiciel & IA",
+        "note": "De mes débuts à ma maîtrise"
+      },
+      "technologiesMastered": {
+        "value": "25+",
+        "label": "Outils & Technologies",
+        "note": "Développement, IA et Cloud"
+      },
+      "projectsCompleted": {
+        "value": "15+",
+        "label": "Projets",
+        "note": "Realisations concrètes académiques et professionnelles"
+      },
+      "coffeeCups": {
+        "value": "∞",
+        "label": "Tasses de café",
+        "note": "Carburant de mes algorithmes"
+      }
     },
     "randomFacts": {
       "title": "Moi, en vrac",
@@ -478,7 +492,59 @@
     "title": "Expérience",
     "subtitle": "Mon parcours professionnel",
     "current": "Actuel",
-    "present": "Présent"
+    "present": "Présent",
+    "showMore": "Voir plus d'expériences",
+    "showLess": "Réduire",
+    "responsibilities": "Responsabilités",
+    "items": {
+      "kalfou": {
+        "position": "Co-fondateur & Ingénieur Logiciel Principal",
+        "company": "Kalfou",
+        "location": "Télétravail — Niger",
+        "type": "Startup · Temps plein",
+        "description": "Co-fondation et développement d'une super-application de livraison multi-services pour le Niger — nourriture, épicerie, pharmacie et envoi de colis P2P. Construction complète du système depuis zéro : backend, applications mobiles et tableaux de bord web.",
+        "r0": "Architecture d'un backend .NET 8 modulaire (Clean Architecture) couvrant 12+ modules métier (Commandes, Livraison, Paiements, Messagerie, Notifications…)",
+        "r1": "Développement de 3 applications Flutter multiplateformes (Client, Chauffeur, Marchand) partageant un système de design et un package commun",
+        "r2": "Création de 2 tableaux de bord web React (Admin, Propriétaire) avec données en temps réel via SignalR",
+        "r3": "Conception des schémas PostgreSQL, stockage média AWS S3 et pipelines de notifications Firebase",
+        "r4": "Mise en place du workflow monorepo Git, CI/CD et conteneurisation Docker",
+        "r5": "Pilotage des décisions produit, planification des sprints et coordination avec le co-fondateur"
+      },
+      "uqac": {
+        "position": "Assistant de Recherche — Vision par Ordinateur & Réalité Mixte",
+        "company": "Université du Québec à Chicoutimi (UQAC)",
+        "location": "Chicoutimi, QC, Canada",
+        "type": "Stage de recherche · Labo LIARA",
+        "description": "Stage de recherche au LIARA (Laboratoire d'Intelligence Ambiante pour la Reconnaissance d'Activités), axé sur la segmentation et reconstruction 3D automatique d'objets à partir des données du Microsoft HoloLens 2, pour des applications de réalité mixte en environnements intelligents.",
+        "r0": "Conception et implémentation d'un pipeline de segmentation comparant YOLO, Mask R-CNN et SAM, atteignant jusqu'à 80 % de précision sur un dataset HoloLens 2 personnalisé",
+        "r1": "Implémentation de la reconstruction 3D via OccupancyNet, générant des maillages pour 200+ objets segmentés",
+        "r2": "Intégration du système dans une application de réalité mixte HoloLens 2 testée en conditions réelles",
+        "r3": "Co-rédaction d'un article scientifique soumis à UCAml 2025 — 17e Conférence internationale sur l'informatique ubiquitaire (Springer LNNS)",
+        "r4": "Collaboration avec les chercheurs du LIARA pour la création de datasets, l'évaluation des modèles et la conception des expériences"
+      },
+      "monastir": {
+        "position": "Stagiaire en Génie Logiciel — Projet de Fin d'Études",
+        "company": "Université de Monastir",
+        "location": "Monastir, Tunisie",
+        "type": "Stage de fin d'études",
+        "description": "Conception et livraison de Tiamshop, une plateforme e-commerce full-stack spécialisée en électronique, comme projet de fin de licence. Primé Meilleur Projet de la promotion (18,5/20) par le jury académique.",
+        "r0": "Développement d'un backend RESTful avec ASP.NET Core et une base de données SQL Server gérant 1 000+ entrées et 70+ références produits",
+        "r1": "Création d'une vitrine React + TypeScript avec Redux Toolkit, Tailwind CSS et Material-UI",
+        "r2": "Implémentation de l'authentification JWT, du contrôle d'accès par rôle (Client / Admin / Livreur) et des flux email Mailgun",
+        "r3": "Organisation du développement en 6 sprints Scrum, rédaction de la documentation et présentation au jury académique",
+        "r4": "Déploiement sur Azure App Service (backend) et Netlify (frontend) avec CI/CD GitHub Actions"
+      },
+      "tiamtech": {
+        "position": "Développeur Web Freelance",
+        "company": "Tiamtech",
+        "location": "Niamey, Niger — Hybride",
+        "type": "Freelance",
+        "description": "Activité de développement web indépendant, livraison de sites vitrines et boutiques e-commerce personnalisées à des entreprises locales au Niger.",
+        "r0": "Conception et livraison de 8 sites vitrines et 2 boutiques e-commerce sous contrat",
+        "r1": "Gestion d'un portefeuille de 7 clients locaux dans le secteur numérique au Niger : recueil des besoins, design et livraison",
+        "r2": "Développement de sites responsive et optimisés SEO avec React, Next.js et WordPress"
+      }
+    }
   },
   "education": {
     "title": "Éducation",
@@ -488,7 +554,7 @@
         "degree": "Maîtrise (MSc)",
         "field": "Informatique",
         "institution": "Université du Québec à Chicoutimi",
-        "location": "Chicoutimi, QC, Canada",
+        "location": "QC, Canada",
         "description": "Spécialisation en IA, Apprentissage Automatique, Deep Learning et Vision par Ordinateur. Recherche appliquée sur la reconstruction 3D avec HoloLens 2.",
         "achievements": {
           "gpa": "Moyenne cumulative : 4.0/4.3",
@@ -527,7 +593,8 @@
       "dl": "Spécialisation Deep Learning",
       "aws": "AWS Cloud Practitioner Essentials",
       "linux": "Linux Essentials"
-    }
+    },
+    "hoverHint": "Survolez chaque étape pour explorer"
   },
   "contact": {
     "title": "Me Contacter",

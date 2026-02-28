@@ -239,30 +239,28 @@ export function FeaturedProjectsSection() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
   return (
-    <div className="w-full flex items-center justify-center">
-      <div className="w-[calc(100%-2rem)] lg:w-[calc(90%)] xl:w-[calc(80%)]">
-        <div className="mb-8 md:mb-12 w-full flex flex-col items-start">
-          <motion.div initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className={cn(
-              "uppercase font-heading font-bold text-2xl md:text-3xl lg:text-4xl",
-              isDark ? "text-accent-yellow" : "text-accent-blue"
-            )}
-          >
-            {t("projects.title")}
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="mt-5 text-base md:text-lg font-body text-foreground"
+    <div className="w-full flex items-center justify-center mt-20">
+      <div className="app-container">
+        <div className={`mb-12`}>
+          <motion.p
+            className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
           >
             {t("projects.subtitle")}
-          </motion.div>
+          </motion.p>
+          <motion.h2
+            className="font-heading text-4xl md:text-5xl font-bold text-text-primary"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            {t("projects.title")}
+          </motion.h2>
         </div>
+
 
         <div className={cn(
           "flex flex-col border-t",

@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+const ArrowOutwardIcon = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
+        <line x1="7" y1="17" x2="17" y2="7"></line>
+        <polyline points="7 7 17 7 17 17"></polyline>
+    </svg>
+);
 
 interface CircleArrowLinkProps {
     href: string;
@@ -62,7 +67,6 @@ export function CircleArrowLink({
                     {/* Arrow Container */}
                     <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
                         <ArrowOutwardIcon
-                            fontSize="inherit"
                             className="w-full h-full text-current" // Removed padding to make arrow bigger
                             style={{ color: "inherit", transform: "scale(1.2)" }} // Scale up arrow slightly more
                         />

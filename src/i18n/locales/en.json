@@ -405,13 +405,27 @@
     "bio1": "I'm a passionate AI/ML Engineer and Software Engineer with expertise in building intelligent systems and scalable web applications.",
     "bio2": "Currently pursuing my degree in Computer Science, I combine academic knowledge with hands-on experience in machine learning, deep learning, and modern development.",
     "bio3": "My journey in tech started with curiosity about how machines can learn and make decisions. Today, I work on projects ranging from natural language processing to computer vision.",
-    "yearsExperience": "Years Experience",
-    "projectsCompleted": "Projects Completed",
     "stats": {
-      "yearsOfExperienceLabel": "Years dedicated to crafting solutions",
-      "technologiesMasteredLabel": "Technologies in my arsenal",
-      "projectsCompletedLabel": " diverse projects successfully shipped",
-      "coffeeCupsLabel": "Cups of high-octane fuel consumed"
+      "yearsOfExperience": {
+        "value": "2",
+        "label": "Software Eng. & AI",
+        "note": "From early dev to my Master's"
+      },
+      "technologiesMastered": {
+        "value": "25+",
+        "label": "Tools & Tech Stack",
+        "note": "Software, AI, and Cloud"
+      },
+      "projectsCompleted": {
+        "value": "15+",
+        "label": "Projects Shipped",
+        "note": "Academic and real-world projects"
+      },
+      "coffeeCups": {
+        "value": "∞",
+        "label": "Cups of Coffee",
+        "note": "Algorithm optimization fuel"
+      }
     },
     "randomFacts": {
       "title": "Random facts",
@@ -478,7 +492,59 @@
     "title": "Experience",
     "subtitle": "My professional journey",
     "current": "Current",
-    "present": "Present"
+    "present": "Present",
+    "showMore": "Show more experiences",
+    "showLess": "Show less",
+    "responsibilities": "Responsibilities",
+    "items": {
+      "kalfou": {
+        "position": "Co-founder & Lead Software Engineer",
+        "company": "Kalfou",
+        "location": "Remote — Niger",
+        "type": "Startup · Full-time",
+        "description": "Co-founding and engineering a multi-service delivery super-app for Niger, covering food, groceries, pharmacy and peer-to-peer shipping. Building the full system from scratch — backend, mobile apps, and web dashboards.",
+        "r0": "Architecting a modular .NET 8 backend with Clean Architecture across 12+ domain modules (Orders, Delivery, Payments, Messaging, Notifications…)",
+        "r1": "Building 3 cross-platform Flutter apps (Customer, Driver, Merchant) sharing a common design system and package",
+        "r2": "Developing 2 React web dashboards (Admin, Owner) with real-time data via SignalR",
+        "r3": "Designing PostgreSQL schemas, AWS S3 media storage, and Firebase push-notification pipelines",
+        "r4": "Setting up Git monorepo workflow, CI/CD pipelines, and Docker containerisation",
+        "r5": "Leading product decisions, sprint planning, and cross-functional coordination with co-founder"
+      },
+      "uqac": {
+        "position": "Research Assistant — Computer Vision & Mixed Reality",
+        "company": "Université du Québec à Chicoutimi (UQAC)",
+        "location": "Chicoutimi, QC, Canada",
+        "type": "Research Internship · LIARA Lab",
+        "description": "Research internship at LIARA (Laboratoire d'Intelligence Ambiante pour la Reconnaissance d'Activités), focusing on automatic 3D object segmentation and reconstruction from Microsoft HoloLens 2 sensor data for mixed reality applications in smart environments.",
+        "r0": "Designed and implemented a segmentation pipeline comparing YOLO, Mask R-CNN and SAM, achieving up to 80% precision on a custom HoloLens 2 dataset",
+        "r1": "Implemented 3D reconstruction via OccupancyNet, generating meshes for 200+ segmented objects",
+        "r2": "Integrated the reconstruction system into a HoloLens 2 mixed reality application tested in real conditions",
+        "r3": "Co-authored a scientific paper submitted to UCAml 2025 — 17th International Conference on Ubiquitous Computing and Ambient Intelligence (Springer LNNS)",
+        "r4": "Collaborated with LIARA researchers on dataset creation, model evaluation, and experiment design"
+      },
+      "monastir": {
+        "position": "Software Engineering Intern — Capstone Project",
+        "company": "Université de Monastir",
+        "location": "Monastir, Tunisia",
+        "type": "Final-Year Internship",
+        "description": "Designed and delivered Tiamshop, a full-stack e-commerce platform for electronics, as my Bachelor's capstone project. Awarded Best Project of the cohort (18.5/20) by the academic jury.",
+        "r0": "Built a RESTful backend with ASP.NET Core and a SQL Server database managing 1,000+ entries and 70+ product references",
+        "r1": "Developed a React + TypeScript storefront with Redux Toolkit, Tailwind CSS and Material-UI",
+        "r2": "Implemented JWT authentication, role-based access (Customer / Admin / Delivery), and Mailgun email flows",
+        "r3": "Organised development across 6 Scrum sprints, writing documentation and presenting to an academic jury",
+        "r4": "Deployed on Azure App Service (backend) and Netlify (frontend) with GitHub Actions CI/CD"
+      },
+      "tiamtech": {
+        "position": "Freelance Web Developer",
+        "company": "Tiamtech",
+        "location": "Niamey, Niger — Hybrid",
+        "type": "Freelance",
+        "description": "Independent web development activity, delivering custom websites and e-commerce solutions to local businesses in Niger.",
+        "r0": "Designed and delivered 8 showcase websites and 2 e-commerce stores under contract",
+        "r1": "Managed a portfolio of 7 local clients in Niger's digital sector, handling requirements, design and delivery",
+        "r2": "Built responsive, SEO-optimised sites using React, Next.js, and WordPress"
+      }
+    }
   },
   "education": {
     "title": "Education",
@@ -488,7 +554,7 @@
         "degree": "Master of Science (MSc)",
         "field": "Computer Science",
         "institution": "Université du Québec à Chicoutimi",
-        "location": "Chicoutimi, QC, Canada",
+        "location": "QC, Canada",
         "description": "Specialization in AI, Machine Learning, Deep Learning, and Computer Vision. Conducting applied research on 3D reconstruction using HoloLens 2.",
         "achievements": {
           "gpa": "Cumulative GPA: 4.0/4.3",
@@ -527,7 +593,8 @@
       "dl": "Deep Learning Specialization",
       "aws": "AWS Cloud Practitioner Essentials",
       "linux": "Linux Essentials"
-    }
+    },
+    "hoverHint": "Hover over each stop to explore"
   },
   "contact": {
     "title": "Get In Touch",

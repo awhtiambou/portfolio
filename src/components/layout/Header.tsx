@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
@@ -12,6 +12,7 @@ import { siteConfig, headerNavItems } from "@/config/navigation";
 import { locales, type Locale } from "@/i18n";
 import { MenuToggle, CircleArrowLink, FlagIcon } from "@/components/ui";
 import { MenuDrawer } from "./MenuDrawer";
+import { ThemeToggleIcon } from "@/components/ui/icons/ThemeToggleIcon";
 // Navigation items from config (Home, About, Projects, Blog)
 const navItemsConfig = headerNavItems.map(item => ({
   key: item.translationKey || item.label.toLowerCase(),
@@ -25,6 +26,7 @@ export function Header() {
   const [currentLocale, setCurrentLocale] = useState<Locale>("en");
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
+  const router = useRouter();
   const t = useTranslations("common");
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export function Header() {
     const newLocale = currentLocale === "en" ? "fr" : "en";
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
     setCurrentLocale(newLocale);
-    window.location.reload();
+    router.refresh();
   };
 
   const toggleMenu = () => {
@@ -74,7 +76,7 @@ export function Header() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] lg:w-[calc(90%)] xl:w-[calc(80%)]"
+        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 app-container"
       >
         <motion.nav
           className={cn(
@@ -183,25 +185,7 @@ export function Header() {
               aria-label="Toggle theme"
               data-cursor-text={isDark ? "Light" : "Dark"}
             >
-              {mounted && (
-                isDark ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="1" x2="12" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3" y2="12" />
-                    <line x1="21" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                  </svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                  </svg>
-                )
-              )}
+              {mounted && <ThemeToggleIcon isDark={isDark} />}
             </motion.button>
 
             {/* Menu Toggle - Animated Hamburger */}

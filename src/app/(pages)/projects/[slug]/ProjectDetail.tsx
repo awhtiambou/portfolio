@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { ProjectCategory, ProjectSection, ProjectElement } from "@/types";
 import { useTranslations } from "next-intl";
 
 // ─── Width helpers ────────────────────────────────────────────────────────────
 // Matches the app's header/nav width convention.
-const CONTENT_WIDTH = "w-[calc(100%-2rem)] lg:w-[calc(90%)] xl:w-[calc(80%)] mx-auto";
+const CONTENT_WIDTH = "app-container";
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -96,7 +97,7 @@ function ImageElement({ el }: { el: Extract<ProjectElement, { type: "image" }> }
     return (
         <figure className={sizeClass}>
             <div className="rounded-2xl overflow-hidden bg-background-secondary">
-                <img src={el.src} alt={el.alt ?? ""} className="w-full h-auto object-cover" />
+                <Image src={el.src} alt={el.alt ?? ""} width={1600} height={900} className="w-full h-auto object-cover" />
             </div>
             {el.caption && (
                 <figcaption className="text-center text-xs text-text-muted mt-2 font-mono uppercase tracking-widest">
@@ -111,8 +112,8 @@ function ImageFullwidthElement({ el }: { el: Extract<ProjectElement, { type: "im
     const h = el.height ?? "h-[70vh]";
     return (
         <figure className="w-full">
-            <div className={`${h} w-full overflow-hidden bg-background-secondary`}>
-                <img src={el.src} alt={el.alt ?? ""} className="w-full h-full object-cover" />
+            <div className={`${h} w-full overflow-hidden bg-background-secondary relative`}>
+                <Image src={el.src} alt={el.alt ?? ""} fill className="object-cover" sizes="100vw" />
             </div>
             {el.caption && (
                 <figcaption className={`${CONTENT_WIDTH} text-xs text-text-muted mt-3 font-mono uppercase tracking-widest`}>
@@ -134,8 +135,8 @@ function ImageGridElement({ el }: { el: Extract<ProjectElement, { type: "image-g
         <div className={`grid ${colClass} gap-4`}>
             {el.images.map((img, i) => (
                 <figure key={i}>
-                    <div className="rounded-2xl overflow-hidden bg-background-secondary aspect-[4/3]">
-                        <img src={img.src} alt={img.alt ?? ""} className="w-full h-full object-cover" />
+                    <div className="relative rounded-2xl overflow-hidden bg-background-secondary aspect-[4/3]">
+                        <Image src={img.src} alt={img.alt ?? ""} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                     </div>
                     {img.caption && (
                         <figcaption className="text-xs text-text-muted mt-2 font-mono uppercase tracking-widest">
@@ -389,7 +390,7 @@ export function ProjectDetail({
             {/* ── Hero ──────────────────────────────────────────────────────────── */}
             <div className="relative w-full min-h-screen flex flex-col">
                 {image && (
-                    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+                    <Image src={image} alt={title} fill priority className="absolute inset-0 object-cover" sizes="100vw" />
                 )}
                 {/* Bottom fade — must be strong enough to always read text */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background-primary from-10% via-background-primary/60 to-transparent" />
@@ -491,8 +492,8 @@ export function ProjectDetail({
                                 <Link key={rel.id} href={`/projects/${rel.slug}`} className="group block">
                                     <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-background-secondary">
                                         {rel.image && (
-                                            <img src={rel.image} alt={rel.title}
-                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                            <Image src={rel.image} alt={rel.title} fill sizes="(max-width: 768px) 100vw, 33vw"
+                                                className="object-cover transition-transform duration-500 group-hover:scale-105" />
                                         )}
                                     </div>
                                     <p className="text-xs font-mono uppercase tracking-widest text-text-muted mb-1">{rel.categories[0]}</p>

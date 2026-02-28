@@ -219,7 +219,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                         </div>
 
                         {/* Content */}
-                        <div className="relative z-10 min-h-full flex flex-col md:flex-row justify-center w-[calc(100%-2rem)] lg:w-[calc(90%)] xl:lg:w-[calc(80%)]">
+                        <div className="relative z-10 min-h-full flex flex-col md:flex-row justify-center app-container">
                             {/* Left: Navigation Links */}
                             <div className="w-full md:w-auto md:flex-1 mt-20 lg:mt-0 flex flex-col justify-center items-center md:items-start">
                                 <nav className="w-full md:w-auto space-y-6 md:space-y-4 lg:space-y-6 flex md:block flex-col items-center md:items-start">

@@ -116,6 +116,8 @@ export type ProjectCategory =
 export interface Experience {
   id: string;
   company: string;
+  companyUrl?: string;
+  companyLogo?: string;
   position: string;
   description: string;
   responsibilities: string[];

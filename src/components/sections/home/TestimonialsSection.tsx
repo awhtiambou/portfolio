@@ -15,8 +15,7 @@ import { cn } from "@/lib/utils";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Avatar from "@mui/material/Avatar";
-import Skeleton from "@mui/material/Skeleton";
+// MUI components removed
 
 // Animation variants
 const containerVariants = {
@@ -63,7 +62,6 @@ const quoteVariants = {
 
 
 
-// Quote mark component
 function QuoteMark({ className, isDark }: { className?: string; isDark: boolean }) {
     return (
         <svg
@@ -106,17 +104,14 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
             className="h-full"
         >
             <div className="p-8 md:p-10 h-full relative">
-                {/* Quote mark */}
                 <QuoteMark className="absolute top-0 left-0 opacity-60" isDark={isDark} />
 
-                {/* Content */}
                 <div className="relative z-10 flex flex-col h-full">
-                    {/* Testimonial text */}
                     <div className="flex-grow mb-6">
                         <motion.p
                             className={cn(
-                                "text-lg md:text-xl leading-relaxed font-body italic pl-8",
-                                isDark ? "text-white/90" : "text-gray-900"
+                                "text-base md:text-xl leading-relaxed font-body pl-8",
+                                isDark ? "text-white/90" : "text-gray-900",
                             )}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -125,7 +120,6 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                             {displayText}
                         </motion.p>
 
-                        {/* See more/less button */}
                         {isTruncated && (
                             <motion.button
                                 onClick={() => setIsExpanded(!isExpanded)}
@@ -160,36 +154,32 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                         transition={{ delay: 0.4 }}
                     >
                         {/* Avatar placeholder */}
-                        <Avatar
-                            sx={{
-                                fontFamily: "var(--font-besley)",
-                                width: 60,
-                                height: 60,
-                                color: "white",
-                            }}
-                            className="bg-gradient-to-br from-accent-blue via-accent-blue to-accent-yellow font-medium text-sm shadow-lg">
+                        <div
+                            className="flex items-center justify-center rounded-full text-white bg-gradient-to-br from-accent-blue via-accent-blue to-accent-yellow font-medium text-sm shadow-lg w-10 h-10 md:w-[60px] md:h-[60px]"
+                            style={{ fontFamily: "var(--font-besley)" }}
+                        >
                             {testimonial.name.charAt(0)}
-                        </Avatar>
+                        </div>
 
                         <div className="flex-grow">
-                            <h5 className={cn(
-                                "font-bold text-lg",
+                            <div className={cn(
+                                "font-bold text-base font-heading md:text-lg",
                                 isDark ? "text-white" : "text-gray-900"
                             )}>
                                 {testimonial.name}
-                            </h5>
-                            <p className={cn(
+                            </div>
+                            <div className={cn(
                                 "text-sm",
                                 isDark ? "text-white/70" : "text-gray-600"
                             )}>
                                 {testimonial.title}
-                            </p>
-                            <p className={cn(
+                            </div>
+                            <div className={cn(
                                 "text-xs mt-1",
                                 isDark ? "text-white/50" : "text-gray-400"
                             )}>
                                 {getRelationshipText(testimonial, locale)}
-                            </p>
+                            </div>
                         </div>
 
                         {/* LinkedIn link */}
@@ -284,54 +274,42 @@ export function TestimonialsSection() {
             <section id="testimonials" className="relative py-16 md:py-24 overflow-hidden">
                 <div className="container relative z-10">
                     {/* Header skeleton */}
-                    <div className="mb-12">
-                        <Skeleton
-                            variant="text"
-                            width={200}
-                            height={32}
-                            sx={{ bgcolor: 'grey.300', '.dark &': { bgcolor: 'grey.800' } }}
-                            className="dark:!bg-white/10"
-                        />
-                        <Skeleton
-                            variant="text"
-                            width={350}
-                            height={64}
-                            sx={{ bgcolor: 'grey.300' }}
-                            className="dark:!bg-white/10"
-                        />
+                    <div className="mb-12 space-y-4">
+                        <div className="w-[200px] h-8 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
+                        <div className="w-[350px] h-16 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
                     </div>
 
                     {/* Testimonial content skeleton */}
                     <div className="p-8 md:p-10">
                         {/* Quote lines */}
                         <div className="pl-8 space-y-3 mb-8">
-                            <Skeleton variant="text" width="100%" height={28} className="dark:!bg-white/10" />
-                            <Skeleton variant="text" width="95%" height={28} className="dark:!bg-white/10" />
-                            <Skeleton variant="text" width="90%" height={28} className="dark:!bg-white/10" />
-                            <Skeleton variant="text" width="60%" height={28} className="dark:!bg-white/10" />
+                            <div className="w-full h-7 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
+                            <div className="w-[95%] h-7 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
+                            <div className="w-[90%] h-7 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
+                            <div className="w-[60%] h-7 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
                         </div>
 
                         {/* Author skeleton */}
                         <div className="flex items-center gap-4 pt-6 border-t border-gray-200 dark:border-white/10">
-                            <Skeleton variant="circular" width={60} height={60} className="dark:!bg-white/10" />
-                            <div className="flex-grow">
-                                <Skeleton variant="text" width={180} height={24} className="dark:!bg-white/10" />
-                                <Skeleton variant="text" width={250} height={20} className="dark:!bg-white/10" />
-                                <Skeleton variant="text" width={150} height={16} className="dark:!bg-white/10 mt-1" />
+                            <div className="w-[60px] h-[60px] bg-gray-300 dark:bg-white/10 animate-pulse rounded-full" />
+                            <div className="flex-grow space-y-2">
+                                <div className="w-[180px] h-6 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
+                                <div className="w-[250px] h-5 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
+                                <div className="w-[150px] h-4 bg-gray-300 dark:bg-white/10 animate-pulse rounded mt-1" />
                             </div>
-                            <Skeleton variant="circular" width={44} height={44} className="dark:!bg-white/10" />
+                            <div className="w-11 h-11 bg-gray-300 dark:bg-white/10 animate-pulse rounded-full" />
                         </div>
                     </div>
 
                     {/* Navigation skeleton */}
                     <div className="flex items-center justify-between mt-8">
                         <div className="flex items-center gap-2">
-                            <Skeleton variant="circular" width={8} height={8} className="dark:!bg-white/10" />
-                            <Skeleton variant="rounded" width={32} height={8} className="dark:!bg-white/10" />
+                            <div className="w-2 h-2 bg-gray-300 dark:bg-white/10 animate-pulse rounded-full" />
+                            <div className="w-8 h-2 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
                         </div>
                         <div className="flex items-center gap-3">
-                            <Skeleton variant="circular" width={56} height={56} className="dark:!bg-white/10" />
-                            <Skeleton variant="circular" width={56} height={56} className="dark:!bg-white/10" />
+                            <div className="w-14 h-14 bg-gray-300 dark:bg-white/10 animate-pulse rounded-full" />
+                            <div className="w-14 h-14 bg-gray-300 dark:bg-white/10 animate-pulse rounded-full" />
                         </div>
                     </div>
                 </div>
@@ -340,36 +318,35 @@ export function TestimonialsSection() {
     }
 
     return (
-        <section id="testimonials" className="relative max-w-7xl mx-auto py-16 md:py-24 overflow-hidden">
-            {/* Content container */}
-            <div className="container relative z-10">
+        <section id="testimonials" className=" py-16 md:py-24 flex items-center justify-center overflow-hidden">
+            <div className="app-container z-10">
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                 >
-                    {/* Header */}
-                    <motion.div variants={itemVariants} className="mb-12">
-                        <p className={cn(
-                            "text-xl md:text-2xl mb-0 italic font-thin font-heading",
-
-                            isDark ? "text-accent-yellow" : "text-accent-blue"
-                        )}>
+                    <div className={`mb-12`}>
+                        <motion.p
+                            className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                        >
                             {t("subtitle")}
-                        </p>
-                        <h2
-                            className={cn(
-                                "text-4xl md:text-5xl lg:text-6xl xl:text-7xl uppercase tracking-wider font-heading",
-                                isDark ? "text-white" : "text-gray-900"
-                            )}
+                        </motion.p>
+                        <motion.h2
+                            className="font-heading text-4xl md:text-5xl font-bold text-text-primary"
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
                         >
                             {t("title")}
-                        </h2>
-                    </motion.div>
+                        </motion.h2>
+                    </div>
 
-                    {/* Swiper container */}
-                    <motion.div variants={itemVariants} className="relative">
+                    <motion.div variants={itemVariants} className="w-full md:w-11/12 mx-auto">
                         <Swiper
                             modules={[Navigation, Pagination, Autoplay]}
                             spaceBetween={30}
@@ -402,12 +379,10 @@ export function TestimonialsSection() {
                             ))}
                         </Swiper>
 
-                        {/* Navigation controls */}
                         <motion.div
                             variants={itemVariants}
                             className="flex items-center justify-between mt-8"
                         >
-                            {/* Pagination dots */}
                             <div className="flex items-center gap-2">
                                 {testimonials.map((_, index) => (
                                     <motion.button
@@ -431,7 +406,6 @@ export function TestimonialsSection() {
                                 ))}
                             </div>
 
-                            {/* Arrow buttons */}
                             <div className="flex items-center gap-3">
                                 <NavButton
                                     direction="prev"
