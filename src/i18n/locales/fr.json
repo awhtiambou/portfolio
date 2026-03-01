@@ -25,7 +25,7 @@
             "text": "Kalfou est un écosystème de transport et de livraison à grande échelle, conçu pour servir plusieurs segments d'utilisateurs via une plateforme unifiée. Le système intègre le **covoiturage**, la **livraison de colis** et la **livraison de nourriture** en une solution cohérente et évolutive.",
             "stat0": {
               "label": "Services",
-              "note": "Taxi · Courses · Colis"
+              "note": "Courses · Colis"
             },
             "stat1": {
               "label": "Apps Mobiles",
@@ -33,7 +33,7 @@
             },
             "stat2": {
               "label": "Apps Web",
-              "note": "Site Web · Proprietaire · Admin"
+              "note": "Site Web · Portail Commerçant · Portail Admin"
             },
             "stat3": {
               "label": "API",
@@ -394,7 +394,7 @@
     "greeting": "Bonjour, je suis",
     "title": "Ingénieur IA/ML",
     "subtitle": "Ingénieur Logiciel",
-    "description": "Passionné par la création de systèmes intelligents et d'applications évolutives. Spécialisé en apprentissage automatique, deep learning et développement logiciel moderne.",
+    "description": "Passionné par la conception de systèmes intelligents et d’applications évolutives, je me spécialise en apprentissage automatique, deep learning et développement logiciel moderne. J’allie rigueur technique et créativité pour concevoir des solutions performantes, fiables et adaptées aux besoins concrets.",
     "available": "Je suis disponible",
     "learnMoreAvailability": "En savoir plus",
     "getToKnowMe": "Plus sur moi"
@@ -640,5 +640,719 @@
     "subtitle": "Ce que les gens disent",
     "seeMore": "Voir plus",
     "seeLess": "Voir moins"
+  },
+  "blog": {
+    "label": "Écriture",
+    "title": "Blog",
+    "subtitle": "Plongées techniques dans l'IA, la vision par ordinateur et l'ingénierie derrière mes recherches et projets.",
+    "allFilter": "Tout",
+    "featured": "En vedette",
+    "readMore": "Lire",
+    "minRead": "min de lecture",
+    "noArticles": "Aucun article dans cette catégorie pour le moment.",
+    "allArticles": "Tous les articles",
+    "continueReading": "Poursuivre la lecture",
+    "relatedArticles": "Articles similaires",
+    "contents": "Sommaire",
+    "tags": "Étiquettes",
+    "updatedOn": "Mis à jour le",
+    "categories": {
+      "computer-vision": "Vision par Ordinateur",
+      "machine-learning": "Apprentissage Automatique",
+      "deep-learning": "Deep Learning",
+      "mlops": "MLOps",
+      "research": "Recherche",
+      "tutorial": "Tutoriel",
+      "opinion": "Opinion",
+      "project-breakdown": "Analyse de Projet",
+      "3d-reconstruction": "Reconstruction 3D",
+      "mixed-reality": "Réalité Mixte",
+      "nlp": "NLP",
+      "other": "Autre"
+    },
+    "levels": {
+      "beginner": "Débutant",
+      "intermediate": "Intermédiaire",
+      "advanced": "Avancé",
+      "research": "Recherche"
+    },
+    "items": {
+      "instance-segmentation-yolo-maskrcnn-sam": {
+        "title": "Segmentation d'Instances à Grande Échelle : YOLO, Mask R-CNN & SAM sur HoloLens 2",
+        "subtitle": "Une étude comparative approfondie de trois architectures de pointe appliquées à un jeu de données réel de réalité mixte — conception de pipeline, astuces d'entraînement et résultats de benchmark honnêtes.",
+        "excerpt": "Comment se comparent YOLO, Mask R-CNN et SAM lorsqu'ils sont poussés à segmenter des objets dans la nature à partir de capteurs HoloLens 2 ? J'ai entraîné, optimisé et évalué les trois modèles sur un jeu de données personnalisé de 200+ objets intérieurs — voici ce que j'ai appris.",
+        "sections": {
+          "introduction": {
+            "label": "Introduction",
+            "heading": "Pourquoi la segmentation d'instances en réalité mixte ?",
+            "elements": [
+              {
+                "content": "Les appareils de réalité mixte comme le **Microsoft HoloLens 2** ouvrent une frontière fascinante : ils perçoivent le monde physique via des capteurs de profondeur et des caméras RGB, mais ils doivent *comprendre* ce monde — pas seulement le voir. Pour notre recherche au laboratoire LIARA (UQAC), la question clé était : pouvons-nous segmenter automatiquement chaque objet, le reconstruire en 3D, et superposer des informations numériques en temps réel ?"
+              },
+              {
+                "content": "La première étape critique est la **segmentation d'instances** — distinguer non seulement *ce qui* est dans la scène (sémantique) mais *à quelle instance individuelle* chaque pixel appartient. C'est plus difficile, lourd en calcul, et bien plus utile pour la réalité mixte où chaque objet nécessite son jumeau numérique."
+              },
+              {
+                "title": "Contexte de recherche",
+                "content": "Cet article est tiré de la recherche appliquée menée durant ma maîtrise à l'UQAC (2024–2025) au sein du laboratoire LIARA. Le travail a été soumis à UCAml 2025 (17e Conf. Int. sur l'Informatique Ubiquitaire, Springer LNNS). Expériences sur dataset HoloLens 2."
+              },
+              {
+                "content": "Nous avons évalué trois architectures leaders : **YOLOv8-seg** (le plus rapide), **Mask R-CNN** (la référence) et **SAM** (l'approche zero-shot de Meta). Chacune a une philosophie radicalement différente, et les résultats — spoiler : SAM ne gagne pas — ont été surprenants."
+              }
+            ]
+          },
+          "dataset": {
+            "label": "Jeu de données",
+            "heading": "Créer un jeu de données de segmentation HoloLens 2",
+            "elements": [
+              {
+                "content": "Aucun jeu de données public capturé avec un HoloLens 2 n'existait à l'échelle requise. Nous avons collecté +1 400 images RGB dans 8 scènes, puis annoté +200 objets à l'aide de CVAT. L'annotation a été la partie la plus laborieuse — environ 3 semaines à temps partiel pour deux personnes."
+              },
+              {
+                "stats": [
+                  {
+                    "label": "Images totales",
+                    "note": "RGB @ 1920×1080"
+                  },
+                  {
+                    "label": "Masques annotés",
+                    "note": "Instances polygones"
+                  },
+                  {
+                    "label": "Classes d'objets",
+                    "note": "Objets intérieurs"
+                  },
+                  {
+                    "label": "Scènes",
+                    "note": "Environnements uniques"
+                  }
+                ]
+              },
+              {
+                "content": "Le jeu de données présente trois défis absents dans COCO : (1) **bruit infrarouge** de la caméra de profondeur, (2) **flou de mouvement** dû au porteur du casque, et (3) **occlusion extrême** puisque la vue à la première personne implique que les mains et bras cachent souvent les objets."
+              },
+              {
+                "title": "Déséquilibre des données",
+                "content": "Huit classes représentent 71% des instances. Les classes rares (microscope, projecteur) avaient moins de 40 échantillons. Nous avons résolu cela par augmentation ciblée et pondération d'erreur."
+              },
+              {
+                "content": "La séparation entraînement/test (70/15/15) a été faite **par scène** pour que le test évalue sur des environnements non vus."
+              }
+            ]
+          },
+          "architectures": {
+            "label": "Architectures",
+            "heading": "YOLOv8-seg vs Mask R-CNN vs SAM — analyse de conception",
+            "elements": [
+              {
+                "content": "Avant les chiffres, comprenons *pourquoi* les trois architectures sont si différentes — la conception explique les résultats."
+              },
+              {
+                "content": "YOLOv8-seg : Vitesse à un étage"
+              },
+              {
+                "content": "YOLOv8 (Ultralytics, 2023) ajoute une tête de segmentation légère. Un backbone CSPDarknet extrait les caractéristiques, le réseau PANNet les fusionne, et une tête prédit les masques d'instances en une seule passe. Variante `-n` (~11M paramètres) tourne à **80+ FPS** sur un GPU standard."
+              },
+              {
+                "content": "Mask R-CNN : Robustesse à deux étages"
+              },
+              {
+                "content": "Mask R-CNN (He et al., 2017) reste la référence en conditions contraintes. Le réseau génère d'abord des régions candidates, extrait des cartes avec **RoIAlign**, puis génère un masque binaire. L'approche est lente mais très robuste sur les petits objets."
+              },
+              {
+                "content": "SAM : Modèle Zero-Shot"
+              },
+              {
+                "content": "**Segment Anything Model** (Meta AI) est entraîné sur 1,1 milliard de masques. Il n'apprend pas de classes mais répond à des prompts (points/boîtes) pour générer des masques. ViT-H (636M paramètres) est bien plus volumineux."
+              },
+              {
+                "title": "Fine-Tuning avec SAM-2",
+                "content": "Meta a sorti SAM 2 fine-tunable, mais hors de notre budget de calcul. Les résultats présentés utilisent SAM original en mode automatique."
+              }
+            ]
+          },
+          "training": {
+            "label": "Entraînement",
+            "heading": "Pipeline d'augmentation et stratégie d'entraînement",
+            "elements": [
+              {
+                "content": "Les petites données nécessitent une régularisation stricte. Nous avons appliqué une augmentation conçue pour les erreurs du HoloLens 2."
+              },
+              {
+                "caption": "Stratégies d'augmentation. SAM utilisé en mode zero-shot.",
+                "headers": [
+                  "Augmentation",
+                  "YOLO",
+                  "Mask R-CNN",
+                  "SAM (auto)"
+                ],
+                "rows": [
+                  [
+                    "Retournement horizontal",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "Bruit de couleur (HSV)",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "Flou gaussien",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "Mosaic (4 images)",
+                    "✓",
+                    "✗",
+                    "N/A"
+                  ],
+                  [
+                    "Copy-paste",
+                    "✓",
+                    "✗",
+                    "N/A"
+                  ],
+                  [
+                    "Mise à l'échelle (0.5–1.5×)",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "Flou de mouvement synth.",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "MixUp (α=0.1)",
+                    "✓",
+                    "✗",
+                    "N/A"
+                  ],
+                  [
+                    "Bruit IR simulé",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ]
+                ]
+              },
+              {
+                "content": "Pour **Mask R-CNN**, entraînement LR échelonné. 100 époques sur NVIDIA T4 ont pris environ 4 heures."
+              }
+            ]
+          },
+          "results": {
+            "label": "Résultats",
+            "heading": "Résultats des benchmarks",
+            "elements": [
+              {
+                "content": "Les trois modèles ont été évalués sur l'ensemble de test en utilisant **mask AP à IoU=0.50:0.95**, temps d'inférence, et mémoire."
+              },
+              {
+                "stats": [
+                  {
+                    "label": "YOLOv8n-seg mAP@50",
+                    "note": "Meilleure précision"
+                  },
+                  {
+                    "label": "Mask R-CNN mAP@50",
+                    "note": "Plus stable"
+                  },
+                  {
+                    "label": "SAM (auto) mAP@50",
+                    "note": "Zero-shot de base"
+                  },
+                  {
+                    "label": "YOLOv8 FPS",
+                    "note": "RTX 4060, 32GB RAM, 640px"
+                  }
+                ]
+              },
+              {
+                "caption": "Résultats des tests sur HoloLens 2. Batch=1, RTX 4060, 32GB RAM.",
+                "headers": [
+                  "Modèle",
+                  "mAP@50",
+                  "mAP@50:95",
+                  "FPS (GPU)",
+                  "Params",
+                  "Mémoire"
+                ],
+                "rows": [
+                  [
+                    "YOLOv8n-seg",
+                    "79.4%",
+                    "52.3%",
+                    "94",
+                    "11M",
+                    "1.8 GB"
+                  ],
+                  [
+                    "YOLOv8m-seg",
+                    "80.1%",
+                    "54.7%",
+                    "61",
+                    "27M",
+                    "3.2 GB"
+                  ],
+                  [
+                    "Mask R-CNN R50",
+                    "72.1%",
+                    "44.8%",
+                    "22",
+                    "44M",
+                    "4.1 GB"
+                  ],
+                  [
+                    "SAM ViT-H",
+                    "41.8%",
+                    "29.3%",
+                    "4.2",
+                    "636M",
+                    "16+ GB"
+                  ]
+                ]
+              },
+              {
+                "title": "Pourquoi SAM sous-performe ?",
+                "content": "SAM sur-segmente en mode auto et ne gère pas de classes. Inutile quand il faut lier des masques à des étiquettes (ex: 'tasse' vs 'bol')."
+              },
+              {
+                "content": "Le succès de YOLOv8 est dû au **Copy-Paste et Mosaic** réduisant l'effet d'occlusion. Mask R-CNN garde une meilleure précision aux frontières (RoIAlign)."
+              }
+            ]
+          },
+          "pipeline": {
+            "label": "Pipeline",
+            "heading": "Intégration au pipeline MR HoloLens 2",
+            "elements": [
+              {
+                "content": "Le flux global est : *Caméra RGB HoloLens → YOLO → Extraction profondeur masquée → OccupancyNet Reconstruction 3D → HoloLens MRTK*."
+              },
+              {
+                "steps": [
+                  {
+                    "title": "Capture RGB & Profondeur",
+                    "description": "HoloLens 2 fournit 1080p RGB à 30 FPS avec carte de profondeur."
+                  },
+                  {
+                    "title": "Segmentation d'Instance",
+                    "description": "YOLOv8 segmente sur serveur. Retourne boîtes, labels et masques."
+                  },
+                  {
+                    "title": "Masquage & Nuage...",
+                    "description": "Puis Rétroprojection du masque sur la profondeur pour nuage de points."
+                  },
+                  {
+                    "title": "Reconstruction 3D",
+                    "description": "OccupancyNet crée les mailles continues depuis les points via Marching Cubes."
+                  },
+                  {
+                    "title": "HoloLens Overlay",
+                    "description": "Le mesh est renvoyé avec Unity MRTK."
+                  }
+                ]
+              },
+              {
+                "title": "Le défi de latence",
+                "content": "Latence globale de 180–240ms. On investigue YOLO on-device sur le NPU du casque."
+              }
+            ]
+          },
+          "takeaways": {
+            "label": "Leçons tirées",
+            "heading": "Ce que j'ai appris",
+            "elements": [
+              {
+                "items": [
+                  "**Besoins en données énormes.** 3 000+ annotations auraient propulsé vers 85% mAP.",
+                  "**Le Copy-Paste YOLOv8** est transformateur face à l'occlusion.",
+                  "**SAM n'est pas magique.** Meilleur pour raffiner plutôt que détecter seul.",
+                  "**L'entraînement Mixed Precision est crucial** pour économiser l'espace mémoire GPU.",
+                  "**Validez TOUJOURS sur des scènes inédites**. L'overfitting est invisible sinon."
+                ]
+              },
+              {
+                "content": "La métrique de validation est dangereuse si tirée de vidéos similaires. Exigez de nouveaux enregistrements pour valider le modèle AI.",
+                "author": "Apprentissage clé",
+                "source": "LIARA Lab, 2025"
+              }
+            ]
+          },
+          "conclusion": {
+            "label": "Conclusion",
+            "heading": "Résumé et prochaines étapes",
+            "elements": [
+              {
+                "content": "YOLOv8 s'impose en réalité augmentée pour la rapidité, Mask R-CNN quand la zone importe. SAM attendra les NPU puissants et le fine tuning à grande échelle pour la MR."
+              },
+              {
+                "content": "Prochainement: plus de données, fine tuning de SAM 2, modèles RT-DETR, exécution NPU intégrale."
+              },
+              {
+                "links": [
+                  {
+                    "label": "Article UCAml 2025",
+                    "description": "Papier intégral : Segmentation et Reconstruction auto sur HoloLens Data"
+                  },
+                  {
+                    "label": "Documentation YOLOv8",
+                    "description": "Guide de l'API segmentation"
+                  },
+                  {
+                    "label": "Segment Anything (Meta)",
+                    "description": "Essais Démos et Recherche"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "3d-reconstruction-hololens2-occupancynet": {
+        "title": "Des Masques aux Maillages : Reconstruction d'Objets avec OccupancyNet sur HoloLens 2",
+        "subtitle": "Comment les représentations neuronales transforment des nuages de points en maillages 3D continus — pour une perception spatiale approfondie en RM.",
+        "excerpt": "J'explore comment OccupancyNet reconstruit +200 objets à partir d'observations partielles via HoloLens 2 — explication des fonctions d'occupation continus et réseaux neuronaux impliqués.",
+        "sections": {
+          "introduction": {
+            "label": "Introduction",
+            "heading": "La reconstruction 3D en Réalité Augmentée",
+            "elements": [
+              {
+                "content": "En marchant avec le **HoloLens 2**, comprendre les murs ne suffit pas — il faut détecter *chaque objet*, son épaisseur et sa forme, pour interagir numériquement correctement."
+              },
+              {
+                "content": "La méthode classique (photogrammétrie) requiert des caméras fixes. Sur les appareils en mouvement, le bruit de profondeur et l'angle constant sont vos ennemis mortels de vision 3D."
+              },
+              {
+                "title": "Représentation neuronale implicite (INR)",
+                "content": "Un INR apprend une fonction f(x,y,z) renvoyant l'occupation. Ce modèle génère l'espace invisible (face arrière), sans limites de résolution pixellaire (différentiable)."
+              },
+              {
+                "content": "Dans ce post, explication d'**OccupancyNet** dans des conditions contraintes extrêmes d'objets intérieurs."
+              }
+            ]
+          },
+          "representations": {
+            "label": "Fondements",
+            "heading": "Taxinomie 3D",
+            "elements": [
+              {
+                "content": "Comparaison avec l'existant:"
+              },
+              {
+                "caption": "Tableau récapitulatif 3D ML.",
+                "headers": [
+                  "Type",
+                  "Mémoire",
+                  "Résolution",
+                  "Qualité continue",
+                  "Exemple"
+                ],
+                "rows": [
+                  [
+                    "Voxel",
+                    "O(r³)",
+                    "Discrète",
+                    "Faible",
+                    "3D-GAN"
+                  ],
+                  [
+                    "OccNet",
+                    "Constante",
+                    "Continue (Marching)",
+                    "Haute",
+                    "OccupancyNet"
+                  ],
+                  [
+                    "SDF/NeRF",
+                    "Constante",
+                    "Continue",
+                    "Photo-réaliste",
+                    "SDF"
+                  ]
+                ]
+              },
+              {
+                "content": "L'avantage vital est l'exécution avec Marching Cubes pour sortir du mesh Unity compatible à l'échelle choisie."
+              },
+              {
+                "content": "Pourquoi éviter NeRF?"
+              },
+              {
+                "content": "Les champs de radiance de NeRF exigent des dizaines d'angles fixés. Inutile avec notre point de vue fuyant."
+              }
+            ]
+          },
+          "architecture": {
+            "label": "Architecture",
+            "heading": "L'architecture profonde",
+            "elements": [
+              {
+                "content": "OccupancyNet crée une classification d'appartenance `f_θ(p, z) → [0,1]` avec un code de forme latent `z`."
+              },
+              {
+                "content": "Encodeur : PointNet (Données partielles)"
+              },
+              {
+                "content": "Un Encodeur **PointNet** digère le Depth feed HoloLens, génère un vecteur global `z` par MaxPool des caractéristiques géométriques partielles."
+              },
+              {
+                "content": "Décodeur : NLP d'occupation conditionnel"
+              },
+              {
+                "content": "La Normalisation conditionnelle par lot connecte la probabilité avec ce vecteur `z` pour affiner les formes fines des objets (tablettes)."
+              },
+              {
+                "content": "Extraction : Marching Cubes"
+              },
+              {
+                "content": "Avec résolution 128³, extraction en 2s du mesh depuis le champ vectoriel probablistique de 0.5."
+              }
+            ]
+          },
+          "training": {
+            "label": "Entraînement",
+            "heading": "ShapeNet 55 vers environnements labos",
+            "elements": [
+              {
+                "content": "Le pré-entraînement **ShapeNet Core55** (51k modèles) construit la base structurelle du cerveau. Le Fine-tuning adapte pour HoloLens (objets concrets locaux, bruit IR ajouté)."
+              },
+              {
+                "stats": [
+                  {
+                    "label": "ShapeNet",
+                    "note": "Généralisation"
+                  },
+                  {
+                    "label": "Dataset lab",
+                    "note": "Données locales"
+                  },
+                  {
+                    "label": "Serveur GPU A100",
+                    "note": "ShapeNet"
+                  },
+                  {
+                    "label": "Modèle Fine-Tune",
+                    "note": "GPU standard T4"
+                  }
+                ]
+              },
+              {
+                "content": "Amélioration spectaculaire (+34% Chamfer) pour tous les objets inhabituels qui manquent de data (panneaux électriques, outils labo)."
+              },
+              {
+                "title": "Densité de l'échantillonnage",
+                "content": "Point capital de R&D : Echantillonner près de la surface à l'aide d'un bruit gaussien est un impératif pour une délimitation stricte."
+              }
+            ]
+          },
+          "results": {
+            "label": "Résultats",
+            "heading": "Ce qui marche et échoue.",
+            "elements": [
+              {
+                "content": "Score F et Distance Chamfer pour les variables retenues d'évaluation (sur 42 objets unseen)."
+              },
+              {
+                "caption": "Efficacité face aux méthodes comparatives classiques.",
+                "headers": [
+                  "Algorithme",
+                  "Chamfer",
+                  "Vol. IoU",
+                  "Temps total Inf"
+                ],
+                "rows": [
+                  [
+                    "OccNet 64³",
+                    "0.061",
+                    "0.71",
+                    "0.45s"
+                  ],
+                  [
+                    "OccNet 128³",
+                    "0.058",
+                    "0.74",
+                    "2.10s"
+                  ]
+                ]
+              },
+              {
+                "content": "Où le Modèle s'effondre:"
+              },
+              {
+                "items": [
+                  "**Structures ultra fines** (Stylos, câbles) disparues dans l'approximation des cubes 128x128.",
+                  "**Transparences Infrarouges**, bouteilles et vitres ne donnent aucun point Depth dans HoloLens 2. Impossibilité d'action.",
+                  "**Occlusion totale** d'une face sur un objet non commun."
+                ]
+              },
+              {
+                "title": "Objets Transparent?",
+                "content": "La technologie temps de vol (ToF) ne les captera jamais. L'intégration de RGB-estimation de profondeur neuronale est obligatoire en update future."
+              }
+            ]
+          },
+          "integration": {
+            "label": "Intégration",
+            "heading": "L'intégration Mixed Reality Toolkit",
+            "elements": [
+              {
+                "content": "Le .obj généré demande de l'ingénierie spécifique Hololens 2 (alignement spatial spatial mapping)."
+              },
+              {
+                "items": [
+                  "**Ajustement des matrices** pour transformer T_C et coordonner la modélisation à la position originelle.",
+                  "**Décimation Mesh (QEM)** pour baisser de 80 000 triangles vers 5 000 (fps fluidité de rendu Unity HoloLens).",
+                  "**Affichage interactif via MRTK** pour autoriser le pinch manuel des hologrammes."
+                ]
+              },
+              {
+                "title": "Évolution continue",
+                "content": "Les avancées futures de la R&D s’orienteront vers un maillage génétiquement affiné."
+              }
+            ]
+          }
+        }
+      },
+      "vision-transformers-vit-dinov2": {
+        "title": "Les Vision Transformers : De ViT à DINOv2 — Guide du Praticien",
+        "subtitle": "Pourquoi l'auto-attention a vaincu les convolutions, comment la modélisation par patch modifie la vision, et la puissance SSL sous-jacente de DINOv2 Meta.",
+        "excerpt": "Les Transformers règnent sur la CV. Décomposition des mécanismes de ViT, l'évolution décisive de DINOv2 de Meta, et les moyens techniques pour lier ce socle sans affinements (Frozen).",
+        "sections": {
+          "introduction": {
+            "label": "Introduction",
+            "heading": "Reléguer le modèle conv à l'histoire?",
+            "elements": [
+              {
+                "content": "Le Convolutional Network (CNN) fut souverain grâce aux biais inductifs parfaits pour l'image (localités pixels adjacentes, invar. translations)."
+              },
+              {
+                "content": "En 2020 , **ViT ('An Image is Worth 16x16 Words')** écrase ces invariants manuels humains, convertit l'image en jetons (16x16) façon texte RNN. Mieux scalable, plus général."
+              },
+              {
+                "title": "Le Shift",
+                "content": "L'auto-attention capte mieux globalement comment les objets s'intriquent, sous condition d'alimentation hyper-data."
+              }
+            ]
+          },
+          "vit-mechanics": {
+            "label": "Mécanique ViT",
+            "heading": "L'ingénierie derrière le Transformeur d'image",
+            "elements": [
+              {
+                "content": "Moins l'ingénierie diffère du NLP, plus le scaling technologique s'utilise. Il fait de sa simplicité la redondance d'usage."
+              },
+              {
+                "steps": [
+                  {
+                    "title": "Partitionnement par Patch (Patchify)",
+                    "description": "L'image de test 224x224 divisée en parcelles 16x16 -> série de 196 Tokens."
+                  },
+                  {
+                    "title": "Projection Linéaire Globale",
+                    "description": "Linéarisation et plongement matriciel."
+                  },
+                  {
+                    "title": "Insertion Positional Encoding",
+                    "description": "L'addition indispensable face à l'amnésie séquentielle inhérente aux MLPs."
+                  },
+                  {
+                    "title": "Jeton Résumé / Classification [CLS]",
+                    "description": "Aggrège les liens internes des neurones MultiHeadAttention dans un vecteur propre final unique."
+                  },
+                  {
+                    "title": "Réseau principal Encodeur",
+                    "description": "Extraction via Blocs Attentiels (L=12-24)."
+                  }
+                ]
+              },
+              {
+                "content": "Le champ d'application de ViT n'a pas besoin de construction en pyramide profonde: Couche 1 est globale (le point 1 lit le point 196 immédiatement)."
+              }
+            ]
+          },
+          "self-supervision": {
+            "label": "Supervision",
+            "heading": "Apprentissage auto-supervisé : Force décryptée de l'image (DINO)",
+            "elements": [
+              {
+                "content": "La grande limite du ViT standard (Dosovitskiy): 300 Millions d'images annotées (Google JFT-300M) pour concurrencer ResNet. Solution? Le modèle s’apprend de lui-même (SSL)."
+              },
+              {
+                "content": "DINO (L'Affinage interne)"
+              },
+              {
+                "content": "BEiT et MAE: Modélisation d'Images Masquées via l'inversion et la reconstruction (Reconst. Pixellaire)."
+              },
+              {
+                "content": "La percée méta: Distillation Parallèle (DINO)"
+              },
+              {
+                "content": "Meta introduit en 2021 le cadre prof-élève avec **DINO**. Par recadrages drastiques sur la même cible non classifiée. Magie ? Il fragmente organiquement la sémantique de segmentation seul!"
+              },
+              {
+                "content": "DINOv2 : Features Universels par Nature"
+              },
+              {
+                "content": "En 2023, avec un milliard de paramètres (ViT-g) et un Dataset 142M massif curé, l'encodage obtenu classifie sans re-entraînement. Les variables latentes sont unilingues et propres."
+              },
+              {
+                "title": "L'Engagement Meta DINOv2",
+                "content": "Ne fine-tune plus le réseau profond (frozen parameters). Fixez un layer Linéaire sur ces features DINO."
+              }
+            ]
+          },
+          "code-example": {
+            "label": "Extraits et Déploiement",
+            "heading": "Intégration Pytorch Rapide",
+            "elements": [
+              {
+                "content": "Utilisation hyper pratique et libre PyTorch Hub via l'environnement DINO."
+              },
+              {
+                "content": "Avec un token de base 768px, joindre son classifieur linéaire ou son décodeur d'images FPN sémantique au bloc de base devient la norme de demain de nos APIs."
+              }
+            ]
+          },
+          "conclusion": {
+            "label": "Conclusion",
+            "heading": "La prochaine génération (DINO)",
+            "elements": [
+              {
+                "items": [
+                  "**L'Auto-Supervision remplit la CV.** Des descripteurs plus forts sans label.",
+                  "**L'Adieu aux poids initiaux ImageNet.** Le Dataset Curated remplace les anciens modèles fondation classique.",
+                  "**Modèles gelés (Backbone Fixé)** : on économise de lourdes régressions locales aux firmes modestes (API minimalistes)."
+                ]
+              },
+              {
+                "links": [
+                  {
+                    "label": "Publication Meta",
+                    "description": "DINOv2: Robust Features"
+                  },
+                  {
+                    "label": "ViT Docs / Transformer",
+                    "description": "16x16 transformer basics"
+                  },
+                  {
+                    "label": "Repositories",
+                    "description": "Huggingface implementation / PyTorch"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
   }
 }

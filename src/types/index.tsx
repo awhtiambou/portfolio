@@ -199,3 +199,6 @@ export interface SEOProps {
 
 export type WithClassName<T = object> = T & { className?: string };
 export type WithChildren<T = object> = T & { children?: React.ReactNode };
+
+// Re-export blog types
+export type { Blog, BlogElement, BlogSection, BlogCategory, BlogReadingLevel } from "./blog";

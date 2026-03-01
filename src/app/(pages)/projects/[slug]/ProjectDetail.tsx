@@ -329,10 +329,12 @@ function Section({ section }: { section: ProjectSection }) {
     );
 }
 
-// ─── Cover theme detection ────────────────────────────────────────────────────
+// ─── Cover luminance detection ────────────────────────────────────────────────
+// Samples the bottom 40% of the image (where hero text lives).
+// Returns 0–255. Starts at 0 so the default safe state = white text on dark scrim.
 
-function useCoverTheme(imageSrc?: string): "light" | "dark" {
-    const [theme, setTheme] = useState<"light" | "dark">("dark");
+function useCoverLuminance(imageSrc?: string): number {
+    const [luminance, setLuminance] = useState(0);
 
     useEffect(() => {
         if (!imageSrc || typeof window === "undefined") return;
@@ -342,23 +344,25 @@ function useCoverTheme(imageSrc?: string): "light" | "dark" {
         img.onload = () => {
             try {
                 const canvas = document.createElement("canvas");
-                const SIZE = 50;
-                canvas.width = SIZE;
-                canvas.height = SIZE;
+                canvas.width = 80; canvas.height = 50;
                 const ctx = canvas.getContext("2d");
                 if (!ctx) return;
-                ctx.drawImage(img, 0, img.height * 0.6, img.width, img.height * 0.4, 0, 0, SIZE, SIZE);
-                const data = ctx.getImageData(0, 0, SIZE, SIZE).data;
-                let lum = 0;
+                // Sample only the bottom 40% — where the text sits
+                ctx.drawImage(img, 0, img.height * 0.6, img.width, img.height * 0.4, 0, 0, 80, 50);
+                const data = ctx.getImageData(0, 0, 80, 50).data;
+                let total = 0;
+                const pixels = data.length / 4;
                 for (let j = 0; j < data.length; j += 4) {
-                    lum += 0.299 * data[j] + 0.587 * data[j + 1] + 0.114 * data[j + 2];
+                    // BT.709 perceptual luminance coefficients
+                    total += 0.2126 * data[j] + 0.7152 * data[j + 1] + 0.0722 * data[j + 2];
                 }
-                setTheme(lum / (data.length / 4) > 128 ? "light" : "dark");
-            } catch { setTheme("dark"); }
+                setLuminance(total / pixels);
+            } catch { setLuminance(0); }
         };
+        img.onerror = () => setLuminance(0);
     }, [imageSrc]);
 
-    return theme;
+    return luminance;
 }
 
 // ─── Main component ───────────────────────────────────────────────────────────
@@ -378,10 +382,14 @@ export function ProjectDetail({
     githubUrl,
     relatedProjects,
 }: ProjectDetailProps) {
-    const coverTheme = useCoverTheme(image);
-    const isDark = coverTheme === "dark";
-    const textCls = isDark ? "text-white" : "text-gray-900";
-    const mutedCls = isDark ? "text-white/70" : "text-gray-600";
+    const luminance = useCoverLuminance(image);
+
+    // Scrim opacity scales linearly with image brightness.
+    // Dark image (lum≈0)  → 0.55 — barely needed, image is already dark.
+    // Bright image (lum≈255) → 0.88 — strong scrim so white text stays readable.
+    // This is intentionally theme-agnostic: we never use background-primary in the
+    // hero because that variable flips to white in light mode, making text invisible.
+    const scrimStrength = (0.55 + (luminance / 255) * 0.33).toFixed(2);
 
     const t = useTranslations();
     return (
@@ -392,73 +400,91 @@ export function ProjectDetail({
                 {image && (
                     <Image src={image} alt={title} fill priority className="absolute inset-0 object-cover" sizes="100vw" />
                 )}
-                {/* Bottom fade — must be strong enough to always read text */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background-primary from-10% via-background-primary/60 to-transparent" />
-                {/* Top fade for nav */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent" />
+
+                {/*
+                 * TWO-LAYER SCRIM — theme-agnostic, always dark, never uses CSS vars.
+                 *
+                 * Layer 1 — adaptive full-gradient: opacity scales with image luminance.
+                 *   Dark photo  → near-invisible. Bright photo → strong.
+                 * Layer 2 — hard bottom anchor: last ~30% always opaque so text zone
+                 *   is guaranteed readable no matter what.
+                 * Layer 3 — soft top vignette: nav links stay legible against any sky.
+                 */}
+                <div
+                    className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent transition-opacity duration-700"
+                    style={{ opacity: scrimStrength }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
 
                 <div className="relative z-10 mt-auto pb-12">
                     <div className={CONTENT_WIDTH}>
-                        {/* Breadcrumb */}
-                        <nav className={`flex items-center gap-2 text-sm mb-8 ${mutedCls}`}>
-                            <Link href="/" className="opacity-70 hover:opacity-100 transition-opacity">{t("common.home")}</Link>
+                        {/* Breadcrumb — always white, always readable on dark scrim */}
+                        <nav className="flex items-center gap-2 text-sm text-white/60 mb-8">
+                            <Link href="/" className="hover:text-white transition-colors">{t("common.home")}</Link>
                             <span className="opacity-40">/</span>
-                            <Link href="/projects" className="opacity-70 hover:opacity-100 transition-opacity">{t("common.projects")}</Link>
+                            <Link href="/projects" className="hover:text-white transition-colors">{t("common.projects")}</Link>
                             <span className="opacity-40">/</span>
-                            <span>{title}</span>
+                            <span className="text-white/80">{title}</span>
                         </nav>
 
                         <div className="grid lg:grid-cols-3 gap-10 items-end">
                             {/* Left */}
-                            <div className="lg:col-span-2 ">
+                            <div className="lg:col-span-2">
                                 {/* Badges */}
                                 <div className="flex flex-wrap gap-2 mb-5">
                                     {categories.map((cat) => (
-                                        <span key={cat} className={`text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full border backdrop-blur ${isDark ? "border-white/30 text-white bg-white/10" : "border-black/20 text-gray-800 bg-black/10"}`}>
+                                        <span key={cat} className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full border border-white/30 text-white bg-white/10 backdrop-blur-sm">
                                             {cat}
                                         </span>
                                     ))}
                                     {status === "in-progress" && (
-                                        <span className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300">In Progress</span>
+                                        <span className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 backdrop-blur-sm">In Progress</span>
                                     )}
                                     {featured && (
-                                        <span className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/50 text-pink-300">Featured</span>
+                                        <span className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/50 text-pink-300 backdrop-blur-sm">Featured</span>
                                     )}
                                 </div>
 
-                                <h1 className={`font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-5 ${textCls}`}>
+                                {/* Always white — scrim below guarantees WCAG AA contrast */}
+                                <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-5 text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.4)]">
                                     {title}
                                 </h1>
-                                <p className={`text-lg max-w-xl leading-relaxed mb-8 ${mutedCls}`}>{description}</p>
+                                <p className="text-white/80 text-lg max-w-xl leading-relaxed mb-8 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
+                                    {description}
+                                </p>
 
                                 <div className="flex flex-wrap gap-3">
                                     {liveUrl && (
                                         <a href={liveUrl} target="_blank" rel="noopener noreferrer"
-                                            className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm transition-all ${isDark ? "bg-white text-black hover:bg-white/90" : "bg-black text-white hover:bg-black/90"}`}>
+                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white text-black hover:bg-white/90 transition-all">
                                             View Live Demo ↗
                                         </a>
                                     )}
                                     {githubUrl && (
                                         <a href={githubUrl} target="_blank" rel="noopener noreferrer"
-                                            className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border transition-all ${isDark ? "border-white/40 text-white hover:bg-white/10" : "border-black/30 text-black hover:bg-black/5"}`}>
+                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border border-white/40 text-white hover:bg-white/10 backdrop-blur-sm transition-all">
                                             GitHub ↗
                                         </a>
                                     )}
                                 </div>
                             </div>
 
-                            {/* Right: sidebar card */}
+                            {/* Right: sidebar card
+                             * Always uses black background — not background-primary —
+                             * so it renders correctly in both light and dark site themes.
+                             */}
                             <div className="lg:col-span-1">
-                                <div className="bg-background-primary/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 space-y-5">
+                                <div className="bg-black/60 backdrop-blur-xl border border-white/15 rounded-2xl p-6 space-y-5">
                                     <div>
-                                        <p className="text-xs font-mono uppercase tracking-widest text-text-muted mb-1.5">Timeline</p>
-                                        <p className="text-text-primary font-medium">{startDate} — {endDate ?? "Present"}</p>
+                                        <p className="text-xs font-mono uppercase tracking-widest text-white/40 mb-1.5">Timeline</p>
+                                        <p className="text-white font-medium">{startDate} — {endDate ?? "Present"}</p>
                                     </div>
                                     <div>
-                                        <p className="text-xs font-mono uppercase tracking-widest text-text-muted mb-2.5">Technologies</p>
+                                        <p className="text-xs font-mono uppercase tracking-widest text-white/40 mb-2.5">Technologies</p>
                                         <div className="flex flex-wrap gap-1.5">
                                             {technologies.map((tech) => (
-                                                <span key={tech} className="text-xs px-2.5 py-1 rounded-md bg-background-secondary text-text-secondary border border-white/5">
+                                                <span key={tech} className="text-xs px-2.5 py-1 rounded-md bg-white/10 text-white/80 border border-white/10">
                                                     {tech}
                                                 </span>
                                             ))}

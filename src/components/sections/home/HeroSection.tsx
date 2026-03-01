@@ -69,7 +69,7 @@ export function HeroSection() {
                             {/* Description */}
                             <motion.p
                                 variants={fadeInUp}
-                                className="text-text-secondary text-base md:text-lg leading-relaxed max-w-lg"
+                                className="text-text-primary/85  text-base md:text-lg leading-relaxed max-w-lg text-justify"
                             >
                                 {t("hero.description")}
                             </motion.p>

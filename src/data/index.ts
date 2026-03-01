@@ -4,3 +4,4 @@ export { experiences, getCurrentExperiences, getPastExperiences } from "./experi
 export { educationData, certificationsData } from "./education";
 export { projects, getFeaturedProjects, getProjectBySlug, getProjectsByCategory, getAllProjectSlugs } from "./projects";
 export { profile, socialLinksData, getFormattedName } from "./profile";
+export { blogs, getBlogBySlug, getAllBlogSlugs, getFeaturedBlogs, getBlogsByCategory, getAllBlogCategories } from "./blogs";

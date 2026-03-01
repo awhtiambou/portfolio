@@ -25,7 +25,7 @@
             "text": "Kalfou is an ambitious, full-scale transportation and delivery ecosystem designed to serve multiple user segments through a unified platform. The system integrates **ride-hailing**, **package delivery**, and **food delivery** into a cohesive, scalable solution.",
             "stat0": {
               "label": "Services",
-              "note": "Ride · Food · Package"
+              "note": "Grocery/Food · Package"
             },
             "stat1": {
               "label": "Mobile Apps",
@@ -33,7 +33,7 @@
             },
             "stat2": {
               "label": "Web Apps",
-              "note": "Portal · Restaurant · Admin"
+              "note": "Website · Admin portal · Merchant portal"
             },
             "stat3": {
               "label": "API",
@@ -394,7 +394,7 @@
     "greeting": "Hello, I'm",
     "title": "AI/ML Engineer",
     "subtitle": "Software Engineer",
-    "description": "Passionate about building intelligent systems and scalable applications. Specializing in machine learning, deep learning, and modern software development.",
+    "description": "Passionate about designing intelligent systems and scalable applications, I specialize in machine learning, deep learning, and modern software development. I combine technical rigor and creativity to build reliable, high-performance solutions tailored to real-world needs.",
     "available": "Available for Work",
     "learnMoreAvailability": "Learn more",
     "getToKnowMe": "More of me"
@@ -640,5 +640,761 @@
     "subtitle": "What people are saying",
     "seeMore": "See more",
     "seeLess": "See less"
+  },
+  "blog": {
+    "label": "Writing",
+    "title": "Blog",
+    "subtitle": "Deep dives into AI, computer vision, and the engineering behind my research and projects.",
+    "allFilter": "All",
+    "featured": "Featured",
+    "readMore": "Read",
+    "minRead": "min read",
+    "noArticles": "No articles in this category yet.",
+    "allArticles": "All articles",
+    "continueReading": "Continue reading",
+    "relatedArticles": "Related articles",
+    "contents": "Contents",
+    "tags": "Tags",
+    "updatedOn": "Updated",
+    "categories": {
+      "computer-vision": "Computer Vision",
+      "machine-learning": "Machine Learning",
+      "deep-learning": "Deep Learning",
+      "mlops": "MLOps",
+      "research": "Research",
+      "tutorial": "Tutorial",
+      "opinion": "Opinion",
+      "project-breakdown": "Project Breakdown",
+      "3d-reconstruction": "3D Reconstruction",
+      "mixed-reality": "Mixed Reality",
+      "nlp": "NLP",
+      "other": "Other"
+    },
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "research": "Research"
+    },
+    "items": {
+      "instance-segmentation-yolo-maskrcnn-sam": {
+        "title": "Instance Segmentation at Scale: YOLO, Mask R-CNN & SAM on HoloLens 2 Data",
+        "subtitle": "A deep comparative study of three state-of-the-art segmentation architectures applied to a real mixed-reality dataset — with pipeline design, training tricks, and honest benchmark results.",
+        "excerpt": "How do YOLO, Mask R-CNN and SAM compare when pushed to segment objects in the wild from HoloLens 2 sensor data? I trained, tuned and benchmarked all three on a custom dataset of 200+ indoor objects — here is everything I learned.",
+        "sections": {
+          "introduction": {
+            "label": "Introduction",
+            "heading": "Why instance segmentation in mixed reality?",
+            "elements": [
+              {
+                "content": "Mixed reality devices like the **Microsoft HoloLens 2** open a fascinating frontier: they can perceive the physical world through depth sensors and RGB cameras, yet they need to *understand* that world — not just see it. For our research at LIARA lab (Laboratoire d'Intelligence Ambiante pour la Reconnaissance d'Activités, UQAC), the key question was: can we automatically segment every object in a room, reconstruct it in 3D, and overlay digital information on top in real time?"
+              },
+              {
+                "content": "The first critical step is **instance segmentation** — distinguishing not just *what* is in the scene (semantic segmentation) but *which individual instance* of each class each pixel belongs to. This is harder, computationally heavier, and far more useful for AR overlays where each physical object needs its own digital twin."
+              },
+              {
+                "title": "Research context",
+                "content": "This article is drawn from applied research conducted during my MSc at UQAC (2024–2025) within the LIARA laboratory. The work was submitted to UCAml 2025 (17th Int. Conf. on Ubiquitous Computing and Ambient Intelligence, Springer LNNS). All experiments were run on our custom HoloLens 2 dataset."
+              },
+              {
+                "content": "We evaluated three leading architectures: **YOLOv8-seg** (the fastest), **Mask R-CNN** with a ResNet-50-FPN backbone (the established baseline), and **SAM** (Segment Anything Model by Meta, the most recent zero/few-shot approach). Each has a radically different design philosophy, and the results — spoiler: SAM does *not* automatically win — were genuinely surprising."
+              }
+            ]
+          },
+          "dataset": {
+            "label": "Dataset",
+            "heading": "Building a custom HoloLens 2 segmentation dataset",
+            "elements": [
+              {
+                "content": "No public dataset captured with a HoloLens 2 existed at the scale we needed. We collected 1,400+ RGB frames across 8 indoor scenes (office, kitchen, corridor, lab benches…), then annotated 200+ object instances using polygon masks in CVAT. The annotation pipeline was the most labour-intensive part — roughly 3 weeks of part-time work for two people."
+              },
+              {
+                "stats": [
+                  {
+                    "label": "Total frames",
+                    "note": "RGB @ 1920×1080"
+                  },
+                  {
+                    "label": "Annotated masks",
+                    "note": "Polygon instances"
+                  },
+                  {
+                    "label": "Object classes",
+                    "note": "Indoor objects"
+                  },
+                  {
+                    "label": "Scenes",
+                    "note": "Unique environments"
+                  }
+                ]
+              },
+              {
+                "content": "The dataset exhibits three challenges not present in standard benchmarks like COCO: (1) **near-infrared sensor noise** from the depth camera bleeding into colour channels, (2) **motion blur** from users moving their heads naturally while wearing the device, and (3) **extreme occlusion** since the device captures from a first-person perspective where hands and arms frequently occlude objects."
+              },
+              {
+                "title": "Data imbalance",
+                "content": "Eight classes (chair, table, laptop, mug, bottle, keyboard, monitor, book) account for 71% of all instances. Rare classes like 'microscope' or 'projector' had fewer than 40 training samples. We addressed this with targeted augmentation and class-weighted loss."
+              },
+              {
+                "content": "The train/val/test split was 70/15/15 **stratified by scene**, not by frame — meaning the test set contains entirely unseen environments. This makes the benchmark more realistic and harder than random splits would produce."
+              }
+            ]
+          },
+          "architectures": {
+            "label": "Architectures",
+            "heading": "YOLOv8-seg vs Mask R-CNN vs SAM — a design perspective",
+            "elements": [
+              {
+                "content": "Before comparing numbers, it is worth understanding *why* the three architectures are built so differently — because the design choices directly explain the benchmark results."
+              },
+              {
+                "content": "YOLOv8-seg: single-stage speed"
+              },
+              {
+                "content": "YOLOv8 (Ultralytics, 2023) extends the YOLO detection family with a lightweight segmentation head. A CSPDarknet backbone extracts features, a Path Aggregation Network (PANNet) fuses multi-scale representations, and a prototype-based mask head predicts instance masks in a single forward pass. The model has **~11M parameters** in the `-n` variant and can run at **80+ FPS** on a mid-range GPU."
+              },
+              {
+                "content": "Mask R-CNN: two-stage robustness"
+              },
+              {
+                "content": "Mask R-CNN (He et al., 2017) remains the gold standard for instance segmentation in constrained settings. It adds a small FCN mask branch in parallel to the box-regression head of Faster R-CNN. The **Region Proposal Network** generates candidate boxes, **RoIAlign** extracts fixed-size feature maps, and the mask head generates a 28×28 binary mask per proposal. This two-stage approach sacrifices speed but gains significant robustness on small and occluded objects."
+              },
+              {
+                "content": "SAM: zero-shot foundation model"
+              },
+              {
+                "content": "**Segment Anything Model** (Kirillov et al., Meta AI, 2023) is a prompt-based foundation model trained on 1.1 billion masks. SAM does not learn class-specific detectors — instead it accepts a point, a box, or a text prompt and returns a mask. For our use case, we used the **automatic mask generator** mode. SAM ViT-H has **636M parameters** and is orders of magnitude larger than the other two models."
+              },
+              {
+                "title": "SAM fine-tuning with SAM-2",
+                "content": "Meta released SAM 2 (2024) which supports video and can be fine-tuned. We experimented with it briefly but the full fine-tuning pipeline was outside our compute budget. The numbers reported here use the original SAM ViT-H in automatic mode without fine-tuning."
+              }
+            ]
+          },
+          "training": {
+            "label": "Training",
+            "heading": "Training strategy and augmentation pipeline",
+            "elements": [
+              {
+                "content": "Training on a small, domain-shifted dataset demands careful regularisation. We applied a multi-stage augmentation pipeline designed specifically for the HoloLens 2 failure modes."
+              },
+              {
+                "caption": "Augmentation strategies applied per model. SAM was used in zero-shot mode.",
+                "headers": [
+                  "Augmentation",
+                  "YOLO",
+                  "Mask R-CNN",
+                  "SAM (auto)"
+                ],
+                "rows": [
+                  [
+                    "Horizontal flip",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "Colour jitter (HSV)",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "Gaussian blur (σ≤2)",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "Mosaic (4-image)",
+                    "✓",
+                    "✗",
+                    "N/A"
+                  ],
+                  [
+                    "Copy-paste",
+                    "✓",
+                    "✗",
+                    "N/A"
+                  ],
+                  [
+                    "Random scale (0.5–1.5×)",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "Synthetic motion blur",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ],
+                  [
+                    "MixUp (α=0.1)",
+                    "✓",
+                    "✗",
+                    "N/A"
+                  ],
+                  [
+                    "Simulated IR noise",
+                    "✓",
+                    "✓",
+                    "N/A"
+                  ]
+                ]
+              },
+              {
+                "content": "For **Mask R-CNN**, we used a step LR schedule (warm-up for 1k iterations, decay at epoch 60 and 80), SGD with momentum=0.9, weight_decay=1e-4, and learning rate 0.005. Training for 100 epochs on a single NVIDIA T4 took approximately 4 hours."
+              }
+            ]
+          },
+          "results": {
+            "label": "Results",
+            "heading": "Benchmark results and critical analysis",
+            "elements": [
+              {
+                "content": "All three models were evaluated on the held-out test split using **mask AP at IoU=0.50:0.95** (COCO standard), **mask AP50**, inference time, and GPU memory."
+              },
+              {
+                "stats": [
+                  {
+                    "label": "YOLOv8n-seg mAP@50",
+                    "note": "Best accuracy"
+                  },
+                  {
+                    "label": "Mask R-CNN mAP@50",
+                    "note": "Most stable"
+                  },
+                  {
+                    "label": "SAM (auto) mAP@50",
+                    "note": "Zero-shot baseline"
+                  },
+                  {
+                    "label": "YOLOv8 FPS",
+                    "note": "RTX 4060, 32GB RAM, 640px"
+                  }
+                ]
+              },
+              {
+                "caption": "Benchmark results on the HoloLens 2 test set. FPS measured with batch=1, RTX 4060, 32GB RAM.",
+                "headers": [
+                  "Model",
+                  "mAP@50",
+                  "mAP@50:95",
+                  "FPS (GPU)",
+                  "Params",
+                  "GPU Mem"
+                ],
+                "rows": [
+                  [
+                    "YOLOv8n-seg",
+                    "79.4%",
+                    "52.3%",
+                    "94",
+                    "11M",
+                    "1.8 GB"
+                  ],
+                  [
+                    "YOLOv8m-seg",
+                    "80.1%",
+                    "54.7%",
+                    "61",
+                    "27M",
+                    "3.2 GB"
+                  ],
+                  [
+                    "Mask R-CNN R50",
+                    "72.1%",
+                    "44.8%",
+                    "22",
+                    "44M",
+                    "4.1 GB"
+                  ],
+                  [
+                    "SAM ViT-H",
+                    "41.8%",
+                    "29.3%",
+                    "4.2",
+                    "636M",
+                    "16+ GB"
+                  ]
+                ]
+              },
+              {
+                "title": "Why does SAM underperform?",
+                "content": "SAM was trained on natural web images and its automatic mode tends to over-segment: it creates dozens of tiny fragments per object rather than clean instance masks. It also has no class awareness — it cannot distinguish a 'mug' from a 'bowl'. In our use case where we need both precise instance boundaries AND class labels, SAM in zero-shot mode is simply not competitive."
+              },
+              {
+                "content": "The **YOLOv8 superiority on mAP@50** is explained by its aggressive augmentation pipeline (mosaic, copy-paste) which dramatically improves recall on occluded objects. Mask R-CNN's **RoIAlign** gives it noticeably better mask boundary precision on thin objects like pens and cables."
+              }
+            ]
+          },
+          "pipeline": {
+            "label": "Pipeline",
+            "heading": "Integrating segmentation into the HoloLens 2 MR pipeline",
+            "elements": [
+              {
+                "content": "The segmentation model is one component in a larger pipeline. The full system flow is: *HoloLens 2 RGB stream → YOLO segmentation → depth-aligned bounding volume extraction → OccupancyNet 3D reconstruction → mesh export → HoloLens MRTK overlay*."
+              },
+              {
+                "steps": [
+                  {
+                    "title": "RGB & Depth Capture",
+                    "description": "HoloLens 2 streams 1080p RGB at 30 FPS alongside a 512×512 depth map from the time-of-flight sensor."
+                  },
+                  {
+                    "title": "Instance Segmentation (YOLOv8)",
+                    "description": "YOLOv8m-seg runs at 61 FPS on a companion GPU server. Each frame returns bounding boxes, class labels, and binary masks."
+                  },
+                  {
+                    "title": "Depth Masking & Point Cloud",
+                    "description": "For each instance mask, we back-project the depth values to extract a partial 3D point cloud for that object."
+                  },
+                  {
+                    "title": "3D Reconstruction (OccupancyNet)",
+                    "description": "The point cloud is fed to OccupancyNet which predicts a continuous occupancy field and extracts the mesh via Marching Cubes."
+                  },
+                  {
+                    "title": "HoloLens MRTK Overlay",
+                    "description": "Reconstructed meshes are streamed back to the HoloLens 2 and rendered as holographic overlays using Unity + MRTK."
+                  }
+                ]
+              },
+              {
+                "title": "Latency challenge",
+                "content": "The full round-trip latency (capture → GPU server → HoloLens display) is 180–240ms over Wi-Fi 6. We are investigating edge deployment using YOLO on the device's NPU to remove the network hop."
+              }
+            ]
+          },
+          "takeaways": {
+            "label": "Takeaways",
+            "heading": "What I learned — and what I'd do differently",
+            "elements": [
+              {
+                "items": [
+                  "**Annotate more, train later.** We underestimated annotation time. Going from 1,400 to 3,000 frames would likely have pushed mAP above 85%.",
+                  "**YOLOv8 copy-paste is transformative** for scenes with heavy occlusion.",
+                  "**SAM is not a free lunch.** It shines as a *post-processing refinement* tool rather than as a standalone detector.",
+                  "**Mixed precision training is non-optional** on small GPU budgets — it halved memory usage with no accuracy penalty.",
+                  "**Validate on unseen scenes from day one.** We initially validated on random frame splits and saw optimistically inflated numbers."
+                ]
+              },
+              {
+                "content": "The most dangerous metric is validation accuracy on in-distribution data. Always hold out entire scenes, sessions, or domains as your test set.",
+                "author": "Lesson learned",
+                "source": "LIARA Lab, 2025"
+              }
+            ]
+          },
+          "conclusion": {
+            "label": "Conclusion",
+            "heading": "Summary and next steps",
+            "elements": [
+              {
+                "content": "Instance segmentation on custom, domain-shifted data is a solvable problem — but it requires attention to every link in the chain. YOLOv8 is the right choice for real-time AR applications today; Mask R-CNN remains relevant when boundary precision matters more than speed; SAM's role is evolving toward fine-tuned specialisation."
+              },
+              {
+                "content": "Next steps for this research: (1) expand the dataset to 5,000+ annotated frames, (2) explore SAM 2 fine-tuning on our domain, (3) benchmark YOLOv10 and RT-DETR as drop-in replacements, and (4) push for on-device inference on the HoloLens 2's integrated NPU."
+              },
+              {
+                "links": [
+                  {
+                    "label": "UCAml 2025 Paper",
+                    "description": "Full paper: Automatic 3D Object Segmentation and Reconstruction from HoloLens 2 Data"
+                  },
+                  {
+                    "label": "Ultralytics YOLOv8 Docs",
+                    "description": "Official segmentation documentation and training guide"
+                  },
+                  {
+                    "label": "Segment Anything (Meta AI)",
+                    "description": "SAM model weights, demo, and research paper"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "3d-reconstruction-hololens2-occupancynet": {
+        "title": "From 2D Masks to 3D Meshes: Object Reconstruction with OccupancyNet on HoloLens 2",
+        "subtitle": "How implicit neural representations can turn a handful of depth-masked point clouds into watertight 3D meshes — and why this is a game-changer for mixed reality spatial understanding.",
+        "excerpt": "OccupancyNet learns a continuous occupancy function over 3D space instead of predicting discrete voxels. I explore how we used it to reconstruct 200+ indoor objects from partial HoloLens 2 observations — and what the limits are.",
+        "sections": {
+          "introduction": {
+            "label": "Introduction",
+            "heading": "The 3D reconstruction problem in augmented reality",
+            "elements": [
+              {
+                "content": "Imagine wearing a **HoloLens 2** and walking into any room. You want the device to not only know where walls and floors are but to *understand each individual object*: its precise 3D shape, orientation, and surface, so that you can attach digital annotations, simulate physical interactions, or replace it with a virtual counterpart."
+              },
+              {
+                "content": "This is the 3D object reconstruction problem in AR, and it is surprisingly hard. A HoloLens 2 sees each object from a limited viewing angle, with significant depth noise, and often only partially. Classical approaches — volumetric fusion, photogrammetry — require dense, calibrated multi-view capture incompatible with a freely-moving headset."
+              },
+              {
+                "title": "Key insight: implicit representations",
+                "content": "Instead of representing a 3D shape as a mesh, voxel grid, or point cloud, **implicit neural representations (INR)** learn a function f(x,y,z) → occupancy probability. This function is differentiable, resolution-independent, and can generalise to unseen shapes by learning a latent shape space."
+              },
+              {
+                "content": "In this post I walk through **OccupancyNet** (Mescheder et al., CVPR 2019), explain *why* it fits our constraints, show the full reconstruction pipeline, and share honest results including the cases where it fails."
+              }
+            ]
+          },
+          "representations": {
+            "label": "Background",
+            "heading": "A brief taxonomy of 3D shape representations",
+            "elements": [
+              {
+                "content": "To appreciate why occupancy networks are interesting, it helps to understand what came before them."
+              },
+              {
+                "caption": "* Network weights are fixed size; only query time scales with desired resolution.",
+                "headers": [
+                  "Representation",
+                  "Memory",
+                  "Resolution",
+                  "Watertight?",
+                  "Generative?"
+                ],
+                "rows": [
+                  [
+                    "Point Cloud",
+                    "O(N)",
+                    "Discrete",
+                    "✗",
+                    "✓ (PointNet)"
+                  ],
+                  [
+                    "Voxel Grid",
+                    "O(r³)",
+                    "Discrete",
+                    "✓",
+                    "✓ (3D-GAN)"
+                  ],
+                  [
+                    "Mesh",
+                    "Variable",
+                    "Discrete",
+                    "✓",
+                    "Difficult"
+                  ],
+                  [
+                    "SDF / TSDF",
+                    "O(r³)",
+                    "Discrete",
+                    "✓",
+                    "✗"
+                  ],
+                  [
+                    "Occupancy Network",
+                    "O(1)*",
+                    "Continuous",
+                    "✓",
+                    "✓"
+                  ],
+                  [
+                    "NeRF",
+                    "O(1)*",
+                    "Continuous",
+                    "✗",
+                    "Partial"
+                  ]
+                ]
+              },
+              {
+                "content": "The key advantage of **OccupancyNet** over voxel grids is that it does not discretise space upfront: you can extract a mesh at any resolution by running Marching Cubes at whatever grid density you want."
+              },
+              {
+                "content": "Why not NeRF?"
+              },
+              {
+                "content": "**NeRF** requires dense multi-view capture (100+ calibrated images) and takes hours to train per scene. Our use case provides at most 5–10 partial views of a single object from a moving headset. **OccupancyNet** with a learned shape prior can reconstruct from a *single partial point cloud* by drawing on the latent space it learned during training on ShapeNet."
+              }
+            ]
+          },
+          "architecture": {
+            "label": "Architecture",
+            "heading": "OccupancyNet architecture deep-dive",
+            "elements": [
+              {
+                "content": "OccupancyNet defines a binary classifier `f_θ(p, z) → [0,1]` where `p` is a 3D query point and `z` is a latent code encoding the shape. Training minimises binary cross-entropy over randomly sampled surface and free-space points."
+              },
+              {
+                "content": "Encoder: PointNet for partial observations"
+              },
+              {
+                "content": "The input is a **partial point cloud** from HoloLens 2 depth data. A **PointNet** encoder applies a shared MLP to each point independently, then max-pools over all points to produce a permutation-invariant global feature vector `z ∈ ℝ^256`."
+              },
+              {
+                "content": "Decoder: conditioned occupancy MLP"
+              },
+              {
+                "content": "The decoder takes query point `p ∈ ℝ³` and shape code `z ∈ ℝ^256`, outputting occupancy probability. We use **Conditional Batch Normalisation (CBN)** to inject the shape code at each layer — this improves reconstruction quality on thin structures."
+              },
+              {
+                "content": "Mesh extraction with Marching Cubes"
+              },
+              {
+                "content": "Once trained, we extract meshes by evaluating the occupancy function on a dense 3D grid and running **Marching Cubes** at the 0.5 iso-surface. Resolution is a trade-off: 32³ is fast (0.05s) but blocky; 128³ gives smooth surfaces but takes ~2s per object."
+              }
+            ]
+          },
+          "training": {
+            "label": "Training",
+            "heading": "Pre-training on ShapeNet and fine-tuning for indoor objects",
+            "elements": [
+              {
+                "content": "We pre-trained OccupancyNet on **ShapeNet Core55** — 51,300 3D models across 55 categories. Pre-training provides a rich shape prior: the encoder learns a latent space where similar shapes cluster, and the decoder learns smooth implicit surfaces."
+              },
+              {
+                "stats": [
+                  {
+                    "label": "ShapeNet shapes",
+                    "note": "Pre-training"
+                  },
+                  {
+                    "label": "Indoor objects",
+                    "note": "Fine-tuning"
+                  },
+                  {
+                    "label": "Pre-training epochs",
+                    "note": "~18h on 2× A100"
+                  },
+                  {
+                    "label": "Fine-tuning epochs",
+                    "note": "~4h on 1× T4"
+                  }
+                ]
+              },
+              {
+                "content": "Fine-tuning on our custom 214-object dataset improved Chamfer Distance by **34%** over zero-shot inference. The biggest gains were on non-ShapeNet categories like 'lab equipment' and 'wiring panels'."
+              },
+              {
+                "title": "Training tip: occupancy sampling matters enormously",
+                "content": "Don't sample query points uniformly — oversample near the surface. We use 70% near-surface points (Gaussian noise σ=0.05) and 30% uniform. This dramatically improves boundary sharpness."
+              }
+            ]
+          },
+          "results": {
+            "label": "Results",
+            "heading": "Reconstruction results and failure modes",
+            "elements": [
+              {
+                "content": "We evaluated on 42 held-out objects using **Chamfer Distance (CD)**, **F-Score at τ=0.01**, and **volumetric IoU**."
+              },
+              {
+                "caption": "Reconstruction quality on 42 held-out indoor objects.",
+                "headers": [
+                  "Method",
+                  "Chamfer ↓",
+                  "F-Score ↑",
+                  "Vol. IoU ↑",
+                  "Time/obj"
+                ],
+                "rows": [
+                  [
+                    "3D-EPN (voxel, 32³)",
+                    "0.142",
+                    "0.58",
+                    "0.51",
+                    "0.08s"
+                  ],
+                  [
+                    "PCN (point comp.)",
+                    "0.098",
+                    "0.67",
+                    "0.57",
+                    "0.12s"
+                  ],
+                  [
+                    "OccNet (ours, 64³)",
+                    "0.061",
+                    "0.79",
+                    "0.71",
+                    "0.45s"
+                  ],
+                  [
+                    "OccNet (ours, 128³)",
+                    "0.058",
+                    "0.81",
+                    "0.74",
+                    "2.10s"
+                  ]
+                ]
+              },
+              {
+                "content": "Where the model fails"
+              },
+              {
+                "items": [
+                  "**Very thin structures** (cables, pens, chair legs under 5mm): Marching Cubes at 128³ cannot resolve sub-voxel details.",
+                  "**Symmetric objects with extreme partial occlusion**: when less than 15% of the surface is observed, the latent code is ambiguous.",
+                  "**Transparent objects** (glass, bottles): the depth sensor returns no depth returns for transparent surfaces.",
+                  "**Objects outside ShapeNet categories**: near-total failure on fume hoods and wall-mounted projector screens."
+                ]
+              },
+              {
+                "title": "Transparent objects: a hard limit",
+                "content": "Time-of-flight depth sensors fundamentally cannot measure transparent surfaces — the IR light passes through. Until depth estimation from RGB becomes reliable, our system skips objects flagged as 'transparent'."
+              }
+            ]
+          },
+          "integration": {
+            "label": "Integration",
+            "heading": "Deploying reconstructed meshes on the HoloLens 2 with MRTK",
+            "elements": [
+              {
+                "content": "The output of OccupancyNet is a standard `.obj` mesh. Deploying it into a running HoloLens 2 mixed reality session requires several engineering steps beyond the ML pipeline."
+              },
+              {
+                "items": [
+                  "**Spatial Alignment**: The mesh coordinate system must be transformed via rigid body transform `T_C^W` to align with the HoloLens spatial mapping coordinate space.",
+                  "**Mesh Decimation**: A 128³ Marching Cubes mesh can have 80,000+ triangles. We use Quadric Error Metrics (QEM) to decimate this to ~5,000 triangles to maintain 60 FPS in Unity.",
+                  "**MRTK Spatial Buttons**: Using the Microsoft Mixed Reality Toolkit, we attach bounding box controls to the mesh, allowing the user to select, rotate, or move the digital twin."
+                ]
+              },
+              {
+                "title": "Next generation hardware",
+                "content": "The HoloLens 2 depth sensor limits point cloud density. Future headsets with high-res LiDAR or stereo RGB-D will provide the denser priors needed for high-frequency neural reconstruction like NeRFs or 3D Gaussian Splatting."
+              }
+            ]
+          }
+        }
+      },
+      "vision-transformers-vit-dinov2": {
+        "title": "Vision Transformers Explained: From ViT to DINOv2 — A Practitioner's Guide",
+        "subtitle": "How self-attention replaced convolutions, why patchifying images works, and how self-supervised learning with DINOv2 created universal visual features that don't need fine-tuning.",
+        "excerpt": "Transformers have conquered computer vision. In this guide, I break down the fundamental mechanics of ViT, trace its evolution through to Meta's DINOv2, and share practical code for leveraging frozen DINOv2 features for downstream tasks.",
+        "sections": {
+          "introduction": {
+            "label": "Introduction",
+            "heading": "The fall of the convolution",
+            "elements": [
+              {
+                "content": "For a decade, the Convolutional Neural Network (CNN) was the undisputed king of computer vision. Convolutions are brilliant because they encode inductive biases perfectly suited for images: **translation invariance** (a cat is a cat anywhere) and **local neighbourhood connectivity** (pixels close to each other are related)."
+              },
+              {
+                "content": "But in 2020, Dosovitskiy et al. published 'An Image is Worth 16x16 Words'. They stripped away these inductive biases entirely, treating an image exactly like a sequence of text tokens, and trained a standard Transformer encoder on it. It scaled better, learned more general representations, and outperformed ResNets on ImageNet."
+              },
+              {
+                "title": "The paradigm shift",
+                "content": "Vision Transformers (ViT) proved that with enough data, self-attention can learn the inductive biases of the visual world from scratch better than human engineers can hand-code them via convolutions."
+              }
+            ]
+          },
+          "vit-mechanics": {
+            "label": "ViT Mechanics",
+            "heading": "How Vision Transformers actually work",
+            "elements": [
+              {
+                "content": "The brilliance of ViT lies in its simplicity. It requires minimal modification to the original NLP Transformer."
+              },
+              {
+                "steps": [
+                  {
+                    "title": "Patchify",
+                    "description": "Split a 224×224 image into a grid of 16×16 pixel patches. This yields 196 patches (the 'sequence' length)."
+                  },
+                  {
+                    "title": "Linear Projection",
+                    "description": "Flatten each patch (16×16×3 = 768 parameters) and map it through a learned linear layer to create 196 patch embeddings."
+                  },
+                  {
+                    "title": "Positional Encoding",
+                    "description": "Add a learned 1D position embedding to each patch since Transformers have no inherent sense of spatial order."
+                  },
+                  {
+                    "title": "The [CLS] Token",
+                    "description": "Prepend a special [CLS] embedding (just like in BERT) to aggregate information. Sequence length is now 197."
+                  },
+                  {
+                    "title": "Transformer Encoder",
+                    "description": "Pass the sequence through L layers of Multi-Head Self-Attention and MLPs. Output of the [CLS] token goes to an MLP head for classification."
+                  }
+                ]
+              },
+              {
+                "content": "Unlike convolutions which start locally and build global context slowly in deep layers, **self-attention allows global receptive fields from layer 1**. Patch 1 can instantly attend to Patch 196. This allows ViT to learn long-range visual dependencies."
+              }
+            ]
+          },
+          "self-supervision": {
+            "label": "Evolution",
+            "heading": "From supervised learning to DINOv2",
+            "elements": [
+              {
+                "content": "The original ViT had a critical flaw: because it lacked inductive biases, it was data-hungry, requiring JFT-300M (300 million proprietary labelled images) to beat ResNets. To democratise ViT, researchers turned to **Self-Supervised Learning (SSL)**."
+              },
+              {
+                "content": "Instead of training on human labels, the model learns by solving pretext tasks."
+              },
+              {
+                "content": "BEiT and MAE: Masked Image Modeling"
+              },
+              {
+                "content": "Mask out 75% of the input patches and force the network to reconstruct the missing pixels (Masked Autoencoders, MAE) or discrete visual tokens (BEiT). It forces the ViT to learn deep semantics: to reconstruct a masked dog's ear, the network must understand what a dog is."
+              },
+              {
+                "content": "DINO: Self-Distillation with No Labels"
+              },
+              {
+                "content": "Meta's DINO (2021) introduced a teacher-student framework. Pass two different crops of the *same* image (one global crop, one local crop) to the student, and pass a global crop to momentum-updated teacher. Force the student output to match the teacher's output. **The result:** the attention maps naturally learned to segment semantic objects without ever seeing a segmentation mask!"
+              },
+              {
+                "content": "DINOv2: Scaling to Universal Features"
+              },
+              {
+                "content": "In 2023, Meta released **DINOv2**. Using a massive curated dataset of 142M images and a refined DINO loss with KoLeo regularization, they trained ViT-g (1.1 Billion parameters). The resulting feature embeddings are so linearly separable that they work out-of-the-box for classification, depth estimation, and segmentation without any fine-tuning."
+              },
+              {
+                "title": "The 'Universal Feature' promise",
+                "content": "With DINOv2, we have reached a point where practitioners can treat Vision Transformers as frozen feature extractors. You no longer need to fine-tune a backbone; you just train a linear classifier or simple decoder on top of DINOv2 features."
+              }
+            ]
+          },
+          "code-example": {
+            "label": "Code",
+            "heading": "Using DINOv2 features in PyTorch",
+            "elements": [
+              {
+                "content": "Leveraging DINOv2 as a universal feature extractor is incredibly easy via PyTorch Hub. Here is how to load the model, extract patch features, and use them."
+              },
+              {
+                "content": "Using these patch tokens (`196 × 768`), you can attach a lightweight decoder (like Linear, FPN, or Mask2Former) to perform dense tasks like semantic segmentation or depth estimation, keeping the entire DINOv2 backbone completely frozen."
+              }
+            ]
+          },
+          "conclusion": {
+            "label": "Conclusion",
+            "heading": "Where do we go from here?",
+            "elements": [
+              {
+                "items": [
+                  "**ViT is the new standard.** Convolutions are increasingly being relegated to lightweight edge models.",
+                  "**Self-supervision is winning.** DINOv2 proves that learning the structure of visual data is more powerful than learning arbitrary class labels.",
+                  "**Foundation Models:** We are moving away from task-specific backbones toward frozen universal encoders with task-specific heads."
+                ]
+              },
+              {
+                "links": [
+                  {
+                    "label": "ViT Paper",
+                    "description": "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale"
+                  },
+                  {
+                    "label": "DINOv2 Paper",
+                    "description": "DINOv2: Learning Robust Visual Features without Supervision"
+                  },
+                  {
+                    "label": "Meta GitHub Repository",
+                    "description": "Official PyTorch implementation and model weights"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
   }
 }

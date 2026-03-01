@@ -34,7 +34,7 @@ export const projects: Project[] = [
           {
             type: "stat-grid",
             stats: [
-              { label: "$t:kalfou-transportation-ecosystem.sections.vision.stat0.label", value: "3", note: "$t:kalfou-transportation-ecosystem.sections.vision.stat0.note" },
+              { label: "$t:kalfou-transportation-ecosystem.sections.vision.stat0.label", value: "2", note: "$t:kalfou-transportation-ecosystem.sections.vision.stat0.note" },
               { label: "$t:kalfou-transportation-ecosystem.sections.vision.stat1.label", value: "3", note: "$t:kalfou-transportation-ecosystem.sections.vision.stat1.note" },
               { label: "$t:kalfou-transportation-ecosystem.sections.vision.stat2.label", value: "3", note: "$t:kalfou-transportation-ecosystem.sections.vision.stat2.note" },
               { label: "$t:kalfou-transportation-ecosystem.sections.vision.stat3.label", value: "1", note: "$t:kalfou-transportation-ecosystem.sections.vision.stat3.note" },
@@ -192,13 +192,12 @@ export const projects: Project[] = [
       },
     ],
     technologies: [
-      "ASP.NET Core", "C#", "Flutter", "Dart", "React", "Next.js", "TypeScript",
-      "SQL Server", "Redis", "SignalR", "Azure", "Docker", "Kubernetes",
-      "Google Maps API", "Firebase", "Socket.io", "Redux Toolkit",
+      "ASP.NET Core", "C#", "Flutter", "Dart", "React", "Next.js", "TypeScript", "Redis", "SignalR", "AWS", "Docker", "Kubernetes",
+      "Google Maps API", "Firebase", "Socket.io", "Redux Toolkit", "Tailwind CSS", "PostgreSQL", "EF Core", "SEO",
     ],
     categories: ["web", "mobile", "design", "devops"],
     featured: true,
-    startDate: "2023-06",
+    startDate: "2025-12",
     status: "in-progress",
   },
 
