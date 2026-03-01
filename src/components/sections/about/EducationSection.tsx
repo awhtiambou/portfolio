@@ -9,16 +9,13 @@ import { educationData, certificationsData } from "@/data/education";
 import { IoLocationOutline } from "react-icons/io5";
 
 
-// ─── App width ────────────────────────────────────────────────────────────────
 const W = "app-container";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 interface Point { x: number; y: number }
 interface PathM { type: "M"; x: number; y: number }
 interface PathC { type: "C"; cx1: number; cy1: number; cx2: number; cy2: number; x: number; y: number }
 type PathNorm = [PathM, ...PathC[]];
 
-// ─── Snake paths (normalised 0–1) ─────────────────────────────────────────────
 // Desktop: big sweeping S-curve, goes fully edge-to-edge
 const DESKTOP_PATH_NORM: PathNorm = [
   { type: "M", x: 0, y: 0.42 },
@@ -38,7 +35,6 @@ const MOBILE_PATH_NORM: PathNorm = [
 // t-positions along the path for each stop
 const STOP_T = [0.12, 0.50, 0.88];
 
-// ─── Build SVG path string from normalised coords ─────────────────────────────
 function buildPath(norm: PathNorm, W: number, H: number): string {
   const [m, ...curves] = norm;
   const segments = [`M ${m.x * W} ${m.y * H}`];
@@ -55,7 +51,6 @@ function getPointsOnPath(el: SVGPathElement, ts: number[]): Point[] {
   return ts.map(t => { const p = el.getPointAtLength(t * total); return { x: p.x, y: p.y }; });
 }
 
-// ─── Theme-aware gradient stops ──────────────────────────────────────────────
 // Dark  → hot pink → orange   (#ff0f7b → #f89b29)
 // Light → dark navy → steel   (#08203e → #557c93)
 function getGradientColors(isDark: boolean) {
@@ -71,7 +66,6 @@ function getStopAccent(isDark: boolean, idx: number) {
   return (isDark ? dark : light)[idx] ?? (isDark ? "#ff0f7b" : "#08203e");
 }
 
-// ─── Avatar dot (image clipped to circle) ────────────────────────────────────
 interface AvatarDotProps {
   point: Point;
   idx: number;
@@ -124,7 +118,6 @@ function AvatarDot({ point, idx, logo, accent, isMobile }: AvatarDotProps) {
   );
 }
 
-// ─── Education card ───────────────────────────────────────────────────────────
 interface CardProps {
   idx: number;
   point: Point;
@@ -215,10 +208,8 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
             <div className="h-[3px] w-full"
               style={{ background: `linear-gradient(90deg, ${accent}cc, ${accent}44)` }} />
 
-            {/* Card content */}
             <div className="px-5 pt-4 pb-4">
 
-              {/* ── Header (always visible) ─────────────────────────── */}
               <div className="flex items-start gap-3 mb-1">
                 {/* Mini logo */}
                 <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
@@ -265,7 +256,6 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
                       {item.institution}
                     </p>
 
-                    {/* Description */}
                     <p className="text-sm text-text-secondary leading-relaxed">
                       {item.description}
                     </p>
@@ -287,7 +277,6 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
   );
 }
 
-// ─── Snake SVG ────────────────────────────────────────────────────────────────
 function SnakeSVG({ isMobile, isDark }: { isMobile: boolean; isDark: boolean }) {
   const t = useTranslations("education");
   const containerRef = useRef<HTMLDivElement>(null);
@@ -426,7 +415,6 @@ function SnakeSVG({ isMobile, isDark }: { isMobile: boolean; isDark: boolean }) 
   );
 }
 
-// ─── Certifications ───────────────────────────────────────────────────────────
 function CertificationsStrip() {
   const t = useTranslations("education.certifications");
   return (
@@ -461,7 +449,6 @@ function CertificationsStrip() {
   );
 }
 
-// ─── Section ──────────────────────────────────────────────────────────────────
 export function EducationSection() {
   const t = useTranslations("education");
   const { resolvedTheme } = useTheme();

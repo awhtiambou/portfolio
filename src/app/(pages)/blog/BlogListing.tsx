@@ -23,7 +23,6 @@ function formatDate(iso: string, locale: string) {
     return new Date(iso).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-US", { month: "long", day: "numeric", year: "numeric" });
 }
 
-// ─── Featured Card ────────────────────────────────────────────────────────────
 
 function FeaturedCard({ blog, t, locale }: { blog: Blog; t: ReturnType<typeof useTranslations>; locale: string }) {
     // Resolve title/subtitle from locale items, falling back to TS fields
@@ -53,9 +52,7 @@ function FeaturedCard({ blog, t, locale }: { blog: Blog; t: ReturnType<typeof us
                         <div className="absolute inset-0 bg-gradient-to-t from-background-primary/60 via-transparent to-transparent lg:hidden" />
                     </div>
 
-                    {/* Content */}
                     <div className="flex flex-col justify-center p-8 md:p-10 lg:p-12">
-                        {/* Meta */}
                         <div className="flex flex-wrap items-center gap-3 mb-5">
                             <span className={cn("text-xs font-mono uppercase tracking-widest px-3 py-1 rounded-full border", levelColors[blog.readingLevel])}>
                                 {t(`levels.${blog.readingLevel}`)}
@@ -76,7 +73,6 @@ function FeaturedCard({ blog, t, locale }: { blog: Blog; t: ReturnType<typeof us
                             {displaySubtitle}
                         </p>
 
-                        {/* Tags */}
                         <div className="flex flex-wrap gap-2 mb-6">
                             {blog.tags.slice(0, 5).map((tag) => (
                                 <span key={tag} className="text-xs px-2.5 py-1 rounded-md bg-background-primary text-text-muted border border-white/5">
@@ -102,7 +98,6 @@ function FeaturedCard({ blog, t, locale }: { blog: Blog; t: ReturnType<typeof us
     );
 }
 
-// ─── Blog Card ────────────────────────────────────────────────────────────────
 
 function BlogCard({ blog, index, t, locale }: { blog: Blog; index: number; t: ReturnType<typeof useTranslations>; locale: string }) {
     // Resolve title/excerpt from locale items, falling back to TS fields
@@ -167,7 +162,6 @@ function BlogCard({ blog, index, t, locale }: { blog: Blog; index: number; t: Re
     );
 }
 
-// ─── Listing ──────────────────────────────────────────────────────────────────
 
 export function BlogListing() {
     const t = useTranslations("blog");
@@ -185,7 +179,6 @@ export function BlogListing() {
 
     return (
         <div className={cn(CONTENT_WIDTH, "pb-24")}>
-            {/* Header */}
             <div className="mb-12">
                 <p className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3">{t("label")}</p>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-4">

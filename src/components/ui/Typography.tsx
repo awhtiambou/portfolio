@@ -54,7 +54,6 @@ export function Heading({
   );
 }
 
-// Text component
 type TextSize = "xs" | "sm" | "base" | "lg" | "xl";
 type TextVariant = "default" | "muted" | "accent";
 
@@ -108,7 +107,6 @@ export function Text({
   );
 }
 
-// Section Title with subtitle
 interface SectionTitleProps extends WithClassName {
   title: string;
   subtitle?: string;

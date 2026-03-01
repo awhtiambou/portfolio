@@ -180,7 +180,6 @@ export function GlassCardStack<T>({
             className={`relative flex items-center justify-center select-none ${className}`}
             style={{ perspective: "1200px" }}
         >
-            {/* Ambient glow */}
             <div
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-24 rounded-full blur-3xl opacity-20 pointer-events-none"
                 style={{
@@ -190,7 +189,6 @@ export function GlassCardStack<T>({
                 }}
             />
 
-            {/* Card Stack — all cards always rendered, just re-positioned */}
             <div
                 className="relative"
                 style={{
@@ -242,7 +240,6 @@ export function GlassCardStack<T>({
                                     : undefined
                             }
                         >
-                            {/* Glass card shell */}
                             <div
                                 className="w-full h-full rounded-3xl overflow-hidden relative"
                                 style={{
@@ -253,7 +250,6 @@ export function GlassCardStack<T>({
                                 data-cursor-text="⟷"
                                 data-cursor-hover="true"
                             >
-                                {/* Subtle top-edge highlight */}
                                 <div
                                     className="absolute top-0 left-[10%] right-[10%] h-[1px] pointer-events-none"
                                     style={{
@@ -263,12 +259,10 @@ export function GlassCardStack<T>({
                                     }}
                                 />
 
-                                {/* Card content */}
                                 <div className="relative w-full h-full">
                                     {renderCard(item, itemIndex, isTop)}
                                 </div>
 
-                                {/* Blur overlay for non-top cards — hides content progressively */}
                                 {!isTop && (
                                     <div
                                         className="absolute inset-0 pointer-events-none rounded-3xl"
@@ -287,7 +281,6 @@ export function GlassCardStack<T>({
                 })}
             </div>
 
-            {/* Progress dots */}
             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex gap-2">
                 {items.map((_, i) => (
                     <button

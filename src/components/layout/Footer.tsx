@@ -7,12 +7,8 @@ import { useTranslations } from "next-intl";
 import { profile } from "@/data/profile";
 import { SocialIcon, socialIconsList } from "@/components/ui/icons/SocialIcons";
 
-// ─── App width (matches rest of site) ────────────────────────────────────────
 const W = "app-container";
 
-// ─── Social icons extracted to SocialIcons.tsx ───────────────────────────
-
-// ─── Newsletter form ──────────────────────────────────────────────────────────
 
 function NewsletterForm({ t }: { t: ReturnType<typeof useTranslations> }) {
   const [email, setEmail] = useState("");
@@ -113,7 +109,6 @@ function NewsletterForm({ t }: { t: ReturnType<typeof useTranslations> }) {
   );
 }
 
-// ─── Gradient background (matches hero aesthetic) ─────────────────────────────
 
 function FooterGradient() {
   return (
@@ -127,7 +122,6 @@ function FooterGradient() {
   );
 }
 
-// ─── Arrow that animates on CTA hover ─────────────────────────────────────────
 
 function AnimatedArrow() {
   return (
@@ -141,7 +135,6 @@ function AnimatedArrow() {
   );
 }
 
-// ─── Footer ───────────────────────────────────────────────────────────────────
 
 export function Footer() {
   const t = useTranslations("footer");

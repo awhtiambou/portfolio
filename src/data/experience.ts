@@ -1,9 +1,5 @@
-// experience.ts
-// Non-translatable fields (dates, urls, logos, technologies) live here as literals.
-// All human-readable strings are referenced by key and resolved from locale files.
 
 export const experiences = [
-  // ─── 1. Kalfou — Co-founder & Lead Software Engineer ─────────────────────
   {
     key: "kalfou",
     logo: "/assets/images/experiences/kalfou.png",
@@ -22,7 +18,6 @@ export const experiences = [
     ],
   },
 
-  // ─── 2. UQAC — Research Assistant at LIARA ───────────────────────────────
   {
     key: "uqac",
     logo: "/assets/images/experiences/uqac.png",
@@ -40,7 +35,6 @@ export const experiences = [
     ],
   },
 
-  // ─── 3. Université de Monastir — Software Engineering Intern ─────────────
   {
     key: "monastir",
     logo: "/assets/images/experiences/u-monastir.jpg",
@@ -58,11 +52,10 @@ export const experiences = [
     ],
   },
 
-  // ─── 4. Tiamtech — Freelance Web Developer ───────────────────────────────
   {
     key: "tiamtech",
     logo: "/assets/images/experiences/tiamtech.jpg",
-    url: "#",
+    url: "https://tiamtech.netlify.app/",
     startDate: "2022-06",
     endDate: "2023-09",
     current: false,

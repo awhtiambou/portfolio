@@ -7,3 +7,5 @@ export {
   useIsDesktop,
   useCurrentBreakpoint,
 } from './useMediaQuery';
+
+export { useLocaleSwitch } from './useLocaleSwitch';

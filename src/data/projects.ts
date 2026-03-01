@@ -1,21 +1,12 @@
 import type { Project } from "@/types";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Translation key convention
-// ─────────────────────────────────────────────────────────────────────────────
-// Any string value that starts with "$t:" is a translation key.
-// page.tsx resolves these via getTranslations() before passing to ProjectDetail.
 //
 // Key format:  $t:<slug>.sections.<sectionId>.<field>
 // Example:     $t:kalfou-transportation-ecosystem.sections.vision.heading
 //
-// Non-string fields (src, href, variant, cols, size, height, value) are NEVER
-// translated — they stay as literals.
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const projects: Project[] = [
 
-  // ─── 1. KALFOU ──────────────────────────────────────────────────────────────
   {
     id: "proj-1",
     slug: "kalfou-transportation-ecosystem",
@@ -201,7 +192,6 @@ export const projects: Project[] = [
     status: "in-progress",
   },
 
-  // ─── 2. MRLABELLING ─────────────────────────────────────────────────────────
   {
     id: "proj-2",
     slug: "mrlabelling-3d-reconstruction-hololens",
@@ -327,7 +317,6 @@ export const projects: Project[] = [
     status: "completed",
   },
 
-  // ─── 3. TIAMSHOP ────────────────────────────────────────────────────────────
   {
     id: "proj-3",
     slug: "tiamshop-ecommerce-platform",
@@ -429,7 +418,6 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/awhtiambou/tiamshop",
   },
 
-  // ─── 4. PERSONAL PORTFOLIO ──────────────────────────────────────────────────
   {
     id: "proj-4",
     slug: "personal-portfolio-website",
@@ -513,7 +501,6 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/awhtiambou/portfolio",
   },
 
-  // ─── 5. THORAXVISION ────────────────────────────────────────────────────────
   {
     id: "proj-5",
     slug: "thoraxvision-pulmonary-disease-detection",
@@ -606,7 +593,6 @@ export const projects: Project[] = [
   },
 ];
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 export function getFeaturedProjects(): Project[] {
   return projects.filter((p) => p.featured);

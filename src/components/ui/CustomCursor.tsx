@@ -119,7 +119,6 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* Main cursor ring */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
         style={{
@@ -160,7 +159,6 @@ export function CustomCursor() {
         </motion.div>
       </motion.div>
 
-      {/* Center dot */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
         style={{
@@ -178,7 +176,6 @@ export function CustomCursor() {
         />
       </motion.div>
 
-      {/* Add global styles to hide default cursor */}
       <style jsx global>{`
         * {
           cursor: none !important;

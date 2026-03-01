@@ -1,6 +1,3 @@
-// Server Component — no "use client".
-// Resolves all "$t:" prefixed strings in project.sections via getTranslations,
-// then passes fully-resolved data to ProjectDetail (Client Component).
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -11,7 +8,6 @@ import { ProjectDetail } from "./ProjectDetail";
 
 type Props = { params: Promise<{ slug: string }> };
 
-// ─── Translation key resolver ─────────────────────────────────────────────────
 
 type Translator = Awaited<ReturnType<typeof getTranslations>>;
 
@@ -43,7 +39,6 @@ function resolveKeys<T>(value: T, t: Translator): T {
   return value;
 }
 
-// ─── Static params & metadata ─────────────────────────────────────────────────
 
 export async function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }));
@@ -66,7 +61,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;

@@ -7,10 +7,8 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import { experiences } from "@/data/experience";
 
-// ─── Layout constant ──────────────────────────────────────────────────────────
 const W = "app-container";
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 function formatDate(dateStr: string, locale: string): string {
   const [year, month] = dateStr.split("-");
   const date = new Date(parseInt(year), parseInt(month) - 1);
@@ -19,7 +17,6 @@ function formatDate(dateStr: string, locale: string): string {
   });
 }
 
-// ─── Single row ───────────────────────────────────────────────────────────────
 interface RowProps {
   exp: typeof experiences[number];
   index: number;
@@ -33,7 +30,6 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
   const isDark = resolvedTheme === "dark";
   const [open, setOpen] = useState(false);
 
-  // Mouse spotlight
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { stiffness: 160, damping: 22 });
@@ -51,7 +47,6 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
     mouseY.set(e.clientY - r.top);
   }
 
-  // Locale strings
   const item = t.raw(`items.${exp.key}`) as Record<string, string>;
   const startFmt = formatDate(exp.startDate, locale);
   const endFmt = exp.current ? t("present") : exp.endDate ? formatDate(exp.endDate, locale) : "";
@@ -66,7 +61,6 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
       className={`group relative border-t ${divider} ${isLast ? `border-b ${divider}` : ""} overflow-hidden`}
       onMouseMove={onMouseMove}
     >
-      {/* Spotlight */}
       <motion.div
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{ background: bg }}
@@ -74,7 +68,6 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
 
       <div className={`${W} py-6 md:py-8 px-2 relative`}>
 
-        {/* ── Clickable header ──────────────────────────────────────────── */}
         <button
           className="w-full text-left"
           onClick={() => setOpen(v => !v)}
@@ -82,7 +75,6 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
         >
           <div className="flex items-start gap-4">
 
-            {/* Logo */}
             <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden
               border border-white/10 bg-background-secondary">
               <Image
@@ -93,9 +85,7 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
               />
             </div>
 
-            {/* Meta */}
             <div className="flex-1 min-w-0">
-              {/* Position + current badge */}
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <span className="font-heading font-bold text-text-primary text-base md:text-lg
                   leading-tight group-hover:text-accent-blue transition-colors duration-200">
@@ -111,11 +101,10 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
                 )}
               </div>
 
-              {/* Company · location · type */}
               <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm">
                 <a
                   href={exp.url}
-                  target={exp.url !== "#" ? "_blank" : undefined}
+                  target="_blank"
                   rel="noopener noreferrer"
                   onClick={e => e.stopPropagation()}
                   className="font-semibold text-text-secondary hover:text-accent-blue transition-colors"
@@ -128,13 +117,11 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
                 <span className="text-text-muted text-xs font-mono">{item.type}</span>
               </div>
 
-              {/* Dates */}
               <p className="text-xs text-text-muted font-mono mt-1.5">
                 {startFmt} — {endFmt}
               </p>
             </div>
 
-            {/* Chevron */}
             <motion.div
               animate={{ rotate: open ? 180 : 0 }}
               transition={{ duration: 0.25 }}
@@ -149,7 +136,6 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
           </div>
         </button>
 
-        {/* ── Expandable body ──────────────────────────────────────────────── */}
         <AnimatePresence initial={false}>
           {open && (
             <motion.div
@@ -162,12 +148,10 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
             >
               <div className="pl-0 md:pl-[72px] pt-5 pb-2 space-y-5">
 
-                {/* Description */}
                 <p className="text-sm text-text-secondary leading-relaxed max-w-3xl">
                   {item.description}
                 </p>
 
-                {/* Responsibilities */}
                 <div>
                   <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-text-muted mb-3">
                     {t("responsibilities")}
@@ -186,7 +170,6 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
                   </ul>
                 </div>
 
-                {/* Tech stack */}
                 <div className="flex flex-wrap gap-2 pt-1">
                   {exp.technologies.map(tech => (
                     <span key={tech}
@@ -206,7 +189,6 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
   );
 }
 
-// ─── Section ──────────────────────────────────────────────────────────────────
 const INITIAL_COUNT = 3;
 
 export function ExperienceSection() {
@@ -221,7 +203,6 @@ export function ExperienceSection() {
   return (
     <div className="py-20 w-full">
 
-      {/* ── Header ──────────────────────────────────────────────────────── */}
       <div className={`${W} mb-12`}>
         <motion.p
           className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3"
@@ -242,7 +223,6 @@ export function ExperienceSection() {
         </motion.h2>
       </div>
 
-      {/* ── Rows ────────────────────────────────────────────────────────── */}
       <div className="w-full">
         {visible.map((exp, i) => (
           <ExperienceRow
@@ -254,7 +234,6 @@ export function ExperienceSection() {
         ))}
       </div>
 
-      {/* ── Show more / less ────────────────────────────────────────────── */}
       {hasMore && (
         <div className={`${W} mt-8 flex justify-center`}>
           <motion.button

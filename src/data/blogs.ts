@@ -1,13 +1,11 @@
 import type { Blog } from "@/types/blog";
 
-// ─── Author ───────────────────────────────────────────────────────────────────
 const AWH = {
     name: "Abdoul-Wahabou H. Tiambou",
     role: "MSc Computer Science · AI/ML & Computer Vision",
     avatar: "/assets/images/me-coding.jpg",
 };
 
-// ─── Blog 1: Instance Segmentation ────────────────────────────────────────────
 const blogYoloSegmentation: Blog = {
     id: "blog-1",
     slug: "instance-segmentation-yolo-maskrcnn-sam",
@@ -149,7 +147,6 @@ const blogYoloSegmentation: Blog = {
     ],
 };
 
-// ─── Blog 2: 3D Reconstruction with OccupancyNet ─────────────────────────────
 const blog3DReconstruction: Blog = {
     id: "blog-2",
     slug: "3d-reconstruction-hololens2-occupancynet",
@@ -281,7 +278,6 @@ const blog3DReconstruction: Blog = {
     ],
 };
 
-// ─── Blog 3: Vision Transformers ──────────────────────────────────────────────
 const blogViT: Blog = {
     id: "blog-3",
     slug: "vision-transformers-vit-dinov2",
@@ -423,7 +419,6 @@ const blogViT: Blog = {
     ],
 };
 
-// ─── Exports ──────────────────────────────────────────────────────────────────
 export const blogs: Blog[] = [blogYoloSegmentation, blog3DReconstruction, blogViT];
 
 export function getBlogBySlug(slug: string): Blog | undefined {

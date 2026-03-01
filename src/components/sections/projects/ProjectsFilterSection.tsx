@@ -69,7 +69,6 @@ export function ProjectsFilterSection({ categories, selectedCategory, onCategory
 
     return (
         <div className="w-full flex justify-center items-center mb-6 relative z-30">
-            {/* Mobile Dropdown View (visible on xs/sm, hidden on md+) */}
             <div className="md:hidden w-[calc(100%-2rem)] relative" ref={dropdownRef}>
                 <button
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -142,7 +141,6 @@ export function ProjectsFilterSection({ categories, selectedCategory, onCategory
                 </AnimatePresence>
             </div>
 
-            {/* Desktop Badge List View (hidden on xs/sm, visible on md+) */}
             <div
                 className={cn(
                     "hidden md:flex flex-wrap gap-2 md:gap-4 py-2 md:py-2 px-4 md:px-3 rounded-2xl app-container",

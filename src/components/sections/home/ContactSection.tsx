@@ -72,7 +72,6 @@ export function ContactSection() {
   };
 
 
-
   return (
     <div id="contact" className="py-20 w-full flex flex-col items-center justify-center">
       <motion.div
@@ -110,7 +109,6 @@ export function ContactSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
           <motion.div variants={fadeInUp} className="space-y-8">
             <div>
               <Text size="lg" className="mb-6">
@@ -167,7 +165,6 @@ export function ContactSection() {
             </div>
           </motion.div>
 
-          {/* Contact Form */}
           <motion.div variants={fadeInUp}>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">

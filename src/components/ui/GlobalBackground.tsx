@@ -44,43 +44,36 @@ export function GlobalBackground() {
                 transition: "background-color 0.5s ease"
             }}
         >
-            {/* Mesh Gradients Layer with Mouse Parallax */}
             <motion.div
                 className="absolute inset-0 opacity-60 dark:opacity-40"
                 style={{ y: y1 }}
             >
-                {/* Top-left Orb (Yellow) */}
                 <motion.div
                     className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full blur-[100px] opacity-40 mix-blend-screen"
                     style={{ backgroundColor: bgColors.yellow }}
                 />
 
-                {/* Top-right Orb (Pink) */}
                 <motion.div
                     className="absolute top-[5%] -right-[10%] w-[50vw] h-[50vw] rounded-full blur-[120px] opacity-30 mix-blend-screen"
                     style={{ backgroundColor: bgColors.pink, y: y2, scale: scale1 }}
                 />
 
-                {/* Bottom-left Orb (Mint) */}
                 <motion.div
                     className="absolute bottom-[0%] -left-[5%] w-[55vw] h-[55vw] rounded-full blur-[110px] opacity-30 mix-blend-screen"
                     style={{ backgroundColor: bgColors.mint, rotate: rotate1 }}
                 />
 
-                {/* Bottom-right Orb (Blue) */}
                 <motion.div
                     className="absolute -bottom-[10%] right-[0%] w-[65vw] h-[65vw] rounded-full blur-[130px] opacity-40 mix-blend-screen"
                     style={{ backgroundColor: bgColors.blue }}
                 />
 
-                {/* Center Accent (Dynamic based on theme) */}
                 <motion.div
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] rounded-full blur-[90px] opacity-20"
                     style={{ backgroundColor: isDark ? bgColors.blue : bgColors.yellow }}
                 />
             </motion.div>
 
-            {/* Sand/Noise Grain Texture - Visible Dots */}
             <div
                 className="absolute inset-0 z-[1] pointer-events-none"
                 style={{
@@ -98,7 +91,6 @@ export function GlobalBackground() {
                         />
                         <feColorMatrix type="saturate" values="0" />
                         <feComponentTransfer>
-                            {/* Increase contrast to create distinct 'grains' */}
                             <feFuncR type="linear" slope="3" intercept="-1" />
                             <feFuncG type="linear" slope="3" intercept="-1" />
                             <feFuncB type="linear" slope="3" intercept="-1" />

@@ -1,6 +1,5 @@
 import type { MasteredTechnology, Skill, SkillCategory } from "@/types";
 
-// Skills organized by category
 export const skills: Skill[] = [
   // Machine Learning
   { name: "Python", level: "expert", category: "ml" },
@@ -83,17 +82,14 @@ export const skills: Skill[] = [
   { name: "Technical Writing", level: "advanced", category: "soft-skills" },
 ];
 
-// Helper to get skills by category
 export function getSkillsByCategory(category: SkillCategory): Skill[] {
   return skills.filter((skill) => skill.category === category);
 }
 
-// Helper to get featured skills (expert + advanced level)
 export function getFeaturedSkills(): Skill[] {
   return skills.filter((skill) => skill.level === "expert" || skill.level === "advanced");
 }
 
-// Category display configuration - using react-icons icon names
 export const skillCategoryConfig: Record<SkillCategory, { label: string; iconName: string; color: string }> = {
   ml: { label: "Machine Learning", iconName: "SiPython", color: "#8b5cf6" },
   ai: { label: "Artificial Intelligence", iconName: "FaBrain", color: "#06b6d4" },

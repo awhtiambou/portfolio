@@ -10,7 +10,6 @@ import { useTranslations, useLocale } from "next-intl";
 
 const CONTENT_WIDTH = "app-container";
 
-// ─── Inline markdown ──────────────────────────────────────────────────────────
 // Bold before italic so ** is never consumed as two separate * tokens.
 function InlineText({ text }: { text: string }) {
     // Tokenise with a single pass: bold → italic → backtick-code → plain
@@ -41,7 +40,6 @@ function InlineText({ text }: { text: string }) {
     );
 }
 
-// ─── Scroll-reveal ────────────────────────────────────────────────────────────
 function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
     const ref = useRef<HTMLDivElement>(null);
     const [visible, setVisible] = useState(false);
@@ -59,14 +57,11 @@ function Reveal({ children, className = "" }: { children: React.ReactNode; class
     );
 }
 
-// ─── Date formatter ───────────────────────────────────────────────────────────
 function formatDate(iso: string, locale: string) {
     return new Date(iso).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-US", { month: "long", day: "numeric", year: "numeric" });
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
 // ELEMENT RENDERERS
-// ═══════════════════════════════════════════════════════════════════════════════
 
 function TextElement({ el }: { el: Extract<BlogElement, { type: "text" }> }) {
     // font-body explicitly prevents the global h1-h6 Besley rule from bleeding in.
@@ -215,7 +210,6 @@ function CodeElement({ el }: { el: Extract<BlogElement, { type: "code" }> }) {
 
     return (
         <div className="rounded-xl overflow-hidden border border-white/10 my-2">
-            {/* Header */}
             {(el.filename || el.language) && (
                 <div className="bg-[#1e1e2e] px-4 py-2.5 text-xs font-mono border-b border-white/10 flex items-center gap-3">
                     <div className="flex gap-1.5">
@@ -390,7 +384,6 @@ function DividerElement({ el }: { el: Extract<BlogElement, { type: "divider" }> 
     return <hr className="border-white/10" />;
 }
 
-// ─── Dispatch ─────────────────────────────────────────────────────────────────
 
 function Element({ el }: { el: BlogElement }) {
     switch (el.type) {
@@ -413,7 +406,6 @@ function Element({ el }: { el: BlogElement }) {
     }
 }
 
-// ─── Section ──────────────────────────────────────────────────────────────────
 
 function Section({ section }: { section: BlogSection }) {
     const bgCls = {
@@ -455,7 +447,6 @@ function Section({ section }: { section: BlogSection }) {
     );
 }
 
-// ─── Cover luminance detection ────────────────────────────────────────────────
 // Samples the bottom 40% of the image (where hero text lives).
 // Returns 0–255. Starts at 0 so the default state is safe (white text on dark scrim).
 
@@ -489,9 +480,7 @@ function useCoverLuminance(imageSrc?: string): number {
     return luminance;
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
 // MAIN COMPONENT
-// ═══════════════════════════════════════════════════════════════════════════════
 
 interface BlogDetailProps {
     blog: Blog;
@@ -527,7 +516,6 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
 
     return (
         <div className="w-full">
-            {/* ── Hero ──────────────────────────────────────────────────────────── */}
             <div className="relative w-full min-h-[60vh] md:min-h-[100vh] flex flex-col pt-28">
                 <Image src={blog.coverImage} alt={blog.title} fill priority className="absolute inset-0 object-cover" sizes="100vw" />
 
@@ -637,17 +625,14 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
                 </div>
             </div>
 
-            {/* ── Content Sections ─────────────────────────────────────────────── */}
             {blog.sections.map((section, i) => (
                 <Section key={i} section={section} />
             ))}
 
-            {/* ── Divider ─────────────────────────────────────────────────────── */}
             <div className={`${CONTENT_WIDTH} py-4`}>
                 <hr className="border-white/10" />
             </div>
 
-            {/* ── Tags ─────────────────────────────────────────────────────────── */}
             <div className={`${CONTENT_WIDTH} py-10`}>
                 <p className="text-xs font-mono uppercase tracking-widest text-text-muted mb-3">{t("tags")}</p>
                 <div className="flex flex-wrap gap-2">
@@ -659,7 +644,6 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
                 </div>
             </div>
 
-            {/* ── Related ──────────────────────────────────────────────────────── */}
             {relatedBlogs.length > 0 && (
                 <Reveal>
                     <div className={`${CONTENT_WIDTH} py-16`}>
@@ -681,7 +665,6 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
                 </Reveal>
             )}
 
-            {/* ── Back button ──────────────────────────────────────────────────── */}
             <div className={`${CONTENT_WIDTH} pb-24 text-left`}>
                 <Link href="/blog" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-text-secondary hover:text-text-primary hover:border-white/40 transition-all text-sm font-medium">
                     ← {t("allArticles")}

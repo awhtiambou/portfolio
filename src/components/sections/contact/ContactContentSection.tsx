@@ -77,7 +77,6 @@ export function ContactContentSection() {
                 animate="visible"
                 className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto"
             >
-                {/* Contact Info */}
                 <motion.div variants={fadeInUp} className="space-y-8">
                     <div>
                         <h2 className="font-heading text-2xl font-semibold text-text-primary mb-4">
@@ -90,7 +89,6 @@ export function ContactContentSection() {
                         </Text>
                     </div>
 
-                    {/* Contact Details */}
                     <div className="space-y-4">
                         <Card variant="outlined" padding="md">
                             <div className="flex items-center gap-4">
@@ -122,7 +120,6 @@ export function ContactContentSection() {
                         </Card>
                     </div>
 
-                    {/* Social Links */}
                     <div>
                         <h3 className="font-medium text-text-primary mb-4">Follow Me</h3>
                         <div className="flex gap-4">
@@ -163,7 +160,6 @@ export function ContactContentSection() {
                     </div>
                 </motion.div>
 
-                {/* Contact Form */}
                 <motion.div variants={fadeInUp}>
                     <Card variant="elevated" padding="lg">
                         {submitted ? (

@@ -1,4 +1,3 @@
-// Testimonials data with multilingual support
 
 export interface Testimonial {
     id: string;
@@ -50,12 +49,10 @@ export const testimonials: Testimonial[] = [
     }
 ];
 
-// Helper to get testimonial content for current locale
 export function getTestimonialContent(testimonial: Testimonial, locale: 'en' | 'fr'): string {
     return testimonial.content[locale];
 }
 
-// Helper to format relationship text
 export function getRelationshipText(testimonial: Testimonial, locale: 'en' | 'fr'): string {
     const date = new Date(testimonial.date);
     const formattedDate = date.toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
@@ -65,7 +62,6 @@ export function getRelationshipText(testimonial: Testimonial, locale: 'en' | 'fr
     return `${formattedDate}, ${testimonial.relationship[locale]}.`;
 }
 
-// Truncate text with ellipsis
 export function truncateText(text: string, maxLength: number): { text: string; isTruncated: boolean } {
     if (text.length <= maxLength) {
         return { text, isTruncated: false };

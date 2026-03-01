@@ -83,7 +83,6 @@ export function SocialIcon({ id }: { id: keyof typeof socialIconsList }) {
             animate={hovered ? icon.animation.hover : {}}
             style={{ color: hovered ? icon.color : undefined }}
         >
-            {/* Glow on hover */}
             <AnimatePresence>
                 {hovered && (
                     <motion.span

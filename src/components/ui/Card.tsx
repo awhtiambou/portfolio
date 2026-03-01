@@ -80,7 +80,6 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = "Card";
 
-// Card sub-components
 interface CardHeaderProps extends WithChildren, WithClassName {}
 
 export function CardHeader({ children, className }: CardHeaderProps) {

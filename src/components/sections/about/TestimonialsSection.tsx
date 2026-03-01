@@ -15,7 +15,6 @@ import { cn } from "@/lib/utils";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-// MUI components removed
 
 // Animation variants
 const containerVariants = {
@@ -61,7 +60,6 @@ const quoteVariants = {
 };
 
 
-
 function QuoteMark({ className, isDark }: { className?: string; isDark: boolean }) {
     return (
         <svg
@@ -78,7 +76,6 @@ function QuoteMark({ className, isDark }: { className?: string; isDark: boolean 
     );
 }
 
-// Testimonial card component
 interface TestimonialCardProps {
     testimonial: (typeof testimonials)[0];
     locale: "en" | "fr";
@@ -143,7 +140,6 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                         )}
                     </div>
 
-                    {/* Author info */}
                     <motion.div
                         className={cn(
                             "flex items-start gap-4 pt-6 border-t",
@@ -153,7 +149,6 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                     >
-                        {/* Avatar placeholder */}
                         <div
                             className="flex items-center justify-center rounded-full text-white bg-gradient-to-br from-accent-blue via-accent-blue to-accent-yellow font-medium text-sm shadow-lg w-10 h-10 md:w-[60px] md:h-[60px]"
                             style={{ fontFamily: "var(--font-besley)" }}
@@ -182,7 +177,6 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                             </div>
                         </div>
 
-                        {/* LinkedIn link */}
                         {testimonial.linkedinUrl && (
                             <motion.a
                                 href={testimonial.linkedinUrl}
@@ -207,7 +201,6 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
     );
 }
 
-// Navigation button component
 interface NavButtonProps {
     direction: "prev" | "next";
     onClick: () => void;
@@ -245,7 +238,6 @@ function NavButton({ direction, onClick, disabled, isDark }: NavButtonProps) {
     );
 }
 
-// Main component
 export function TestimonialsSection() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [mounted, setMounted] = useState(false);
@@ -273,15 +265,12 @@ export function TestimonialsSection() {
         return (
             <section id="testimonials" className="relative py-16 md:py-24 overflow-hidden">
                 <div className="container relative z-10">
-                    {/* Header skeleton */}
                     <div className="mb-12 space-y-4">
                         <div className="w-[200px] h-8 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
                         <div className="w-[350px] h-16 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
                     </div>
 
-                    {/* Testimonial content skeleton */}
                     <div className="p-8 md:p-10">
-                        {/* Quote lines */}
                         <div className="pl-8 space-y-3 mb-8">
                             <div className="w-full h-7 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
                             <div className="w-[95%] h-7 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
@@ -289,7 +278,6 @@ export function TestimonialsSection() {
                             <div className="w-[60%] h-7 bg-gray-300 dark:bg-white/10 animate-pulse rounded" />
                         </div>
 
-                        {/* Author skeleton */}
                         <div className="flex items-center gap-4 pt-6 border-t border-gray-200 dark:border-white/10">
                             <div className="w-[60px] h-[60px] bg-gray-300 dark:bg-white/10 animate-pulse rounded-full" />
                             <div className="flex-grow space-y-2">
@@ -301,7 +289,6 @@ export function TestimonialsSection() {
                         </div>
                     </div>
 
-                    {/* Navigation skeleton */}
                     <div className="flex items-center justify-between mt-8">
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-gray-300 dark:bg-white/10 animate-pulse rounded-full" />

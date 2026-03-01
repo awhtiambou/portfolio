@@ -6,7 +6,6 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge, Secti
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import type { Experience } from "@/types";
 
-// Placeholder experiences - will be replaced with data from resume
 const featuredExperiences: Experience[] = [
   {
     id: "1",
@@ -55,7 +54,6 @@ export function ExperienceSection() {
         />
 
         <div className="relative">
-          {/* Timeline line */}
           <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border transform md:-translate-x-1/2" />
 
           <div className="space-y-8">
@@ -66,10 +64,8 @@ export function ExperienceSection() {
                 className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
                   }`}
               >
-                {/* Timeline dot */}
                 <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-accent-blue rounded-full transform -translate-x-1/2 mt-6 z-10" />
 
-                {/* Content */}
                 <div className="md:w-1/2 pl-8 md:pl-0">
                   <Card variant="elevated">
                     <CardHeader>
@@ -99,7 +95,6 @@ export function ExperienceSection() {
                   </Card>
                 </div>
 
-                {/* Spacer for timeline alignment */}
                 <div className="hidden md:block md:w-1/2" />
               </motion.div>
             ))}

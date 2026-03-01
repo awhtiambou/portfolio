@@ -1396,5 +1396,10 @@
         }
       }
     }
+  },
+  "notFound": {
+    "title": "PAGE NOT FOUND",
+    "subtitle": "We couldn't find the page you're looking for.",
+    "goHome": "Go Back Home"
   }
 }

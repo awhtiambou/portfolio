@@ -1,11 +1,4 @@
-import { IconBaseProps } from "react-icons/lib";
 
-// ─── Project Section & Element System ─────────────────────────────────────────
-
-/**
- * A single content element inside a project section.
- * Each element knows what it is and how it wants to be displayed.
- */
 export type ProjectElement =
   | {
     type: "text";
@@ -64,11 +57,6 @@ export type ProjectElement =
     type: "divider";
   };
 
-/**
- * A titled section grouping related elements.
- * Uses the app's standard content width by default.
- * Set fullwidth: true only for sections whose sole element is image-fullwidth.
- */
 export interface ProjectSection {
   /** Small-caps label above the heading, e.g. "System Architecture" */
   label?: string;
@@ -78,7 +66,6 @@ export interface ProjectSection {
   fullwidth?: boolean;
 }
 
-// ─── Project ──────────────────────────────────────────────────────────────────
 
 export interface Project {
   id: string;
@@ -111,7 +98,6 @@ export type ProjectCategory =
   | "backend"
   | "other";
 
-// ─── Other types (unchanged) ──────────────────────────────────────────────────
 
 export interface Experience {
   id: string;
@@ -170,7 +156,6 @@ export type SkillCategory =
 export interface MasteredTechnology {
   name: string;
   title: string;
-  icon?: IconBaseProps;
   iconColor: string;
   logoImageUrl?: string;
   bgColor?: string;
@@ -200,5 +185,4 @@ export interface SEOProps {
 export type WithClassName<T = object> = T & { className?: string };
 export type WithChildren<T = object> = T & { children?: React.ReactNode };
 
-// Re-export blog types
 export type { Blog, BlogElement, BlogSection, BlogCategory, BlogReadingLevel } from "./blog";

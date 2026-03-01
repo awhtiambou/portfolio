@@ -72,7 +72,6 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Spotlight Effect Background */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
         style={{ background: bg }}
@@ -80,9 +79,7 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
 
       <Link href={`/projects/${project.slug}`} className="relative block">
         <div className="relative flex items-center gap-4 md:gap-8 py-6 md:py-6 px-4 md:px-6">
-          {/* Content Section - Full width, positioned left */}
           <div className="flex-1 flex flex-col relative z-20">
-            {/* Mobile Image - Visible only on small screens */}
             <div className="block md:hidden w-full aspect-video relative rounded-lg overflow-hidden mb-6 shadow-md">
               {project.image ? (
                 <Image
@@ -104,7 +101,6 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
               )}
             </div>
 
-            {/* Project Number */}
             <div className="flex items-center gap-4 mb-4">
               <span
                 className={cn(
@@ -117,7 +113,6 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
               <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-gray-300 dark:from-white/20 to-transparent" />
             </div>
 
-            {/* Title */}
             <h3
               className={cn(
                 "font-heading text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 transition-all duration-300 uppercase tracking-tight",
@@ -129,7 +124,6 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
               {t(`projects.items.${project.slug}.title`)}
             </h3>
 
-            {/* Category Subtitle */}
             <p
               className={cn(
                 "text-base md:text-lg font-accent mb-6 transition-opacity duration-300",
@@ -139,7 +133,6 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
               {project.categories.map((cat: string) => categoryLabels[cat]).join(" • ")}
             </p>
 
-            {/* Categories Pills */}
             <div className="flex flex-wrap items-center gap-2 mb-6">
               {project.categories.slice(0, 4).map((cat: string, i: number) => (
                 <span
@@ -156,7 +149,6 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
               ))}
             </div>
 
-            {/* View Work Button - Only visible on hover on desktop */}
             <div className="hidden md:flex items-center gap-3 mt-4">
               <span
                 className={cn(
@@ -184,13 +176,11 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
                 <GoArrowUpRight className="w-5 h-5 md:w-6 md:h-6" />
               </motion.div>
             </div>
-            {/* Mobile View Work Button */}
             <div className="flex md:hidden items-center gap-2 mt-2 text-sm font-medium text-blue-500 dark:text-blue-400">
               {t("projects.viewProject")} <GoArrowUpRight />
             </div>
           </div>
 
-          {/* Image Section - Appears from right on hover - Desktop Only */}
           <motion.div
             className={cn(
               "absolute right-0 top-1/2 -translate-y-1/2 hidden md:block z-5",
@@ -214,7 +204,6 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
                     className="object-cover"
                     sizes="(max-width: 1024px) 50vw, 60vw"
                   />
-                  {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
                 </>
               ) : (
@@ -271,7 +260,6 @@ export function FeaturedProjectsSection() {
           ))}
         </div>
 
-        {/* View All Projects Link */}
         <div className="flex">
           <motion.div
             initial={{ opacity: 0 }}

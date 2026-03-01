@@ -64,7 +64,6 @@ export function CircleArrowLink({
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                    {/* Arrow Container */}
                     <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
                         <ArrowOutwardIcon
                             className="w-full h-full text-current" // Removed padding to make arrow bigger

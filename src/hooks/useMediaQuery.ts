@@ -5,50 +5,32 @@ import { breakpoints } from '@/config/theme';
 
 type BreakpointKey = keyof typeof breakpoints;
 
-/**
- * Hook to check if a media query matches
- */
 export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia(query);
-    
-    // Set initial value
     setMatches(media.matches);
 
-    // Create listener
     const listener = (event: MediaQueryListEvent) => {
       setMatches(event.matches);
     };
 
-    // Add listener
     media.addEventListener('change', listener);
-
-    // Cleanup
     return () => media.removeEventListener('change', listener);
   }, [query]);
 
   return matches;
 }
 
-/**
- * Check if screen is at least the given breakpoint
- */
 export function useBreakpoint(breakpoint: BreakpointKey): boolean {
   return useMediaQuery(`(min-width: ${breakpoints[breakpoint]}px)`);
 }
 
-/**
- * Check if screen is below the given breakpoint
- */
 export function useBreakpointDown(breakpoint: BreakpointKey): boolean {
   return useMediaQuery(`(max-width: ${breakpoints[breakpoint] - 1}px)`);
 }
 
-/**
- * Common breakpoint hooks
- */
 export function useIsMobile(): boolean {
   return useBreakpointDown('md');
 }
@@ -63,9 +45,6 @@ export function useIsDesktop(): boolean {
   return useBreakpoint('lg');
 }
 
-/**
- * Get current breakpoint name
- */
 export function useCurrentBreakpoint(): BreakpointKey {
   const is2xl = useBreakpoint('2xl');
   const isXl = useBreakpoint('xl');

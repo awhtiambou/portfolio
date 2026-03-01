@@ -1,4 +1,3 @@
-// Theme configuration constants
 // Following the 60-30-10 color rule
 
 export const colors = {

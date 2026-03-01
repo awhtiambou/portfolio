@@ -61,7 +61,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             className={cn("group relative border-t", isDark ? "border-white/10" : "border-gray-400", index === projects.length - 1 ? "border-b" : "")}
             onMouseMove={onMouseMove}
         >
-            {/* Spotlight Effect Background */}
             <motion.div
                 className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
                 style={{ background: bg }}
@@ -70,10 +69,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             <Link href={`/projects/${project.slug}`} className="relative block">
                 <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12 md:py-10 px-4 md:px-8">
 
-                    {/* Image Section */}
                     <div className="w-full md:w-5/12 lg:w-4/12 xl:w-3/12 flex-shrink-0">
                         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-white/5 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
-                            {/* If image exists, use it. Otherwise placeholder gradient */}
                             {project.image ? (
                                 <Image
                                     src={project.image}
@@ -93,14 +90,11 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                                 </div>
                             )}
 
-                            {/* Overlay on hover */}
                             <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10 dark:group-hover:bg-white/5" />
                         </div>
                     </div>
 
-                    {/* Content Section */}
                     <div className="flex-1 flex flex-col items-center justify-center md:justify-start md:items-start w-full">
-                        {/* Title */}
                         <div className="flex items-center md:items-start justify-center md:justify-between w-full group/title gap-5">
                             <div
                                 style={{ fontWeight: 800 }}
@@ -112,7 +106,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                                 {project.title}
                             </div>
 
-                            {/* Arrow Icon for Desktop */}
                             <motion.div
                                 className={cn(
                                     "hidden md:flex items-center justify-center w-12 h-12 rounded-full border transition-all duration-300 group-hover:bg-white group-hover:text-black group-hover:border-transparent group-hover:scale-110 group-hover:-translate-y-1 group-hover:translate-x-1",
@@ -123,15 +116,12 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                             </motion.div>
                         </div>
 
-                        {/* Categories and Technologies */}
                         <span className="text-color-foreground text-center md:text-left text-base md:text-lg font-accent" style={{ fontWeight: 600 }}>
                             {project.categories.map(cat => categoryLabels[cat]).join(" • ")}
                         </span>
                         <span className="text-sm text-color-foreground font-accent mt-2" style={{ fontWeight: 400 }}>{project.technologies.slice(0, 4).join(", ")}</span>
 
-                        {/* Tags - Show all categories plus some technologies */}
                         <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-4">
-                            {/* Category badges */}
                             {project.categories.map((cat, i) => (
                                 <span
                                     key={`cat-${i}`}
@@ -145,7 +135,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                                     {categoryLabels[cat]}
                                 </span>
                             ))}
-                            {/* Technology badges */}
                             {project.technologies.slice(0, 3).map((tech, i) => (
                                 <span
                                     key={`tech-${i}`}

@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { CircleArrowLink, LiveSignature } from "@/components/ui";
 
-// Use navigation config for drawer items
 const navItemsConfig = drawerNavItems.map(item => ({
     key: item.translationKey || item.label.toLowerCase(),
     href: item.href,
@@ -218,7 +217,6 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                             </div>
                         </div>
 
-                        {/* Content */}
                         <div className="relative z-10 min-h-full flex flex-col md:flex-row justify-center app-container">
                             {/* Left: Navigation Links */}
                             <div className="w-full md:w-auto md:flex-1 mt-20 lg:mt-0 flex flex-col justify-center items-center md:items-start">
@@ -368,7 +366,6 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                                     </motion.div>
                                 </div>
 
-                                {/* Social Links */}
                                 <motion.div
                                     className="mt-0 md:mt-10 flex gap-4 items-center justify-center md:justify-end"
                                     initial={{ opacity: 0 }}

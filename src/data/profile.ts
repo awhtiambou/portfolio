@@ -1,6 +1,5 @@
 import type { SocialLink } from "@/types";
 
-// Personal profile data
 export const profile = {
   name: "Abdoul-Wahabou H. Tiambou",
   firstName: "Abdoul-Wahabou",
@@ -38,7 +37,7 @@ export const profile = {
     ],
   },
 
-  avatar: "/images/avatar.jpg",
+  avatar: "/assets/images/me-coding.jpg",
   resume: "/resume.pdf",
 
   // Social links
@@ -75,7 +74,6 @@ export const profile = {
   },
 };
 
-// Social links for components
 export const socialLinksData: SocialLink[] = [
   {
     name: "GitHub",
@@ -94,7 +92,6 @@ export const socialLinksData: SocialLink[] = [
   },
 ];
 
-// Helper to get formatted name
 export function getFormattedName(format: "full" | "first" | "nickname" = "full"): string {
   switch (format) {
     case "first":
@@ -107,7 +104,7 @@ export function getFormattedName(format: "full" | "first" | "nickname" = "full")
 }
 
 export type RandomFact = {
-  name: "coffee" | "dream" | "soccer" | "priorities";
+  name: "coffee" | "dream" | "soccer" | "priorities" | "location" | "roots";
   image: string; // Path to the image in public folder
 };
 
@@ -126,7 +123,7 @@ export const randomFacts = [
   },
   {
     name: "location",
-    image: "/images/facts/saguenay.jpg",
+    image: "/assets/images/facts/me-winter.jpg",
   },
   {
     name: "roots",

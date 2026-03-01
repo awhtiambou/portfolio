@@ -47,7 +47,6 @@ export function AnimatedLoading({
 
     return (
         <div className={cn("flex flex-col items-center justify-center gap-4", className)}>
-            {/* Animated dots in circle */}
             <motion.div
                 className={cn("relative", sizeClasses[size])}
                 animate={{ rotate: 360 }}
@@ -85,7 +84,6 @@ export function AnimatedLoading({
                 ))}
             </motion.div>
 
-            {/* Loading text */}
             {text && (
                 <motion.p
                     className={cn(

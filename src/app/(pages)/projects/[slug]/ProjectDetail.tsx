@@ -6,11 +6,9 @@ import Image from "next/image";
 import type { ProjectCategory, ProjectSection, ProjectElement } from "@/types";
 import { useTranslations } from "next-intl";
 
-// ─── Width helpers ────────────────────────────────────────────────────────────
 // Matches the app's header/nav width convention.
 const CONTENT_WIDTH = "app-container";
 
-// ─── Props ────────────────────────────────────────────────────────────────────
 
 interface RelatedProject {
     id: string;
@@ -38,7 +36,6 @@ export interface ProjectDetailProps {
     relatedProjects: RelatedProject[];
 }
 
-// ─── Inline markdown ──────────────────────────────────────────────────────────
 // Only handles inline formatting (**bold**, *italic*, `code`) — no block parsing.
 
 function InlineText({ text }: { text: string }) {
@@ -58,7 +55,6 @@ function InlineText({ text }: { text: string }) {
     );
 }
 
-// ─── Scroll-reveal wrapper ────────────────────────────────────────────────────
 
 function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
     const ref = useRef<HTMLDivElement>(null);
@@ -77,7 +73,6 @@ function Reveal({ children, className = "" }: { children: React.ReactNode; class
     );
 }
 
-// ─── Element renderers ────────────────────────────────────────────────────────
 
 function TextElement({ el }: { el: Extract<ProjectElement, { type: "text" }> }) {
     return (
@@ -265,7 +260,6 @@ function DividerElement() {
     return <hr className="border-white/10" />;
 }
 
-// ─── Dispatch element type ────────────────────────────────────────────────────
 
 function Element({ el, isFullwidthSection }: { el: ProjectElement; isFullwidthSection?: boolean }) {
     switch (el.type) {
@@ -283,7 +277,6 @@ function Element({ el, isFullwidthSection }: { el: ProjectElement; isFullwidthSe
     }
 }
 
-// ─── Section renderer ─────────────────────────────────────────────────────────
 
 function Section({ section }: { section: ProjectSection }) {
     // Fullwidth sections: no padding/max-width wrapper, elements span the screen
@@ -329,7 +322,6 @@ function Section({ section }: { section: ProjectSection }) {
     );
 }
 
-// ─── Cover luminance detection ────────────────────────────────────────────────
 // Samples the bottom 40% of the image (where hero text lives).
 // Returns 0–255. Starts at 0 so the default safe state = white text on dark scrim.
 
@@ -365,7 +357,6 @@ function useCoverLuminance(imageSrc?: string): number {
     return luminance;
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
 
 export function ProjectDetail({
     title,
@@ -384,18 +375,12 @@ export function ProjectDetail({
 }: ProjectDetailProps) {
     const luminance = useCoverLuminance(image);
 
-    // Scrim opacity scales linearly with image brightness.
-    // Dark image (lum≈0)  → 0.55 — barely needed, image is already dark.
-    // Bright image (lum≈255) → 0.88 — strong scrim so white text stays readable.
-    // This is intentionally theme-agnostic: we never use background-primary in the
-    // hero because that variable flips to white in light mode, making text invisible.
     const scrimStrength = (0.55 + (luminance / 255) * 0.33).toFixed(2);
 
     const t = useTranslations();
     return (
         <div className="w-full">
 
-            {/* ── Hero ──────────────────────────────────────────────────────────── */}
             <div className="relative w-full min-h-screen flex flex-col">
                 {image && (
                     <Image src={image} alt={title} fill priority className="absolute inset-0 object-cover" sizes="100vw" />
@@ -497,17 +482,14 @@ export function ProjectDetail({
                 </div>
             </div>
 
-            {/* ── Sections ──────────────────────────────────────────────────────── */}
             {sections.map((section, i) => (
                 <Section key={i} section={section} />
             ))}
 
-            {/* ── Divider ───────────────────────────────────────────────────────── */}
             <div className={`${CONTENT_WIDTH} py-4`}>
                 <hr className="border-white/10" />
             </div>
 
-            {/* ── Related projects ──────────────────────────────────────────────── */}
             {relatedProjects.length > 0 && (
                 <Reveal>
                     <div className={`${CONTENT_WIDTH} py-16`}>
@@ -532,7 +514,6 @@ export function ProjectDetail({
                 </Reveal>
             )}
 
-            {/* ── Back button ───────────────────────────────────────────────────── */}
             <div className={`${CONTENT_WIDTH} pb-24 text-left`}>
                 <Link href="/projects"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-text-secondary hover:text-text-primary hover:border-white/40 transition-all text-sm font-medium">

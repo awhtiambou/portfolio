@@ -27,7 +27,7 @@ const workSans = Work_Sans({
   display: "swap",
 });
 
-// Bold signature-style font for watermark - thick, friendly strokes
+// signature-style font for watermark
 const pacifico = Pacifico({
   variable: "--font-signature",
   subsets: ["latin"],
@@ -43,7 +43,6 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#222222" },
   ],
 };
-
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -67,12 +66,21 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Portfolio",
       title: t("title"),
       description: t("description"),
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: t("title"),
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
       creator: "@awhtiambou",
+      images: ["/og-image.png"],
     },
     robots: {
       index: true,

@@ -43,17 +43,14 @@ export function FillButton({
                 style={{ color: "var(--color-foreground)" }}
                 {...props}
             >
-                {/* Base Text */}
                 <span className="relative z-10 font-medium flex items-center gap-2 justify-center">
                     {children}
                 </span>
 
-                {/* Fill Container (Sliding in from Left) */}
                 <span
                     className="absolute inset-0 z-20 overflow-hidden -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"
                     style={{ backgroundColor: fillColor }}
                 >
-                    {/* Overlay Text (Counter-sliding to stay stationary) */}
                     <span
                         className="absolute inset-0 flex items-center justify-center w-full h-full font-medium translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out gap-2"
                         style={{ color: overlayTextColor }}

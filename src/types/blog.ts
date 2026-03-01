@@ -1,9 +1,5 @@
-// ─── Blog Element & Section System ───────────────────────────────────────────
-// Each element knows its type and how it wants to be displayed.
-// Mirrors the ProjectElement system but with blog-specific additions.
 
 export type BlogElement =
-    // ── Text ──────────────────────────────────────────────────────────────────
     | {
         type: "text";
         /** Supports **bold**, *italic*, `code` inline. \n = line break. */
@@ -12,14 +8,12 @@ export type BlogElement =
         variant?: "body" | "lead" | "caption" | "quote" | "footnote";
     }
 
-    // ── Heading (inside a section body, below the section heading) ────────────
     | {
         type: "heading";
         level: 2 | 3 | 4;
         content: string;
     }
 
-    // ── Image variants ────────────────────────────────────────────────────────
     | {
         type: "image";
         src: string;
@@ -55,13 +49,11 @@ export type BlogElement =
         caption?: string;
     }
 
-    // ── Data / metrics ────────────────────────────────────────────────────────
     | {
         type: "stat-grid";
         stats: { label: string; value: string; note?: string; trend?: "up" | "down" | "neutral" }[];
     }
 
-    // ── Lists ─────────────────────────────────────────────────────────────────
     | {
         type: "list";
         items: string[];
@@ -69,7 +61,6 @@ export type BlogElement =
         variant?: "bullet" | "numbered" | "check" | "arrow";
     }
 
-    // ── Code ──────────────────────────────────────────────────────────────────
     | {
         type: "code";
         language?: string;
@@ -80,7 +71,6 @@ export type BlogElement =
         lineNumbers?: boolean;
     }
 
-    // ── Callout / alert boxes ─────────────────────────────────────────────────
     | {
         type: "callout";
         /** @default "info" */
@@ -89,7 +79,6 @@ export type BlogElement =
         content: string;
     }
 
-    // ── Math formula (KaTeX / display) ────────────────────────────────────────
     | {
         type: "formula";
         /** LaTeX string */
@@ -99,7 +88,6 @@ export type BlogElement =
         caption?: string;
     }
 
-    // ── Table ─────────────────────────────────────────────────────────────────
     | {
         type: "table";
         headers: string[];
@@ -109,7 +97,6 @@ export type BlogElement =
         striped?: boolean;
     }
 
-    // ── Links ─────────────────────────────────────────────────────────────────
     | {
         type: "link-list";
         links: { label: string; href: string; description?: string; external?: boolean }[];
@@ -117,7 +104,6 @@ export type BlogElement =
         variant?: "list" | "cards" | "inline";
     }
 
-    // ── Video embed ───────────────────────────────────────────────────────────
     | {
         type: "video";
         /** YouTube / Vimeo embed URL or local /path */
@@ -128,7 +114,6 @@ export type BlogElement =
         aspect?: "16/9" | "4/3" | "1/1";
     }
 
-    // ── Pull quote / blockquote ───────────────────────────────────────────────
     | {
         type: "blockquote";
         content: string;
@@ -136,16 +121,13 @@ export type BlogElement =
         source?: string;
     }
 
-    // ── Steps / process ───────────────────────────────────────────────────────
     | {
         type: "steps";
         steps: { title: string; description: string; icon?: string }[];
     }
 
-    // ── Divider ───────────────────────────────────────────────────────────────
     | { type: "divider"; style?: "line" | "dots" | "gradient" };
 
-// ─── Section ─────────────────────────────────────────────────────────────────
 export interface BlogSection {
     id: string;
     /** Small-caps label above the heading */
@@ -160,7 +142,6 @@ export interface BlogSection {
     background?: "none" | "subtle" | "accent";
 }
 
-// ─── Blog post ───────────────────────────────────────────────────────────────
 export type BlogCategory =
     | "computer-vision"
     | "machine-learning"

@@ -3,17 +3,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { siteConfig, headerNavItems } from "@/config/navigation";
-import { locales, type Locale } from "@/i18n";
 import { MenuToggle, CircleArrowLink, FlagIcon } from "@/components/ui";
 import { MenuDrawer } from "./MenuDrawer";
 import { ThemeToggleIcon } from "@/components/ui/icons/ThemeToggleIcon";
-// Navigation items from config (Home, About, Projects, Blog)
+import { useLocaleSwitch } from "@/hooks";
 const navItemsConfig = headerNavItems.map(item => ({
   key: item.translationKey || item.label.toLowerCase(),
   href: item.href,
@@ -23,22 +22,13 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [currentLocale, setCurrentLocale] = useState<Locale>("en");
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
-  const router = useRouter();
   const t = useTranslations("common");
+  const { currentLocale, toggleLocale } = useLocaleSwitch();
 
   useEffect(() => {
     setMounted(true);
-    // Get locale from cookie
-    const localeCookie = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("NEXT_LOCALE="))
-      ?.split("=")[1] as Locale | undefined;
-    if (localeCookie && locales.includes(localeCookie)) {
-      setCurrentLocale(localeCookie);
-    }
   }, []);
 
   useEffect(() => {
@@ -53,13 +43,6 @@ export function Header() {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
-  const toggleLocale = () => {
-    const newLocale = currentLocale === "en" ? "fr" : "en";
-    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
-    setCurrentLocale(newLocale);
-    router.refresh();
-  };
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -71,7 +54,6 @@ export function Header() {
 
   return (
     <>
-      {/* Floating Header */}
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -97,7 +79,6 @@ export function Header() {
           }}
           layout
         >
-          {/* Noise Texture Overlay */}
           <div className="rounded-2xl absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]">
             <svg className="w-full h-full">
               <filter id="headerNoise">
@@ -107,9 +88,7 @@ export function Header() {
             </svg>
           </div>
 
-          {/* Subtle Gradient Shine */}
           <div className={`rounded-2xl absolute inset-0 z-0 bg-gradient-to-b ${isDark ? 'from-white/5 to-transparent' : 'from-white/40 to-transparent'} pointer-events-none`} />
-          {/* Logo */}
           <Link
             href="/"
             className="fixed -top-2 lg:-top-3 left-0 lg:left-1/2 lg:-translate-x-1/2 -rotate-15 flex items-center gap-2 group"
@@ -132,7 +111,6 @@ export function Header() {
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation - Hidden on Mobile */}
           <div className="hidden lg:flex items-center gap-2">
             {navItemsConfig.map((item) => {
               return (
@@ -152,9 +130,7 @@ export function Header() {
             })}
           </div>
 
-          {/* Right Section */}
           <div className="flex items-center gap-4 md:gap-6">
-            {/* Language Toggle */}
             <motion.button
               onClick={toggleLocale}
               className={cn(
@@ -171,7 +147,6 @@ export function Header() {
               <span>{currentLocale.toUpperCase()}</span>
             </motion.button>
 
-            {/* Theme Toggle */}
             <motion.button
               onClick={toggleTheme}
               className={cn(
@@ -188,7 +163,6 @@ export function Header() {
               {mounted && <ThemeToggleIcon isDark={isDark} />}
             </motion.button>
 
-            {/* Menu Toggle - Animated Hamburger */}
             <MenuToggle
               isOpen={isMenuOpen}
               onClick={toggleMenu}
@@ -198,7 +172,6 @@ export function Header() {
         </motion.nav>
       </motion.header>
 
-      {/* Full-screen Menu Drawer */}
       <MenuDrawer
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}

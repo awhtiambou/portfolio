@@ -21,7 +21,6 @@ import { useTranslations } from "next-intl";
 import { skillCategoryConfig, getSkillsByCategory, masteredTechnologies } from "@/data/skills";
 import type { MasteredTechnology, SkillCategory } from "@/types";
 import { cn, getShuffledArray } from "@/lib/utils";
-// MUI removed
 import { GlassCardStack } from "@/components/ui/GlassCardStack";
 import { marqueeLeft, marqueeRight } from "@/lib/animations";
 
@@ -111,7 +110,6 @@ function SkillCardContent({ category, isDark, t, isTop }: SkillCardContentProps)
 
     return (
         <div className="relative w-full h-full flex flex-col">
-            {/* Bottom gradient overlay */}
             <div
                 className={cn(
                     "absolute inset-0 pointer-events-none transition-opacity duration-500",
@@ -126,7 +124,6 @@ function SkillCardContent({ category, isDark, t, isTop }: SkillCardContentProps)
                 }}
             />
 
-            {/* Subtle top glow */}
             <div
                 className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 blur-3xl pointer-events-none transition-opacity duration-500"
                 style={{
@@ -135,9 +132,7 @@ function SkillCardContent({ category, isDark, t, isTop }: SkillCardContentProps)
                 }}
             />
 
-            {/* Content */}
             <div className="relative z-10 flex flex-col justify-center flex-1 p-6 md:p-8 lg:p-10">
-                {/* Category icon and label */}
                 <motion.div
                     className="flex items-center gap-3 mb-4"
                     initial={{ opacity: 0, y: 10 }}
@@ -176,7 +171,6 @@ function SkillCardContent({ category, isDark, t, isTop }: SkillCardContentProps)
                     {t(`categories.${category}.tagline`)}
                 </h3>
 
-                {/* Description */}
                 <p className={cn(
                     "text-sm md:text-base leading-relaxed mb-6 line-clamp-3",
                     isDark ? "text-white/60" : "text-gray-600"
@@ -275,7 +269,6 @@ const TechRow = ({ items, variant }: { items: MasteredTechnology[], variant: any
     </div>
 );
 
-// Main component
 export function SkillsSection() {
     const [mounted, setMounted] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -348,7 +341,6 @@ export function SkillsSection() {
                     >
                         {/* Left side: Header content */}
                         <motion.div variants={itemVariants} className="text-center md:text-left relative z-20">
-                            {/* Title */}
                             <h2
                                 className={cn(
                                     "text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wide font-heading",
@@ -358,7 +350,6 @@ export function SkillsSection() {
                                 {t("title")}
                             </h2>
 
-                            {/* Description */}
                             <p className={cn(
                                 "text-lg md:text-xl mb-8 leading-relaxed",
                                 isDark ? "text-white/70" : "text-gray-600"

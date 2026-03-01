@@ -10,7 +10,6 @@ interface MenuToggleProps {
   isDark?: boolean;
 }
 
-// Animated line variants
 const topLineVariants = {
   closed: {
     rotate: 0,

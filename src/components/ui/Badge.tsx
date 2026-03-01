@@ -48,7 +48,6 @@ export function Badge({
   );
 }
 
-// Skill-specific badge with level indicator
 interface SkillBadgeProps extends BadgeProps {
   level?: "beginner" | "intermediate" | "advanced" | "expert";
 }

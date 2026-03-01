@@ -13,7 +13,6 @@ interface UnderlinedAnimatedLinkProps {
     onClick?: () => void;
 }
 
-// Using hex values directly for reliable colors
 const colorValues = {
     blue: "#4ECDC4",   // rich teal
     pink: "#FF6B8A",   // vibrant coral
@@ -45,9 +44,7 @@ export function UnderlinedAnimatedLink({
             <span className="relative font-heading font-black">
                 {children}
 
-                {/* Underline container */}
                 <span className="absolute -bottom-1 left-0 w-full h-[2px] overflow-hidden">
-                    {/* Active state - full underline */}
                     <motion.span
                         className="absolute inset-0 origin-left"
                         style={{ backgroundColor: colorValues[underlineColor] }}
@@ -56,7 +53,6 @@ export function UnderlinedAnimatedLink({
                         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                     />
 
-                    {/* Hover state - animated underline */}
                     <motion.span
                         className="absolute inset-0 origin-left"
                         style={{ backgroundColor: colorValues[underlineColor] }}
@@ -66,7 +62,6 @@ export function UnderlinedAnimatedLink({
                     />
                 </span>
 
-                {/* Hover effect - slides in from left, slides out to right */}
                 <span
                     className={cn(
                         "absolute -bottom-1 left-0 w-full h-[2px]",

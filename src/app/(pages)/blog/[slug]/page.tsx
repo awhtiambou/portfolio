@@ -1,6 +1,3 @@
-// Server Component — no "use client".
-// Resolves all translatable fields from locale before passing to BlogDetail (Client Component).
-// Strategy mirrors the project detail page: locale sections are merged by position onto TS sections.
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -11,10 +8,6 @@ import { BlogDetail } from "./BlogDetail";
 
 type Props = { params: Promise<{ slug: string }> };
 
-// ─── Type-aware locale element merger ────────────────────────────────────────
-// Non-translatable element types have no locale counterpart.
-// We walk TS elements and only advance the locale cursor for translatable types,
-// so positions never shift when code/image/divider elements are skipped in locale.
 
 const NON_TRANSLATABLE_TYPES = new Set([
     "code",
@@ -76,7 +69,6 @@ function resolveSections(
     );
 }
 
-// ─── Static params & metadata ─────────────────────────────────────────────────
 
 export async function generateStaticParams() {
     return getAllBlogSlugs().map((slug) => ({ slug }));
@@ -110,7 +102,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function BlogPostPage({ params }: Props) {
     const { slug } = await params;

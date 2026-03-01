@@ -1354,5 +1354,10 @@
         }
       }
     }
+  },
+  "notFound": {
+    "title": "PAGE INTROUVABLE",
+    "subtitle": "Nous n'avons pas pu trouver la page que vous cherchez.",
+    "goHome": "Retour à l'accueil"
   }
 }

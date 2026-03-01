@@ -1,6 +1,5 @@
 import { Variants } from 'framer-motion';
 
-// Fade in animation
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -9,7 +8,6 @@ export const fadeIn: Variants = {
   },
 };
 
-// Fade in with upward movement
 export const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -19,7 +17,6 @@ export const fadeInUp: Variants = {
   },
 };
 
-// Fade in with downward movement
 export const fadeInDown: Variants = {
   hidden: { opacity: 0, y: -20 },
   visible: {
@@ -29,7 +26,6 @@ export const fadeInDown: Variants = {
   },
 };
 
-// Fade in from left
 export const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -20 },
   visible: {
@@ -39,7 +35,6 @@ export const fadeInLeft: Variants = {
   },
 };
 
-// Fade in from right
 export const fadeInRight: Variants = {
   hidden: { opacity: 0, x: 20 },
   visible: {
@@ -49,7 +44,6 @@ export const fadeInRight: Variants = {
   },
 };
 
-// Scale up animation
 export const scaleUp: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: {
@@ -59,7 +53,6 @@ export const scaleUp: Variants = {
   },
 };
 
-// Stagger container for children
 export const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -71,7 +64,6 @@ export const staggerContainer: Variants = {
   },
 };
 
-// Stagger item (use with staggerContainer)
 export const staggerItem: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -81,7 +73,6 @@ export const staggerItem: Variants = {
   },
 };
 
-// Slide in from bottom (for modals, sheets)
 export const slideInBottom: Variants = {
   hidden: { opacity: 0, y: '100%' },
   visible: {
@@ -96,7 +87,6 @@ export const slideInBottom: Variants = {
   },
 };
 
-// Page transition
 export const pageTransition: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -109,18 +99,15 @@ export const pageTransition: Variants = {
   },
 };
 
-// Hover scale effect (use with whileHover)
 export const hoverScale = {
   scale: 1.02,
   transition: { duration: 0.2 },
 };
 
-// Tap scale effect (use with whileTap)
 export const tapScale = {
   scale: 0.98,
 };
 
-// Card hover effect
 export const cardHover: Variants = {
   rest: {
     y: 0,

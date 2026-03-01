@@ -83,7 +83,6 @@ export const TiltCard = ({
             >
                 {children}
 
-                {/* Dynamic Glow Effect */}
                 <motion.div
                     style={{
                         background: bg,
@@ -92,7 +91,6 @@ export const TiltCard = ({
                     className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-[inherit] z-20 mix-blend-overlay"
                 />
 
-                {/* Reflection Sheen */}
                 <div
                     className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-[inherit] z-20"
                 />
