@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink } from "@/components/ui";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -146,7 +146,7 @@ export function Footer() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start mb-16">
           <div className="flex flex-col items-center lg:items-start order-2 lg:order-1">
-            <Link
+            <TransitionLink
               href="/contact"
               className="group inline-flex items-center font-heading font-black
                 text-3xl md:text-4xl xl:text-5xl text-text-primary
@@ -154,7 +154,7 @@ export function Footer() {
             >
               {t("cta")}
               <AnimatedArrow />
-            </Link>
+            </TransitionLink>
 
             <div className="flex items-center gap-3 flex-wrap mb-10">
               {(Object.keys(socialIconsList) as (keyof typeof socialIconsList)[]).map((id) => (

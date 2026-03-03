@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Besley, Inter, Work_Sans, Pacifico } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale, getTranslations } from "next-intl/server";
-import { ThemeProvider } from "@/providers";
-import { CustomCursor, GlobalBackground } from "@/components/ui";
+import { ThemeProvider, TransitionProvider } from "@/providers";
+import { CustomCursor, GlobalBackground, PageTransition } from "@/components/ui";
 import "./globals.css";
 
 const besley = Besley({
@@ -102,9 +102,12 @@ export default async function RootLayout({
       <body className={`${besley.variable} ${inter.variable} ${workSans.variable} ${pacifico.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <CustomCursor />
-            <GlobalBackground />
-            {children}
+            <TransitionProvider>
+              <CustomCursor />
+              <GlobalBackground />
+              <PageTransition />
+              {children}
+            </TransitionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

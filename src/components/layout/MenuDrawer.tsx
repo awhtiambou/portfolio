@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Link from "next/link";
+import { TransitionLink } from "@/components/ui";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
@@ -233,7 +233,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                                         >
                                             {/**Mobile */}
                                             <div className="w-fit flex md:hidden">
-                                                <Link href={item.href} onClick={onClose} className="flex items-center">
+                                                <TransitionLink href={item.href} onClick={onClose} className="flex items-center">
                                                     <motion.span
                                                         className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-black transition-colors ${isDark ? 'text-white/90 hover:text-white' : 'text-gray-900/90 hover:text-gray-900'}`}
                                                         whileHover={{ x: 20, color: "#4ECDC4" }}
@@ -244,7 +244,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                                                     {item.href === "/projects" && (
                                                         <span className="text-2xl md:text-4xl ml-4">🚀</span>
                                                     )}
-                                                </Link>
+                                                </TransitionLink>
                                             </div>
                                             {/**Desktop */}
                                             <div className="w-fit hidden md:block">
@@ -280,22 +280,22 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.8 }}
                                 >
-                                    <Link href="/blog" onClick={onClose} className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
+                                    <TransitionLink href="/blog" onClick={onClose} className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
                                         {t("blog").toUpperCase()}
-                                    </Link>
-                                    <Link href="/contact#newsletter" onClick={onClose} className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
+                                    </TransitionLink>
+                                    <TransitionLink href="/contact#newsletter" onClick={onClose} className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}>
                                         {t("newsletter").toUpperCase()}
-                                    </Link>
+                                    </TransitionLink>
                                     {/* Section Links */}
                                     {aboutSectionLinks.map((section) => (
-                                        <Link
+                                        <TransitionLink
                                             key={section.href}
                                             href={section.href}
                                             onClick={onClose}
                                             className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-gray-900'}`}
                                         >
                                             {t(section.translationKey || section.label.toLowerCase()).toUpperCase()}
-                                        </Link>
+                                        </TransitionLink>
                                     ))}
                                     <button
                                         onClick={onLocaleChange}
@@ -400,14 +400,13 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                             animate={{ scale: 1, rotate: 0 }}
                             transition={{ delay: 1, type: "spring" }}
                         >
-                            <Link
+                            <TransitionLink
                                 href="/contact"
                                 onClick={onClose}
                                 className="relative w-20 h-20 md:w-28 md:h-28 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-300 transition-colors shadow-lg"
                                 data-cursor-text="Chat"
                             >
                                 <span className="text-2xl md:text-4xl">👋</span>
-                                {/* Rotating text around button */}
                                 <svg
                                     className="absolute w-full h-full animate-spin-slow"
                                     viewBox="0 0 100 100"
@@ -424,7 +423,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                                         </textPath>
                                     </text>
                                 </svg>
-                            </Link>
+                            </TransitionLink>
                         </motion.div>
                     </motion.div>
                 </>

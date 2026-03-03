@@ -6,9 +6,12 @@ import { useEffect, useState } from "react";
 
 interface LiveSignatureProps {
     className?: string;
+    color?: string;
+    accent1?: string;
+    accent2?: string;
 }
 
-export function LiveSignature({ className = "" }: LiveSignatureProps) {
+export function LiveSignature({ className = "", color, accent1, accent2 }: LiveSignatureProps) {
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
@@ -18,9 +21,9 @@ export function LiveSignature({ className = "" }: LiveSignatureProps) {
 
     // Determine colors based on theme
     const isDark = mounted && resolvedTheme === "dark";
-    const mainColor = isDark ? "#FFFFFF" : "#1a1a1a";
-    const accentColor1 = isDark ? "#4ECDC4" : "#FF6B8A"; // Mint/Pink
-    const accentColor2 = isDark ? "#F5A623" : "#4ECDC4"; // Yellow/Blue
+    const mainColor = color || (isDark ? "#FFFFFF" : "#1a1a1a");
+    const accentColor1 = accent1 || (isDark ? "#4ECDC4" : "#FF6B8A"); // Mint/Pink
+    const accentColor2 = accent2 || (isDark ? "#F5A623" : "#4ECDC4"); // Yellow/Blue
 
     return (
         <div className={`relative w-full flex items-center justify-center select-none overflow-hidden ${className}`}>

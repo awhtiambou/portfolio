@@ -15,3 +15,5 @@ export { TiltCard } from "./TiltCard";
 export { GlassCardStack } from "./GlassCardStack";
 export { GlobalBackground } from "./GlobalBackground";
 export { LiveSignature } from "./LiveSignature";
+export { PageTransition } from "./PageTransition";
+export { TransitionLink } from "./TransitionLink";

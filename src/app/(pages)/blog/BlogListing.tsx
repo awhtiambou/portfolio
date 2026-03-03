@@ -170,7 +170,7 @@ export function BlogListing() {
     const [activeCategory, setActiveCategory] = useState<BlogCategory | "all">("all");
 
     const filtered = useMemo(() => {
-        if (activeCategory === "all") return [];
+        if (activeCategory === "all") return blogs;
         return blogs.filter((b) => b.categories.includes(activeCategory));
     }, [activeCategory]);
 

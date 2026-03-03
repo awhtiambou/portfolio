@@ -1,14 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink } from "./TransitionLink";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-const ArrowOutwardIcon = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
-        <line x1="7" y1="17" x2="17" y2="7"></line>
-        <polyline points="7 7 17 7 17 17"></polyline>
-    </svg>
-);
+import { MdArrowBack } from "react-icons/md";
+import { GoArrowUpRight } from "react-icons/go";
 
 interface CircleArrowLinkProps {
     href: string;
@@ -30,14 +26,14 @@ export function CircleArrowLink({
     isActive,
     activeColor = "var(--color-yellow)",
     ...props
-}: CircleArrowLinkProps & Omit<React.ComponentProps<typeof Link>, "href"> & { activeColor?: string }) {
+}: CircleArrowLinkProps & Omit<React.ComponentProps<typeof TransitionLink>, "href"> & { activeColor?: string }) {
     return (
         <motion.div
             initial="initial"
             whileHover="hover"
             className={cn("inline-block", className)}
         >
-            <Link
+            <TransitionLink
                 href={href}
                 onClick={onClick}
                 className={cn("group flex items-center gap-0 cursor-pointer transition-colors duration-300", isActive && "font-bold")}
@@ -65,13 +61,10 @@ export function CircleArrowLink({
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                     <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
-                        <ArrowOutwardIcon
-                            className="w-full h-full text-current" // Removed padding to make arrow bigger
-                            style={{ color: "inherit", transform: "scale(1.2)" }} // Scale up arrow slightly more
-                        />
+                        <GoArrowUpRight className="w-3/4 h-3/4 text-current" />
                     </div>
                 </motion.div>
-            </Link>
+            </TransitionLink>
         </motion.div>
     );
 }

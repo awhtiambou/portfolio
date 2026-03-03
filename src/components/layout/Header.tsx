@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { TransitionLink } from "@/components/ui";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
@@ -89,7 +89,7 @@ export function Header() {
           </div>
 
           <div className={`rounded-2xl absolute inset-0 z-0 bg-gradient-to-b ${isDark ? 'from-white/5 to-transparent' : 'from-white/40 to-transparent'} pointer-events-none`} />
-          <Link
+          <TransitionLink
             href="/"
             className="fixed -top-2 lg:-top-3 left-0 lg:left-1/2 lg:-translate-x-1/2 -rotate-15 flex items-center gap-2 group"
             data-cursor-text="Home"
@@ -109,7 +109,7 @@ export function Header() {
                 />
               )}
             </motion.div>
-          </Link>
+          </TransitionLink>
 
           <div className="hidden lg:flex items-center gap-2">
             {navItemsConfig.map((item) => {
