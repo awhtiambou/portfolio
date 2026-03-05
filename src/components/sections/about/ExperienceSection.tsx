@@ -6,6 +6,8 @@ import { useTranslations, useLocale } from "next-intl";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { experiences } from "@/data/experience";
+import { SectionTitle } from "@/components/ui";
+import { cn } from "@/lib/utils";
 
 const W = "app-container";
 
@@ -87,15 +89,15 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
 
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-1">
-                <span className="font-heading font-bold text-text-primary text-base md:text-lg
-                  leading-tight group-hover:text-accent-blue transition-colors duration-200">
+                <span className={cn("font-heading font-bold text-text-primary text-base md:text-lg leading-tight transition-colors duration-200", isDark ? "group-hover:text-accent-yellow" : "group-hover:text-accent-blue")}>
                   {item.position}
                 </span>
                 {exp.current && (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full
-                    text-[10px] font-mono uppercase tracking-wider
-                    bg-accent-blue/10 text-accent-blue border border-accent-blue/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-blue animate-pulse" />
+                  <span className={cn(
+                    "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider border",
+                    isDark ? "bg-accent-yellow/10 text-accent-yellow border-accent-yellow/20" : "bg-accent-blue/10 text-accent-blue border-accent-blue/20"
+                  )}>
+                    <span className={cn("w-1.5 h-1.5 rounded-full animate-pulse", isDark ? "bg-accent-yellow" : "bg-accent-blue")} />
                     {t("current")}
                   </span>
                 )}
@@ -107,7 +109,7 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={e => e.stopPropagation()}
-                  className="font-semibold text-text-secondary hover:text-accent-blue transition-colors"
+                  className={cn("font-semibold text-text-secondary transition-colors", isDark ? "hover:text-accent-yellow" : "hover:text-accent-blue")}
                 >
                   {item.company}
                 </a>
@@ -161,8 +163,7 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
                       const fieldKey = rk.split(".")[1]; // "r0", "r1", …
                       return (
                         <li key={rk} className="flex items-start gap-3 text-sm text-text-secondary">
-                          <span className="flex-shrink-0 mt-[7px] w-1.5 h-1.5 rounded-full
-                            bg-accent-blue opacity-60" />
+                          <span className={cn("flex-shrink-0 mt-[7px] w-1.5 h-1.5 rounded-full opacity-60", isDark ? "bg-accent-yellow" : "bg-accent-blue")} />
                           {item[fieldKey]}
                         </li>
                       );
@@ -203,25 +204,7 @@ export function ExperienceSection() {
   return (
     <div className="py-20 w-full">
 
-      <div className={`${W} mb-12`}>
-        <motion.p
-          className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          {t("subtitle")}
-        </motion.p>
-        <motion.h2
-          className="font-heading text-4xl md:text-5xl font-bold text-text-primary"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          {t("title")}
-        </motion.h2>
-      </div>
+      <SectionTitle className="app-container" subtitle={t("subtitle")} title={t("title")} />
 
       <div className="w-full">
         {visible.map((exp, i) => (

@@ -3,8 +3,20 @@
 import { Section } from "@/components/layout";
 import { SectionTitle, Card } from "@/components/ui";
 import { profile } from "@/data/profile";
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 export function CurrentlySection() {
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isDark = mounted ? resolvedTheme === "dark" : true;
+
     return (
         <Section>
             <SectionTitle
@@ -20,7 +32,7 @@ export function CurrentlySection() {
                     <ul className="space-y-2">
                         {profile.current.learning.map((item) => (
                             <li key={item} className="text-text-secondary flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 bg-accent-blue rounded-full" />
+                                <span className={cn("w-1.5 h-1.5 rounded-full", isDark ? "bg-accent-yellow" : "bg-accent-blue")} />
                                 {item}
                             </li>
                         ))}

@@ -10,6 +10,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { testimonials, getRelationshipText, truncateText } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
+import { SectionTitle } from "@/components/ui";
 
 // Import Swiper styles
 import "swiper/css";
@@ -150,7 +151,7 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                         transition={{ delay: 0.4 }}
                     >
                         <div
-                            className="flex items-center justify-center rounded-full text-white bg-gradient-to-br from-accent-blue via-accent-blue to-accent-yellow font-medium text-sm shadow-lg w-10 h-10 md:w-[60px] md:h-[60px]"
+                            className={cn("flex items-center justify-center rounded-full text-white font-medium text-sm shadow-lg w-10 h-10 md:w-[60px] md:h-[60px]", isDark ? "bg-gradient-to-br from-accent-yellow via-accent-yellow to-accent-blue" : "bg-gradient-to-br from-accent-blue via-accent-blue to-accent-yellow")}
                             style={{ fontFamily: "var(--font-besley)" }}
                         >
                             {testimonial.name.charAt(0)}
@@ -185,7 +186,7 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                                 className={cn(
                                     "p-3 rounded-full transition-all",
                                     isDark
-                                        ? "bg-white/10 text-white hover:bg-accent-blue hover:text-white"
+                                        ? "bg-white/10 text-white hover:bg-accent-yellow hover:text-gray-900"
                                         : "bg-gray-100 text-gray-600 hover:bg-accent-blue hover:text-white"
                                 )}
                                 whileHover={{ scale: 1.1 }}
@@ -313,28 +314,7 @@ export function TestimonialsSection() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                 >
-                    <div className={`mb-12`}>
-                        <motion.p
-                            className={cn(
-                                "text-xs font-mono uppercase tracking-[0.25em] mb-3",
-                                isDark ? "text-accent-yellow" : "text-text-muted"
-                            )}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                        >
-                            {t("subtitle")}
-                        </motion.p>
-                        <motion.h2
-                            className="font-heading text-4xl md:text-5xl font-bold text-text-primary"
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                        >
-                            {t("title")}
-                        </motion.h2>
-                    </div>
+                    <SectionTitle subtitle={t("subtitle")} title={t("title")} />
 
                     <motion.div variants={itemVariants} className="w-full md:w-11/12 mx-auto">
                         <Swiper

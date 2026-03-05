@@ -37,13 +37,13 @@ export function FillButton({
             <Component
                 href={href || ""}
                 className={cn(
-                    "relative overflow-hidden px-8 py-4 border border-current rounded-full group inline-block",
+                    "relative overflow-hidden px-8 py-4 border-2 border-current rounded-full group inline-block",
                     className
                 )}
                 style={{ color: "var(--color-foreground)" }}
                 {...props}
             >
-                <span className="relative z-10 font-medium flex items-center gap-2 justify-center">
+                <span className="relative z-10 flex items-center gap-2 justify-center">
                     {children}
                 </span>
 
@@ -52,7 +52,7 @@ export function FillButton({
                     style={{ backgroundColor: fillColor }}
                 >
                     <span
-                        className="absolute inset-0 flex items-center justify-center w-full h-full font-medium translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out gap-2"
+                        className="absolute inset-0 flex items-center justify-center w-full h-full translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out gap-2"
                         style={{ color: overlayTextColor }}
                     >
                         {children}
@@ -143,7 +143,7 @@ export function MagneticButton({
             <Component
                 href={href || ""}
                 className={cn(
-                    "relative z-10 px-8 py-4 rounded-full font-medium inline-block flex items-center gap-2",
+                    "relative z-10 px-8 py-4 rounded-full inline-block flex items-center gap-2",
                     className
                 )}
                 style={{

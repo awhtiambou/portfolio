@@ -10,6 +10,8 @@ import { useTranslations } from "next-intl";
 import { FiArrowUpRight } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
+import { FillButton } from "@/components/ui";
+import { MdArrowForward } from "react-icons/md";
 
 const TechRow = ({ items, variant }: { items: MasteredTechnology[], variant: Variants }) => (
     <div className="flex overflow-hidden w-full">
@@ -54,26 +56,18 @@ export const SkillsSection = () => {
     }, []);
 
     return (
-        <div className="min-h-[420px] md:min-h-[600px] flex flex-col items-center justify-center gap-6 w-full overflow-hidden">
+        <div className="min-h-[420px] md:min-h-[600px] flex flex-col items-center justify-center gap-10 md:gap-6 w-full overflow-hidden">
             <div className="flex flex-col rotate-6 w-[150%] gap-6">
                 <TechRow items={firstHalf} variant={marqueeLeft as Variants} />
                 <div className="h-0.5 w-full bg-border" />
                 <TechRow items={secondHalf} variant={marqueeRight as Variants} />
             </div>
-            <div className="w-full flex justify-start pl-10">
+            <div className="w-full flex justify-start pl-5 md:pl-10">
                 <Link href="/about#skills" className="flex justify-center md:justify-start">
-                    <motion.button
-                        className={cn(
-                            "group flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all",
-                            "bg-gray-900 text-white hover:bg-accent-blue hover:text-white",
-                            "dark:bg-white dark:text-gray-900 dark:hover:bg-accent-yellow dark:hover:text-gray-900"
-                        )}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.98 }}
-                    >
+                    <FillButton href="/about" fillColor="var(--color-foreground)" className="group font-mono font-medium text-sm">
                         {t("viewAll")}
-                        <FiArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                    </motion.button>
+                        <MdArrowForward className="ml-2 inline-block transition-transform duration-400 group-hover:translate-x-2" />
+                    </FillButton>
                 </Link>
             </div>
         </div>

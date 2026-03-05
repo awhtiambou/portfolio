@@ -2,6 +2,9 @@
 
 import { cn } from "@/lib/utils";
 import type { WithChildren, WithClassName } from "@/types";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type HeadingSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
@@ -111,26 +114,47 @@ interface SectionTitleProps extends WithClassName {
   title: string;
   subtitle?: string;
   centered?: boolean;
-  size?: HeadingSize;
 }
 
 export function SectionTitle({
   title,
   subtitle,
-  centered = true,
-  size = "xl",
+  centered = false,
   className,
 }: SectionTitleProps) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === "dark";
+
   return (
     <div className={cn("mb-12", centered && "text-center", className)}>
-      <Heading size={size} className="mb-4">
-        {title}
-      </Heading>
       {subtitle && (
-        <Text variant="muted" size="lg" className="max-w-2xl mx-auto">
+        <motion.p
+          className={cn(
+            "text-xs font-mono uppercase tracking-[0.25em] mb-3",
+            isDark ? "text-accent-yellow" : "text-text-muted"
+          )}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {subtitle}
-        </Text>
+        </motion.p>
       )}
+      <motion.h2
+        className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ delay: 0.1 }}
+      >
+        {title}
+      </motion.h2>
     </div>
   );
 }

@@ -22,6 +22,7 @@ import { skillCategoryConfig, getSkillsByCategory, masteredTechnologies } from "
 import type { MasteredTechnology, SkillCategory } from "@/types";
 import { cn, getShuffledArray } from "@/lib/utils";
 import { GlassCardStack } from "@/components/ui/GlassCardStack";
+import { SectionTitle } from "@/components/ui";
 import { marqueeLeft, marqueeRight } from "@/lib/animations";
 
 // Icon mapping
@@ -341,20 +342,12 @@ export function SkillsSection() {
                     >
                         {/* Left side: Header content */}
                         <motion.div variants={itemVariants} className="text-center md:text-left relative z-20">
-                            <h2
-                                className={cn(
-                                    "text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wide font-heading",
-                                    isDark ? "text-white" : "text-gray-900"
-                                )}
-                            >
-                                {t("title")}
-                            </h2>
-
+                            <SectionTitle className="md:!text-left mb-6" subtitle={t("label")} title={t("title")} />
                             <p className={cn(
                                 "text-lg md:text-xl mb-8 leading-relaxed",
                                 isDark ? "text-white/70" : "text-gray-600"
                             )}>
-                                {t("subtitle")}
+                                {t("description")}
                             </p>
 
                             {/* Active category indicator */}

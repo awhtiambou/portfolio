@@ -6,6 +6,7 @@
   "projects": {
     "title": "Featured projects",
     "subtitle": "Some of my recent work",
+    "description": "Explore my portfolio of AI/ML, web development, and software engineering projects.",
     "viewProject": "View project",
     "relatedWork": "Related work",
     "moreProjects": "More like this",
@@ -429,6 +430,7 @@
     },
     "randomFacts": {
       "title": "Random facts",
+      "subtitle": "Beyond the code",
       "description": "When I'm not training models or debugging complex algorithms, I'm usually recharging my own neural network. Here's a glimpse into the human side of the stack—what drives me, what fuels me, and what keeps me grounded.",
       "coffee": {
         "title": "My fuel source",
@@ -457,8 +459,9 @@
     }
   },
   "skills": {
+    "label": "My Arsenal",
     "title": "Skills & Expertise",
-    "subtitle": "Technologies and tools I work with to build intelligent systems and modern applications.",
+    "description": "Technologies and tools I work with to build intelligent systems and modern applications.",
     "viewAll": "See All Skills",
     "proficiency": "Proficiency",
     "categories": {

@@ -10,6 +10,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { testimonials, getRelationshipText, truncateText } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
+import { SectionTitle } from "@/components/ui";
 
 // Import Swiper styles
 import "swiper/css";
@@ -313,25 +314,7 @@ export function TestimonialsSection() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                 >
-                    <div className={`mb-12`}>
-                        <motion.p
-                            className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                        >
-                            {t("subtitle")}
-                        </motion.p>
-                        <motion.h2
-                            className="font-heading text-4xl md:text-5xl font-bold text-text-primary"
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                        >
-                            {t("title")}
-                        </motion.h2>
-                    </div>
+                    <SectionTitle subtitle={t("subtitle")} title={t("title")} />
 
                     <motion.div variants={itemVariants} className="w-full md:w-11/12 mx-auto">
                         <Swiper

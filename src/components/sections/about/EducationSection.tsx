@@ -7,7 +7,8 @@ import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { educationData, certificationsData } from "@/data/education";
 import { IoLocationOutline } from "react-icons/io5";
-
+import { SectionTitle } from "@/components/ui";
+import { cn } from "@/lib/utils";
 
 const W = "app-container";
 
@@ -415,7 +416,7 @@ function SnakeSVG({ isMobile, isDark }: { isMobile: boolean; isDark: boolean }) 
   );
 }
 
-function CertificationsStrip() {
+function CertificationsStrip({ isDark }: { isDark: boolean }) {
   const t = useTranslations("education.certifications");
   return (
     <div className={`${W} mt-80 md:mt-40`}>
@@ -427,17 +428,14 @@ function CertificationsStrip() {
           <motion.a
             key={cert.key} href={cert.url}
             target="_blank" rel="noopener noreferrer"
-            className="group flex flex-col gap-1.5 p-5 rounded-xl
-              border border-white/5 bg-background-secondary
-              hover:border-accent-blue/30 transition-all duration-200"
+            className={cn("group flex flex-col gap-1.5 p-5 rounded-xl border border-white/5 bg-background-secondary transition-all duration-200", isDark ? "hover:border-accent-yellow/30" : "hover:border-accent-blue/30")}
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
             whileHover={{ y: -3 }}
           >
-            <p className="text-sm font-medium text-text-primary
-              group-hover:text-accent-blue transition-colors leading-snug">
+            <p className={cn("text-sm font-medium text-text-primary transition-colors leading-snug", isDark ? "group-hover:text-accent-yellow" : "group-hover:text-accent-blue")}>
               {t(cert.key)}
             </p>
             <p className="text-xs text-text-muted">{cert.issuer}</p>
@@ -469,25 +467,7 @@ export function EducationSection() {
 
   return (
     <div className="py-24 overflow-hidden">
-      <div className={`${W} mb-20 md:mb-40`}>
-        <motion.p
-          className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          {t("subtitle")}
-        </motion.p>
-        <motion.h2
-          className="font-heading text-4xl md:text-5xl font-bold text-text-primary"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
-          {t("title")}
-        </motion.h2>
-      </div>
+      <SectionTitle className={`${W} !mb-20 md:!mb-40`} subtitle={t("subtitle")} title={t("title")} />
 
       {!isMobile && (
         <div className={`${W} mb-10`}>
@@ -499,7 +479,7 @@ export function EducationSection() {
         {mounted && <SnakeSVG isMobile={isMobile} isDark={isDark} />}
       </div>
 
-      <CertificationsStrip />
+      <CertificationsStrip isDark={isDark} />
     </div>
   );
 }

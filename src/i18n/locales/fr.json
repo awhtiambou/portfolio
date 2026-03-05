@@ -6,6 +6,7 @@
   "projects": {
     "title": "Projets en vedette",
     "subtitle": "Quelques-uns de mes travaux récents",
+    "description": "Explorez mon portfolio de projets en IA/ML, développement web et génie logiciel.",
     "viewProject": "Voir le projet",
     "viewCode": "Voir le code",
     "relatedWork": "Projets similaires",
@@ -429,6 +430,7 @@
     },
     "randomFacts": {
       "title": "Moi, en vrac",
+      "subtitle": "Au-delà du code",
       "description": "Quand je n'entraîne pas de modèles ou que je ne débogue pas d'algorithmes complexes, je recharge mon propre réseau de neurones. Voici un aperçu du côté humain de la stack : ce qui me motive, ce qui m'alimente et ce qui me garde les pieds sur terre.",
       "coffee": {
         "title": "Mon carburant",
@@ -457,8 +459,9 @@
     }
   },
   "skills": {
+    "label": "Mon Arsenal",
     "title": "Compétences",
-    "subtitle": "Technologies et outils que j'utilise pour créer des systèmes intelligents et des applications modernes.",
+    "description": "Technologies et outils que j'utilise pour créer des systèmes intelligents et des applications modernes.",
     "viewAll": "Voir Toutes les Compétences",
     "proficiency": "Maîtrise",
     "categories": {

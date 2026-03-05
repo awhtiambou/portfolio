@@ -5,13 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/layout";
-import { SectionTitle } from "@/components/ui";
+import { FillButton, SectionTitle } from "@/components/ui";
 import { getFeaturedProjects } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { GoArrowUpRight } from "react-icons/go";
 import { fadeInUp } from "@/lib/animations";
+import { MdArrowForward } from "react-icons/md";
 
 // Colors for the spotlight effect based on primary category
 const categoryColors: Record<string, string> = {
@@ -230,25 +231,7 @@ export function FeaturedProjectsSection() {
   return (
     <div className="w-full flex items-center justify-center mt-20">
       <div className="app-container">
-        <div className={`mb-12`}>
-          <motion.p
-            className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            {t("projects.subtitle")}
-          </motion.p>
-          <motion.h2
-            className="font-heading text-4xl md:text-5xl font-bold text-text-primary"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            {t("projects.title")}
-          </motion.h2>
-        </div>
+        <SectionTitle subtitle={t("projects.subtitle")} title={t("projects.title")} />
 
 
         <div className={cn(
@@ -268,15 +251,11 @@ export function FeaturedProjectsSection() {
             viewport={{ once: true }}
             className="mt-12 md:mt-16 text-center"
           >
-            <Link
-              href="/projects"
-              className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/20 transition-all duration-300 hover:gap-4"
-            >
-              <span className="text-base md:text-lg font-accent font-medium">
-                {t("projects.viewAllProjects")}
-              </span>
-              <GoArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
+
+            <FillButton href="/projects" fillColor="var(--color-foreground)" className="group font-mono font-medium">
+              {t("projects.viewAllProjects")}
+              <MdArrowForward className="ml-2 inline-block transition-transform duration-400 group-hover:translate-x-2" />
+            </FillButton>
           </motion.div>
         </div>
       </div>

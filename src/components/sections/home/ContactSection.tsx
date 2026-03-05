@@ -85,28 +85,7 @@ export function ContactSection() {
           )
         }
       >
-        <div className={`mb-12`}>
-          <motion.p
-            className={cn(
-              "text-xs font-mono uppercase tracking-[0.25em] mb-3",
-              isDark ? "text-accent-yellow" : "text-text-muted"
-            )}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            {t("subtitle")}
-          </motion.p>
-          <motion.h2
-            className="font-heading text-4xl md:text-5xl font-bold text-text-primary"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            {t("title")}
-          </motion.h2>
-        </div>
+        <SectionTitle subtitle={t("subtitle")} title={t("title")} />
 
         <div className="grid lg:grid-cols-2 gap-12">
           <motion.div variants={fadeInUp} className="space-y-8">

@@ -236,7 +236,7 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                                                 <TransitionLink href={item.href} onClick={onClose} className="flex items-center">
                                                     <motion.span
                                                         className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-black transition-colors ${isDark ? 'text-white/90 hover:text-white' : 'text-gray-900/90 hover:text-gray-900'}`}
-                                                        whileHover={{ x: 20, color: "#4ECDC4" }}
+                                                        whileHover={{ x: 20, color: isDark ? "#F5A623" : "#4ECDC4" }}
                                                         transition={{ duration: 0.2 }}
                                                     >
                                                         {t(item.key).toUpperCase()}
@@ -256,10 +256,11 @@ export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: M
                                                         "w-12 h-12 md:w-16 md:h-16 border-2",
                                                         isDark ? "border-white/20" : "border-gray-900/20"
                                                     )}
+
                                                 >
                                                     <motion.span
                                                         className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-extrabold transition-colors ${isDark ? 'text-white/90 hover:text-white' : 'text-gray-900/90 hover:text-gray-900'}`}
-                                                        whileHover={{ x: 20, color: "#4ECDC4" }}
+                                                        whileHover={{ x: 20, color: isDark ? "#F5A623" : "#4ECDC4" }}
                                                         transition={{ duration: 0.2 }}
                                                     >
                                                         {t(item.key).toUpperCase()}

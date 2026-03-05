@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -168,6 +169,14 @@ export function BlogListing() {
     const locale = useLocale();
     const categories = getAllBlogCategories();
     const [activeCategory, setActiveCategory] = useState<BlogCategory | "all">("all");
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isDark = mounted && resolvedTheme === "dark";
 
     const filtered = useMemo(() => {
         if (activeCategory === "all") return blogs;
@@ -180,7 +189,7 @@ export function BlogListing() {
     return (
         <div className={cn(CONTENT_WIDTH, "pb-24")}>
             <div className="mb-12">
-                <p className="text-xs font-mono uppercase tracking-[0.25em] text-text-muted mb-3">{t("label")}</p>
+                <p className={cn("text-xs font-mono uppercase tracking-[0.25em] mb-3", isDark ? "text-accent-yellow" : "text-text-muted")}>{t("label")}</p>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-4">
                     {t("title")}
                 </h1>

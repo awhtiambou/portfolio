@@ -8,7 +8,7 @@ const STATS = ["yearsOfExperience", "technologiesMastered", "projectsCompleted",
 export function StatsSection() {
     const t = useTranslations();
     return (
-        <div className="w-full flex justify-center mt-1">
+        <div className="w-full flex justify-center mt-10 md:mt-5">
             <div className={
                 cn(
                     "app-container",

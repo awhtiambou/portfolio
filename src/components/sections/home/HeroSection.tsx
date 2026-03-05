@@ -6,12 +6,18 @@ import Image from "next/image";
 import { MagneticButton, FillButton, ScrollMouse, TiltCard } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { profile } from "@/data/profile";
+import { MdArrowForward } from "react-icons/md";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 
 function HeroContent({ mode }: { mode: "desktop" | "mobile" }) {
     const t = useTranslations();
     const isDesktop = mode === "desktop";
-
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const isDark = !mounted || resolvedTheme !== "light";
     return (
         <motion.div
             variants={staggerContainer}
@@ -53,7 +59,7 @@ function HeroContent({ mode }: { mode: "desktop" | "mobile" }) {
 
             <motion.p
                 variants={fadeInUp}
-                className={`text-text-primary/85 text-base ${isDesktop ? "md:text-lg text-justify max-w-lg" : ""} leading-relaxed`}
+                className={`text-text-primary/85 text-base text-justify ${isDesktop ? "md:text-lg max-w-lg" : ""} leading-relaxed`}
             >
                 {t("hero.description")}
             </motion.p>
@@ -62,21 +68,12 @@ function HeroContent({ mode }: { mode: "desktop" | "mobile" }) {
                 variants={fadeInUp}
                 className="flex flex-wrap gap-4 pt-2"
             >
-                <MagneticButton href="/contact" backgroundColor="var(--color-yellow)" style={{ fontWeight: 600, backgroundColor: 'var(--color-yellow)' }}>
+                <MagneticButton href="/contact" backgroundColor={isDark ? "var(--color-yellow)" : "var(--color-blue)"} style={{ fontWeight: 600, backgroundColor: isDark ? 'var(--color-yellow)' : 'var(--color-blue)', color: isDark ? 'var(--color-foreground)' : 'var(--color-foreground)' }} className="font-mono font-medium">
                     {t("common.getInTouch")}
                 </MagneticButton>
-                <FillButton href={isDesktop ? "/about" : "/projects"} fillColor="var(--color-foreground)" className="group">
-                    {isDesktop ? t("hero.getToKnowMe") : t("common.viewWork")}
-                    <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="ml-2 inline-block transition-transform group-hover:translate-x-1"
-                    >
-                        <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                <FillButton href="/about" fillColor="var(--color-foreground)" className="group font-mono font-medium">
+                    {t("hero.getToKnowMe")}
+                    <MdArrowForward className="ml-2 inline-block transition-transform duration-400 group-hover:translate-x-2" />
                 </FillButton>
             </motion.div>
         </motion.div>

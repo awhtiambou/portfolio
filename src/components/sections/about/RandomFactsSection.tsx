@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { SectionTitle } from "@/components/ui";
 
 const GridImage = ({
   src,
@@ -61,7 +62,7 @@ export function RandomFactsSection() {
       <div className="lg:container overflow-x-hidden grid grid-cols-12 gap-6 place-items-center justify-items-center">
 
         <div className="col-span-12 lg:col-span-5 px-5 lg:pr-5">
-          <h1 className="text-center md:text-left text-4xl font-bold mb-4">{t("title")}</h1>
+          <SectionTitle className="md:!text-left" subtitle={t("subtitle")} title={t("title")} />
           <p className="hidden lg:block text-2xl opacity-90">{t("description")}</p>
         </div>
 
