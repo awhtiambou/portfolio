@@ -12,9 +12,9 @@ export const experiences = [
       "kalfou.r3", "kalfou.r4", "kalfou.r5",
     ],
     technologies: [
-      "ASP.NET Core 8", "Clean Architecture", "PostgreSQL",
+      "ASP.NET Core", "Clean Architecture", "PostgreSQL",
       "Flutter", "Dart", "React", "TypeScript",
-      "SignalR", "Docker", "AWS S3", "Firebase",
+      "SignalR", "Docker", "AWS", "Firebase", "C#",
     ],
   },
 
@@ -31,7 +31,7 @@ export const experiences = [
     ],
     technologies: [
       "Python", "PyTorch", "YOLO", "Mask R-CNN", "SAM",
-      "OccupancyNet", "OpenCV", "HoloLens 2", "Unity", "MRTK",
+      "OccupancyNet", "OpenCV", "C#", "HoloLens 2", "Unity", "MRTK",
     ],
   },
 
@@ -63,8 +63,7 @@ export const experiences = [
       "tiamtech.r0", "tiamtech.r1", "tiamtech.r2",
     ],
     technologies: [
-      "React", "Next.js", "TypeScript",
-      "Tailwind CSS", "Node.js", "WordPress", "Figma",
+      "React", "TypeScript", "Tailwind CSS", "C#", "ASP.NET Core", "Wix", "Figma",
     ],
   },
 ] as const;

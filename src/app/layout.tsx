@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Besley, Inter, Work_Sans, Pacifico } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale, getTranslations } from "next-intl/server";
-import { ThemeProvider, TransitionProvider } from "@/providers";
+import { ThemeProvider, TransitionProvider, LenisProvider } from "@/providers";
 import { CustomCursor, GlobalBackground, PageTransition } from "@/components/ui";
 import "./globals.css";
 
@@ -103,10 +103,12 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <TransitionProvider>
-              <CustomCursor />
-              <GlobalBackground />
-              <PageTransition />
-              {children}
+              <LenisProvider>
+                <CustomCursor />
+                <GlobalBackground />
+                <PageTransition />
+                {children}
+              </LenisProvider>
             </TransitionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

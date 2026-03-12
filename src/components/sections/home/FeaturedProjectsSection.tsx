@@ -1,11 +1,13 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/layout";
 import { FillButton, SectionTitle } from "@/components/ui";
+import { ScrollText, ClipReveal } from "@/components/scroll";
 import { getFeaturedProjects } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -122,7 +124,13 @@ function FeaturedProjectRow({ project, index }: { project: any; index: number })
                   : "text-gray-900 group-hover:text-gray-600"
               )}
             >
-              {t(`projects.items.${project.slug}.title`)}
+              <ScrollText 
+                className="inline-block" 
+                skewIntensity={0.2} 
+                scaleIntensity={0.02}
+              >
+                {t(`projects.items.${project.slug}.title`)}
+              </ScrollText>
             </h3>
 
             <p

@@ -1,10 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useRef } from "react";
 import { MagneticButton, FillButton, ScrollMouse, TiltCard } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { ScrollText, SplitText, RevealText, ParallaxLayer, ClipReveal } from "@/components/scroll";
 import { profile } from "@/data/profile";
 import { MdArrowForward } from "react-icons/md";
 import { useTheme } from "next-themes";
@@ -50,19 +52,35 @@ function HeroContent({ mode }: { mode: "desktop" | "mobile" }) {
 
             <motion.div variants={fadeInUp}>
                 <h1 className={`font-heading ${isDesktop ? "text-4xl sm:text-5xl xl:text-6xl" : "text-3xl sm:text-4xl md:text-5xl"} font-bold text-text-primary leading-tight`}>
-                    {t("hero.title")}
+                    <ScrollText 
+                        className="inline-block"
+                        skewIntensity={0.25}
+                        scaleIntensity={0.03}
+                    >
+                        {t("hero.title")}
+                    </ScrollText>
                 </h1>
                 <h2 className={`font-heading ${isDesktop ? "text-3xl sm:text-4xl xl:text-5xl -mt-5" : "text-2xl sm:text-3xl md:text-4xl"} font-bold text-accent-yellow leading-tight`}>
-                    {t("hero.subtitle")}
+                    <SplitText
+                        type="chars"
+                        animation="wave"
+                        staggerDelay={0.03}
+                        className="inline-block"
+                    >
+                        {t("hero.subtitle")}
+                    </SplitText>
                 </h2>
             </motion.div>
 
-            <motion.p
-                variants={fadeInUp}
-                className={`text-text-primary/85 text-base text-justify ${isDesktop ? "md:text-lg max-w-lg" : ""} leading-relaxed`}
-            >
-                {t("hero.description")}
-            </motion.p>
+            <motion.div variants={fadeInUp}>
+                <RevealText
+                    className={`text-text-primary/85 text-base text-justify ${isDesktop ? "md:text-lg max-w-lg" : ""} leading-relaxed`}
+                    direction="up"
+                    delay={0.3}
+                >
+                    {t("hero.description")}
+                </RevealText>
+            </motion.div>
 
             <motion.div
                 variants={fadeInUp}
@@ -82,14 +100,29 @@ function HeroContent({ mode }: { mode: "desktop" | "mobile" }) {
 
 
 export function HeroSection() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start start", "end start"]
+    });
+    
+    // Parallax transforms for image
+    const imageY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+    const imageScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
+    
     return (
-        <section className="relative min-h-screen">
+        <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
             <div className="hidden md:flex min-h-screen">
-                <div className="relative w-1/2 min-h-screen flex items-center">
+                <motion.div 
+                    className="relative w-1/2 min-h-screen flex items-center"
+                    style={{ opacity: contentOpacity, y: contentY }}
+                >
                     <div className="relative w-full flex flex-col items-center justify-center">
                         <HeroContent mode="desktop" />
                     </div>
-                </div>
+                </motion.div>
 
                 <motion.div
                     className="relative w-1/2 min-h-screen"
@@ -97,33 +130,41 @@ export function HeroSection() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
                 >
-                    <TiltCard
-                        className="w-full h-full [clip-path:polygon(20%_0,100%_0,100%_100%,0%_100%)] backface-visible"
-                        intensity={40}
-                        glowOpacity={0.4}
-                        glowColor="rgba(255,255,255,0.4)"
+                    <motion.div 
+                        className="w-full h-full"
+                        style={{ y: imageY, scale: imageScale }}
                     >
-                        <div
-                            className="absolute inset-0 w-full h-full"
-                            data-cursor-text={profile.name}
+                        <TiltCard
+                            className="w-full h-full [clip-path:polygon(20%_0,100%_0,100%_100%,0%_100%)] backface-visible"
+                            intensity={40}
+                            glowOpacity={0.4}
+                            glowColor="rgba(255,255,255,0.4)"
                         >
-                            <Image
-                                src="/assets/images/me-coding.jpg"
-                                alt={profile.name}
-                                fill
-                                className="object-cover object-center"
-                                priority
-                                sizes="50vw"
-                            />
-                        </div>
-                    </TiltCard>
+                            <div
+                                className="absolute inset-0 w-full h-full"
+                                data-cursor-text={profile.name}
+                            >
+                                <Image
+                                    src="/assets/images/me-coding.jpg"
+                                    alt={profile.name}
+                                    fill
+                                    className="object-cover object-center"
+                                    priority
+                                    sizes="50vw"
+                                />
+                            </div>
+                        </TiltCard>
+                    </motion.div>
                 </motion.div>
             </div>
 
             <div className="md:hidden min-h-screen flex flex-col">
-                <div className="relative flex-1 flex items-center px-6 sm:px-8 pt-24 pb-12">
+                <motion.div 
+                    className="relative flex-1 flex items-center px-6 sm:px-8 pt-24 pb-12"
+                    style={{ opacity: contentOpacity, y: contentY }}
+                >
                     <HeroContent mode="mobile" />
-                </div>
+                </motion.div>
             </div>
 
             <div className="block md:hidden absolute bottom-5 right-2 z-20">

@@ -10,10 +10,8 @@ export function GlobalBackground() {
     const { resolvedTheme } = useTheme();
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Connect to scroll for parallax effect
     const { scrollYProgress } = useScroll();
 
-    // Smooth out the scroll value
     const smoothProgress = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,

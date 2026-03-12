@@ -20,7 +20,6 @@ export function CustomCursor() {
   const [isVisible, setIsVisible] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Smooth cursor position with spring physics
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
@@ -54,7 +53,6 @@ export function CustomCursor() {
   }, []);
 
   useEffect(() => {
-    // Check if mobile
     const checkMobile = () => {
       setIsMobile(window.matchMedia("(max-width: 768px)").matches || "ontouchstart" in window);
     };

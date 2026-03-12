@@ -9,3 +9,7 @@ export {
 } from './useMediaQuery';
 
 export { useLocaleSwitch } from './useLocaleSwitch';
+
+// Scroll Animation Hooks
+export { useScrollVelocity } from './useScrollVelocity';
+export { useSmoothScroll } from './useSmoothScroll';

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
@@ -17,7 +17,6 @@ interface PathM { type: "M"; x: number; y: number }
 interface PathC { type: "C"; cx1: number; cy1: number; cx2: number; cy2: number; x: number; y: number }
 type PathNorm = [PathM, ...PathC[]];
 
-// Desktop: big sweeping S-curve, goes fully edge-to-edge
 const DESKTOP_PATH_NORM: PathNorm = [
   { type: "M", x: 0, y: 0.42 },
   { type: "C", cx1: 0.20, cy1: 0.42, cx2: 0.25, cy2: 0.05, x: 0.38, y: 0.05 },
@@ -25,16 +24,16 @@ const DESKTOP_PATH_NORM: PathNorm = [
   { type: "C", cx1: 0.82, cy1: 0.88, cx2: 0.86, cy2: 0.30, x: 1.00, y: 0.30 },
 ];
 
-// Mobile: tall vertical S-curve
 const MOBILE_PATH_NORM: PathNorm = [
-  { type: "M", x: 0.75, y: 0 },
+  { type: "M", x: 1.15, y: 0 },
   { type: "C", cx1: 0.75, cy1: 0.12, cx2: 0.25, cy2: 0.22, x: 0.25, y: 0.33 },
   { type: "C", cx1: 0.25, cy1: 0.44, cx2: 0.75, cy2: 0.56, x: 0.75, y: 0.67 },
-  { type: "C", cx1: 0.75, cy1: 0.78, cx2: 0.25, cy2: 0.88, x: 0.25, y: 1.00 },
+  { type: "C", cx1: 0.75, cy1: 0.78, cx2: 0.25, cy2: 0.88, x: -0.15, y: 1.00 },
 ];
 
 // t-positions along the path for each stop
-const STOP_T = [0.12, 0.50, 0.88];
+const STOP_T_DESKTOP = [0.12, 0.50, 0.88];
+const STOP_T_MOBILE = [0.12, 0.50, 0.88];
 
 function buildPath(norm: PathNorm, W: number, H: number): string {
   const [m, ...curves] = norm;
@@ -52,15 +51,12 @@ function getPointsOnPath(el: SVGPathElement, ts: number[]): Point[] {
   return ts.map(t => { const p = el.getPointAtLength(t * total); return { x: p.x, y: p.y }; });
 }
 
-// Dark  → hot pink → orange   (#ff0f7b → #f89b29)
-// Light → dark navy → steel   (#08203e → #557c93)
 function getGradientColors(isDark: boolean) {
   return isDark
-    ? { a: "#ff0f7b", b: "#f84f9a", c: "#f87829", d: "#f89b29" }  // pink → salmon → orange
-    : { a: "#08203e", b: "#1a3a5c", c: "#3a6480", d: "#557c93" };  // navy → steel blue
+    ? { a: "#ff0f7b", b: "#f84f9a", c: "#f87829", d: "#f89b29" }
+    : { a: "#08203e", b: "#1a3a5c", c: "#3a6480", d: "#557c93" };
 }
 
-// Per-stop accent colour (used for cards, dots, connectors)
 function getStopAccent(isDark: boolean, idx: number) {
   const dark = ["#ff0f7b", "#f87829", "#f89b29"];
   const light = ["#08203e", "#2d5373", "#557c93"];
@@ -73,10 +69,11 @@ interface AvatarDotProps {
   logo: string;
   accent: string;
   isMobile: boolean;
+  visible: boolean;
 }
-const AVATAR_R = 48; // radius px
+const AVATAR_R = 48;
 
-function AvatarDot({ point, idx, logo, accent, isMobile }: AvatarDotProps) {
+function AvatarDot({ point, idx, logo, accent, isMobile, visible }: AvatarDotProps) {
   const clipId = `avatar-clip-${idx}`;
   const r = isMobile ? AVATAR_R - 20 : AVATAR_R;
   return (
@@ -89,10 +86,11 @@ function AvatarDot({ point, idx, logo, accent, isMobile }: AvatarDotProps) {
       {/* Glow ring */}
       <motion.circle
         cx={point.x} cy={point.y} r={r + 6}
-        fill="none" stroke={accent} strokeWidth={2} opacity={0.35}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: [1, 1.15, 1], opacity: [0.35, 0.55, 0.35] }}
-        transition={{ delay: idx * 0.2 + 0.3, duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        fill="none" stroke={accent} strokeWidth={2} opacity={visible ? 0.35 : 0}
+        animate={visible ? { scale: [1, 1.15, 1], opacity: [0.35, 0.55, 0.35] } : { scale: 0, opacity: 0 }}
+        transition={visible
+          ? { delay: 0.1, duration: 2.5, repeat: Infinity, ease: "easeInOut" }
+          : { duration: 0.2 }}
       />
       {/* White border ring */}
       <motion.circle
@@ -100,8 +98,8 @@ function AvatarDot({ point, idx, logo, accent, isMobile }: AvatarDotProps) {
         fill="var(--color-background-primary)"
         stroke={accent} strokeWidth={2.5}
         initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: idx * 0.2 + 0.3, type: "spring", stiffness: 260, damping: 18 }}
+        animate={{ scale: visible ? 1 : 0 }}
+        transition={{ duration: 0.4, type: "spring", stiffness: 260, damping: 18 }}
         style={{ filter: `drop-shadow(0 0 12px ${accent}88)` }}
       />
       {/* Avatar image */}
@@ -112,8 +110,8 @@ function AvatarDot({ point, idx, logo, accent, isMobile }: AvatarDotProps) {
         clipPath={`url(#${clipId})`}
         preserveAspectRatio="xMidYMid slice"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: idx * 0.2 + 0.5 }}
+        animate={{ opacity: visible ? 1 : 0 }}
+        transition={{ duration: 0.3, delay: visible ? 0.15 : 0 }}
       />
     </>
   );
@@ -126,31 +124,32 @@ interface CardProps {
   edu: typeof educationData[0];
   accent: string;
   t: ReturnType<typeof useTranslations>;
+  visible: boolean;
+  svgW: number;
 }
 
 const CARD_W_DESKTOP = 340;
-const CARD_W_MOBILE = 300;
-const CARD_H_PEEK = 164;  // collapsed height — bigger to show more
-const CARD_H_FULL = 280;  // expanded height
+const CARD_W_MOBILE = 260;
+const CARD_H_PEEK = 164;
+const CARD_H_FULL = 280;
 const CONNECTOR_GAP = AVATAR_R - 24;
 
-function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
+function EducationCard({ idx, point, isMobile, edu, accent, t, visible, svgW }: CardProps) {
   const [expanded, setExpanded] = useState(false);
-  const CARD_W = isMobile ? CARD_W_MOBILE : CARD_W_DESKTOP;
 
-  // 0 & 2 above snake on desktop, 1 below; all below on mobile
   const above = !isMobile && idx % 2 === 0;
-
   const cardH = (expanded || isMobile) ? CARD_H_FULL : CARD_H_PEEK;
 
-  // Connector from avatar edge to card
   const connY1 = above ? point.y - AVATAR_R : point.y + AVATAR_R;
   const connY2 = above
     ? point.y - AVATAR_R - (isMobile ? 0 : CONNECTOR_GAP) - cardH
     : point.y + AVATAR_R + (isMobile ? 0 : CONNECTOR_GAP);
 
-  // foreignObject anchor: always allocate CARD_H_FULL, anchor to bottom when above
-  const foX = point.x - CARD_W / 2;
+  const PADDING = 12;
+  const CARD_W = isMobile ? svgW - PADDING * 2 : CARD_W_DESKTOP;
+  const rawFoX = isMobile ? PADDING : point.x - CARD_W / 2;
+  const foX = isMobile ? PADDING : Math.max(PADDING, Math.min(rawFoX, svgW - CARD_W - PADDING));
+
   const foY = above
     ? point.y - AVATAR_R - (isMobile ? 0 : CONNECTOR_GAP) - CARD_H_FULL
     : point.y + AVATAR_R + (isMobile ? 0 : CONNECTOR_GAP);
@@ -172,16 +171,20 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
         x2={point.x}
         animate={{ y2: connY2 }}
         transition={{ duration: 0.38, ease: [0.4, 0, 0.2, 1] }}
-        stroke={accent} strokeWidth={1.5} strokeDasharray="5 4" opacity={0.5}
+        stroke={accent} strokeWidth={1.5} strokeDasharray="5 4"
+        opacity={visible ? 0.5 : 0}
+        style={{ transition: "opacity 0.3s ease" }}
       />
 
-      {/* foreignObject — max height allocated, inner div anchors to correct edge */}
       <foreignObject
         x={foX} y={foY}
         width={CARD_W} height={CARD_H_FULL}
         style={{ overflow: "visible" }}
       >
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: above ? -16 : 16, scale: 0.94 }}
+          animate={visible ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: above ? -16 : 16, scale: 0.94 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: visible ? 0.1 : 0 }}
           style={{
             position: "absolute",
             width: CARD_W,
@@ -205,14 +208,11 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
               transition: "box-shadow 0.3s ease",
             }}
           >
-            {/* Gradient accent bar — top */}
             <div className="h-[3px] w-full"
               style={{ background: `linear-gradient(90deg, ${accent}cc, ${accent}44)` }} />
 
             <div className="px-5 pt-4 pb-4">
-
               <div className="flex items-start gap-3 mb-1">
-                {/* Mini logo */}
                 <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
                   <Image
                     src={edu.logo}
@@ -233,9 +233,10 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
                 </div>
               </div>
 
-              {/* Location + date always shown */}
               <div className="flex items-center gap-2 mt-3 flex-wrap">
-                <span className="text-xs text-text-muted font-accent flex items-center gap-1"><IoLocationOutline className="text-red-500" /> {item.location}</span>
+                <span className="text-xs text-text-muted font-accent flex items-center gap-1">
+                  <IoLocationOutline className="text-red-500" /> {item.location}
+                </span>
                 <span className="text-text-muted opacity-30">·</span>
                 <span className="text-xs text-text-muted font-accent">
                   {edu.startDate} — {edu.endDate}
@@ -252,11 +253,9 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
                     transition={{ duration: 0.24, delay: 0.08 }}
                     className="mt-2 space-y-3"
                   >
-                    {/* Institution */}
                     <p className="text-sm font-semibold text-text-secondary">
                       {item.institution}
                     </p>
-
                     <p className="text-sm text-text-secondary leading-relaxed">
                       {item.description}
                     </p>
@@ -264,7 +263,6 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
                 )}
               </AnimatePresence>
 
-              {/* Collapsed hint */}
               {!isMobile && !expanded && (
                 <p className="text-xs text-text-muted mt-3 opacity-40 italic">
                   Hover to expand
@@ -272,28 +270,70 @@ function EducationCard({ idx, point, isMobile, edu, accent, t }: CardProps) {
               )}
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </foreignObject>
     </>
   );
 }
 
+// ─── Crawl progress hook ───────────────────────────────────────────────────────
+// Returns a 0→1 progress value that animates once the section scrolls into view.
+function useCrawlProgress(inView: boolean, totalLength: number, duration = 2.2) {
+  const raw = useMotionValue(0);
+  const progress = useSpring(raw, { stiffness: 60, damping: 18, mass: 0.8 });
+  const [displayed, setDisplayed] = useState(0);
+
+  useEffect(() => {
+    if (inView && totalLength > 0) {
+      // Animate raw from 0 → 1 using a simple requestAnimationFrame loop
+      const start = performance.now();
+      let raf: number;
+      const tick = (now: number) => {
+        const t = Math.min((now - start) / (duration * 1000), 1);
+        // ease-in-out cubic
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        raw.set(ease);
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [inView, totalLength, duration, raw]);
+
+  useEffect(() => {
+    const unsub = progress.on("change", v => setDisplayed(v));
+    return unsub;
+  }, [progress]);
+
+  return displayed;
+}
+
+// ─── SnakeSVG ─────────────────────────────────────────────────────────────────
 function SnakeSVG({ isMobile, isDark }: { isMobile: boolean; isDark: boolean }) {
   const t = useTranslations("education");
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   const [dims, setDims] = useState({ w: 1200, h: isMobile ? 1200 : 260 });
   const [stops, setStops] = useState<Point[]>([]);
   const [pathD, setPathD] = useState("");
   const [ready, setReady] = useState(false);
+  const [totalLength, setTotalLength] = useState(0);
+
+  // Which stops have been "reached" by the crawling snake
+  const [visibleStops, setVisibleStops] = useState<boolean[]>([false, false, false]);
 
   const grad = getGradientColors(isDark);
+  const stopTs = isMobile ? STOP_T_MOBILE : STOP_T_DESKTOP;
+
+  // inView trigger — fires once when 30% of the section is visible
+  const inView = useInView(sectionRef, { once: true, amount: 0.25 });
 
   const recalc = useCallback(() => {
     const el = containerRef.current;
     if (!el) return;
     const w = el.clientWidth || 1200;
-    // More zigzags need more vertical space on desktop
     const h = isMobile ? 1200 : Math.max(260, Math.round(w * 0.2));
     const norm = isMobile ? MOBILE_PATH_NORM : DESKTOP_PATH_NORM;
     setDims({ w, h });
@@ -305,113 +345,166 @@ function SnakeSVG({ isMobile, isDark }: { isMobile: boolean; isDark: boolean }) 
     if (!pathD || !pathRef.current) return;
     requestAnimationFrame(() => {
       if (!pathRef.current) return;
-      setStops(getPointsOnPath(pathRef.current, STOP_T));
+      const pts = getPointsOnPath(pathRef.current, stopTs);
+      setStops(pts);
+      setTotalLength(pathRef.current.getTotalLength());
       setReady(true);
     });
-  }, [pathD, dims]);
+  }, [pathD, dims, stopTs]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     recalc();
     const ro = new ResizeObserver(recalc);
     if (containerRef.current) ro.observe(containerRef.current);
     return () => ro.disconnect();
   }, [recalc]);
 
+  // Crawl progress 0→1
+  const progress = useCrawlProgress(inView && ready, totalLength, 2.4);
+
+  // Reveal each stop card as the snake tip passes its t-position
+  useEffect(() => {
+    setVisibleStops(stopTs.map(t => progress >= t));
+  }, [progress, stopTs]);
+
+  // strokeDasharray / strokeDashoffset for the crawl reveal
+  const drawnLength = progress * totalLength;
+  const dashArray = totalLength > 0 ? `${drawnLength} ${totalLength}` : "0 9999";
+
   return (
-    <div ref={containerRef} className="relative w-full" style={{ height: dims.h }}>
-      <svg
-        width={dims.w} height={dims.h}
-        viewBox={`0 0 ${dims.w} ${dims.h}`}
-        style={{ overflow: "visible", position: "absolute", inset: 0 }}
-      >
-        <defs>
-          {/* Main tube gradient along path direction */}
-          <linearGradient
-            id="snakeGrad"
-            gradientUnits={isMobile ? "userSpaceOnUse" : "objectBoundingBox"}
-            x1={isMobile ? "0" : "0%"} y1={isMobile ? "0" : "0%"}
-            x2={isMobile ? "0" : "100%"} y2={isMobile ? String(dims.h) : "0%"}
-          >
-            <stop offset="0%" stopColor={grad.a} />
-            <stop offset="33%" stopColor={grad.b} />
-            <stop offset="66%" stopColor={grad.c} />
-            <stop offset="100%" stopColor={grad.d} />
-          </linearGradient>
+    // sectionRef is on the outer wrapper so inView fires based on the whole snake area
+    <div ref={sectionRef} className="relative w-full">
+      <div ref={containerRef} className="relative w-full" style={{ height: dims.h }}>
+        <svg
+          width={dims.w} height={dims.h}
+          viewBox={`0 0 ${dims.w} ${dims.h}`}
+          style={{ overflow: "visible", position: "absolute", inset: 0 }}
+        >
+          <defs>
+            <linearGradient
+              id="snakeGrad"
+              gradientUnits={isMobile ? "userSpaceOnUse" : "objectBoundingBox"}
+              x1={isMobile ? "0" : "0%"} y1={isMobile ? "0" : "0%"}
+              x2={isMobile ? "0" : "100%"} y2={isMobile ? String(dims.h) : "0%"}
+            >
+              <stop offset="0%" stopColor={grad.a} />
+              <stop offset="33%" stopColor={grad.b} />
+              <stop offset="66%" stopColor={grad.c} />
+              <stop offset="100%" stopColor={grad.d} />
+            </linearGradient>
 
-          {/* 3D shading: darker base layer (bottom half of stroke) */}
-          <linearGradient id="snakeShadow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(0,0,0,0)" />
-            <stop offset="60%" stopColor="rgba(0,0,0,0)" />
-            <stop offset="100%" stopColor="rgba(0,0,0,0.45)" />
-          </linearGradient>
+            <linearGradient id="snakeShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="rgba(0,0,0,0)" />
+              <stop offset="60%" stopColor="rgba(0,0,0,0)" />
+              <stop offset="100%" stopColor="rgba(0,0,0,0.45)" />
+            </linearGradient>
 
-          {/* 3D shading: bright highlight (top edge of stroke) */}
-          <linearGradient id="snakeShine" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.45)" />
-            <stop offset="28%" stopColor="rgba(255,255,255,0.0)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0.0)" />
-          </linearGradient>
+            <linearGradient id="snakeShine" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="rgba(255,255,255,0.45)" />
+              <stop offset="28%" stopColor="rgba(255,255,255,0.0)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0.0)" />
+            </linearGradient>
 
-          {/* Outer ambient glow */}
-          <filter id="outerGlow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="18" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
+            <filter id="outerGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="18" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
 
-        {/* Layer 1 — wide ambient glow halo */}
-        {pathD && (
-          <path d={pathD} fill="none"
-            stroke="url(#snakeGrad)" strokeWidth={120} strokeLinecap="round"
-            opacity={0.12} filter="url(#outerGlow)" />
-        )}
+            {/* Glowing tip filter */}
+            <filter id="tipGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="12" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
 
-        {/* Layer 2 — main tube */}
-        {pathD && (
-          <path d={pathD} fill="none"
-            stroke="url(#snakeGrad)" strokeWidth={96} strokeLinecap="round" />
-        )}
+          {/* ── Ghost track (faint full path in background) ── */}
+          {pathD && (
+            <path d={pathD} fill="none"
+              stroke="url(#snakeGrad)" strokeWidth={96} strokeLinecap="round"
+              opacity={0.07} />
+          )}
 
-        {/* Layer 3 — dark shadow on bottom half (3D depth) */}
-        {pathD && (
-          <path d={pathD} fill="none"
-            stroke="url(#snakeShadow)" strokeWidth={96} strokeLinecap="round"
-            opacity={0.50} />
-        )}
+          {/* ── Layer 1 — ambient glow (crawl-clipped) ── */}
+          {pathD && totalLength > 0 && (
+            <path d={pathD} fill="none"
+              stroke="url(#snakeGrad)" strokeWidth={120} strokeLinecap="round"
+              opacity={0.12} filter="url(#outerGlow)"
+              strokeDasharray={dashArray}
+              strokeDashoffset={0} />
+          )}
 
-        {/* Layer 4 — bright highlight on top edge (3D shine) */}
-        {pathD && (
-          <path d={pathD} fill="none"
-            stroke="url(#snakeShine)" strokeWidth={96} strokeLinecap="round"
-            opacity={0.75} />
-        )}
+          {/* ── Layer 2 — main tube (crawl-clipped) ── */}
+          {pathD && totalLength > 0 && (
+            <path d={pathD} fill="none"
+              stroke="url(#snakeGrad)" strokeWidth={96} strokeLinecap="round"
+              strokeDasharray={dashArray}
+              strokeDashoffset={0} />
+          )}
 
-        {/* Hidden path used only for getPointAtLength measurements */}
-        {pathD && (
-          <path ref={pathRef} d={pathD} fill="none" stroke="none" strokeWidth={0} />
-        )}
+          {/* ── Layer 3 — 3D shadow (crawl-clipped) ── */}
+          {pathD && totalLength > 0 && (
+            <path d={pathD} fill="none"
+              stroke="url(#snakeShadow)" strokeWidth={96} strokeLinecap="round"
+              opacity={0.50}
+              strokeDasharray={dashArray}
+              strokeDashoffset={0} />
+          )}
 
-        {/* Cards + Avatar dots */}
-        {ready && stops.length === 3 && educationData.map((edu, idx) => {
-          const accent = getStopAccent(isDark, idx);
-          return (
-            <g key={edu.key}>
-              <EducationCard
-                idx={idx} point={stops[idx]} isMobile={isMobile}
-                edu={edu} accent={accent} t={t}
+          {/* ── Layer 4 — 3D shine (crawl-clipped) ── */}
+          {pathD && totalLength > 0 && (
+            <path d={pathD} fill="none"
+              stroke="url(#snakeShine)" strokeWidth={96} strokeLinecap="round"
+              opacity={0.75}
+              strokeDasharray={dashArray}
+              strokeDashoffset={0} />
+          )}
+
+          {/* ── Glowing tip circle ── */}
+          {pathD && totalLength > 0 && progress > 0.01 && progress < 0.99 && pathRef.current && (() => {
+            const tipPt = pathRef.current.getPointAtLength(drawnLength);
+            const tipAccent = isDark ? "#ff0f7b" : "#08203e";
+            return (
+              <motion.circle
+                cx={tipPt.x} cy={tipPt.y} r={20}
+                fill={tipAccent}
+                opacity={0.9}
+                filter="url(#tipGlow)"
               />
-              <AvatarDot
-                idx={idx} point={stops[idx]} logo={edu.logo}
-                accent={accent} isMobile={isMobile}
-              />
-            </g>
-          );
-        })}
-      </svg>
+            );
+          })()}
+
+          {/* Hidden measurement path */}
+          {pathD && (
+            <path ref={pathRef} d={pathD} fill="none" stroke="none" strokeWidth={0} />
+          )}
+
+          {/* Cards + Avatar dots — revealed one by one */}
+          {ready && stops.length === 3 && educationData.map((edu, idx) => {
+            const accent = getStopAccent(isDark, idx);
+            return (
+              <g key={edu.key}>
+                <EducationCard
+                  idx={idx} point={stops[idx]} isMobile={isMobile}
+                  edu={edu} accent={accent} t={t}
+                  visible={visibleStops[idx]}
+                  svgW={dims.w}
+                />
+                <AvatarDot
+                  idx={idx} point={stops[idx]} logo={edu.logo}
+                  accent={accent} isMobile={isMobile}
+                  visible={visibleStops[idx]}
+                />
+              </g>
+            );
+          })}
+        </svg>
+      </div>
     </div>
   );
 }
@@ -454,7 +547,6 @@ export function EducationSection() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const mq = window.matchMedia("(max-width: 767px)");
     const handler = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);

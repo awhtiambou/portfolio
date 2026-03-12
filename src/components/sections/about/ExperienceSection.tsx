@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { experiences } from "@/data/experience";
 import { SectionTitle } from "@/components/ui";
+import { ScrollText } from "@/components/scroll";
 import { cn } from "@/lib/utils";
 
 const W = "app-container";
@@ -90,7 +91,9 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <span className={cn("font-heading font-bold text-text-primary text-base md:text-lg leading-tight transition-colors duration-200", isDark ? "group-hover:text-accent-yellow" : "group-hover:text-accent-blue")}>
-                  {item.position}
+                  <ScrollText skewIntensity={0.15} scaleIntensity={0.01}>
+                    {item.position}
+                  </ScrollText>
                 </span>
                 {exp.current && (
                   <span className={cn(

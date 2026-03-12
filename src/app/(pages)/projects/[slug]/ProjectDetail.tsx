@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import type { ProjectCategory, ProjectSection, ProjectElement } from "@/types";
 import { useTranslations } from "next-intl";
 
@@ -374,16 +375,73 @@ export function ProjectDetail({
     relatedProjects,
 }: ProjectDetailProps) {
     const luminance = useCoverLuminance(image);
+    const heroRef = useRef<HTMLDivElement>(null);
 
     const scrimStrength = (0.55 + (luminance / 255) * 0.33).toFixed(2);
+
+    // Parallax effects for hero image
+    const { scrollYProgress } = useScroll({
+        target: heroRef,
+        offset: ["start start", "end start"]
+    });
+
+    const imageY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+    const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+    const contentY = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.3
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+        }
+    };
+
+    const titleVariants = {
+        hidden: { opacity: 0, y: 50, scale: 0.95 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }
+        }
+    };
+
+    const sidebarVariants = {
+        hidden: { opacity: 0, x: 50 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.6 }
+        }
+    };
 
     const t = useTranslations();
     return (
         <div className="w-full">
 
-            <div className="relative w-full min-h-screen flex flex-col">
+            <div ref={heroRef} className="relative w-full min-h-screen flex flex-col overflow-hidden">
                 {image && (
-                    <Image src={image} alt={title} fill priority className="absolute inset-0 object-cover" sizes="100vw" />
+                    <motion.div
+                        className="absolute inset-0"
+                        style={{ y: imageY, scale: imageScale }}
+                    >
+                        <Image src={image} alt={title} fill priority className="object-cover" sizes="100vw" />
+                    </motion.div>
                 )}
 
                 {/*
@@ -402,64 +460,122 @@ export function ProjectDetail({
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
 
-                <div className="relative z-10 mt-auto pb-12">
-                    <div className={CONTENT_WIDTH}>
+                <motion.div 
+                    className="relative z-10 mt-auto pb-12"
+                    style={{ y: contentY, opacity: contentOpacity }}
+                >
+                    <motion.div 
+                        className={CONTENT_WIDTH}
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {/* Breadcrumb — always white, always readable on dark scrim */}
-                        <nav className="flex items-center gap-2 text-sm text-white/60 mb-8">
+                        <motion.nav 
+                            className="flex items-center gap-2 text-sm text-white/60 mb-8"
+                            variants={itemVariants}
+                        >
                             <Link href="/" className="hover:text-white transition-colors">{t("common.home")}</Link>
                             <span className="opacity-40">/</span>
                             <Link href="/projects" className="hover:text-white transition-colors">{t("common.projects")}</Link>
                             <span className="opacity-40">/</span>
                             <span className="text-white/80">{title}</span>
-                        </nav>
+                        </motion.nav>
 
                         <div className="grid lg:grid-cols-3 gap-10 items-end">
                             {/* Left */}
                             <div className="lg:col-span-2">
                                 {/* Badges */}
-                                <div className="flex flex-wrap gap-2 mb-5">
-                                    {categories.map((cat) => (
-                                        <span key={cat} className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full border border-white/30 text-white bg-white/10 backdrop-blur-sm">
+                                <motion.div 
+                                    className="flex flex-wrap gap-2 mb-5"
+                                    variants={itemVariants}
+                                >
+                                    {categories.map((cat, i) => (
+                                        <motion.span 
+                                            key={cat} 
+                                            className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full border border-white/30 text-white bg-white/10 backdrop-blur-sm"
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.4 + i * 0.1 }}
+                                        >
                                             {cat}
-                                        </span>
+                                        </motion.span>
                                     ))}
                                     {status === "in-progress" && (
-                                        <span className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 backdrop-blur-sm">In Progress</span>
+                                        <motion.span 
+                                            className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 backdrop-blur-sm"
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.6 }}
+                                        >
+                                            In Progress
+                                        </motion.span>
                                     )}
                                     {featured && (
-                                        <span className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/50 text-pink-300 backdrop-blur-sm">Featured</span>
+                                        <motion.span 
+                                            className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/50 text-pink-300 backdrop-blur-sm"
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.7 }}
+                                        >
+                                            Featured
+                                        </motion.span>
                                     )}
-                                </div>
+                                </motion.div>
 
                                 {/* Always white — scrim below guarantees WCAG AA contrast */}
-                                <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-5 text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.4)]">
+                                <motion.h1 
+                                    className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-5 text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.4)]"
+                                    variants={titleVariants}
+                                >
                                     {title}
-                                </h1>
-                                <p className="text-white/80 text-lg max-w-xl leading-relaxed mb-8 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
+                                </motion.h1>
+                                <motion.p 
+                                    className="text-white/80 text-lg max-w-xl leading-relaxed mb-8 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]"
+                                    variants={itemVariants}
+                                >
                                     {description}
-                                </p>
+                                </motion.p>
 
-                                <div className="flex flex-wrap gap-3">
+                                <motion.div 
+                                    className="flex flex-wrap gap-3"
+                                    variants={itemVariants}
+                                >
                                     {liveUrl && (
-                                        <a href={liveUrl} target="_blank" rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white text-black hover:bg-white/90 transition-all">
+                                        <motion.a 
+                                            href={liveUrl} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white text-black hover:bg-white/90 transition-all"
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
                                             View Live Demo ↗
-                                        </a>
+                                        </motion.a>
                                     )}
                                     {githubUrl && (
-                                        <a href={githubUrl} target="_blank" rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border border-white/40 text-white hover:bg-white/10 backdrop-blur-sm transition-all">
+                                        <motion.a 
+                                            href={githubUrl} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border border-white/40 text-white hover:bg-white/10 backdrop-blur-sm transition-all"
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
                                             GitHub ↗
-                                        </a>
+                                        </motion.a>
                                     )}
-                                </div>
+                                </motion.div>
                             </div>
 
                             {/* Right: sidebar card
                              * Always uses black background — not background-primary —
                              * so it renders correctly in both light and dark site themes.
                              */}
-                            <div className="lg:col-span-1">
+                            <motion.div 
+                                className="lg:col-span-1"
+                                variants={sidebarVariants}
+                            >
                                 <div className="bg-black/60 backdrop-blur-xl border border-white/15 rounded-2xl p-6 space-y-5">
                                     <div>
                                         <p className="text-xs font-mono uppercase tracking-widest text-white/40 mb-1.5">Timeline</p>
@@ -468,18 +584,24 @@ export function ProjectDetail({
                                     <div>
                                         <p className="text-xs font-mono uppercase tracking-widest text-white/40 mb-2.5">Technologies</p>
                                         <div className="flex flex-wrap gap-1.5">
-                                            {technologies.map((tech) => (
-                                                <span key={tech} className="text-xs px-2.5 py-1 rounded-md bg-white/10 text-white/80 border border-white/10">
+                                            {technologies.map((tech, i) => (
+                                                <motion.span 
+                                                    key={tech} 
+                                                    className="text-xs px-2.5 py-1 rounded-md bg-white/10 text-white/80 border border-white/10"
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: 0.8 + i * 0.05 }}
+                                                >
                                                     {tech}
-                                                </span>
+                                                </motion.span>
                                             ))}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
 
             {sections.map((section, i) => (

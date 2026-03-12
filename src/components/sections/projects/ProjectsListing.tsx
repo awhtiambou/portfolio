@@ -7,6 +7,7 @@ import { Project, ProjectCategory } from "@/types";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import { SplitText, RevealText } from "@/components/scroll";
 
 export function ProjectsListing() {
     const categories = getAllCategories(); // Get all unique categories from all projects
@@ -43,11 +44,15 @@ export function ProjectsListing() {
                     {t("subtitle")}
                 </p>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-4">
-                    {t("title")}
+                    <SplitText type="words" animation="slideUp" staggerDelay={0.08}>
+                        {t("title")}
+                    </SplitText>
                 </h1>
-                <p className="text-text-secondary text-lg max-w-2xl leading-relaxed">
-                    {t("description")}
-                </p>
+                <RevealText direction="up" delay={0.2}>
+                    <p className="text-text-secondary text-lg max-w-2xl leading-relaxed">
+                        {t("description")}
+                    </p>
+                </RevealText>
             </div>
             <ProjectsFilterSection categories={categories} selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
             <ProjectsGridSection projects={selectedProjects} />

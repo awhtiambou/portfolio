@@ -32,6 +32,10 @@ export function Header() {
   }, []);
 
   useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -144,7 +148,7 @@ export function Header() {
               data-cursor-text="Language"
             >
               <FlagIcon locale={currentLocale} size={18} />
-              <span>{currentLocale.toUpperCase()}</span>
+              <span className="font-mono">{currentLocale.toUpperCase()}</span>
             </motion.button>
 
             <motion.button

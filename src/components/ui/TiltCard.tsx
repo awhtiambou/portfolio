@@ -51,7 +51,6 @@ export const TiltCard = ({
         const width = rect.width;
         const height = rect.height;
 
-        // Calculate rotation based on mouse position relative to center
         const rotX = (e.clientY - rect.top - height / 2) / intensity;
         const rotY = (e.clientX - rect.left - width / 2) / intensity;
 

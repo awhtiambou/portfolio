@@ -5,6 +5,7 @@ import type { WithChildren, WithClassName } from "@/types";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
+import { SplitText, ScrollText } from "@/components/scroll";
 
 type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type HeadingSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
@@ -114,6 +115,7 @@ interface SectionTitleProps extends WithClassName {
   title: string;
   subtitle?: string;
   centered?: boolean;
+  animated?: boolean;
 }
 
 export function SectionTitle({
@@ -121,6 +123,7 @@ export function SectionTitle({
   subtitle,
   centered = false,
   className,
+  animated = true,
 }: SectionTitleProps) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -146,15 +149,34 @@ export function SectionTitle({
           {subtitle}
         </motion.p>
       )}
-      <motion.h2
-        className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ delay: 0.1 }}
-      >
-        {title}
-      </motion.h2>
+      {animated ? (
+        <motion.h2
+          className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ delay: 0.1 }}
+        >
+          <SplitText
+            type="words"
+            animation="slideUp"
+            staggerDelay={0.05}
+            className="inline-block"
+          >
+            {title}
+          </SplitText>
+        </motion.h2>
+      ) : (
+        <motion.h2
+          className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ delay: 0.1 }}
+        >
+          {title}
+        </motion.h2>
+      )}
     </div>
   );
 }

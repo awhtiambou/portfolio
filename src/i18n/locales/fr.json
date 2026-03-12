@@ -376,12 +376,12 @@
     "education": "Éducation",
     "projects": "Projets",
     "contact": "Contact",
-    "getInTouch": "Me Contacter",
-    "viewWork": "Voir Mes Projets",
-    "learnMore": "En Savoir Plus",
-    "viewAll": "Voir Tout",
-    "sendMessage": "Envoyer le Message",
-    "currentlyAvailable": "Disponible pour Travailler",
+    "getInTouch": "Me contacter",
+    "viewWork": "Voir mes projets",
+    "learnMore": "En savoir plus",
+    "viewAll": "Voir tout",
+    "sendMessage": "Envoyer le message",
+    "currentlyAvailable": "Disponible pour travailler",
     "email": "Email",
     "location": "Localisation",
     "call": "Appeler",
@@ -389,10 +389,10 @@
     "newsletter": "Newsletter",
     "skills": "Compétences",
     "testimonials": "Témoignages",
-    "downloadMyResume": "Télécharger mon C.V"
+    "downloadMyResume": "Télécharger mon CV"
   },
   "hero": {
-    "greeting": "Bonjour, je suis",
+    "greeting": "Bonjour, moi c'est",
     "title": "Ingénieur IA/ML",
     "subtitle": "Ingénieur Logiciel",
     "description": "Passionné par la conception de systèmes intelligents et d’applications évolutives, je me spécialise en apprentissage automatique, deep learning et développement logiciel moderne. J’allie rigueur technique et créativité pour concevoir des solutions performantes, fiables et adaptées aux besoins concrets.",
@@ -462,7 +462,7 @@
     "label": "Mon Arsenal",
     "title": "Compétences",
     "description": "Technologies et outils que j'utilise pour créer des systèmes intelligents et des applications modernes.",
-    "viewAll": "Voir Toutes les Compétences",
+    "viewAll": "Voir toutes les compétences",
     "proficiency": "Maîtrise",
     "categories": {
       "ml": {
@@ -501,7 +501,7 @@
     "responsibilities": "Responsabilités",
     "items": {
       "kalfou": {
-        "position": "Co-fondateur & Ingénieur Logiciel Principal",
+        "position": "Co-fondateur & Ingénieur logiciel",
         "company": "Kalfou",
         "location": "Télétravail — Niger",
         "type": "Startup · Temps plein",
@@ -514,7 +514,7 @@
         "r5": "Pilotage des décisions produit, planification des sprints et coordination avec le co-fondateur"
       },
       "uqac": {
-        "position": "Assistant de Recherche — Vision par Ordinateur & Réalité Mixte",
+        "position": "Assistant de Recherche — Vision par ordinateur & réalité mixte",
         "company": "Université du Québec à Chicoutimi (UQAC)",
         "location": "Chicoutimi, QC, Canada",
         "type": "Stage de recherche · Labo LIARA",
@@ -526,7 +526,7 @@
         "r4": "Collaboration avec les chercheurs du LIARA pour la création de datasets, l'évaluation des modèles et la conception des expériences"
       },
       "monastir": {
-        "position": "Stagiaire en Génie Logiciel — Projet de Fin d'Études",
+        "position": "Stagiaire en Génie Logiciel — Projet de fin d'études",
         "company": "Université de Monastir",
         "location": "Monastir, Tunisie",
         "type": "Stage de fin d'études",
@@ -538,7 +538,7 @@
         "r4": "Déploiement sur Azure App Service (backend) et Netlify (frontend) avec CI/CD GitHub Actions"
       },
       "tiamtech": {
-        "position": "Développeur Web Freelance",
+        "position": "Développeur web",
         "company": "Tiamtech",
         "location": "Niamey, Niger — Hybride",
         "type": "Freelance",

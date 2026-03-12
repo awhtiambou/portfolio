@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import type { Blog, BlogElement, BlogSection } from "@/types/blog";
 import { cn } from "@/lib/utils";
 import { FiClock, FiCalendar, FiArrowUpRight, FiChevronRight } from "react-icons/fi";
@@ -499,6 +500,59 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
     // Track active section for TOC
     const [activeSection, setActiveSection] = useState(blog.sections[0]?.id ?? "");
 
+    const heroRef = useRef<HTMLDivElement>(null);
+
+    // Parallax effects for hero image
+    const { scrollYProgress } = useScroll({
+        target: heroRef,
+        offset: ["start start", "end start"]
+    });
+
+    const imageY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+    const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+    const contentY = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.3
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+        }
+    };
+
+    const titleVariants = {
+        hidden: { opacity: 0, y: 50, scale: 0.95 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: { duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }
+        }
+    };
+
+    const sidebarVariants = {
+        hidden: { opacity: 0, x: 50 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.6 }
+        }
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -516,8 +570,13 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
 
     return (
         <div className="w-full">
-            <div className="relative w-full min-h-[60vh] md:min-h-[100vh] flex flex-col pt-28">
-                <Image src={blog.coverImage} alt={blog.title} fill priority className="absolute inset-0 object-cover" sizes="100vw" />
+            <div ref={heroRef} className="relative w-full min-h-[60vh] md:min-h-[100vh] flex flex-col pt-28 overflow-hidden">
+                <motion.div
+                    className="absolute inset-0"
+                    style={{ y: imageY, scale: imageScale }}
+                >
+                    <Image src={blog.coverImage} alt={blog.title} fill priority className="object-cover" sizes="100vw" />
+                </motion.div>
 
                 {/*
                  * THREE-LAYER SCRIM — theme-agnostic, uses only fixed black values.
@@ -534,43 +593,77 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
 
-                <div className="relative z-10 mt-auto pb-12">
-                    <div className={CONTENT_WIDTH}>
+                <motion.div 
+                    className="relative z-10 mt-auto pb-12"
+                    style={{ y: contentY, opacity: contentOpacity }}
+                >
+                    <motion.div 
+                        className={CONTENT_WIDTH}
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {/* Breadcrumb — always white on dark scrim */}
-                        <nav className="flex items-center gap-2 text-sm text-white/60 mb-6">
+                        <motion.nav 
+                            className="flex items-center gap-2 text-sm text-white/60 mb-6"
+                            variants={itemVariants}
+                        >
                             <Link href="/" className="hover:text-white transition-colors">{tCommon("home")}</Link>
                             <FiChevronRight className="w-3 h-3 opacity-40" />
                             <Link href="/blog" className="hover:text-white transition-colors">{tCommon("blog")}</Link>
                             <FiChevronRight className="w-3 h-3 opacity-40" />
                             <span className="text-white/80 truncate max-w-[200px]">{blog.title}</span>
-                        </nav>
+                        </motion.nav>
 
                         <div className="grid lg:grid-cols-3 gap-10 items-end">
                             {/* Left */}
                             <div className="lg:col-span-2">
                                 {/* Categories */}
-                                <div className="flex flex-wrap gap-2 mb-5">
-                                    {blog.categories.map((cat) => (
-                                        <span key={cat} className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full border border-white/30 text-white bg-white/10 backdrop-blur-sm">
+                                <motion.div 
+                                    className="flex flex-wrap gap-2 mb-5"
+                                    variants={itemVariants}
+                                >
+                                    {blog.categories.map((cat, i) => (
+                                        <motion.span 
+                                            key={cat} 
+                                            className="text-xs font-mono uppercase tracking-[0.15em] px-3 py-1 rounded-full border border-white/30 text-white bg-white/10 backdrop-blur-sm"
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.4 + i * 0.1 }}
+                                        >
                                             {t(`categories.${cat}`)}
-                                        </span>
+                                        </motion.span>
                                     ))}
-                                </div>
+                                </motion.div>
 
                                 {/* Always white — three-layer scrim below guarantees WCAG AA contrast */}
-                                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] text-white mb-5 [text-shadow:0_2px_20px_rgba(0,0,0,0.4)]">
+                                <motion.h1 
+                                    className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] text-white mb-5 [text-shadow:0_2px_20px_rgba(0,0,0,0.4)]"
+                                    variants={titleVariants}
+                                >
                                     {blog.title}
-                                </h1>
-                                <p className="text-white/80 text-lg max-w-xl leading-relaxed mb-8 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
+                                </motion.h1>
+                                <motion.p 
+                                    className="text-white/80 text-lg max-w-xl leading-relaxed mb-8 [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]"
+                                    variants={itemVariants}
+                                >
                                     {blog.subtitle}
-                                </p>
+                                </motion.p>
 
                                 {/* Author & meta */}
-                                <div className="flex flex-wrap items-center gap-6">
+                                <motion.div 
+                                    className="flex flex-wrap items-center gap-6"
+                                    variants={itemVariants}
+                                >
                                     <div className="flex items-center gap-3">
-                                        <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-white/30">
+                                        <motion.div 
+                                            className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-white/30"
+                                            initial={{ scale: 0, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            transition={{ delay: 0.7, type: "spring", stiffness: 200 }}
+                                        >
                                             <Image src={blog.author.avatar} alt={blog.author.name} fill className="object-cover" sizes="44px" />
-                                        </div>
+                                        </motion.div>
                                         <div className="">
                                             <p className="text-sm font-medium text-white">{blog.author.name} <br /><span className="text-xs text-white/60">{blog.author.role}</span></p>
                                         </div>
@@ -580,14 +673,17 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
                                         {blog.updatedAt && <span className="flex items-center gap-1.5">{t("updatedOn")} {formatDate(blog.updatedAt, locale)}</span>}
                                         <span className="flex items-center gap-1.5"><FiClock className="w-3.5 h-3.5" /> {blog.readingTime} {t("minRead")}</span>
                                     </div>
-                                </div>
+                                </motion.div>
                             </div>
 
                             {/* Right: sidebar card
                              * Always black-based — not background-primary — so it renders
                              * correctly regardless of site theme (dark or light).
                              */}
-                            <div className="lg:col-span-1">
+                            <motion.div 
+                                className="lg:col-span-1"
+                                variants={sidebarVariants}
+                            >
                                 <div className="bg-black/60 backdrop-blur-xl border border-white/15 rounded-2xl p-6 space-y-5">
                                     <div>
                                         <p className="text-xs font-mono uppercase tracking-widest text-white/40 mb-2">{t("contents")}</p>
@@ -611,18 +707,24 @@ export function BlogDetail({ blog, relatedBlogs }: BlogDetailProps) {
                                     <div>
                                         <p className="text-xs font-mono uppercase tracking-widest text-white/40 mb-2.5">{t("tags")}</p>
                                         <div className="flex flex-wrap gap-1.5">
-                                            {blog.tags.slice(0, 6).map((tag) => (
-                                                <span key={tag} className="text-xs px-2.5 py-1 rounded-md bg-white/10 text-white/80 border border-white/10">
+                                            {blog.tags.slice(0, 6).map((tag, i) => (
+                                                <motion.span 
+                                                    key={tag} 
+                                                    className="text-xs px-2.5 py-1 rounded-md bg-white/10 text-white/80 border border-white/10"
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: 0.8 + i * 0.05 }}
+                                                >
                                                     {tag}
-                                                </span>
+                                                </motion.span>
                                             ))}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
 
             {blog.sections.map((section, i) => (

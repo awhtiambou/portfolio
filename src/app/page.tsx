@@ -3,7 +3,7 @@ import {
   HeroSection,
   SkillsSection,
   ExperienceSection,
-  FeaturedProjectsSection,
+  FeaturedProjectsHorizontal,
   TestimonialsSection,
   ContactSection,
 } from "@/components/sections/home";
@@ -15,7 +15,7 @@ export default function Home() {
       <main className="">
         <HeroSection />
         <SkillsSection />
-        <FeaturedProjectsSection />
+        <FeaturedProjectsHorizontal />
         <TestimonialsSection />
         <ContactSection />
       </main>

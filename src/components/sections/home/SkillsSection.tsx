@@ -7,8 +7,6 @@ import { marqueeLeft, marqueeRight } from "@/lib/animations";
 import { useMemo } from "react";
 import { motion, Variants } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { FiArrowUpRight } from "react-icons/fi";
-import Link from "next/link";
 import Image from "next/image";
 import { FillButton } from "@/components/ui";
 import { MdArrowForward } from "react-icons/md";
@@ -62,13 +60,11 @@ export const SkillsSection = () => {
                 <div className="h-0.5 w-full bg-border" />
                 <TechRow items={secondHalf} variant={marqueeRight as Variants} />
             </div>
-            <div className="w-full flex justify-start pl-5 md:pl-10">
-                <Link href="/about#skills" className="flex justify-center md:justify-start">
-                    <FillButton href="/about" fillColor="var(--color-foreground)" className="group font-mono font-medium text-sm">
-                        {t("viewAll")}
-                        <MdArrowForward className="ml-2 inline-block transition-transform duration-400 group-hover:translate-x-2" />
-                    </FillButton>
-                </Link>
+            <div className="w-full flex justify-center md:justify-start pl-5 md:pl-10">
+                <FillButton href="/about#skills" fillColor="var(--color-foreground)" className="group font-mono font-medium text-sm">
+                    {t("viewAll")}
+                    <MdArrowForward className="ml-2 inline-block transition-transform duration-400 group-hover:translate-x-2" />
+                </FillButton>
             </div>
         </div>
     );

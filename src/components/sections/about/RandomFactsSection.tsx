@@ -4,24 +4,66 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { SectionTitle } from "@/components/ui";
+import { useIsMobile } from "@/hooks";
+
+type Direction = "top" | "bottom" | "left" | "right";
+
+const getInitialOffset = (direction: Direction) => {
+  const offset = 100;
+  const transforms: Record<Direction, { x: number; y: number }> = {
+    top: { x: 0, y: -offset },
+    bottom: { x: 0, y: offset },
+    left: { x: -offset, y: 0 },
+    right: { x: offset, y: 0 },
+  };
+  return transforms[direction];
+};
 
 const GridImage = ({
   src,
   title,
   description,
-  className
+  className,
+  direction = "bottom",
+  mobileDirection,
+  delay = 0,
 }: {
   src: string;
   title: string;
   description: string;
-  className?: string
+  className?: string;
+  direction?: Direction;
+  mobileDirection?: Direction;
+  delay?: number;
 }) => {
+  const isMobile = useIsMobile();
+  const activeDirection = isMobile && mobileDirection ? mobileDirection : direction;
+  const offset = getInitialOffset(activeDirection);
+
   return (
     <motion.div
       className={`relative flex flex-col h-full overflow-hidden ${className}`}
-      initial="initial"
+      initial={{ 
+        opacity: 0, 
+        x: offset.x, 
+        y: offset.y,
+        scale: 0.9 
+      }}
+      whileInView={{ 
+        opacity: 1, 
+        x: 0, 
+        y: 0,
+        scale: 1 
+      }}
+      viewport={{ once: false, margin: "-100px" }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        duration: 0.8,
+        delay,
+      }}
       whileHover="hover"
-      animate="initial"
     >
       <div className="relative flex-1 w-full rounded-2xl overflow-hidden bg-gray-900 group">
         <Image
@@ -31,8 +73,8 @@ const GridImage = ({
           fill
         />
         <motion.div
+          initial={{ y: "100%" }}
           variants={{
-            initial: { y: "100%" },
             hover: { y: 0 }
           }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -58,36 +100,41 @@ export function RandomFactsSection() {
   const t = useTranslations("about.randomFacts");
 
   return (
-    <div className="w-full py-20 px-2 lg:px-10">
-      <div className="lg:container overflow-x-hidden grid grid-cols-12 gap-6 place-items-center justify-items-center">
+    <div className="w-full py-20 px-2 lg:px-10 overflow-hidden">
+      <div className="lg:container overflow-hidden grid grid-cols-12 gap-6 place-items-center justify-items-center">
 
         <div className="col-span-12 lg:col-span-5 px-5 lg:pr-5">
           <SectionTitle className="md:!text-left" subtitle={t("subtitle")} title={t("title")} />
           <p className="hidden lg:block text-2xl opacity-90">{t("description")}</p>
         </div>
 
-        <div className="block lg:hidden col-span-12 lg:col-span-7 grid grid-cols-12 w-full gap-6">
-          <p className="text-2xl col-span-12 md:col-span-8 lg:col-span-4 text-center md:text-left opacity-90">{t("description")}</p>
+        <div className="block lg:hidden col-span-12 lg:col-span-7 grid grid-cols-12 w-full gap-6 overflow-hidden">
+          <p className="text-lg col-span-12 md:col-span-8 lg:col-span-4 text-center md:text-left opacity-90">{t("description")}</p>
 
-          <div className="hidden md:flex col-span-12 md:col-span-4 items-center justify-center h-64">
-            <div className="w-11/12 h-full">
+          <div className="hidden md:flex col-span-12 md:col-span-4 items-center justify-center h-64 overflow-hidden">
+            <div className="w-11/12 h-full overflow-hidden">
               <GridImage
                 src="/assets/images/facts/coffee.jpg"
                 title={t("coffee.title")}
                 description={t("coffee.description")}
                 className="rounded-4xl"
+                direction="left"
+                delay={0}
               />
             </div>
           </div>
 
-          <div className="col-span-12 grid grid-flow-col grid-rows-12 gap-2 h-[600px] w-full">
-            <div className="grid grid-flow-col grid-rows-12 gap-4 h-[600px] w-full">
+          <div className="col-span-12 grid grid-flow-col grid-rows-12 gap-2 h-[600px] w-full overflow-hidden">
+            <div className="grid grid-flow-col grid-rows-12 gap-4 h-[600px] w-full overflow-hidden">
 
               <GridImage
                 src="/assets/images/facts/coffee.jpg"
                 title={t("coffee.title")}
                 description={t("coffee.description")}
                 className="row-start-4 row-span-4 md:hidden"
+                direction="left"
+                mobileDirection="top"
+                delay={0}
               />
 
               <GridImage
@@ -95,6 +142,8 @@ export function RandomFactsSection() {
                 title={t("location.title")}
                 description={t("location.description")}
                 className="row-start-8 md:row-start-4 lg:row-start-8 row-span-5"
+                direction="bottom"
+                delay={0.1}
               />
 
               <GridImage
@@ -102,6 +151,8 @@ export function RandomFactsSection() {
                 title={t("soccer.title")}
                 description={t("soccer.description")}
                 className="row-start-1 row-span-5"
+                direction="top"
+                delay={0.15}
               />
 
               <GridImage
@@ -109,6 +160,8 @@ export function RandomFactsSection() {
                 title={t("roots.title")}
                 description={t("roots.description")}
                 className="row-start-6 row-span-7"
+                direction="bottom"
+                delay={0.2}
               />
 
               <GridImage
@@ -116,20 +169,25 @@ export function RandomFactsSection() {
                 title={t("dream.title")}
                 description={t("dream.description")}
                 className="row-start-4 row-span-8"
+                direction="right"
+                mobileDirection="bottom"
+                delay={0.25}
               />
 
             </div>
           </div>
         </div>
 
-        <div className="hidden lg:flex items-center justify-center col-span-7 w-full overflow-x-hidden">
-          <div className="grid grid-flow-col grid-rows-12 gap-4 h-[600px] w-full">
+        <div className="hidden lg:flex items-center justify-center col-span-7 w-full overflow-hidden">
+          <div className="grid grid-flow-col grid-rows-12 gap-4 h-[600px] w-full overflow-hidden">
 
             <GridImage
               src="/assets/images/facts/coffee.jpg"
               title={t("coffee.title")}
               description={t("coffee.description")}
               className="row-start-4 row-span-4"
+              direction="left"
+              delay={0}
             />
 
             <GridImage
@@ -137,6 +195,8 @@ export function RandomFactsSection() {
               title={t("location.title")}
               description={t("location.description")}
               className="row-start-8 row-span-5"
+              direction="bottom"
+              delay={0.1}
             />
 
             <GridImage
@@ -144,6 +204,8 @@ export function RandomFactsSection() {
               title={t("soccer.title")}
               description={t("soccer.description")}
               className="row-start-1 row-span-5"
+              direction="top"
+              delay={0.15}
             />
 
             <GridImage
@@ -151,6 +213,8 @@ export function RandomFactsSection() {
               title={t("roots.title")}
               description={t("roots.description")}
               className="row-start-6 row-span-7"
+              direction="bottom"
+              delay={0.2}
             />
 
             <GridImage
@@ -158,6 +222,8 @@ export function RandomFactsSection() {
               title={t("dream.title")}
               description={t("dream.description")}
               className="row-start-4 row-span-8"
+              direction="right"
+              delay={0.25}
             />
 
           </div>
