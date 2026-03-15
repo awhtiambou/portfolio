@@ -17,3 +17,4 @@ export { GlobalBackground } from "./GlobalBackground";
 export { LiveSignature } from "./LiveSignature";
 export { PageTransition } from "./PageTransition";
 export { TransitionLink } from "./TransitionLink";
+export { OutlinedInput } from "./OutlinedInput";

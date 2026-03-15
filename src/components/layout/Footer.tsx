@@ -1,11 +1,15 @@
 "use client";
 
-import { TransitionLink } from "@/components/ui";
-import { useState } from "react";
+import { TransitionLink, OutlinedInput } from "@/components/ui";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { profile } from "@/data/profile";
 import { SocialIcon, socialIconsList } from "@/components/ui/icons/SocialIcons";
+import { CiCoffeeCup, CiHeart } from "react-icons/ci";
+import { PiHandHeartLight, PiHeartLight } from "react-icons/pi";
+import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 const W = "app-container";
 
@@ -26,35 +30,38 @@ function NewsletterForm({ t }: { t: ReturnType<typeof useTranslations> }) {
     setEmail("");
   };
 
+  const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    const isDark = !mounted || resolvedTheme !== "light";
+
   return (
     <div className="max-w-xl mx-auto rounded-2xl border border-white/10 bg-background-secondary/60 backdrop-blur-sm p-6 lg:p-8">
-      <p className="font-heading font-medium text-text-primary text-lg leading-snug mb-5">
+      <p className="font-body text-text-primary leading-snug mb-5">
         {t("newsletter.tagline")}
       </p>
 
-      <p className="text-xs font-mono uppercase tracking-[0.2em] text-text-muted mb-2">
-        {t("newsletter.emailLabel")}
-        <span className="text-accent-blue ml-1">•</span>
-      </p>
-
       <div className="flex gap-3 items-center">
-        <input
+        <OutlinedInput
+          label={t("newsletter.placeholder")}
+          name="newsletter-email"
           type="email"
           value={email}
           onChange={(e) => { setEmail(e.target.value); setStatus("idle"); }}
-          onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-          placeholder={t("newsletter.placeholder")}
-          className="flex-1 bg-transparent border border-white/15 rounded-full px-5 py-3
-            text-sm text-text-primary placeholder:text-text-muted
-            focus:outline-none focus:border-accent-blue/60 transition-colors duration-200"
+          className="flex-1"
         />
         <motion.button
           onClick={handleSubmit}
           whileTap={{ scale: 0.92 }}
           whileHover={{ scale: 1.05 }}
           disabled={status === "loading" || status === "success"}
-          className="w-11 h-11 rounded-full bg-accent-blue flex items-center justify-center
-            text-white flex-shrink-0 disabled:opacity-60 transition-opacity"
+          className={cn(
+            "relative inline-flex items-center p-4 font-medium transition-colors duration-300 rounded-full",
+            isDark             ? "bg-accent-yellow text-black hover:bg-accent-yellow/90 disabled:bg-accent-yellow/70"
+              : "bg-accent-blue text-white hover:bg-accent-blue/90 disabled:bg-accent-blue/70",
+            (status === "loading" || status === "success") && "cursor-not-allowed"
+          )}
+
           aria-label={t("newsletter.submit")}
         >
           <AnimatePresence mode="wait">
@@ -163,11 +170,11 @@ export function Footer() {
             </div>
 
             {/* Copyright */}
-            <p className="text-sm font-accent text-text-muted text-center lg:text-left">
+            <p className="text-xs font-mono text-text-muted text-center lg:text-left">
               © {currentYear} {profile.nickname}. {t("rights")}
             </p>
-            <p className="text-sm font-accent text-text-muted text-center lg:text-left">
-              Built with ❤️ and ☕ by {profile.name}
+            <p className="text-xs font-mono text-text-muted text-center lg:text-left">
+              Built with <PiHandHeartLight className="inline text-red-600 text-2xl" /> and <CiCoffeeCup className="inline text-2xl text-brown-900" /> by {profile.name}
             </p>
           </div>
 

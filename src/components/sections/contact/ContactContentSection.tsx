@@ -1,44 +1,106 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Section } from "@/components/layout";
-import { Button, Text, Card } from "@/components/ui";
+import { Button, Text, SectionTitle } from "@/components/ui";
+import { OutlinedInput } from "@/components/ui/OutlinedInput";
 import { profile } from "@/data/profile";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
+import { SiGithub, SiLinkedin } from "react-icons/si";
+import { FaXTwitter } from "react-icons/fa6";
+import { HiOutlineEnvelope, HiOutlineMapPin, HiOutlinePhone } from "react-icons/hi2";
+import { GrSend } from "react-icons/gr";
+import { MagneticButton } from "@/components/ui";
 
-// Icons
-const EmailIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-    </svg>
-);
+function SocialIcon({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
 
-const LocationIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-        <circle cx="12" cy="10" r="3" />
-    </svg>
-);
+    return (
+        <motion.a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            className={cn(
+                "relative w-12 h-12 rounded-xl flex items-center justify-center text-lg overflow-hidden transition-colors duration-300",
+                isDark
+                    ? "bg-white/5 text-white/60 hover:text-accent-yellow"
+                    : "bg-gray-100 text-gray-500 hover:text-accent-blue",
+            )}
+            whileHover={{ scale: 1.1, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        >
+            <motion.span
+                className={cn(
+                    "absolute inset-0 opacity-0",
+                    isDark ? "bg-accent-yellow/10" : "bg-accent-blue/10",
+                )}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+            />
+            <span className="relative z-10">{children}</span>
+        </motion.a>
+    );
+}
 
-const GithubIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-    </svg>
-);
+function ContactInfoRow({
+    icon,
+    label,
+    value,
+    href,
+}: {
+    icon: React.ReactNode;
+    label: string;
+    value: string;
+    href?: string;
+}) {
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
 
-const LinkedinIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-    </svg>
-);
-
-const TwitterIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-);
+    return (
+        <div className="flex items-center gap-5">
+            <div
+                className={cn(
+                    "w-12 h-12 min-w-12 rounded-xl flex items-center justify-center text-xl border",
+                    isDark
+                        ? "border-accent-yellow/30 text-accent-yellow bg-accent-yellow/5"
+                        : "border-accent-blue/30 text-accent-blue bg-accent-blue/5",
+                )}
+            >
+                {icon}
+            </div>
+            <div className="min-w-0">
+                <p className={cn(
+                    "text-xs font-mono uppercase tracking-[0.2em] mb-0.5",
+                    isDark ? "text-white/40" : "text-gray-400",
+                )}>
+                    {label}
+                </p>
+                {href ? (
+                    <a
+                        href={href}
+                        className={cn(
+                            "text-sm font-medium transition-colors truncate block",
+                            isDark
+                                ? "text-white hover:text-accent-yellow"
+                                : "text-gray-900 hover:text-accent-blue",
+                        )}
+                    >
+                        {value}
+                    </a>
+                ) : (
+                    <p className="text-sm font-medium text-text-primary truncate">{value}</p>
+                )}
+            </div>
+        </div>
+    );
+}
 
 export function ContactContentSection() {
     const [formData, setFormData] = useState({
@@ -49,14 +111,19 @@ export function ContactContentSection() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    const t = useTranslations("contact");
+    const { resolvedTheme } = useTheme();
+
+    useEffect(() => { setMounted(true); }, []);
+
+    const isDark = mounted && resolvedTheme === "dark";
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-
-        // TODO: Implement actual form submission (e.g., to API route, Formspree, etc.)
         await new Promise((resolve) => setTimeout(resolve, 1500));
-
         setIsSubmitting(false);
         setSubmitted(true);
         setFormData({ name: "", email: "", subject: "", message: "" });
@@ -70,192 +137,145 @@ export function ContactContentSection() {
     };
 
     return (
-        <Section>
             <motion.div
                 variants={staggerContainer}
                 initial="hidden"
-                animate="visible"
-                className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid lg:grid-cols-2 gap-16 app-container py-28"
             >
-                <motion.div variants={fadeInUp} className="space-y-8">
+                <motion.div variants={fadeInUp} className="space-y-10">
                     <div>
-                        <h2 className="font-heading text-2xl font-semibold text-text-primary mb-4">
-                            Let&apos;s Connect
+                        <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-4">
+                            {t("info.heading")}
                         </h2>
-                        <Text size="lg" className="mb-6">
-                            I&apos;m always open to discussing new projects, creative ideas,
-                            or opportunities to be part of your vision. Feel free to reach
-                            out through the form or via my social links.
+                        <Text size="lg" variant="muted" className="leading-relaxed">
+                            {t("info.description")}
                         </Text>
                     </div>
 
-                    <div className="space-y-4">
-                        <Card variant="outlined" padding="md">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-lg bg-accent-blue/10 flex items-center justify-center text-accent-blue">
-                                    <EmailIcon />
-                                </div>
-                                <div>
-                                    <Text variant="muted" size="sm">Email</Text>
-                                    <a
-                                        href={`mailto:${profile.email}`}
-                                        className="text-text-primary hover:text-accent-blue transition-colors font-medium"
-                                    >
-                                        {profile.email}
-                                    </a>
-                                </div>
-                            </div>
-                        </Card>
-
-                        <Card variant="outlined" padding="md">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-lg bg-accent-pink/10 flex items-center justify-center text-accent-pink">
-                                    <LocationIcon />
-                                </div>
-                                <div>
-                                    <Text variant="muted" size="sm">Location</Text>
-                                    <Text className="font-medium">{profile.location}</Text>
-                                </div>
-                            </div>
-                        </Card>
+                    <div className="space-y-5">
+                        <ContactInfoRow
+                            icon={<HiOutlineMapPin />}
+                            label={t("info.locationLabel")}
+                            value={profile.location}
+                        />
+                        <ContactInfoRow
+                            icon={<HiOutlinePhone />}
+                            label={t("info.phoneLabel")}
+                            value={profile.phone}
+                            href={`tel:${profile.phone.replace(/\s/g, "")}`}
+                        />
+                        <ContactInfoRow
+                            icon={<HiOutlineEnvelope />}
+                            label={t("info.emailLabel")}
+                            value={profile.email}
+                            href={`mailto:${profile.email}`}
+                        />
                     </div>
 
                     <div>
-                        <h3 className="font-medium text-text-primary mb-4">Follow Me</h3>
-                        <div className="flex gap-4">
-                            <motion.a
-                                href={profile.social.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-12 h-12 rounded-lg bg-background-secondary hover:bg-accent-blue/10 flex items-center justify-center text-text-secondary hover:text-accent-blue transition-colors"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                aria-label="GitHub"
-                            >
-                                <GithubIcon />
-                            </motion.a>
-                            <motion.a
-                                href={profile.social.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-12 h-12 rounded-lg bg-background-secondary hover:bg-accent-blue/10 flex items-center justify-center text-text-secondary hover:text-accent-blue transition-colors"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                aria-label="LinkedIn"
-                            >
-                                <LinkedinIcon />
-                            </motion.a>
-                            <motion.a
-                                href={profile.social.twitter}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-12 h-12 rounded-lg bg-background-secondary hover:bg-accent-blue/10 flex items-center justify-center text-text-secondary hover:text-accent-blue transition-colors"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                aria-label="Twitter"
-                            >
-                                <TwitterIcon />
-                            </motion.a>
+                        <p className={cn(
+                            "text-xs font-mono uppercase tracking-[0.2em] mb-4",
+                            isDark ? "text-white/40" : "text-gray-400",
+                        )}>
+                            {t("info.followMe")}
+                        </p>
+                        <div className="flex gap-3">
+                            <SocialIcon href={profile.social.github} label="GitHub">
+                                <SiGithub />
+                            </SocialIcon>
+                            <SocialIcon href={profile.social.linkedin} label="LinkedIn">
+                                <SiLinkedin />
+                            </SocialIcon>
+                            <SocialIcon href={profile.social.twitter} label="X / Twitter">
+                                <FaXTwitter />
+                            </SocialIcon>
                         </div>
                     </div>
                 </motion.div>
 
                 <motion.div variants={fadeInUp}>
-                    <Card variant="elevated" padding="lg">
-                        {submitted ? (
-                            <div className="text-center py-8">
-                                <div className="w-16 h-16 bg-accent-mint/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <span className="text-3xl">✓</span>
-                                </div>
-                                <h3 className="font-heading text-xl font-semibold text-text-primary mb-2">
-                                    Message Sent!
-                                </h3>
-                                <Text variant="muted">
-                                    Thank you for reaching out. I&apos;ll get back to you as soon as possible.
-                                </Text>
-                                <Button
-                                    variant="outline"
-                                    className="mt-6"
-                                    onClick={() => setSubmitted(false)}
-                                >
-                                    Send Another Message
-                                </Button>
+                    {submitted ? (
+                        <div className="text-center py-16">
+                            <motion.div
+                                className={cn(
+                                    "w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4",
+                                    isDark ? "bg-accent-yellow/20" : "bg-accent-blue/20",
+                                )}
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            >
+                                <span className="text-3xl">✓</span>
+                            </motion.div>
+                            <h3 className="font-heading text-xl font-semibold text-text-primary mb-2">
+                                {t("form.successTitle")}
+                            </h3>
+                            <Text variant="muted">{t("form.success")}</Text>
+                            <Button variant="outline" className="mt-6" onClick={() => setSubmitted(false)}>
+                                {t("form.sendAnother")}
+                            </Button>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            <div className="grid sm:grid-cols-2 gap-5">
+                                <OutlinedInput
+                                    label={t("form.name")}
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <OutlinedInput
+                                    label={t("form.email")}
+                                    name="email"
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-text-primary mb-2">
-                                            Name *
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full px-4 py-3 rounded-lg bg-background-primary border border-border focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 outline-none transition-all text-text-primary"
-                                            placeholder="Your name"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">
-                                            Email *
-                                        </label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full px-4 py-3 rounded-lg bg-background-primary border border-border focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 outline-none transition-all text-text-primary"
-                                            placeholder="your@email.com"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label htmlFor="subject" className="block text-sm font-medium text-text-primary mb-2">
-                                        Subject *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="subject"
-                                        name="subject"
-                                        value={formData.subject}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-3 rounded-lg bg-background-primary border border-border focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 outline-none transition-all text-text-primary"
-                                        placeholder="What's this about?"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="message" className="block text-sm font-medium text-text-primary mb-2">
-                                        Message *
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                        required
-                                        rows={6}
-                                        className="w-full px-4 py-3 rounded-lg bg-background-primary border border-border focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 outline-none transition-all text-text-primary resize-none"
-                                        placeholder="Your message..."
-                                    />
-                                </div>
-
-                                <Button type="submit" size="lg" fullWidth loading={isSubmitting}>
-                                    {isSubmitting ? "Sending..." : "Send Message"}
-                                </Button>
-                            </form>
-                        )}
-                    </Card>
+                            <OutlinedInput
+                                label={t("form.subject")}
+                                name="subject"
+                                value={formData.subject}
+                                onChange={handleChange}
+                                required
+                            />
+                            <OutlinedInput
+                                label={t("form.message")}
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                required
+                                multiline
+                                rows={6}
+                            />
+                            <MagneticButton
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const form = (e.target as HTMLElement).closest("form");
+                                    form?.requestSubmit();
+                                }}
+                                backgroundColor={isDark ? "var(--color-yellow)" : "var(--color-blue)"}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
+                                    fontWeight: 600,
+                                    backgroundColor: isDark ? "var(--color-yellow)" : "var(--color-blue)",
+                                    color: isDark ? "var(--color-black)" : "var(--color-foreground)",
+                                }}
+                                className="font-mono font-medium"
+                            >
+                                <GrSend className="text-lg" />
+                                <span>{isSubmitting ? t("form.sending") : t("form.submit")}</span>
+                            </MagneticButton>
+                        </form>
+                    )}
                 </motion.div>
             </motion.div>
-        </Section>
     );
 }

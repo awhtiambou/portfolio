@@ -602,19 +602,30 @@
   "contact": {
     "title": "Get In Touch",
     "subtitle": "Have a question or want to work together?",
-    "description": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
+    "description": "Whether you have an exciting project idea, a collaboration opportunity, or simply want to say hello — I'd love to hear from you. I'm always open to discussing new ventures, creative challenges, and ways we can build something meaningful together.",
+    "hero": {
+      "subtitle": "Let's talk",
+      "description": "Whether it's a bold new project, a creative collaboration, or just a question — I'm here and ready to connect.",
+      "imageAlt": "Contact hero background"
+    },
+    "info": {
+      "heading": "Let's Connect",
+      "description": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out through the form or connect with me on social media — I typically respond within 24 hours.",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone",
+      "locationLabel": "Location",
+      "followMe": "Follow Me"
+    },
     "form": {
       "name": "Name",
       "email": "Email",
       "subject": "Subject",
       "message": "Message",
-      "namePlaceholder": "Your name",
-      "emailPlaceholder": "your@email.com",
-      "subjectPlaceholder": "What's this about?",
-      "messagePlaceholder": "Your message...",
       "submit": "Send Message",
       "sending": "Sending...",
-      "success": "Message sent! Thank you for reaching out.",
+      "success": "Thank you for reaching out. I'll get back to you as soon as possible.",
+      "successTitle": "Message Sent!",
+      "sendAnother": "Send Another Message",
       "error": "Something went wrong. Please try again."
     }
   },

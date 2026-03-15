@@ -4,7 +4,7 @@ import { ContactHeroSection, ContactContentSection } from "@/components/sections
 
 export default function ContactPage() {
   return (
-    <main className="pt-20">
+    <main className="">
       <ContactHeroSection />
       <ContactContentSection />
     </main>

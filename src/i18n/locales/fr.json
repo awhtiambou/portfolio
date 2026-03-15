@@ -376,12 +376,12 @@
     "education": "Éducation",
     "projects": "Projets",
     "contact": "Contact",
-    "getInTouch": "Me contacter",
+    "getInTouch": "Entrer en contact",
     "viewWork": "Voir mes projets",
     "learnMore": "En savoir plus",
     "viewAll": "Voir tout",
     "sendMessage": "Envoyer le message",
-    "currentlyAvailable": "Disponible pour travailler",
+    "currentlyAvailable": "Disponible",
     "email": "Email",
     "location": "Localisation",
     "call": "Appeler",
@@ -600,21 +600,32 @@
     "hoverHint": "Survolez chaque étape pour explorer"
   },
   "contact": {
-    "title": "Me Contacter",
+    "title": "Contactez-moi",
     "subtitle": "Une question ou envie de collaborer ?",
-    "description": "Je suis toujours ouvert à discuter de nouveaux projets, d'idées créatives ou d'opportunités de collaboration.",
+    "description": "Que vous ayez une idée de projet passionnante, une opportunité de collaboration ou simplement envie de dire bonjour — je serais ravi d'échanger avec vous. Je suis toujours ouvert à discuter de nouvelles aventures, de défis créatifs et de façons de construire quelque chose de significatif ensemble.",
+    "hero": {
+      "subtitle": "Une question ou envie de collaborer ?",
+      "description": "Qu'il s'agisse d'un nouveau projet audacieux, d'une collaboration créative ou simplement d'une question.",
+      "imageAlt": "Arrière-plan héro contact"
+    },
+    "info": {
+      "heading": "Entrons en contact",
+      "description": "Je suis toujours ouvert à discuter de nouveaux projets, d'idées créatives ou d'opportunités de collaboration. N'hésitez pas à me contacter via le formulaire ou à me retrouver sur les réseaux sociaux — je réponds généralement sous 24 heures.",
+      "emailLabel": "Email",
+      "phoneLabel": "Téléphone",
+      "locationLabel": "Localisation",
+      "followMe": "Suivez-moi sur "
+    },
     "form": {
       "name": "Nom",
       "email": "Email",
       "subject": "Sujet",
       "message": "Message",
-      "namePlaceholder": "Votre nom",
-      "emailPlaceholder": "votre@email.com",
-      "subjectPlaceholder": "De quoi s'agit-il ?",
-      "messagePlaceholder": "Votre message...",
       "submit": "Envoyer le Message",
       "sending": "Envoi en cours...",
-      "success": "Message envoyé ! Merci de m'avoir contacté.",
+      "success": "Merci de m'avoir contacté. Je vous répondrai dès que possible.",
+      "successTitle": "Message envoyé !",
+      "sendAnother": "Envoyer un autre message",
       "error": "Une erreur s'est produite. Veuillez réessayer."
     }
   },

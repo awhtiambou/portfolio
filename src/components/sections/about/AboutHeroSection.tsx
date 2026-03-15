@@ -48,12 +48,12 @@ export function AboutHeroSection() {
                     className="w-full text-center col-span-6 md:col-span-3 lg:col-span-2"
                     initial={{ opacity: 0, x: -100, scale: 0.9 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
-                    transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+                    transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] as const, delay: 0.2 }}
                 >
                     <motion.div
                         style={{ y: imageY, scale: imageScale, rotate: imageRotate }}
                     >
-                        <ClipReveal direction="left" delay={0.4} duration={1}>
+                        <ClipReveal delay={0.4} duration={1}>
                             <TiltCard 
                                 glowOpacity={0.15} 
                                 glowColor="rgba(255,255,255,0.3)"
