@@ -261,6 +261,36 @@ function DividerElement() {
     return <hr className="border-white/10" />;
 }
 
+function VideoElement({ el }: { el: Extract<ProjectElement, { type: "video" }> }) {
+    const format = el.format ?? "mp4";
+    const autoplay = el.autoplay !== false;
+    const loop = el.loop !== false;
+    const controls = el.controls !== false;
+
+    return (
+        <figure className="w-full">
+            <div className={`${el.height ?? ""} w-full rounded-2xl overflow-hidden bg-background-secondary`}>
+                <video
+                    className="w-full h-full object-contain"
+                    controls={controls}
+                    autoPlay={autoplay}
+                    loop={loop}
+                    muted={autoplay}
+                    playsInline
+                    preload="metadata"
+                >
+                    <source src={el.src} type={`video/${format}`} />
+                </video>
+            </div>
+            {el.caption && (
+                <figcaption className="text-center text-xs text-text-muted mt-2 font-mono uppercase tracking-widest">
+                    {el.caption}
+                </figcaption>
+            )}
+        </figure>
+    );
+}
+
 
 function Element({ el, isFullwidthSection }: { el: ProjectElement; isFullwidthSection?: boolean }) {
     switch (el.type) {
@@ -273,6 +303,7 @@ function Element({ el, isFullwidthSection }: { el: ProjectElement; isFullwidthSe
         case "link-list": return <LinkListElement el={el} />;
         case "code": return <CodeElement el={el} />;
         case "callout": return <CalloutElement el={el} />;
+        case "video": return <VideoElement el={el} />;
         case "divider": return <DividerElement />;
         default: return null;
     }
@@ -546,11 +577,14 @@ export function ProjectDetail({
                                             href={liveUrl} 
                                             target="_blank" 
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white text-black hover:bg-white/90 transition-all"
+                                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm bg-white text-primary hover:bg-white/90 transition-all"
+                                            style={{
+                                                color: "#222222"
+                                            }}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
-                                            View Live Demo ↗
+                                            {t('common.viewLiveDemo')}
                                         </motion.a>
                                     )}
                                     {githubUrl && (
@@ -559,10 +593,13 @@ export function ProjectDetail({
                                             target="_blank" 
                                             rel="noopener noreferrer"
                                             className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border border-white/40 text-white hover:bg-white/10 backdrop-blur-sm transition-all"
+                                            style={{
+                                                color: "#FFFFFF"
+                                            }}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
-                                            GitHub ↗
+                                            GitHub
                                         </motion.a>
                                     )}
                                 </motion.div>

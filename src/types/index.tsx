@@ -54,6 +54,21 @@ export type ProjectElement =
     content: string;
   }
   | {
+    type: "video";
+    src: string;
+    /** @default "mp4" */
+    format?: string;
+    caption?: string;
+    /** Tailwind height class e.g. "h-[60vh]". */
+    height?: string;
+    /** Show native playback controls. @default true */
+    controls?: boolean;
+    /** Autoplay (muted). @default true */
+    autoplay?: boolean;
+    /** Loop playback. @default true */
+    loop?: boolean;
+  }
+  | {
     type: "divider";
   };
 
@@ -89,13 +104,14 @@ export interface Project {
 
 export type ProjectCategory =
   | "ml"
+  | "cv"
   | "ai"
   | "devops"
   | "mlops"
   | "web"
   | "mobile"
   | "design"
-  | "backend"
+  | "backend" 
   | "other";
 
 

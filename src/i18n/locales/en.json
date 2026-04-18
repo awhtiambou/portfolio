@@ -206,58 +206,69 @@
       },
       "tiamshop-ecommerce-platform": {
         "title": "Tiamshop",
-        "description": "Full-stack e-commerce platform for electronics sales with ASP.NET Core backend and React frontend. Best capstone project award (18.5/20).",
+        "description": "A comprehensive e-commerce platform featuring a robust 3-tier architecture with an ASP.NET Core backend and React frontend. Engineered specifically for the Nigerien market, supporting local payment methods and complex delivery logistics.",
         "sections": {
           "overview": {
             "label": "Overview",
             "heading": "E-commerce built for Niger",
-            "text": "Tiamshop is a full-stack e-commerce platform specialising in electronics, developed as my Bachelor's capstone project. It addresses the growing demand for trusted online shopping in Niger — awarded **Best Capstone Project (18.5/20)**.",
+            "text": "Tiamshop is a full-stack e-commerce platform developed as my Bachelor's capstone project. Designed to address the growing demand for trusted online shopping in Niger, it features a highly scalable architecture and was awarded **Best Capstone Project (18.5/20)**.",
             "stat0": {
-              "label": "Products",
-              "note": "Electronics catalogue"
+              "label": "Architecture",
+              "note": "Clean separation of concerns"
             },
             "stat1": {
               "label": "Award",
               "note": "Best capstone project"
             },
             "stat2": {
-              "label": "Sprints",
-              "note": "Scrum over 6 months"
+              "label": "User Roles",
+              "note": "Client, Admin, Deliverer"
             },
             "stat3": {
-              "label": "Payment methods",
-              "note": "Airtel · Orange · Cash"
+              "label": "Payment Methods",
+              "note": "Cash, Airtel, Orange, Check"
             }
           },
           "coverImage": {
-            "alt": "Tiamshop storefront"
-          },
-          "features": {
-            "label": "Features",
-            "heading": "Three user roles, one platform",
-            "list": {
-              "0": "**Customer** — Browse 70+ products, advanced filtering, persistent cart, real-time order tracking",
-              "1": "**Admin** — Full product CRUD, order validation, inventory control, sector-based delivery assignment, sales analytics",
-              "2": "**Delivery** — View assigned deliveries by zone, mark as in-progress or completed"
-            },
-            "img0": {
-              "alt": "Storefront",
-              "caption": "Customer storefront"
-            },
-            "img1": {
-              "alt": "Admin dashboard",
-              "caption": "Admin dashboard"
-            }
+            "alt": "Tiamshop storefront mockup"
           },
           "architecture": {
             "label": "Architecture",
-            "callout": {
-              "title": "Tech Stack",
-              "content": "Backend: ASP.NET Core Web API with JWT auth, SQL Server + Entity Framework Core + Dapper, Mailgun transactional emails. Frontend: React + TypeScript, Redux Toolkit, Tailwind CSS + Material-UI. Deployed on Azure App Service + Netlify via GitHub Actions CI/CD."
+            "heading": "Robust 3-Tier Design",
+            "text": "The system is built on a strict 3-tier architecture to ensure maintainability and scalability. The Presentation layer communicates via HTTP with the Business layer, which handles Data Persistence through Entity Framework Core and SQL Server.",
+            "list": {
+               "0": "**Presentation Layer**: React, Redux Toolkit, and Material-UI for a highly responsive user experience.",
+               "1": "**Business Layer**: ASP.NET Core Web API handling complex routing, business logic, and JWT-based authentication via Microsoft Identity.",
+               "2": "**Persistence Layer**: SQL Server integration utilizing both Entity Framework Core for complex relational queries and Dapper for high-performance read operations."
             },
             "img": {
-              "alt": "Order management",
-              "caption": "Order and delivery management flow"
+               "alt": "3-Tier Architecture Diagram",
+               "caption": "Global system architecture separating presentation, business logic, and data access"
+            }
+          },
+          "database": {
+             "label": "Database Design",
+             "heading": "Complex Relational Modeling",
+             "text": "The database was meticulously modeled to handle the realities of a multi-vendor, multi-role e-commerce environment. It features advanced table inheritance strategies for user roles and deeply normalized product characteristic mappings.",
+             "callout": {
+                "title": "Data Integrity & Inheritance",
+                "content": "A core 'User' entity is extended into specific roles (Administrator, Client, Deliverer) to enforce strict access control. Products are heavily normalized to support dynamic categories, sub-categories, specific characteristics, and hierarchical discounting."
+             },
+             "img": {
+                "alt": "Entity-Relationship Diagram",
+                "caption": "Complete Entity-Relationship model for Tiamshop"
+             }
+          },
+          "features": {
+            "label": "Features",
+            "heading": "Comprehensive User Journeys",
+            "list": {
+              "0": "**Client Experience** — Advanced multi-criteria search (by category, brand, price range, availability), persistent cart management, multi-step checkout with local payment options (Airtel Money, Orange Money), and order tracking.",
+              "1": "**Administrator Dashboard** — Secure interface to manage product catalogs with multiple image uploads, dynamically assign deliveries to specific couriers based on neighborhoods, and track overall platform health.",
+              "2": "**Deliverer Portal** — Dedicated views for couriers to list assigned orders and update delivery statuses in real-time."
+            },
+            "video": {
+              "caption": "Users journey walkthrough"
             }
           }
         }
@@ -307,6 +318,93 @@
             "img1": {
               "alt": "Development setup",
               "caption": "Development environment"
+            }
+          }
+        }
+      },
+      "le-decryptage-news-platform": {
+        "title": "Le Décryptage",
+        "description": "A French-language news and media platform with full reader accounts, article categories, commenting, liking, sharing, and an admin CRUD dashboard. Built with React, TypeScript, and Firebase.",
+        "sections": {
+          "overview": {
+            "label": "Overview",
+            "heading": "A full-featured news platform",
+            "text": "Le Décryptage is a French-language news platform built for a client, designed to deliver categorised articles with a rich reader experience. The platform supports user accounts, social interactions (comments, likes, shares), a newsletter system, and a full admin dashboard — all powered by Firebase and built in two months.",
+            "stat0": {
+              "label": "Frontend",
+              "note": "React + TypeScript"
+            },
+            "stat1": {
+              "label": "Backend",
+              "note": "Firebase (auth, storage, notifications)"
+            },
+            "stat2": {
+              "label": "Duration",
+              "note": "2 months (Mar – Apr 2024)"
+            },
+            "stat3": {
+              "label": "Language",
+              "note": "French-language content"
+            }
+          },
+          "coverImage": {
+            "alt": "Le Décryptage news platform"
+          },
+          "features": {
+            "label": "Features",
+            "heading": "Built for readers and editors alike",
+            "text": "The platform was designed around two distinct user experiences: a smooth, engaging reading interface for the public, and a powerful admin dashboard for content editors to manage every aspect of the site.",
+            "list": {
+              "0": "**Article categories** — Organised content browsing by topic",
+              "1": "**User accounts** — Registration, login, and personalised profiles via Firebase Auth",
+              "2": "**Comments & likes** — Readers can engage directly with articles",
+              "3": "**Sharing** — Native share functionality for social distribution",
+              "4": "**Reporting** — Community-driven content moderation via article reporting",
+              "5": "**Admin CRUD dashboard** — Full content management for editors (create, edit, delete articles)",
+              "6": "**Newsletter** — Email subscription system for reader retention",
+              "7": "**Push notifications** — Firebase Cloud Messaging for breaking news alerts"
+            },
+            "img0": {
+              "alt": "Article reading view",
+              "caption": "Article reading experience with engagement features"
+            },
+            "img1": {
+              "alt": "Admin dashboard",
+              "caption": "Admin CRUD dashboard for content management"
+            }
+          },
+          "stack": {
+            "label": "Tech Stack",
+            "heading": "Firebase-powered architecture",
+            "text": "The entire backend is serverless, leveraging Firebase's suite of products to avoid managing infrastructure while delivering real-time updates, secure authentication, and scalable file storage.",
+            "list": {
+              "0": "**React + TypeScript** — Component-driven UI with strict typing throughout",
+              "1": "**Firebase** — Authentication, Firestore (database), Storage (media), Cloud Messaging (push notifications)",
+              "2": "**Material-UI + Tailwind CSS** — Hybrid styling system for rapid development and consistent design",
+              "3": "**react-icons** — Unified icon library across all UI components"
+            }
+          },
+          "impact": {
+            "label": "Project Outcome",
+            "callout": {
+              "title": "Project cancelled due to contract issues",
+              "content": "The platform was fully built and functional but never went live. The project was cancelled following a contract dispute with the client before launch. The codebase remains a strong demonstration of a production-ready, full-featured news platform delivered in under two months."
+            },
+            "stat0": {
+              "label": "Build time",
+              "note": "Mar – Apr 2024"
+            },
+            "stat1": {
+              "label": "Features shipped",
+              "note": "Accounts, comments, likes, sharing, reporting, newsletter, CRUD, notifications"
+            },
+            "stat2": {
+              "label": "Completion",
+              "note": "Fully built before cancellation"
+            },
+            "stat3": {
+              "label": "Deployment",
+              "note": "Preview live on Netlify"
             }
           }
         }
@@ -366,6 +464,94 @@
             }
           }
         }
+      },
+      "clearsheet-document-scanner-ocr": {
+        "title": "ClearSheet",
+        "description": "Document scanning and OCR web app that detects a page inside a noisy phone photo, corrects perspective, generates a clean scan-style result, and extracts text in French, English, or both.",
+        "sections": {
+          "overview": {
+            "label": "Overview",
+            "heading": "Turning messy document photos into clean digital scans",
+            "text": "ClearSheet is a full-stack document digitization product built to take a raw phone photo of a page, detect the document automatically, flatten it, enhance it into a scan-style image, and extract text with OCR. The project combines a **modular OpenCV pipeline**, a **FastAPI backend**, and a **polished Next.js frontend** for upload, review, and export.",
+            "stat0": {
+              "label": "Pipeline",
+              "note": "Preprocess -> detect -> warp -> OCR"
+            },
+            "stat1": {
+              "label": "OCR",
+              "note": "French, English, or bilingual extraction"
+            },
+            "stat2": {
+              "label": "Scan modes",
+              "note": "clean, balanced, ocr-optimized"
+            },
+            "stat3": {
+              "label": "Export",
+              "note": "PNG and searchable PDF"
+            }
+          },
+          "coverImage": {
+            "alt": "ClearSheet document scanning workflow"
+          },
+          "pipeline": {
+            "label": "Processing Pipeline",
+            "heading": "Computer vision tuned for real-world document photos",
+            "text": "The backend is intentionally split into small stages so each part of the workflow is testable and easy to evolve. Preprocessing prepares edges and a document mask, contour detection searches for a stable four-point page boundary, the transformer warps and auto-rotates the sheet, and post-processing builds the final scan before OCR ranking chooses the strongest text result.",
+            "list": {
+              "0": "Preprocessing normalizes contrast, applies blur/Canny, and builds a cleanup mask for document candidates.",
+              "1": "Document detection prefers a convex quadrilateral, then falls back to `minAreaRect` when the page edges are imperfect.",
+              "2": "Perspective correction orders corners, warps the page, and estimates residual tilt with Hough-line based auto-rotation.",
+              "3": "Three scan profiles (`clean`, `balanced`, `ocr-optimized`) tune CLAHE, sharpening, thresholding, and text expansion differently.",
+              "4": "OCR is evaluated across multiple image variants and Tesseract configs, then ranked by confidence and useful content length."
+            },
+            "img0": {
+              "alt": "ClearSheet backend pipeline diagram",
+              "caption": "Backend pipeline modules"
+            },
+            "img1": {
+              "alt": "ClearSheet scanning workbench",
+              "caption": "Frontend workbench and export flow"
+            }
+          },
+          "product": {
+            "label": "User Experience",
+            "heading": "Built as a complete scanning workflow, not just a model demo",
+            "text": "The frontend wraps the backend with a practical workspace: upload a source image, choose OCR languages and scan mode, inspect optional debug snapshots, review the transcript, and export the result without leaving the page.",
+            "list": {
+              "0": "Upload a raw photo from desktop or mobile and send it to the FastAPI scan endpoint.",
+              "1": "Choose `fra`, `eng`, or `fra+eng` plus the scan profile that best fits readability or OCR.",
+              "2": "Inspect optional debug images for edges, contour detection, and the warped document.",
+              "3": "Review extracted text, OCR confidence, and tokenized text geometry returned by the API.",
+              "4": "Download the cleaned scan as PNG or generate a searchable PDF directly in the browser."
+            },
+            "callout": {
+              "title": "Searchable PDF export",
+              "content": "The PDF exporter does more than place an image on a page: it overlays invisible OCR tokens on top of the scan so copied text stays selectable and searchable."
+            }
+          },
+          "delivery": {
+            "label": "Delivery & QA",
+            "heading": "Shipped with deployment and testing in mind",
+            "list": {
+              "0": "The backend is organized into dedicated preprocessing, detection, transform, post-processing, and settings modules instead of one monolithic script.",
+              "1": "Settings auto-detect local Tesseract and bundled tessdata paths, which makes Windows development smoother and Docker deployment cleaner.",
+              "2": "`docker compose up --build` starts the frontend and backend together for a reproducible full-stack local environment.",
+              "3": "Backend tests cover health and scan endpoints, invalid uploads, document-not-found cases, transformer behavior, post-processing, debug images, and optional OCR integration."
+            },
+            "link0": {
+              "label": "Live app",
+              "description": "Next.js frontend deployed on Netlify"
+            },
+            "link1": {
+              "label": "GitHub repository",
+              "description": "Full ClearSheet source code"
+            },
+            "link2": {
+              "label": "Backend API",
+              "description": "FastAPI service deployed on Hugging Face Spaces"
+            }
+          }
+        }
       }
     }
   },
@@ -389,7 +575,8 @@
     "newsletter": "Newsletter",
     "skills": "Skills",
     "testimonials": "Testimonials",
-    "downloadMyResume": "Download my resume"
+    "downloadMyResume": "Download my resume",
+    "viewLiveDemo": "View live"
   },
   "hero": {
     "greeting": "Hello, I'm",

@@ -1,0 +1,100 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="64" y1="68" x2="1292" y2="832" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#1E293B"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="22" flood-color="#0F172A" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="900" rx="32" fill="url(#bg)"/>
+  <circle cx="1180" cy="144" r="178" fill="#38BDF8" fill-opacity="0.08"/>
+  <circle cx="194" cy="760" r="160" fill="#34D399" fill-opacity="0.08"/>
+
+  <text x="92" y="120" fill="#0F172A" font-size="18" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="3">CLEARSHEET BACKEND</text>
+  <text x="92" y="182" fill="#0F172A" font-size="52" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Modular document pipeline</text>
+  <text x="92" y="224" fill="#475569" font-size="22" font-family="'Segoe UI', Arial, sans-serif">Preprocess. Detect. Transform. Build the scan. Rank OCR candidates.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="88" y="296" width="264" height="402" rx="28" fill="url(#cardA)"/>
+  </g>
+  <text x="118" y="342" fill="#7DD3FC" font-size="14" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="2.4">01 PREPROCESS</text>
+  <text x="118" y="386" fill="white" font-size="30" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Decode and normalize</text>
+  <text x="118" y="426" fill="#CBD5E1" font-size="17" font-family="'Segoe UI', Arial, sans-serif">Resize for detection, grayscale, contrast normalization, blur, Canny edges, morphological cleanup.</text>
+  <rect x="118" y="472" width="204" height="170" rx="18" fill="#0B1220" fill-opacity="0.35" stroke="white" stroke-opacity="0.08"/>
+  <rect x="140" y="494" width="160" height="126" rx="12" fill="#E2E8F0"/>
+  <path d="M146 588L296 532" stroke="#64748B" stroke-width="5"/>
+  <path d="M148 556L298 500" stroke="#94A3B8" stroke-width="5"/>
+  <path d="M164 512L178 498H262L278 522L236 604H146L164 512Z" stroke="#0F172A" stroke-width="4" stroke-dasharray="10 10"/>
+  <text x="118" y="674" fill="#93C5FD" font-size="14" font-family="'Segoe UI', Arial, sans-serif">Outputs: edges + document mask</text>
+
+  <g filter="url(#shadow)">
+    <rect x="404" y="296" width="264" height="402" rx="28" fill="url(#cardA)"/>
+  </g>
+  <text x="434" y="342" fill="#7DD3FC" font-size="14" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="2.4">02 DETECT</text>
+  <text x="434" y="386" fill="white" font-size="30" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Find the page contour</text>
+  <text x="434" y="426" fill="#CBD5E1" font-size="17" font-family="'Segoe UI', Arial, sans-serif">Search for the largest valid quadrilateral first, then fall back to a minimum-area rectangle if the edges are imperfect.</text>
+  <rect x="434" y="472" width="204" height="170" rx="18" fill="#0B1220" fill-opacity="0.35" stroke="white" stroke-opacity="0.08"/>
+  <rect x="456" y="494" width="160" height="126" rx="12" fill="#E2E8F0"/>
+  <path d="M472 530L594 530" stroke="#CBD5E1" stroke-width="5"/>
+  <path d="M472 564L594 564" stroke="#CBD5E1" stroke-width="5"/>
+  <path d="M476 506L498 618L584 596L564 488L476 506Z" stroke="#34D399" stroke-width="5"/>
+  <circle cx="476" cy="506" r="7" fill="#F97316"/>
+  <circle cx="498" cy="618" r="7" fill="#F97316"/>
+  <circle cx="584" cy="596" r="7" fill="#F97316"/>
+  <circle cx="564" cy="488" r="7" fill="#F97316"/>
+  <text x="434" y="674" fill="#93C5FD" font-size="14" font-family="'Segoe UI', Arial, sans-serif">Fallback: minAreaRect when needed</text>
+
+  <g filter="url(#shadow)">
+    <rect x="720" y="296" width="264" height="402" rx="28" fill="url(#cardA)"/>
+  </g>
+  <text x="750" y="342" fill="#7DD3FC" font-size="14" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="2.4">03 TRANSFORM</text>
+  <text x="750" y="386" fill="white" font-size="30" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Warp and auto-rotate</text>
+  <text x="750" y="426" fill="#CBD5E1" font-size="17" font-family="'Segoe UI', Arial, sans-serif">Order the corners, compute the perspective matrix, flatten the document, then estimate residual tilt with line detection.</text>
+  <rect x="750" y="472" width="204" height="170" rx="18" fill="#0B1220" fill-opacity="0.35" stroke="white" stroke-opacity="0.08"/>
+  <rect x="776" y="500" width="94" height="102" rx="12" fill="#F8FAFC" transform="rotate(-9 776 500)"/>
+  <rect x="856" y="500" width="64" height="102" rx="10" fill="#FFFFFF"/>
+  <path d="M790 528H848" stroke="#1F2937" stroke-width="4" stroke-linecap="round" transform="rotate(-9 790 528)"/>
+  <path d="M790 554H844" stroke="#1F2937" stroke-width="4" stroke-linecap="round" transform="rotate(-9 790 554)"/>
+  <path d="M870 526H906" stroke="#1F2937" stroke-width="4" stroke-linecap="round"/>
+  <path d="M870 550H906" stroke="#1F2937" stroke-width="4" stroke-linecap="round"/>
+  <path d="M870 574H900" stroke="#1F2937" stroke-width="4" stroke-linecap="round"/>
+  <path d="M838 554C850 554 853 554 861 554" stroke="#7DD3FC" stroke-width="4" stroke-linecap="round"/>
+  <path d="M853 542L869 554L853 566" stroke="#7DD3FC" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="750" y="674" fill="#93C5FD" font-size="14" font-family="'Segoe UI', Arial, sans-serif">Rotation correction via weighted line angles</text>
+
+  <g filter="url(#shadow)">
+    <rect x="1036" y="296" width="264" height="402" rx="28" fill="url(#cardA)"/>
+  </g>
+  <text x="1066" y="342" fill="#7DD3FC" font-size="14" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="2.4">04 POSTPROCESS + OCR</text>
+  <text x="1066" y="386" fill="white" font-size="30" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Build scan and rank text</text>
+  <text x="1066" y="426" fill="#CBD5E1" font-size="17" font-family="'Segoe UI', Arial, sans-serif">Apply CLAHE, sharpening, denoising, thresholding, cleanup, then compare multiple OCR variants and configs to keep the best result.</text>
+  <rect x="1066" y="472" width="204" height="170" rx="18" fill="#0B1220" fill-opacity="0.35" stroke="white" stroke-opacity="0.08"/>
+  <rect x="1088" y="496" width="82" height="120" rx="10" fill="white"/>
+  <path d="M1106 526H1152" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1106 550H1156" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1106 574H1146" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+  <rect x="1188" y="496" width="58" height="28" rx="14" fill="#34D399" fill-opacity="0.18" stroke="#34D399" stroke-opacity="0.45"/>
+  <text x="1203" y="515" fill="#A7F3D0" font-size="12" font-family="'Segoe UI', Arial, sans-serif">BEST</text>
+  <path d="M1190 552H1246" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>
+  <path d="M1190 574H1236" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>
+  <path d="M1190 596H1224" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>
+  <text x="1066" y="674" fill="#93C5FD" font-size="14" font-family="'Segoe UI', Arial, sans-serif">Confidence + content length ranking</text>
+
+  <path d="M352 497H394" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+  <path d="M384 483L408 497L384 511" stroke="#64748B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M668 497H710" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+  <path d="M700 483L724 497L700 511" stroke="#64748B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M984 497H1026" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1016 483L1040 497L1016 511" stroke="#64748B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="92" y="756" width="1212" height="84" rx="24" fill="white" fill-opacity="0.75" stroke="#CBD5E1"/>
+  <text x="128" y="807" fill="#0F172A" font-size="22" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Pipeline result:</text>
+  <text x="302" y="807" fill="#334155" font-size="21" font-family="'Segoe UI', Arial, sans-serif">`process_document()` returns cleaned scan image, debug snapshots, OCR text, confidence, tokens, and metadata.</text>
+</svg>

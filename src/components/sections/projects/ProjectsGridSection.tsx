@@ -19,6 +19,7 @@ const categoryColors: Record<Project["categories"][0], string> = {
     mobile: "rgba(236, 72, 153, 0.15)", // pink
     backend: "rgba(99, 102, 241, 0.15)", // indigo
     design: "rgba(46, 204, 113, 0.15)", // mint
+    cv: "rgba(168, 85, 247, 0.15)", // purple
     other: "rgba(107, 114, 128, 0.15)", // gray
 };
 
@@ -31,6 +32,7 @@ const categoryLabels: Record<Project["categories"][0], string> = {
     mobile: "Mobile App",
     backend: "Backend",
     design: "Design",
+    cv: "Computer Vision",
     other: "Other",
 };
 

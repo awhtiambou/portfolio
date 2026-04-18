@@ -206,58 +206,69 @@
       },
       "tiamshop-ecommerce-platform": {
         "title": "Tiamshop",
-        "description": "Plateforme e-commerce full-stack pour la vente de produits électroniques avec backend ASP.NET Core et frontend React. Prix du meilleur projet de fin d'études (18,5/20).",
+        "description": "Une plateforme e-commerce complète dotée d'une architecture robuste à 3 tiers avec un backend ASP.NET Core et un frontend React. Conçue spécifiquement pour le marché nigérien, elle intègre des méthodes de paiement locales et une logistique de livraison complexe.",
         "sections": {
           "overview": {
             "label": "Vue d'Ensemble",
-            "heading": "E-commerce conçu pour le Niger",
-            "text": "Tiamshop est une plateforme e-commerce full-stack spécialisée dans l'électronique, développée comme mon projet de fin d'études de licence. Elle répond à la demande croissante d'achats en ligne de confiance au Niger — récompensée du **Prix du Meilleur Projet de Fin d'Études (18,5/20)**.",
+            "heading": "Le e-commerce pensé pour le Niger",
+            "text": "Tiamshop est une plateforme e-commerce full-stack développée comme projet de fin d'études de licence. Conçue pour répondre à la demande croissante d'achats en ligne de confiance au Niger, elle repose sur une architecture hautement évolutive et a reçu le **Prix du Meilleur Projet (18,5/20)**.",
             "stat0": {
-              "label": "Produits",
-              "note": "Catalogue électronique"
+              "label": "Architecture",
+              "note": "Séparation stricte en 3 tiers"
             },
             "stat1": {
               "label": "Récompense",
               "note": "Meilleur projet de fin d'études"
             },
             "stat2": {
-              "label": "Sprints",
-              "note": "Scrum sur 6 mois"
+              "label": "Rôles Utilisateurs",
+              "note": "Client, Admin, Livreur"
             },
             "stat3": {
-              "label": "Modes de paiement",
-              "note": "Airtel · Orange · Espèces"
+              "label": "Paiements",
+              "note": "Espèces, Airtel, Orange, Chèque"
             }
           },
           "coverImage": {
-            "alt": "Vitrine Tiamshop"
-          },
-          "features": {
-            "label": "Fonctionnalités",
-            "heading": "Trois rôles utilisateurs, une plateforme",
-            "list": {
-              "0": "**Client** — Parcourir 70+ produits, filtrage avancé, panier persistant, suivi de commande en temps réel",
-              "1": "**Admin** — CRUD produits complet, validation des commandes, contrôle des stocks, attribution des livraisons par secteur, analytics",
-              "2": "**Livreur** — Voir les livraisons assignées par zone, marquer comme en cours ou terminé"
-            },
-            "img0": {
-              "alt": "Vitrine",
-              "caption": "Vitrine client"
-            },
-            "img1": {
-              "alt": "Tableau de bord Admin",
-              "caption": "Tableau de bord Admin"
-            }
+            "alt": "Maquette de la vitrine Tiamshop"
           },
           "architecture": {
             "label": "Architecture",
-            "callout": {
-              "title": "Stack Technique",
-              "content": "Backend : ASP.NET Core Web API avec auth JWT, SQL Server + Entity Framework Core + Dapper, emails transactionnels Mailgun. Frontend : React + TypeScript, Redux Toolkit, Tailwind CSS + Material-UI. Déployé sur Azure App Service + Netlify via CI/CD GitHub Actions."
+            "heading": "Conception Robuste en 3 Tiers",
+            "text": "Le système repose sur une architecture stricte à 3 tiers pour garantir sa maintenabilité et son évolutivité. La couche Présentation communique via HTTP avec la couche Métier, qui gère à son tour la Persistance des Données via Entity Framework Core et SQL Server.",
+            "list": {
+               "0": "**Couche Présentation** : React, Redux Toolkit et Material-UI pour une expérience utilisateur hautement réactive.",
+               "1": "**Couche Métier** : API Web ASP.NET Core gérant le routage complexe, la logique métier et l'authentification basée sur JWT via Microsoft Identity.",
+               "2": "**Couche Persistance** : Intégration SQL Server utilisant Entity Framework Core pour les requêtes relationnelles complexes et Dapper pour les opérations de lecture à haute performance."
             },
             "img": {
-              "alt": "Gestion des commandes",
-              "caption": "Flux de gestion des commandes et livraisons"
+               "alt": "Diagramme d'architecture à 3 tiers",
+               "caption": "Architecture globale du système séparant la présentation, la logique métier et l'accès aux données"
+            }
+          },
+          "database": {
+             "label": "Base de Données",
+             "heading": "Modélisation Relationnelle Complexe",
+             "text": "La base de données a été méticuleusement modélisée pour gérer les réalités d'un environnement e-commerce multi-vendeurs et multi-rôles. Elle intègre des stratégies avancées d'héritage de tables pour les rôles utilisateurs et des mappages de caractéristiques produits profondément normalisés.",
+             "callout": {
+                "title": "Intégrité des Données et Héritage",
+                "content": "Une entité centrale 'Utilisateur' est étendue en rôles spécifiques (Administrateur, Client, Livreur) pour appliquer un contrôle d'accès strict. Les produits sont fortement normalisés pour prendre en charge des catégories dynamiques, des sous-catégories, des caractéristiques spécifiques et des réductions hiérarchiques."
+             },
+             "img": {
+                "alt": "Diagramme Entité-Relation",
+                "caption": "Modèle Entité-Relation complet pour Tiamshop"
+             }
+          },
+          "features": {
+            "label": "Fonctionnalités",
+            "heading": "Parcours Utilisateurs Complets",
+            "list": {
+              "0": "**Expérience Client** — Recherche multicritères avancée (par catégorie, marque, fourchette de prix, disponibilité), gestion de panier persistante, processus de paiement en plusieurs étapes avec options locales (Airtel Money, Orange Money) et suivi des commandes.",
+              "1": "**Tableau de bord Administrateur** — Interface sécurisée pour gérer les catalogues de produits avec téléchargement de multiples images, assigner dynamiquement les livraisons aux coursiers par quartier et surveiller la santé globale de la plateforme.",
+              "2": "**Portail Livreur** — Vues dédiées pour permettre aux coursiers de lister les commandes assignées et de mettre à jour les statuts de livraison en temps réel."
+            },
+            "video": {
+              "caption": "Démonstration du parcours des utilisateurs"
             }
           }
         }
@@ -307,6 +318,93 @@
             "img1": {
               "alt": "Environnement de développement",
               "caption": "Environnement de développement"
+            }
+          }
+        }
+      },
+      "le-decryptage-news-platform": {
+        "title": "Le Décryptage",
+        "description": "Une plateforme d'information francophone complète avec comptes lecteurs, catégories d'articles, commentaires, likes, partage et tableau de bord admin CRUD. Développée avec React, TypeScript et Firebase.",
+        "sections": {
+          "overview": {
+            "label": "Vue d'ensemble",
+            "heading": "Une plateforme d'information complète",
+            "text": "Le Décryptage est une plateforme d'information francophone développée pour un client, conçue pour diffuser des articles catégorisés avec une expérience lecteur riche. La plateforme prend en charge les comptes utilisateurs, les interactions sociales (commentaires, likes, partages), un système de newsletter et un tableau de bord admin complet — le tout propulsé par Firebase et livré en deux mois.",
+            "stat0": {
+              "label": "Frontend",
+              "note": "React + TypeScript"
+            },
+            "stat1": {
+              "label": "Backend",
+              "note": "Firebase (auth, storage, notifications)"
+            },
+            "stat2": {
+              "label": "Durée",
+              "note": "2 mois (Mars – Avr. 2024)"
+            },
+            "stat3": {
+              "label": "Langue",
+              "note": "Contenu en français"
+            }
+          },
+          "coverImage": {
+            "alt": "Plateforme d'information Le Décryptage"
+          },
+          "features": {
+            "label": "Fonctionnalités",
+            "heading": "Pensé pour les lecteurs et les éditeurs",
+            "text": "La plateforme a été conçue autour de deux expériences utilisateur distinctes : une interface de lecture fluide et engageante pour le grand public, et un puissant tableau de bord admin pour que les éditeurs gèrent l'intégralité du contenu.",
+            "list": {
+              "0": "**Catégories d'articles** — Navigation organisée par thématique",
+              "1": "**Comptes utilisateurs** — Inscription, connexion et profils personnalisés via Firebase Auth",
+              "2": "**Commentaires & likes** — Les lecteurs peuvent interagir directement avec les articles",
+              "3": "**Partage** — Fonctionnalité de partage natif pour la diffusion sur les réseaux sociaux",
+              "4": "**Signalement** — Modération communautaire via le signalement d'articles",
+              "5": "**Tableau de bord admin CRUD** — Gestion complète du contenu pour les éditeurs (créer, modifier, supprimer)",
+              "6": "**Newsletter** — Système d'abonnement par e-mail pour fidéliser les lecteurs",
+              "7": "**Notifications push** — Firebase Cloud Messaging pour les alertes d'actualité en temps réel"
+            },
+            "img0": {
+              "alt": "Vue de lecture d'un article",
+              "caption": "Expérience de lecture avec fonctionnalités d'engagement"
+            },
+            "img1": {
+              "alt": "Tableau de bord admin",
+              "caption": "Tableau de bord CRUD pour la gestion du contenu"
+            }
+          },
+          "stack": {
+            "label": "Stack Technique",
+            "heading": "Architecture propulsée par Firebase",
+            "text": "L'intégralité du backend est sans serveur, tirant parti de la suite Firebase pour éviter la gestion d'infrastructure tout en offrant des mises à jour en temps réel, une authentification sécurisée et un stockage de fichiers évolutif.",
+            "list": {
+              "0": "**React + TypeScript** — UI orientée composants avec typage strict",
+              "1": "**Firebase** — Authentification, Firestore (base de données), Storage (médias), Cloud Messaging (notifications push)",
+              "2": "**Material-UI + Tailwind CSS** — Système de styles hybride pour un développement rapide et un design cohérent",
+              "3": "**react-icons** — Bibliothèque d'icônes unifiée sur tous les composants"
+            }
+          },
+          "impact": {
+            "label": "Résultat du projet",
+            "callout": {
+              "title": "Projet annulé suite à un litige contractuel",
+              "content": "La plateforme a été entièrement développée et fonctionnelle, mais n'est jamais passée en production. Le projet a été annulé à la suite d'un litige contractuel avec le client avant le lancement. La base de code reste une démonstration solide d'une plateforme d'information complète et prête pour la production, livrée en moins de deux mois."
+            },
+            "stat0": {
+              "label": "Durée de développement",
+              "note": "Mars – Avr. 2024"
+            },
+            "stat1": {
+              "label": "Fonctionnalités livrées",
+              "note": "Comptes, commentaires, likes, partage, signalement, newsletter, CRUD, notifications"
+            },
+            "stat2": {
+              "label": "Complétion",
+              "note": "Entièrement terminé avant annulation"
+            },
+            "stat3": {
+              "label": "Déploiement",
+              "note": "Aperçu en ligne sur Netlify"
             }
           }
         }
@@ -366,6 +464,94 @@
             }
           }
         }
+      },
+      "clearsheet-document-scanner-ocr": {
+        "title": "ClearSheet",
+        "description": "Application web de numérisation et d'OCR qui détecte une page dans une photo bruitée, corrige la perspective, génère un rendu de scan propre et extrait le texte en français, en anglais, ou dans les deux.",
+        "sections": {
+          "overview": {
+            "label": "Vue d'ensemble",
+            "heading": "Transformer des photos de documents imparfaites en scans propres",
+            "text": "ClearSheet est un produit full-stack de numérisation de documents conçu pour prendre une photo brute d'une page, détecter automatiquement le document, le remettre à plat, produire un rendu de type scan, puis extraire le texte via OCR. Le projet combine une **pipeline OpenCV modulaire**, un **backend FastAPI**, et une **interface Next.js soignée** pour l'upload, la revue, et l'export.",
+            "stat0": {
+              "label": "Pipeline",
+              "note": "Prétraitement -> détection -> redressement -> OCR"
+            },
+            "stat1": {
+              "label": "OCR",
+              "note": "Extraction en français, anglais, ou bilingue"
+            },
+            "stat2": {
+              "label": "Modes de scan",
+              "note": "clean, balanced, ocr-optimized"
+            },
+            "stat3": {
+              "label": "Export",
+              "note": "PNG et PDF recherchable"
+            }
+          },
+          "coverImage": {
+            "alt": "Workflow de numérisation de documents ClearSheet"
+          },
+          "pipeline": {
+            "label": "Pipeline de traitement",
+            "heading": "Une pipeline vision par ordinateur pensée pour de vraies photos de documents",
+            "text": "Le backend est volontairement découpé en petites étapes pour que chaque partie du flux soit testable et facile à faire évoluer. Le prétraitement prépare les contours et un masque de document, la détection cherche une limite de page stable à quatre points, le transformeur redresse et fait pivoter automatiquement la feuille, puis le post-traitement construit le scan final avant qu'un classement OCR ne sélectionne le meilleur résultat texte.",
+            "list": {
+              "0": "Le prétraitement normalise le contraste, applique flou/Canny, et construit un masque nettoyé pour les candidats document.",
+              "1": "La détection privilégie un quadrilatère convexe, puis bascule vers `minAreaRect` quand les bords de page sont imparfaits.",
+              "2": "La correction de perspective ordonne les coins, redresse la page, puis estime l'inclinaison résiduelle avec une auto-rotation basée sur les lignes de Hough.",
+              "3": "Trois profils de scan (`clean`, `balanced`, `ocr-optimized`) ajustent différemment CLAHE, le sharpening, le seuillage, et l'épaississement du texte.",
+              "4": "L'OCR est évalué sur plusieurs variantes d'image et configurations Tesseract, puis classé selon la confiance et la quantité de contenu utile."
+            },
+            "img0": {
+              "alt": "Diagramme du pipeline backend ClearSheet",
+              "caption": "Modules du pipeline backend"
+            },
+            "img1": {
+              "alt": "Workbench de numérisation ClearSheet",
+              "caption": "Frontend de travail et flux d'export"
+            }
+          },
+          "product": {
+            "label": "Expérience Produit",
+            "heading": "Pensé comme un vrai workflow de numérisation, pas seulement comme une démo de modèle",
+            "text": "Le frontend enveloppe le backend dans un espace de travail concret : upload d'une image source, choix des langues OCR et du mode de scan, inspection des snapshots de debug, revue de la transcription, puis export du résultat sans quitter la page.",
+            "list": {
+              "0": "Chargez une photo brute depuis desktop ou mobile et envoyez-la vers l'endpoint de scan FastAPI.",
+              "1": "Choisissez `fra`, `eng`, ou `fra+eng` ainsi que le profil de scan le plus adapté à la lisibilité ou à l'OCR.",
+              "2": "Inspectez les images de debug facultatives pour les contours, la détection du document, et la page redressée.",
+              "3": "Consultez le texte extrait, la confiance OCR, et la géométrie tokenisée renvoyée par l'API.",
+              "4": "Téléchargez le scan nettoyé en PNG ou générez un PDF recherchable directement dans le navigateur."
+            },
+            "callout": {
+              "title": "Export PDF recherchable",
+              "content": "L'export PDF ne se contente pas de placer une image sur une page : il superpose des tokens OCR invisibles au-dessus du scan pour que le texte reste sélectionnable et recherchable."
+            }
+          },
+          "delivery": {
+            "label": "Livraison & QA",
+            "heading": "Pensé pour le déploiement et les tests",
+            "list": {
+              "0": "Le backend est organisé en modules dédiés au prétraitement, à la détection, à la transformation, au post-traitement, et à la configuration plutôt qu'en script monolithique.",
+              "1": "Les settings détectent automatiquement Tesseract local et les chemins `tessdata` embarqués, ce qui fluidifie le développement Windows et le déploiement Docker.",
+              "2": "`docker compose up --build` lance frontend et backend ensemble pour un environnement local full-stack reproductible.",
+              "3": "Les tests backend couvrent les endpoints health et scan, les uploads invalides, les cas `document_not_found`, le comportement du transformeur, le post-traitement, les images de debug, et l'intégration OCR optionnelle."
+            },
+            "link0": {
+              "label": "Application en ligne",
+              "description": "Frontend Next.js déployé sur Netlify"
+            },
+            "link1": {
+              "label": "Dépôt GitHub",
+              "description": "Code source complet de ClearSheet"
+            },
+            "link2": {
+              "label": "API backend",
+              "description": "Service FastAPI déployé sur Hugging Face Spaces"
+            }
+          }
+        }
       }
     }
   },
@@ -389,7 +575,8 @@
     "newsletter": "Newsletter",
     "skills": "Compétences",
     "testimonials": "Témoignages",
-    "downloadMyResume": "Télécharger mon CV"
+    "downloadMyResume": "Télécharger mon CV",
+    "viewLiveDemo": "Visiter"
   },
   "hero": {
     "greeting": "Bonjour, moi c'est",

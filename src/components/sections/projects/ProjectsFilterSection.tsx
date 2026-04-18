@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const categoryLabels: Record<ProjectCategory, string> = {
     ml: "ML",
+    cv: "Computer Vision",
     ai: "AI",
     devops: "DevOps",
     mlops: "MLOps",

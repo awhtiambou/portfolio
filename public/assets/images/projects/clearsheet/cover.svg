@@ -1,0 +1,115 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="86" y1="66" x2="1501" y2="832" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="0.55" stop-color="#132238"/>
+      <stop offset="1" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="scan" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F9FAFB"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#16324B"/>
+      <stop offset="1" stop-color="#0F2740"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="26" stdDeviation="24" flood-color="#020617" flood-opacity="0.34"/>
+    </filter>
+    <filter id="shadowSoft" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#020617" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" rx="36" fill="url(#bg)"/>
+  <circle cx="1232" cy="134" r="246" fill="#38BDF8" fill-opacity="0.09"/>
+  <circle cx="222" cy="754" r="236" fill="#10B981" fill-opacity="0.10"/>
+  <path d="M74 775C349 646 539 615 830 628C1078 639 1281 598 1521 454" stroke="white" stroke-opacity="0.08" stroke-width="2"/>
+  <path d="M108 164C368 242 632 248 857 197C1092 143 1306 129 1517 190" stroke="white" stroke-opacity="0.08" stroke-width="2"/>
+
+  <text x="108" y="128" fill="#E2E8F0" font-size="20" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="3">CLEARSHEET</text>
+  <text x="108" y="184" fill="white" font-size="64" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">From noisy document photo</text>
+  <text x="108" y="252" fill="white" font-size="64" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">to clean scan + OCR</text>
+  <text x="108" y="306" fill="#C7D2FE" font-size="24" font-family="'Segoe UI', Arial, sans-serif">Detect the page. Correct perspective. Enhance readability. Extract text.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="86" y="368" width="512" height="392" rx="30" fill="#10243B" fill-opacity="0.86" stroke="white" stroke-opacity="0.08"/>
+  </g>
+  <text x="126" y="418" fill="#93C5FD" font-size="17" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="2.4">RAW PHOTO</text>
+  <g transform="translate(158 450) rotate(-8 164 120)" filter="url(#shadowSoft)">
+    <rect x="0" y="0" width="328" height="240" rx="20" fill="url(#card)"/>
+    <rect x="20" y="22" width="288" height="196" rx="12" fill="#F2F5F9"/>
+    <path d="M0 0H328V240H0Z" fill="url(#scan)" fill-opacity="0.08"/>
+    <rect x="40" y="42" width="52" height="40" rx="6" fill="#111827"/>
+    <text x="112" y="67" fill="#111827" font-size="20" font-weight="700" font-family="Georgia, 'Times New Roman', serif">Printer Test</text>
+    <text x="112" y="92" fill="#334155" font-size="14" font-family="'Segoe UI', Arial, sans-serif">Angled page on a tiled floor</text>
+    <path d="M18 122L310 96" stroke="#CBD5E1" stroke-width="8" stroke-linecap="round"/>
+    <path d="M18 164L312 138" stroke="#CBD5E1" stroke-width="8" stroke-linecap="round"/>
+    <path d="M18 206L314 180" stroke="#CBD5E1" stroke-width="8" stroke-linecap="round"/>
+    <path d="M4 102L324 72" stroke="#94A3B8" stroke-width="4" stroke-opacity="0.65"/>
+    <path d="M28 16L10 230" stroke="#A8B4C0" stroke-width="5" stroke-opacity="0.45"/>
+    <path d="M178 8L164 234" stroke="#A8B4C0" stroke-width="5" stroke-opacity="0.36"/>
+    <path d="M302 10L286 234" stroke="#A8B4C0" stroke-width="5" stroke-opacity="0.34"/>
+  </g>
+  <path d="M126 706L554 706" stroke="white" stroke-opacity="0.08" stroke-width="1.5"/>
+  <text x="126" y="734" fill="#E2E8F0" font-size="20" font-family="'Segoe UI', Arial, sans-serif">Real-world input with perspective distortion, shadows, and noise.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="676" y="390" width="248" height="112" rx="28" fill="#0B1F33" fill-opacity="0.92" stroke="white" stroke-opacity="0.08"/>
+  </g>
+  <text x="723" y="438" fill="#7DD3FC" font-size="16" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="2.2">PIPELINE</text>
+  <text x="723" y="476" fill="white" font-size="30" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Detect</text>
+  <text x="814" y="476" fill="#94A3B8" font-size="30" font-family="'Segoe UI', Arial, sans-serif">-</text>
+  <text x="834" y="476" fill="white" font-size="30" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">Warp</text>
+  <text x="913" y="476" fill="#94A3B8" font-size="30" font-family="'Segoe UI', Arial, sans-serif">-</text>
+  <text x="933" y="476" fill="white" font-size="30" font-weight="700" font-family="'Segoe UI', Arial, sans-serif">OCR</text>
+
+  <path d="M610 564C681 542 712 508 758 467" stroke="#7DD3FC" stroke-width="5" stroke-linecap="round"/>
+  <path d="M754 454L779 460L770 435" stroke="#7DD3FC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M924 467C971 508 1006 542 1082 564" stroke="#34D399" stroke-width="5" stroke-linecap="round"/>
+  <path d="M1081 546L1107 564L1077 571" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g filter="url(#shadow)">
+    <rect x="1004" y="272" width="500" height="472" rx="32" fill="url(#panel)" stroke="white" stroke-opacity="0.08"/>
+  </g>
+  <text x="1046" y="326" fill="#A7F3D0" font-size="17" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="2.4">OUTPUT</text>
+  <g transform="translate(1046 356)">
+    <rect x="0" y="0" width="250" height="332" rx="20" fill="#0B1220" fill-opacity="0.24"/>
+    <rect x="22" y="20" width="206" height="292" rx="18" fill="url(#scan)"/>
+    <rect x="54" y="58" width="40" height="28" rx="4" fill="#111827"/>
+    <text x="110" y="78" fill="#0F172A" font-size="18" font-weight="700" font-family="Georgia, 'Times New Roman', serif">Printer Test</text>
+    <path d="M54 110H198" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <path d="M54 138H210" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <path d="M54 166H204" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <path d="M54 194H196" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <path d="M54 222H188" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <path d="M54 250H182" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+    <path d="M54 278H170" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(1322 356)">
+    <rect x="0" y="0" width="140" height="332" rx="20" fill="#081524" fill-opacity="0.42" stroke="white" stroke-opacity="0.08"/>
+    <text x="20" y="42" fill="#93C5FD" font-size="14" font-family="'Segoe UI', Arial, sans-serif" letter-spacing="2">OCR TEXT</text>
+    <text x="20" y="88" fill="white" font-size="15" font-family="'Courier New', monospace">Printer</text>
+    <text x="20" y="116" fill="white" font-size="15" font-family="'Courier New', monospace">Test Page</text>
+    <text x="20" y="160" fill="#CBD5E1" font-size="14" font-family="'Courier New', monospace">driver file</text>
+    <text x="20" y="184" fill="#CBD5E1" font-size="14" font-family="'Courier New', monospace">settings</text>
+    <text x="20" y="208" fill="#CBD5E1" font-size="14" font-family="'Courier New', monospace">Samsung M267x</text>
+    <rect x="20" y="250" width="100" height="32" rx="16" fill="#34D399" fill-opacity="0.18" stroke="#34D399" stroke-opacity="0.45"/>
+    <text x="41" y="270" fill="#A7F3D0" font-size="13" font-family="'Segoe UI', Arial, sans-serif">fra+eng</text>
+    <rect x="20" y="292" width="100" height="32" rx="16" fill="#7DD3FC" fill-opacity="0.16" stroke="#7DD3FC" stroke-opacity="0.45"/>
+    <text x="49" y="312" fill="#BAE6FD" font-size="13" font-family="'Segoe UI', Arial, sans-serif">PDF</text>
+  </g>
+
+  <g transform="translate(1106 114)">
+    <rect x="0" y="0" width="110" height="38" rx="19" fill="white" fill-opacity="0.10" stroke="white" stroke-opacity="0.12"/>
+    <text x="24" y="24" fill="#E2E8F0" font-size="14" font-family="'Segoe UI', Arial, sans-serif">FastAPI</text>
+    <rect x="126" y="0" width="108" height="38" rx="19" fill="white" fill-opacity="0.10" stroke="white" stroke-opacity="0.12"/>
+    <text x="151" y="24" fill="#E2E8F0" font-size="14" font-family="'Segoe UI', Arial, sans-serif">OpenCV</text>
+    <rect x="250" y="0" width="104" height="38" rx="19" fill="white" fill-opacity="0.10" stroke="white" stroke-opacity="0.12"/>
+    <text x="268" y="24" fill="#E2E8F0" font-size="14" font-family="'Segoe UI', Arial, sans-serif">Next.js</text>
+  </g>
+</svg>
