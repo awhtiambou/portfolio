@@ -1,7 +1,7 @@
 "use client";
 
 import { TransitionLink, OutlinedInput } from "@/components/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { profile } from "@/data/profile";
@@ -10,6 +10,7 @@ import { CiCoffeeCup, CiHeart } from "react-icons/ci";
 import { PiHandHeartLight, PiHeartLight } from "react-icons/pi";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
+import { useHydrated } from "@/hooks";
 
 const W = "app-container";
 
@@ -31,9 +32,8 @@ function NewsletterForm({ t }: { t: ReturnType<typeof useTranslations> }) {
   };
 
   const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-    const isDark = !mounted || resolvedTheme !== "light";
+  const hydrated = useHydrated();
+  const isDark = !hydrated || resolvedTheme !== "light";
 
   return (
     <div className="max-w-xl mx-auto rounded-2xl border border-white/10 bg-background-secondary/60 backdrop-blur-sm p-6 lg:p-8">

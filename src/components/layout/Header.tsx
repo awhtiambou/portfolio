@@ -12,7 +12,7 @@ import { siteConfig, headerNavItems } from "@/config/navigation";
 import { MenuToggle, CircleArrowLink, FlagIcon } from "@/components/ui";
 import { MenuDrawer } from "./MenuDrawer";
 import { ThemeToggleIcon } from "@/components/ui/icons/ThemeToggleIcon";
-import { useLocaleSwitch } from "@/hooks";
+import { useHydrated, useLocaleSwitch } from "@/hooks";
 const navItemsConfig = headerNavItems.map(item => ({
   key: item.translationKey || item.label.toLowerCase(),
   href: item.href,
@@ -20,20 +20,13 @@ const navItemsConfig = headerNavItems.map(item => ({
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [menuOpenPathname, setMenuOpenPathname] = useState<string | null>(null);
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
   const t = useTranslations("common");
   const { currentLocale, toggleLocale } = useLocaleSwitch();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
+  const hydrated = useHydrated();
+  const isMenuOpen = menuOpenPathname === pathname;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,10 +41,10 @@ export function Header() {
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setMenuOpenPathname((current) => (current === pathname ? null : pathname));
   };
 
-  const isDark = mounted && resolvedTheme === "dark";
+  const isDark = hydrated && resolvedTheme === "dark";
   const logoSrc = isDark
     ? "/assets/images/logo-for-dark-theme-transparent-cropped.png"
     : "/assets/images/logo-for-light-theme-transparent-cropped.png";
@@ -103,7 +96,7 @@ export function Header() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {mounted && (
+              {hydrated && (
                 <Image
                   src={logoSrc}
                   alt={siteConfig.name}
@@ -164,7 +157,7 @@ export function Header() {
               aria-label="Toggle theme"
               data-cursor-text={isDark ? "Light" : "Dark"}
             >
-              {mounted && <ThemeToggleIcon isDark={isDark} />}
+              {hydrated && <ThemeToggleIcon isDark={isDark} />}
             </motion.button>
 
             <MenuToggle
@@ -178,7 +171,7 @@ export function Header() {
 
       <MenuDrawer
         isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
+        onClose={() => setMenuOpenPathname(null)}
         currentLocale={currentLocale}
         onLocaleChange={toggleLocale}
       />

@@ -9,6 +9,8 @@ export {
 } from './useMediaQuery';
 
 export { useLocaleSwitch } from './useLocaleSwitch';
+export { useHydrated } from './useHydrated';
+export { useContactForm } from './useContactForm';
 
 // Scroll Animation Hooks
 export { useScrollVelocity } from './useScrollVelocity';

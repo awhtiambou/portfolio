@@ -15,6 +15,7 @@ interface OutlinedInputProps {
   multiline?: boolean;
   rows?: number;
   className?: string;
+  disabled?: boolean;
 }
 
 export function OutlinedInput({
@@ -27,6 +28,7 @@ export function OutlinedInput({
   multiline = false,
   rows = 5,
   className,
+  disabled = false,
 }: OutlinedInputProps) {
   const [focused, setFocused] = useState(false);
   const { resolvedTheme } = useTheme();
@@ -38,6 +40,7 @@ export function OutlinedInput({
 
   const sharedClasses = cn(
     "peer w-full bg-transparent px-4 pb-2 text-text-primary text-base",
+    "disabled:cursor-not-allowed disabled:opacity-60",
     multiline ? "pt-7 resize-none [&::-webkit-scrollbar]:hidden" : "pt-5",
   );
 
@@ -62,6 +65,7 @@ export function OutlinedInput({
           onBlur={() => setFocused(false)}
           required={required}
           rows={rows}
+          disabled={disabled}
           className={sharedClasses}
           style={noOutlineStyle}
         />
@@ -75,6 +79,7 @@ export function OutlinedInput({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           required={required}
+          disabled={disabled}
           className={sharedClasses}
           style={noOutlineStyle}
         />

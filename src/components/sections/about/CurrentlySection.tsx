@@ -5,17 +5,12 @@ import { SectionTitle, Card } from "@/components/ui";
 import { profile } from "@/data/profile";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useHydrated } from "@/hooks";
 
 export function CurrentlySection() {
     const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    const isDark = mounted ? resolvedTheme === "dark" : true;
+    const hydrated = useHydrated();
+    const isDark = hydrated ? resolvedTheme === "dark" : true;
 
     return (
         <Section>

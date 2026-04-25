@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MagneticButton, SectionTitle, Text } from "@/components/ui";
 import { OutlinedInput } from "@/components/ui/OutlinedInput";
@@ -13,6 +12,7 @@ import { SiGithub, SiLinkedin } from "react-icons/si";
 import { FaXTwitter } from "react-icons/fa6";
 import { HiOutlineEnvelope, HiOutlineMapPin, HiOutlinePhone } from "react-icons/hi2";
 import { GrSend } from "react-icons/gr";
+import { useContactForm, useHydrated } from "@/hooks";
 
 function SocialIcon({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
   const { resolvedTheme } = useTheme();
@@ -101,39 +101,14 @@ function ContactInfoRow({
 }
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const { errorCode, formData, handleChange, isSubmitting, status, submitForm } = useContactForm();
 
   const t = useTranslations("contact");
   const tCommon = useTranslations("common");
   const { resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted && resolvedTheme === "dark";
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    alert("Message sent! (This is a placeholder)");
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const hydrated = useHydrated();
+  const isDark = hydrated && resolvedTheme === "dark";
+  const errorMessage = errorCode ? t(`form.errors.${errorCode}`) : t("form.error");
 
   return (
     <div id="contact" className="py-20 w-full flex flex-col items-center justify-center">
@@ -196,13 +171,14 @@ export function ContactSection() {
           </motion.div>
 
           <motion.div variants={fadeInUp}>
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={submitForm} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-5">
                 <OutlinedInput
                   label={t("form.name")}
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  disabled={isSubmitting}
                   required
                 />
                 <OutlinedInput
@@ -211,6 +187,7 @@ export function ContactSection() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
+                  disabled={isSubmitting}
                   required
                 />
               </div>
@@ -219,6 +196,7 @@ export function ContactSection() {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
+                disabled={isSubmitting}
                 required
               />
               <OutlinedInput
@@ -226,18 +204,15 @@ export function ContactSection() {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
+                disabled={isSubmitting}
                 required
                 multiline
                 rows={5}
               />
 
               <MagneticButton
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const form = (e.target as HTMLElement).closest("form");
-                  form?.requestSubmit();
-                }}
+                type="submit"
+                disabled={isSubmitting}
                 backgroundColor={isDark ? "var(--color-yellow)" : "var(--color-blue)"}
                 style={{
                   display: "flex",
@@ -247,11 +222,33 @@ export function ContactSection() {
                   backgroundColor: isDark ? "var(--color-yellow)" : "var(--color-blue)",
                   color: isDark ? "var(--color-black)" : "var(--color-foreground)",
                 }}
-                className="font-mono font-medium"
+                className={cn(
+                  "font-mono font-medium",
+                  isSubmitting && "cursor-not-allowed opacity-70",
+                )}
               >
                 <GrSend className="text-lg" />
                 <span>{isSubmitting ? t("form.sending") : tCommon("sendMessage")}</span>
               </MagneticButton>
+
+              <div aria-live="polite" className="min-h-6">
+                {status === "success" ? (
+                  <Text
+                    size="sm"
+                    className={cn(
+                      isDark ? "text-accent-yellow" : "text-accent-blue",
+                    )}
+                  >
+                    {t("form.success")}
+                  </Text>
+                ) : null}
+
+                {status === "error" ? (
+                  <Text size="sm" className="text-red-500">
+                    {errorMessage}
+                  </Text>
+                ) : null}
+              </div>
             </form>
           </motion.div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -11,6 +11,7 @@ import { useTheme } from "next-themes";
 import { testimonials, getRelationshipText, truncateText } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
 import { SectionTitle } from "@/components/ui";
+import { useHydrated } from "@/hooks";
 
 // Import Swiper styles
 import "swiper/css";
@@ -241,17 +242,12 @@ function NavButton({ direction, onClick, disabled, isDark }: NavButtonProps) {
 
 export function TestimonialsSection() {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [mounted, setMounted] = useState(false);
     const swiperRef = useRef<SwiperType | null>(null);
     const locale = useLocale() as "en" | "fr";
     const t = useTranslations("testimonials");
     const { resolvedTheme } = useTheme();
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    const isDark = mounted && resolvedTheme === "dark";
+    const hydrated = useHydrated();
+    const isDark = hydrated && resolvedTheme === "dark";
 
     const handlePrev = () => {
         swiperRef.current?.slidePrev();
@@ -262,7 +258,7 @@ export function TestimonialsSection() {
     };
 
     // Loading state with skeleton
-    if (!mounted) {
+    if (!hydrated) {
         return (
             <section id="testimonials" className="relative py-16 md:py-24 overflow-hidden">
                 <div className="container relative z-10">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { TransitionLink } from "@/components/ui";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useTheme } from "next-themes";
@@ -10,6 +10,7 @@ import { localeFlags, type Locale } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { CircleArrowLink, LiveSignature } from "@/components/ui";
+import { useHydrated } from "@/hooks";
 
 const navItemsConfig = drawerNavItems.map(item => ({
     key: item.translationKey || item.label.toLowerCase(),
@@ -121,15 +122,10 @@ const contactItemVariants: Variants = {
 
 export function MenuDrawer({ isOpen, onClose, currentLocale, onLocaleChange }: MenuDrawerProps) {
     const constraintsRef = useRef(null);
-    const [mounted, setMounted] = useState(false);
     const { resolvedTheme } = useTheme();
     const t = useTranslations("common");
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    const isDark = mounted && resolvedTheme === "dark";
+    const hydrated = useHydrated();
+    const isDark = hydrated && resolvedTheme === "dark";
 
 
     return (

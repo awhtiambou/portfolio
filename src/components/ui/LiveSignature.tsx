@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useHydrated } from "@/hooks";
 
 interface LiveSignatureProps {
     className?: string;
@@ -13,14 +13,10 @@ interface LiveSignatureProps {
 
 export function LiveSignature({ className = "", color, accent1, accent2 }: LiveSignatureProps) {
     const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    const hydrated = useHydrated();
 
     // Determine colors based on theme
-    const isDark = mounted && resolvedTheme === "dark";
+    const isDark = hydrated && resolvedTheme === "dark";
     const mainColor = color || (isDark ? "#FFFFFF" : "#1a1a1a");
     const accentColor1 = accent1 || (isDark ? "#4ECDC4" : "#FF6B8A"); // Mint/Pink
     const accentColor2 = accent2 || (isDark ? "#F5A623" : "#4ECDC4"); // Yellow/Blue

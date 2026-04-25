@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
     FaBrain,
@@ -24,6 +24,7 @@ import { cn, getShuffledArray } from "@/lib/utils";
 import { GlassCardStack } from "@/components/ui/GlassCardStack";
 import { SectionTitle } from "@/components/ui";
 import { marqueeLeft, marqueeRight } from "@/lib/animations";
+import { useHydrated } from "@/hooks";
 
 // Icon mapping
 const categoryIcons: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
@@ -243,7 +244,13 @@ function SkillCardContent({ category, isDark, t, isTop }: SkillCardContentProps)
 }
 
 // Tech marquee row
-const TechRow = ({ items, variant }: { items: MasteredTechnology[], variant: any }) => (
+const TechRow = ({
+    items,
+    variant,
+}: {
+    items: MasteredTechnology[];
+    variant: typeof marqueeLeft | typeof marqueeRight;
+}) => (
     <div className="flex overflow-hidden w-full">
         <motion.div
             className="flex gap-10 md:gap-16 items-center"
@@ -271,16 +278,11 @@ const TechRow = ({ items, variant }: { items: MasteredTechnology[], variant: any
 );
 
 export function SkillsSection() {
-    const [mounted, setMounted] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const { resolvedTheme } = useTheme();
     const t = useTranslations("skills");
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    const isDark = mounted && resolvedTheme === "dark";
+    const hydrated = useHydrated();
+    const isDark = hydrated && resolvedTheme === "dark";
 
     const handleActiveChange = useCallback((index: number) => {
         setActiveIndex(index);
@@ -296,7 +298,7 @@ export function SkillsSection() {
     }, []);
 
     // Loading state
-    if (!mounted) {
+    if (!hydrated) {
         return (
             <section id="skills" className="relative py-20 md:py-32 overflow-hidden bg-gray-50 dark:bg-[#0a0a1a]">
                 <div className="container relative z-10">

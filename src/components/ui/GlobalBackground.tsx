@@ -2,13 +2,14 @@
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { colors } from "@/config/theme";
+import { useHydrated } from "@/hooks";
 
 export function GlobalBackground() {
-    const [mounted, setMounted] = useState(false);
     const { resolvedTheme } = useTheme();
     const containerRef = useRef<HTMLDivElement>(null);
+    const hydrated = useHydrated();
 
     const { scrollYProgress } = useScroll();
 
@@ -23,15 +24,11 @@ export function GlobalBackground() {
     const rotate1 = useTransform(smoothProgress, [0, 1], [0, 45]);
     const scale1 = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.2, 1]);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    const isDark = mounted && resolvedTheme === "dark";
+    const isDark = hydrated && resolvedTheme === "dark";
     const bgColors = colors.accents;
 
 
-    if (!mounted) return null;
+    if (!hydrated) return null;
 
     return (
         <div

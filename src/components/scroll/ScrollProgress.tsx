@@ -39,11 +39,7 @@ export function ScrollProgress({
   style,
 }: ScrollProgressProps) {
   const { scrollProgress } = useLenis();
-  const [displayProgress, setDisplayProgress] = useState(0);
-
-  useEffect(() => {
-    setDisplayProgress(Math.round(scrollProgress * 100));
-  }, [scrollProgress]);
+  const displayProgress = Math.round(scrollProgress * 100);
 
   const isHorizontal = position === "top" || position === "bottom";
 
@@ -195,9 +191,13 @@ export function ReadingProgress({
 
   useEffect(() => {
     if (containerRef?.current && showReadingTime) {
-      const text = containerRef.current.textContent || "";
-      const words = text.split(/\s+/).length;
-      setReadingTime(Math.ceil(words / wordsPerMinute));
+      const frameId = requestAnimationFrame(() => {
+        const text = containerRef.current?.textContent || "";
+        const words = text.split(/\s+/).filter(Boolean).length;
+        setReadingTime(Math.ceil(words / wordsPerMinute));
+      });
+
+      return () => cancelAnimationFrame(frameId);
     }
   }, [containerRef, showReadingTime, wordsPerMinute]);
 

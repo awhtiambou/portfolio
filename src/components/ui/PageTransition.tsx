@@ -3,18 +3,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useTransition } from "@/providers/TransitionContext";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { LiveSignature } from "@/components/ui";
+import { useHydrated } from "@/hooks";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
 
 export function PageTransition() {
     const { isTransitioning } = useTransition();
     const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-
-    const isDark = !mounted || resolvedTheme !== "light";
+    const hydrated = useHydrated();
+    const isDark = !hydrated || resolvedTheme !== "light";
     const accentColor = isDark ? "#222222" : "#F8F8F8";
     const baseColor = isDark ? "#F5A623" : "#4ECDC4";
 

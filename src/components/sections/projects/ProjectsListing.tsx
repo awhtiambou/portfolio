@@ -1,34 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { projects, getAllCategories } from "@/data/projects";
 import { ProjectsFilterSection, ProjectsGridSection } from "@/components/sections/projects";
-import { Project, ProjectCategory } from "@/types";
+import { ProjectCategory } from "@/types";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { SplitText, RevealText } from "@/components/scroll";
+import { useHydrated } from "@/hooks";
 
 export function ProjectsListing() {
     const categories = getAllCategories(); // Get all unique categories from all projects
     const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | undefined>(undefined);
-    const [selectedProjects, setSelectedProjects] = useState<Project[]>(projects);
     const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    const isDark = mounted && resolvedTheme === "dark";
-
-    useEffect(() => {
-        if (selectedCategory) {
-            // Filter projects that have the selected category
-            setSelectedProjects(projects.filter((p) => p.categories.includes(selectedCategory)));
-        } else {
-            setSelectedProjects(projects);
+    const hydrated = useHydrated();
+    const isDark = hydrated && resolvedTheme === "dark";
+    const selectedProjects = useMemo(() => {
+        if (!selectedCategory) {
+            return projects;
         }
+
+        return projects.filter((project) => project.categories.includes(selectedCategory));
     }, [selectedCategory]);
 
     const onCategoryChange = (category: ProjectCategory | undefined) => {

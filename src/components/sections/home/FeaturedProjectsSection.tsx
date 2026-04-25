@@ -41,7 +41,9 @@ const categoryLabels: Record<string, string> = {
   other: "Other",
 };
 
-function FeaturedProjectRow({ project, index }: { project: any; index: number }) {
+type FeaturedProject = ReturnType<typeof getFeaturedProjects>[number];
+
+function FeaturedProjectRow({ project, index }: { project: FeaturedProject; index: number }) {
   const t = useTranslations();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";

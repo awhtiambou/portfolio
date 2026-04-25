@@ -813,7 +813,12 @@
       "success": "Merci de m'avoir contacté. Je vous répondrai dès que possible.",
       "successTitle": "Message envoyé !",
       "sendAnother": "Envoyer un autre message",
-      "error": "Une erreur s'est produite. Veuillez réessayer."
+      "error": "Une erreur s'est produite. Veuillez réessayer.",
+      "errors": {
+        "validation_failed": "Veuillez verifier votre message puis reessayer.",
+        "not_configured": "Le formulaire de contact n'est pas encore configure. Veuillez m'ecrire directement par email.",
+        "send_failed": "Une erreur s'est produite pendant l'envoi du message. Veuillez reessayer."
+      }
     }
   },
   "footer": {

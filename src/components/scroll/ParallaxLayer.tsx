@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
-import { useRef, ReactNode, CSSProperties, useState, useEffect } from "react";
+import { useEffect, useRef, ReactNode, CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 interface ParallaxLayerProps {
@@ -267,6 +267,33 @@ interface ParallaxBackgroundLayer {
   zIndex?: number;
 }
 
+interface MultiLayerItemProps {
+  layer: ParallaxBackgroundLayer;
+  index: number;
+  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+}
+
+function MultiLayerItem({ layer, index, scrollYProgress }: MultiLayerItemProps) {
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [-100 * layer.speed, 100 * layer.speed]
+  );
+  const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
+
+  return (
+    <motion.div
+      className={cn("absolute inset-0 will-change-transform", layer.className)}
+      style={{
+        y: smoothY,
+        zIndex: layer.zIndex ?? -index - 1,
+      }}
+    >
+      {layer.content}
+    </motion.div>
+  );
+}
+
 interface MultiLayerParallaxProps {
   children: ReactNode;
   layers: ParallaxBackgroundLayer[];
@@ -298,24 +325,13 @@ export function MultiLayerParallax({
     >
       {/* Background Layers */}
       {layers.map((layer, index) => {
-        const y = useTransform(
-          scrollYProgress,
-          [0, 1],
-          [-100 * layer.speed, 100 * layer.speed]
-        );
-        const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
-
         return (
-          <motion.div
+          <MultiLayerItem
             key={index}
-            className={cn("absolute inset-0 will-change-transform", layer.className)}
-            style={{
-              y: smoothY,
-              zIndex: layer.zIndex ?? -index - 1,
-            }}
-          >
-            {layer.content}
-          </motion.div>
+            layer={layer}
+            index={index}
+            scrollYProgress={scrollYProgress}
+          />
         );
       })}
 
@@ -520,7 +536,6 @@ export function MouseParallax({
   invert = false,
   style,
 }: MouseParallaxProps) {
-  const [mounted, setMounted] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -528,8 +543,6 @@ export function MouseParallax({
   const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
 
   useEffect(() => {
-    setMounted(true);
-
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
@@ -544,10 +557,6 @@ export function MouseParallax({
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [intensity, invert, x, y]);
-
-  if (!mounted) {
-    return <div className={className} style={style}>{children}</div>;
-  }
 
   return (
     <motion.div

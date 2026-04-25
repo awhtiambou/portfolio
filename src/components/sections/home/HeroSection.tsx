@@ -10,16 +10,15 @@ import { ScrollText, SplitText, RevealText, ParallaxLayer, ClipReveal } from "@/
 import { profile } from "@/data/profile";
 import { MdArrowForward } from "react-icons/md";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useHydrated } from "@/hooks";
 
 
 function HeroContent({ mode }: { mode: "desktop" | "mobile" }) {
     const t = useTranslations();
     const isDesktop = mode === "desktop";
     const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-    const isDark = !mounted || resolvedTheme !== "light";
+    const hydrated = useHydrated();
+    const isDark = !hydrated || resolvedTheme !== "light";
     return (
         <motion.div
             variants={staggerContainer}

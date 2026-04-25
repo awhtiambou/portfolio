@@ -813,7 +813,12 @@
       "success": "Thank you for reaching out. I'll get back to you as soon as possible.",
       "successTitle": "Message Sent!",
       "sendAnother": "Send Another Message",
-      "error": "Something went wrong. Please try again."
+      "error": "Something went wrong. Please try again.",
+      "errors": {
+        "validation_failed": "Please review your message and try again.",
+        "not_configured": "The contact form is not configured yet. Please email me directly instead.",
+        "send_failed": "Something went wrong while sending your message. Please try again."
+      }
     }
   },
   "footer": {

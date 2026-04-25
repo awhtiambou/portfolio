@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import type { Blog, BlogCategory } from "@/types/blog";
 import { cn } from "@/lib/utils";
 import { FiClock, FiCalendar, FiArrowUpRight } from "react-icons/fi";
 import { useTranslations, useLocale } from "next-intl";
+import { useHydrated } from "@/hooks";
 
 const CONTENT_WIDTH = "app-container";
 
@@ -170,13 +171,8 @@ export function BlogListing() {
     const categories = getAllBlogCategories();
     const [activeCategory, setActiveCategory] = useState<BlogCategory | "all">("all");
     const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    const isDark = mounted && resolvedTheme === "dark";
+    const hydrated = useHydrated();
+    const isDark = hydrated && resolvedTheme === "dark";
 
     const filtered = useMemo(() => {
         if (activeCategory === "all") return blogs;

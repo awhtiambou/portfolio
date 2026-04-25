@@ -1,12 +1,10 @@
 "use client";
 
-import { Badge } from "@/components/ui";
-import { Locale, locales } from "@/i18n";
+import { useHydrated } from "@/hooks";
 import { cn } from "@/lib/utils";
-import { Project, ProjectCategory } from "@/types";
+import { ProjectCategory } from "@/types";
 import { useTheme } from "next-themes";
 import { useEffect, useState, useRef } from "react";
-import { useTranslations } from "use-intl";
 import { FiChevronDown } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -30,11 +28,10 @@ type ProjectsFilterSectionProps = {
 }
 
 export function ProjectsFilterSection({ categories, selectedCategory, onCategoryChange }: ProjectsFilterSectionProps) {
-    const [mounted, setMounted] = useState(false);
-    const [currentLocale, setCurrentLocale] = useState<Locale>("en");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const { resolvedTheme } = useTheme();
+    const hydrated = useHydrated();
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -47,19 +44,7 @@ export function ProjectsFilterSection({ categories, selectedCategory, onCategory
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    useEffect(() => {
-        setMounted(true);
-        // Get locale from cookie
-        const localeCookie = document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("NEXT_LOCALE="))
-            ?.split("=")[1] as Locale | undefined;
-        if (localeCookie && locales.includes(localeCookie)) {
-            setCurrentLocale(localeCookie);
-        }
-    }, []);
-
-    const isDark = mounted && resolvedTheme === "dark";
+    const isDark = hydrated && resolvedTheme === "dark";
 
     const handleCategorySelect = (category: ProjectCategory | undefined) => {
         onCategoryChange(category);

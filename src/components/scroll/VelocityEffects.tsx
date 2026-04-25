@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useTransform, useSpring, useMotionValue, useMotionTemplate, MotionValue } from "framer-motion";
-import { useRef, ReactNode, CSSProperties, useEffect, useState } from "react";
+import { motion, useTransform, useSpring, useMotionTemplate } from "framer-motion";
+import { useId, ReactNode, CSSProperties } from "react";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import { cn } from "@/lib/utils";
 
@@ -171,21 +171,12 @@ export function MomentumBlur({
   style,
 }: MomentumBlurProps) {
   const { absVelocity, smoothVelocity } = useScrollVelocity({ clamp: 150 });
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const blurAmount = useTransform(absVelocity, [0, 150], [0, maxBlur]);
   const smoothBlur = useSpring(blurAmount, { stiffness: 200, damping: 30 });
 
   // Create directional blur filter
   const blurFilter = useMotionTemplate`blur(${smoothBlur}px)`;
-
-  if (!mounted) {
-    return <div className={className} style={style}>{children}</div>;
-  }
 
   return (
     <motion.div
@@ -289,11 +280,6 @@ export function VelocityColorShift({
   style,
 }: VelocityColorShiftProps) {
   const { absVelocity } = useScrollVelocity({ clamp: 100 });
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const hue = useTransform(absVelocity, [0, 100], [fromHue, toHue]);
   const saturation = useTransform(absVelocity, [0, 100], [100, 100 + saturationBoost]);
@@ -302,10 +288,6 @@ export function VelocityColorShift({
   const smoothSaturation = useSpring(saturation, { stiffness: 200, damping: 30 });
 
   const filter = useMotionTemplate`hue-rotate(${smoothHue}deg) saturate(${smoothSaturation}%)`;
-
-  if (!mounted) {
-    return <div className={className} style={style}>{children}</div>;
-  }
 
   return (
     <motion.div
@@ -345,25 +327,16 @@ export function VelocityWave({
   style,
 }: VelocityWaveProps) {
   const { absVelocity } = useScrollVelocity({ clamp: 100 });
-  const filterId = useRef(`velocity-wave-${Math.random().toString(36).substr(2, 9)}`);
-  const [mounted, setMounted] = useState(false);
+  const filterId = useId().replace(/:/g, "");
 
   const turbulence = useTransform(absVelocity, [0, 100], [0, intensity / 100]);
   const smoothTurbulence = useSpring(turbulence, { stiffness: 200, damping: 30 });
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <div className={className} style={style}>{children}</div>;
-  }
 
   return (
     <>
       <svg className="absolute w-0 h-0">
         <defs>
-          <filter id={filterId.current}>
+          <filter id={filterId}>
             <motion.feTurbulence
               type="turbulence"
               baseFrequency={smoothTurbulence}
@@ -380,10 +353,10 @@ export function VelocityWave({
           </filter>
         </defs>
       </svg>
-      <div
+        <div
         className={className}
         style={{
-          filter: `url(#${filterId.current})`,
+          filter: `url(#${filterId})`,
           ...style,
         }}
       >

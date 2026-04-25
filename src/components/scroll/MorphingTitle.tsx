@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
-import { useRef, ReactNode, CSSProperties, useMemo } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef, ReactNode, CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 interface MorphingTitleProps {
@@ -85,6 +85,11 @@ export function MorphingTitle({
 
   const smoothWeight = useSpring(weight, { stiffness: 100, damping: 30 });
   const smoothWidth = useSpring(width, { stiffness: 100, damping: 30 });
+  const fontVariationWithWidth = useTransform(
+    [smoothWeight, smoothWidth],
+    ([w, wd]) => `"wght" ${w}, "wdth" ${wd}`
+  );
+  const fontVariationWeightOnly = useTransform(smoothWeight, (w) => `"wght" ${w}`);
 
   const MotionComponent = motion[Component] as typeof motion.h2;
 
@@ -93,12 +98,7 @@ export function MorphingTitle({
       <MotionComponent
         className="will-change-[font-variation-settings]"
         style={{
-          fontVariationSettings: morphWidth
-            ? useTransform(
-                [smoothWeight, smoothWidth],
-                ([w, wd]) => `"wght" ${w}, "wdth" ${wd}`
-              )
-            : useTransform(smoothWeight, (w) => `"wght" ${w}`),
+          fontVariationSettings: morphWidth ? fontVariationWithWidth : fontVariationWeightOnly,
           ...style,
         }}
       >

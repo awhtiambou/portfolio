@@ -30,19 +30,21 @@ function setLocaleCookie(locale: Locale) {
 // Seeds locale from browser lang on first visit, persists to cookie
 export function useLocaleSwitch() {
     const router = useRouter();
-    const [currentLocale, setCurrentLocale] = useState<Locale>(defaultLocale);
+    const [currentLocale, setCurrentLocale] = useState<Locale>(() => {
+        return getCookieLocale() ?? getBrowserLocale();
+    });
 
     useEffect(() => {
         const cookieLocale = getCookieLocale();
         if (cookieLocale) {
-            setCurrentLocale(cookieLocale);
-        } else {
-            const browserLocale = getBrowserLocale();
-            setLocaleCookie(browserLocale);
-            setCurrentLocale(browserLocale);
-            if (browserLocale !== defaultLocale) {
-                router.refresh();
-            }
+            return;
+        }
+
+        const browserLocale = getBrowserLocale();
+        setLocaleCookie(browserLocale);
+
+        if (browserLocale !== defaultLocale) {
+            router.refresh();
         }
     }, [router]);
 

@@ -33,7 +33,7 @@ export function FillButton({
             className="inline-block"
             whileTap={{ scale: 0.95 }}
         >
-            {/* @ts-ignore */}
+            {/* @ts-expect-error Link/button polymorphism shares a single render path here */}
             <Component
                 href={href || ""}
                 className={cn(
@@ -79,7 +79,7 @@ export function SlideTextButton({
             className="inline-block"
             whileTap={{ scale: 0.95 }}
         >
-            {/* @ts-ignore */}
+            {/* @ts-expect-error Link/button polymorphism shares a single render path here */}
             <Component
                 href={href || ""}
                 className={cn(
@@ -139,7 +139,7 @@ export function MagneticButton({
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
         >
-            {/* @ts-ignore */}
+            {/* @ts-expect-error Link/button polymorphism shares a single render path here */}
             <Component
                 href={href || ""}
                 className={cn(

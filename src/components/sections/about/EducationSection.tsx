@@ -9,6 +9,7 @@ import { educationData, certificationsData } from "@/data/education";
 import { IoLocationOutline } from "react-icons/io5";
 import { SectionTitle } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { useHydrated } from "@/hooks";
 
 const W = "app-container";
 
@@ -322,8 +323,6 @@ function SnakeSVG({ isMobile, isDark }: { isMobile: boolean; isDark: boolean }) 
   const [totalLength, setTotalLength] = useState(0);
 
   // Which stops have been "reached" by the crawling snake
-  const [visibleStops, setVisibleStops] = useState<boolean[]>([false, false, false]);
-
   const grad = getGradientColors(isDark);
   const stopTs = isMobile ? STOP_T_MOBILE : STOP_T_DESKTOP;
 
@@ -353,19 +352,18 @@ function SnakeSVG({ isMobile, isDark }: { isMobile: boolean; isDark: boolean }) 
   }, [pathD, dims, stopTs]);
 
   useEffect(() => {
-    recalc();
+    const frameId = requestAnimationFrame(recalc);
     const ro = new ResizeObserver(recalc);
     if (containerRef.current) ro.observe(containerRef.current);
-    return () => ro.disconnect();
+    return () => {
+      cancelAnimationFrame(frameId);
+      ro.disconnect();
+    };
   }, [recalc]);
 
   // Crawl progress 0→1
   const progress = useCrawlProgress(inView && ready, totalLength, 2.4);
-
-  // Reveal each stop card as the snake tip passes its t-position
-  useEffect(() => {
-    setVisibleStops(stopTs.map(t => progress >= t));
-  }, [progress, stopTs]);
+  const visibleStops = stopTs.map((t) => progress >= t);
 
   // strokeDasharray / strokeDashoffset for the crawl reveal
   const drawnLength = progress * totalLength;
@@ -465,20 +463,6 @@ function SnakeSVG({ isMobile, isDark }: { isMobile: boolean; isDark: boolean }) 
               strokeDashoffset={0} />
           )}
 
-          {/* ── Glowing tip circle ── */}
-          {pathD && totalLength > 0 && progress > 0.01 && progress < 0.99 && pathRef.current && (() => {
-            const tipPt = pathRef.current.getPointAtLength(drawnLength);
-            const tipAccent = isDark ? "#ff0f7b" : "#08203e";
-            return (
-              <motion.circle
-                cx={tipPt.x} cy={tipPt.y} r={20}
-                fill={tipAccent}
-                opacity={0.9}
-                filter="url(#tipGlow)"
-              />
-            );
-          })()}
-
           {/* Hidden measurement path */}
           {pathD && (
             <path ref={pathRef} d={pathD} fill="none" stroke="none" strokeWidth={0} />
@@ -543,32 +527,36 @@ function CertificationsStrip({ isDark }: { isDark: boolean }) {
 export function EducationSection() {
   const t = useTranslations("education");
   const { resolvedTheme } = useTheme();
-  const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return window.matchMedia("(max-width: 767px)").matches;
+  });
+  const hydrated = useHydrated();
 
   useEffect(() => {
-    setMounted(true);
     const mq = window.matchMedia("(max-width: 767px)");
-    const handler = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);
-    handler(mq);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  const isDark = mounted ? resolvedTheme === "dark" : true;
+  const isDark = hydrated ? resolvedTheme === "dark" : true;
 
   return (
     <div className="py-24 overflow-hidden">
       <SectionTitle className={`${W} !mb-20 md:!mb-40`} subtitle={t("subtitle")} title={t("title")} />
 
-      {!isMobile && (
+      {hydrated && !isMobile && (
         <div className={`${W} mb-10`}>
           <p className="text-xs text-text-muted italic">{t("hoverHint")}</p>
         </div>
       )}
 
       <div className="w-full">
-        {mounted && <SnakeSVG isMobile={isMobile} isDark={isDark} />}
+        {hydrated && <SnakeSVG isMobile={isMobile} isDark={isDark} />}
       </div>
 
       <CertificationsStrip isDark={isDark} />

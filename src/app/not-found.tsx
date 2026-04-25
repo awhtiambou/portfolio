@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { FiArrowLeft } from "react-icons/fi";
 import { useEffect, useState } from "react";
+import { useHydrated } from "@/hooks";
 
 const HORIZON_PCT = 50;
 
@@ -270,9 +271,8 @@ function PlanetWithGlow({ isDark }: { isDark: boolean }) {
 export default function NotFound() {
     const t = useTranslations("notFound");
     const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-    const isDark = !mounted || resolvedTheme !== "light";
+    const hydrated = useHydrated();
+    const isDark = !hydrated || resolvedTheme !== "light";
 
     return (
         <main

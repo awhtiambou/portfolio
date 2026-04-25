@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 import type { WithChildren, WithClassName } from "@/types";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
-import { SplitText, ScrollText } from "@/components/scroll";
+import { SplitText } from "@/components/scroll";
+import { useHydrated } from "@/hooks";
 
 type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type HeadingSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
@@ -126,13 +126,8 @@ export function SectionTitle({
   animated = true,
 }: SectionTitleProps) {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted && resolvedTheme === "dark";
+  const hydrated = useHydrated();
+  const isDark = hydrated && resolvedTheme === "dark";
 
   return (
     <div className={cn("mb-12", centered && "text-center", className)}>

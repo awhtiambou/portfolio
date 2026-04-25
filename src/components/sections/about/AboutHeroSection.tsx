@@ -2,23 +2,22 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { MagneticButton, TiltCard, SectionTitle, FillButton } from "@/components/ui";
+import { MagneticButton, TiltCard, FillButton } from "@/components/ui";
 import { RevealText, SplitText, ClipReveal } from "@/components/scroll";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { useTheme } from "next-themes";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { GoFileCode } from "react-icons/go";
 import { MdArrowForward } from "react-icons/md";
+import { useHydrated } from "@/hooks";
 
 
 export function AboutHeroSection() {
     const t = useTranslations();
     const { resolvedTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => setMounted(true), []);
-    const isDark = !mounted || resolvedTheme !== "light";
+    const hydrated = useHydrated();
+    const isDark = !hydrated || resolvedTheme !== "light";
 
     // Parallax scroll effects for image
     const { scrollYProgress } = useScroll({
