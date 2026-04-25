@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
-import { useRef, ReactNode, CSSProperties, useMemo } from "react";
+import { motion, useTransform, useSpring } from "framer-motion";
+import { ReactNode, CSSProperties } from "react";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
+import { useInteractionProfile } from "@/hooks";
 import { cn } from "@/lib/utils";
 
 interface ScrollTextProps {
@@ -31,7 +32,29 @@ interface ScrollTextProps {
   style?: CSSProperties;
 }
 
-export function ScrollText({
+function LiteScrollText({
+  children,
+  className,
+  as: Component = "span",
+  style,
+}: ScrollTextProps) {
+  const MotionComponent = motion[Component] as typeof motion.span;
+
+  return (
+    <MotionComponent
+      className={cn("inline-block", className)}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      style={style}
+    >
+      {children}
+    </MotionComponent>
+  );
+}
+
+function RichScrollText({
   children,
   className,
   skewIntensity = 0.1,
@@ -76,6 +99,12 @@ export function ScrollText({
   );
 }
 
+export function ScrollText(props: ScrollTextProps) {
+  const { useLiteAnimations } = useInteractionProfile();
+
+  return useLiteAnimations ? <LiteScrollText {...props} /> : <RichScrollText {...props} />;
+}
+
 interface VelocityTextProps {
   children: ReactNode;
   className?: string;
@@ -97,11 +126,33 @@ interface VelocityTextProps {
   style?: CSSProperties;
 }
 
+function LiteVelocityText({
+  children,
+  className,
+  as: Component = "span",
+  style,
+}: VelocityTextProps) {
+  const MotionComponent = motion[Component] as typeof motion.span;
+
+  return (
+    <MotionComponent
+      className={cn("inline-block", className)}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      style={style}
+    >
+      {children}
+    </MotionComponent>
+  );
+}
+
 /**
  * Text that changes font weight based on scroll velocity.
  * Best used with variable fonts like Inter or Work Sans.
  */
-export function VelocityText({
+function RichVelocityText({
   children,
   className,
   baseWeight = 400,
@@ -128,4 +179,10 @@ export function VelocityText({
       {children}
     </MotionComponent>
   );
+}
+
+export function VelocityText(props: VelocityTextProps) {
+  const { useLiteAnimations } = useInteractionProfile();
+
+  return useLiteAnimations ? <LiteVelocityText {...props} /> : <RichVelocityText {...props} />;
 }

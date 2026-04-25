@@ -12,7 +12,7 @@ import { siteConfig, headerNavItems } from "@/config/navigation";
 import { MenuToggle, CircleArrowLink, FlagIcon } from "@/components/ui";
 import { MenuDrawer } from "./MenuDrawer";
 import { ThemeToggleIcon } from "@/components/ui/icons/ThemeToggleIcon";
-import { useHydrated, useLocaleSwitch } from "@/hooks";
+import { useHydrated, useInteractionProfile, useLocaleSwitch } from "@/hooks";
 const navItemsConfig = headerNavItems.map(item => ({
   key: item.translationKey || item.label.toLowerCase(),
   href: item.href,
@@ -26,6 +26,7 @@ export function Header() {
   const t = useTranslations("common");
   const { currentLocale, toggleLocale } = useLocaleSwitch();
   const hydrated = useHydrated();
+  const { useLiteAnimations } = useInteractionProfile();
   const isMenuOpen = menuOpenPathname === pathname;
 
   useEffect(() => {
@@ -62,11 +63,19 @@ export function Header() {
             "relative flex items-center justify-end lg:justify-between gap-4 md:gap-8 mx-auto w-full rounded-2xl transition-all duration-300",
             isScrolled || isMenuOpen
               ? isDark
-                ? "bg-[#1a1a1a]/60 backdrop-blur-xl shadow-xl border-white/10"
-                : "bg-white/60 backdrop-blur-xl shadow-xl border-white/40"
+                ? useLiteAnimations
+                  ? "bg-[#1a1a1a]/88 shadow-xl border-white/10"
+                  : "bg-[#1a1a1a]/60 backdrop-blur-xl shadow-xl border-white/10"
+                : useLiteAnimations
+                  ? "bg-white/92 shadow-xl border-black/10"
+                  : "bg-white/60 backdrop-blur-xl shadow-xl border-white/40"
               : isDark
-                ? "bg-[#1a1a1a]/40 backdrop-blur-md border-white/5"
-                : "bg-white/40 backdrop-blur-md shadow-sm border-white/30"
+                ? useLiteAnimations
+                  ? "bg-[#1a1a1a]/80 border-white/8"
+                  : "bg-[#1a1a1a]/40 backdrop-blur-md border-white/5"
+                : useLiteAnimations
+                  ? "bg-white/88 shadow-sm border-black/8"
+                  : "bg-white/40 backdrop-blur-md shadow-sm border-white/30"
           )}
           style={{
             paddingLeft: "1.5rem",
@@ -76,14 +85,16 @@ export function Header() {
           }}
           layout
         >
-          <div className="rounded-2xl absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]">
-            <svg className="w-full h-full">
-              <filter id="headerNoise">
-                <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
-              </filter>
-              <rect width="100%" height="100%" filter="url(#headerNoise)" />
-            </svg>
-          </div>
+          {!useLiteAnimations && (
+            <div className="rounded-2xl absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]">
+              <svg className="w-full h-full">
+                <filter id="headerNoise">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+                </filter>
+                <rect width="100%" height="100%" filter="url(#headerNoise)" />
+              </svg>
+            </div>
+          )}
 
           <div className={`rounded-2xl absolute inset-0 z-0 bg-gradient-to-b ${isDark ? 'from-white/5 to-transparent' : 'from-white/40 to-transparent'} pointer-events-none`} />
           <TransitionLink

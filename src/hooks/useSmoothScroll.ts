@@ -11,7 +11,7 @@ interface ScrollToOptions {
 }
 
 export function useSmoothScroll() {
-  const { lenis, scrollProgress, scrollVelocity, scrollDirection } = useLenis();
+  const { lenis } = useLenis();
 
   const scrollTo = useCallback(
     (target: string | number | HTMLElement, options?: ScrollToOptions) => {
@@ -52,9 +52,6 @@ export function useSmoothScroll() {
 
   return {
     lenis,
-    scrollProgress,
-    scrollVelocity,
-    scrollDirection,
     scrollTo,
     scrollToTop,
     scrollToElement,

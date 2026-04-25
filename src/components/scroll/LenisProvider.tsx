@@ -1,21 +1,16 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, ReactNode } from "react";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
+import { useInteractionProfile } from "@/hooks/useInteractionProfile";
 
 interface LenisContextValue {
   lenis: Lenis | null;
-  scrollProgress: number;
-  scrollVelocity: number;
-  scrollDirection: "up" | "down" | "none";
 }
 
 const LenisContext = createContext<LenisContextValue>({
   lenis: null,
-  scrollProgress: 0,
-  scrollVelocity: 0,
-  scrollDirection: "none",
 });
 
 export function useLenis() {
@@ -28,51 +23,29 @@ interface LenisProviderProps {
 }
 
 export function LenisProvider({ children, options }: LenisProviderProps) {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [scrollVelocity, setScrollVelocity] = useState(0);
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | "none">("none");
   const pathname = usePathname();
+  const { prefersReducedMotion, useLiteAnimations } = useInteractionProfile();
   const lenis = useMemo(() => {
     if (typeof window === "undefined") {
       return null;
     }
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     return new Lenis({
-      duration: prefersReducedMotion ? 0 : 1.2,
+      duration: prefersReducedMotion ? 0 : useLiteAnimations ? 0.75 : 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: !prefersReducedMotion,
-      touchMultiplier: 2,
+      syncTouch: useLiteAnimations && !prefersReducedMotion,
+      touchMultiplier: useLiteAnimations ? 1 : 2,
+      autoRaf: true,
       ...options,
     });
-  }, [options]);
+  }, [options, prefersReducedMotion, useLiteAnimations]);
 
   useEffect(() => {
-    if (!lenis) {
-      return;
-    }
-
-    const lenisInstance = lenis;
-
-    // Scroll event handler
-    lenisInstance.on("scroll", ({ progress, velocity, direction }: { progress: number; velocity: number; direction: number }) => {
-      setScrollProgress(progress);
-      setScrollVelocity(velocity);
-      setScrollDirection(direction > 0 ? "down" : direction < 0 ? "up" : "none");
-    });
-
-    // Animation frame loop
-    function raf(time: number) {
-      lenisInstance.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
     return () => {
-      lenisInstance.destroy();
+      lenis?.destroy();
     };
   }, [lenis]);
 
@@ -85,9 +58,6 @@ export function LenisProvider({ children, options }: LenisProviderProps) {
     <LenisContext.Provider
       value={{
         lenis,
-        scrollProgress,
-        scrollVelocity,
-        scrollDirection,
       }}
     >
       {children}

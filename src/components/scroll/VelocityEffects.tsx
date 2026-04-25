@@ -3,6 +3,7 @@
 import { motion, useTransform, useSpring, useMotionTemplate } from "framer-motion";
 import { useId, ReactNode, CSSProperties } from "react";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
+import { useInteractionProfile } from "@/hooks";
 import { cn } from "@/lib/utils";
 
 // ============================================================================
@@ -33,7 +34,35 @@ interface VelocitySkewProps {
 /**
  * Elements that skew based on scroll velocity
  */
-export function VelocitySkew({
+export function VelocitySkew(props: VelocitySkewProps) {
+  const { useLiteAnimations } = useInteractionProfile();
+
+  return useLiteAnimations ? <LiteVelocitySkew {...props} /> : <RichVelocitySkew {...props} />;
+}
+
+function LiteVelocitySkew({
+  children,
+  className,
+  as: Component = "div",
+  style,
+}: VelocitySkewProps) {
+  const MotionComponent = motion[Component] as typeof motion.div;
+
+  return (
+    <MotionComponent
+      className={cn(className)}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      style={style}
+    >
+      {children}
+    </MotionComponent>
+  );
+}
+
+function RichVelocitySkew({
   children,
   className,
   maxSkew = 15,

@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useInView, Variants, MotionValue, useTransform, useSpring } from "framer-motion";
+import { motion, useInView, Variants, useTransform, useSpring } from "framer-motion";
 import { useRef, useMemo, ReactNode, CSSProperties } from "react";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
+import { useInteractionProfile } from "@/hooks";
 import { cn } from "@/lib/utils";
 
 interface SplitTextProps {
@@ -97,6 +98,70 @@ export function SplitText({
   as: Component = "span",
   style,
 }: SplitTextProps) {
+  const { useLiteAnimations } = useInteractionProfile();
+  const sharedProps = {
+    className,
+    type,
+    animation,
+    staggerDelay,
+    delay,
+    duration,
+    once,
+    viewportMargin,
+    velocitySkew,
+    as: Component,
+    style,
+  };
+
+  return useLiteAnimations ? (
+    <LiteSplitText {...sharedProps}>{children}</LiteSplitText>
+  ) : (
+    <RichSplitText {...sharedProps}>{children}</RichSplitText>
+  );
+}
+
+function LiteSplitText({
+  children,
+  className,
+  type = "chars",
+  delay = 0,
+  duration = 0.5,
+  once = true,
+  viewportMargin = "-10%",
+  as: Component = "span",
+  style,
+}: SplitTextProps) {
+  const MotionComponent = motion[Component] as typeof motion.span;
+
+  return (
+    <MotionComponent
+      className={cn("inline-block", type === "lines" && "whitespace-pre-line", className)}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once, margin: viewportMargin }}
+      transition={{ duration: Math.min(duration, 0.45), delay, ease: [0.22, 1, 0.36, 1] }}
+      style={style}
+      aria-label={children}
+    >
+      {children}
+    </MotionComponent>
+  );
+}
+
+function RichSplitText({
+  children,
+  className,
+  type = "chars",
+  animation = "fadeUp",
+  staggerDelay = 0.03,
+  delay = 0,
+  duration = 0.5,
+  once = true,
+  viewportMargin = "-10%",
+  velocitySkew = false,
+  as: Component = "span",
+  style,
+}: SplitTextProps) {
   const containerRef = useRef<HTMLSpanElement>(null);
   const isInView = useInView(containerRef, { once, margin: viewportMargin as `${number}px` });
   const { smoothVelocity } = useScrollVelocity({ clamp: 100 });
@@ -161,7 +226,7 @@ export function SplitText({
       style={style}
       aria-label={children}
     >
-      {elements.map(({ text, key, hasSpace }, index) => (
+      {elements.map(({ text, key, hasSpace }) => (
         <span key={key}>
           <motion.span
             className="inline-block will-change-transform"

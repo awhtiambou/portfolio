@@ -2,15 +2,25 @@
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useRef } from "react";
 import { colors } from "@/config/theme";
-import { useHydrated } from "@/hooks";
+import { useHydrated, useInteractionProfile } from "@/hooks";
 
-export function GlobalBackground() {
-    const { resolvedTheme } = useTheme();
-    const containerRef = useRef<HTMLDivElement>(null);
-    const hydrated = useHydrated();
+function LiteGlobalBackground({ isDark }: { isDark: boolean }) {
+    return (
+        <div
+            className="fixed inset-0 z-[-1] pointer-events-none"
+            style={{
+                backgroundColor: isDark ? colors.dark.primary : colors.light.primary,
+                backgroundImage: isDark
+                    ? "radial-gradient(circle at 16% 20%, rgba(244, 208, 63, 0.12), transparent 28%), radial-gradient(circle at 82% 18%, rgba(236, 72, 153, 0.1), transparent 26%), radial-gradient(circle at 50% 78%, rgba(14, 165, 233, 0.12), transparent 34%)"
+                    : "radial-gradient(circle at 18% 18%, rgba(8, 32, 62, 0.12), transparent 26%), radial-gradient(circle at 78% 22%, rgba(85, 124, 147, 0.12), transparent 24%), radial-gradient(circle at 50% 82%, rgba(245, 158, 11, 0.12), transparent 30%)",
+                transition: "background-color 0.5s ease, background-image 0.5s ease",
+            }}
+        />
+    );
+}
 
+function RichGlobalBackground({ isDark }: { isDark: boolean }) {
     const { scrollYProgress } = useScroll();
 
     const smoothProgress = useSpring(scrollYProgress, {
@@ -23,16 +33,10 @@ export function GlobalBackground() {
     const y2 = useTransform(smoothProgress, [0, 1], [0, -50]);
     const rotate1 = useTransform(smoothProgress, [0, 1], [0, 45]);
     const scale1 = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.2, 1]);
-
-    const isDark = hydrated && resolvedTheme === "dark";
     const bgColors = colors.accents;
-
-
-    if (!hydrated) return null;
 
     return (
         <div
-            ref={containerRef}
             className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none"
             style={{
                 backgroundColor: isDark ? colors.dark.primary : colors.light.primary,
@@ -96,4 +100,16 @@ export function GlobalBackground() {
             </div>
         </div>
     );
+}
+
+export function GlobalBackground() {
+    const { resolvedTheme } = useTheme();
+    const hydrated = useHydrated();
+    const { useLiteAnimations } = useInteractionProfile();
+
+    const isDark = hydrated && resolvedTheme === "dark";
+
+    if (!hydrated) return null;
+
+    return useLiteAnimations ? <LiteGlobalBackground isDark={isDark} /> : <RichGlobalBackground isDark={isDark} />;
 }

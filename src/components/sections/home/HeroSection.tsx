@@ -6,11 +6,11 @@ import Image from "next/image";
 import { useRef } from "react";
 import { MagneticButton, FillButton, ScrollMouse, TiltCard } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { ScrollText, SplitText, RevealText, ParallaxLayer, ClipReveal } from "@/components/scroll";
+import { ScrollText, SplitText, RevealText } from "@/components/scroll";
 import { profile } from "@/data/profile";
 import { MdArrowForward } from "react-icons/md";
 import { useTheme } from "next-themes";
-import { useHydrated } from "@/hooks";
+import { useHydrated, useInteractionProfile } from "@/hooks";
 
 
 function HeroContent({ mode }: { mode: "desktop" | "mobile" }) {
@@ -97,8 +97,44 @@ function HeroContent({ mode }: { mode: "desktop" | "mobile" }) {
     );
 }
 
+function HeroImageFrame({ interactive }: { interactive: boolean }) {
+    const image = (
+        <div
+            className="absolute inset-0 w-full h-full"
+            data-cursor-text={profile.name}
+        >
+            <Image
+                src="/assets/images/me-coding.jpg"
+                alt={profile.name}
+                fill
+                className="object-cover object-center"
+                priority
+                sizes="50vw"
+            />
+        </div>
+    );
 
-export function HeroSection() {
+    if (!interactive) {
+        return (
+            <div className="relative w-full h-full overflow-hidden [clip-path:polygon(20%_0,100%_0,100%_100%,0%_100%)]">
+                {image}
+            </div>
+        );
+    }
+
+    return (
+        <TiltCard
+            className="w-full h-full [clip-path:polygon(20%_0,100%_0,100%_100%,0%_100%)] backface-visible"
+            intensity={40}
+            glowOpacity={0.4}
+            glowColor="rgba(255,255,255,0.4)"
+        >
+            {image}
+        </TiltCard>
+    );
+}
+
+function RichHeroSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -133,26 +169,7 @@ export function HeroSection() {
                         className="w-full h-full"
                         style={{ y: imageY, scale: imageScale }}
                     >
-                        <TiltCard
-                            className="w-full h-full [clip-path:polygon(20%_0,100%_0,100%_100%,0%_100%)] backface-visible"
-                            intensity={40}
-                            glowOpacity={0.4}
-                            glowColor="rgba(255,255,255,0.4)"
-                        >
-                            <div
-                                className="absolute inset-0 w-full h-full"
-                                data-cursor-text={profile.name}
-                            >
-                                <Image
-                                    src="/assets/images/me-coding.jpg"
-                                    alt={profile.name}
-                                    fill
-                                    className="object-cover object-center"
-                                    priority
-                                    sizes="50vw"
-                                />
-                            </div>
-                        </TiltCard>
+                        <HeroImageFrame interactive />
                     </motion.div>
                 </motion.div>
             </div>
@@ -175,4 +192,59 @@ export function HeroSection() {
             </div>
         </section>
     );
+}
+
+function LiteHeroSection() {
+    return (
+        <section className="relative min-h-screen overflow-hidden">
+            <div className="hidden md:flex min-h-screen">
+                <motion.div
+                    className="relative w-1/2 min-h-screen flex items-center"
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <div className="relative w-full flex flex-col items-center justify-center">
+                        <HeroContent mode="desktop" />
+                    </div>
+                </motion.div>
+
+                <motion.div
+                    className="relative w-1/2 min-h-screen"
+                    initial={{ opacity: 0, x: 32 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <div className="w-full h-full">
+                        <HeroImageFrame interactive={false} />
+                    </div>
+                </motion.div>
+            </div>
+
+            <div className="md:hidden min-h-screen flex flex-col">
+                <motion.div
+                    className="relative flex-1 flex items-center px-6 sm:px-8 pt-24 pb-12"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <HeroContent mode="mobile" />
+                </motion.div>
+            </div>
+
+            <div className="block md:hidden absolute bottom-5 right-2 z-20">
+                <ScrollMouse />
+            </div>
+            <div className="hidden md:block absolute bottom-10 left-10 z-20">
+                <ScrollMouse />
+                <p className="text-text-secondary text-xs uppercase font-medium mt-2">Scroll down</p>
+            </div>
+        </section>
+    );
+}
+
+export function HeroSection() {
+    const { useLiteAnimations } = useInteractionProfile();
+
+    return useLiteAnimations ? <LiteHeroSection /> : <RichHeroSection />;
 }

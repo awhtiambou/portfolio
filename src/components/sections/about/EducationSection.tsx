@@ -9,7 +9,7 @@ import { educationData, certificationsData } from "@/data/education";
 import { IoLocationOutline } from "react-icons/io5";
 import { SectionTitle } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { useHydrated } from "@/hooks";
+import { useHydrated, useInteractionProfile } from "@/hooks";
 
 const W = "app-container";
 
@@ -130,7 +130,6 @@ interface CardProps {
 }
 
 const CARD_W_DESKTOP = 340;
-const CARD_W_MOBILE = 260;
 const CARD_H_PEEK = 164;
 const CARD_H_FULL = 280;
 const CONNECTOR_GAP = AVATAR_R - 24;
@@ -524,9 +523,97 @@ function CertificationsStrip({ isDark }: { isDark: boolean }) {
   );
 }
 
+function EducationLiteTimeline({ isDark }: { isDark: boolean }) {
+  const t = useTranslations("education");
+
+  return (
+    <div className={`${W} grid grid-cols-1 lg:grid-cols-3 gap-5`}>
+      {educationData.map((edu, index) => {
+        const item = t.raw(`items.${edu.key}`) as {
+          institution: string;
+          degree: string;
+          field: string;
+          location: string;
+          description: string;
+          achievements: Record<string, string>;
+        };
+        const accent = getStopAccent(isDark, index);
+
+        return (
+          <motion.article
+            key={edu.key}
+            className="relative overflow-hidden rounded-3xl border bg-background-secondary p-6 shadow-[0_16px_50px_rgba(0,0,0,0.12)]"
+            style={{
+              borderColor: `${accent}33`,
+              boxShadow: `0 16px 50px ${accent}14`,
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.45, delay: index * 0.08 }}
+          >
+            <div
+              className="absolute inset-x-0 top-0 h-1"
+              style={{ background: `linear-gradient(90deg, ${accent}, ${accent}55)` }}
+            />
+
+            <div className="flex items-start gap-4">
+              <div className="relative h-14 w-14 overflow-hidden rounded-2xl border border-white/10 bg-background-primary">
+                <Image
+                  src={edu.logo}
+                  alt={item.institution}
+                  fill
+                  sizes="56px"
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-mono uppercase tracking-[0.22em]" style={{ color: accent }}>
+                  {item.degree}
+                </p>
+                <h3 className="mt-2 font-heading text-2xl font-bold text-text-primary">
+                  {item.field}
+                </h3>
+                <p className="mt-2 text-sm font-medium text-text-secondary">{item.institution}</p>
+              </div>
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-text-muted">
+              <span className="flex items-center gap-1">
+                <IoLocationOutline className="text-red-500" />
+                {item.location}
+              </span>
+              <span className="opacity-30">/</span>
+              <span className="font-mono">{edu.startDate} - {edu.endDate}</span>
+            </div>
+
+            <p className="mt-5 text-sm leading-relaxed text-text-secondary">
+              {item.description}
+            </p>
+
+            <div className="mt-6 space-y-2">
+              {edu.achievementKeys.map((achievementKey) => (
+                <div key={achievementKey} className="flex items-start gap-3 text-sm text-text-secondary">
+                  <span
+                    className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: accent }}
+                  />
+                  <span>{item.achievements[achievementKey]}</span>
+                </div>
+              ))}
+            </div>
+          </motion.article>
+        );
+      })}
+    </div>
+  );
+}
+
 export function EducationSection() {
   const t = useTranslations("education");
   const { resolvedTheme } = useTheme();
+  const { useLiteAnimations } = useInteractionProfile();
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window === "undefined") {
       return false;
@@ -544,19 +631,24 @@ export function EducationSection() {
   }, []);
 
   const isDark = hydrated ? resolvedTheme === "dark" : true;
+  const showLiteTimeline = hydrated && (isMobile || useLiteAnimations);
 
   return (
     <div className="py-24 overflow-hidden">
       <SectionTitle className={`${W} !mb-20 md:!mb-40`} subtitle={t("subtitle")} title={t("title")} />
 
-      {hydrated && !isMobile && (
+      {hydrated && !showLiteTimeline && (
         <div className={`${W} mb-10`}>
           <p className="text-xs text-text-muted italic">{t("hoverHint")}</p>
         </div>
       )}
 
       <div className="w-full">
-        {hydrated && <SnakeSVG isMobile={isMobile} isDark={isDark} />}
+        {showLiteTimeline ? (
+          <EducationLiteTimeline isDark={isDark} />
+        ) : hydrated ? (
+          <SnakeSVG isMobile={isMobile} isDark={isDark} />
+        ) : null}
       </div>
 
       <CertificationsStrip isDark={isDark} />

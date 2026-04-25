@@ -11,6 +11,7 @@ export {
 export { useLocaleSwitch } from './useLocaleSwitch';
 export { useHydrated } from './useHydrated';
 export { useContactForm } from './useContactForm';
+export { useInteractionProfile } from './useInteractionProfile';
 
 // Scroll Animation Hooks
 export { useScrollVelocity } from './useScrollVelocity';

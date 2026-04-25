@@ -1,9 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef, ReactNode, CSSProperties, useEffect, useState } from "react";
+import { motion, useScroll, useSpring, useMotionValueEvent } from "framer-motion";
+import { useRef, CSSProperties, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { useLenis } from "./LenisProvider";
 
 interface ScrollProgressProps {
   className?: string;
@@ -38,19 +37,29 @@ export function ScrollProgress({
   showPercentage = false,
   style,
 }: ScrollProgressProps) {
-  const { scrollProgress } = useLenis();
-  const displayProgress = Math.round(scrollProgress * 100);
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 30,
+  });
+  const [displayProgress, setDisplayProgress] = useState(0);
 
   const isHorizontal = position === "top" || position === "bottom";
-
-  const positionStyles: CSSProperties = {
+  const positionStyles = {
     top: position === "top" ? 0 : undefined,
     bottom: position === "bottom" ? 0 : undefined,
     left: position === "left" ? 0 : undefined,
     right: position === "right" ? 0 : undefined,
-    width: isHorizontal ? `${scrollProgress * 100}%` : size,
-    height: isHorizontal ? size : `${scrollProgress * 100}%`,
+    width: isHorizontal ? "100%" : size,
+    height: isHorizontal ? size : "100%",
+    transformOrigin: isHorizontal ? "left center" : "center top",
+    scaleX: isHorizontal ? smoothProgress : 1,
+    scaleY: isHorizontal ? 1 : smoothProgress,
   };
+
+  useMotionValueEvent(smoothProgress, "change", (latest) => {
+    setDisplayProgress(Math.round(latest * 100));
+  });
 
   return (
     <>
@@ -258,8 +267,12 @@ export function ScrollIndicator({
   hideAfter = 0.1,
   style,
 }: ScrollIndicatorProps) {
-  const { scrollProgress } = useLenis();
-  const shouldHide = scrollProgress > hideAfter;
+  const { scrollYProgress } = useScroll();
+  const [shouldHide, setShouldHide] = useState(false);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setShouldHide(latest > hideAfter);
+  });
 
   return (
     <motion.div

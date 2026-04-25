@@ -8,8 +8,9 @@ import { Text } from "@/components/ui";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import { useInteractionProfile } from "@/hooks";
 
-export function ContactHeroSection() {
+function RichContactHeroSection() {
     const t = useTranslations("contact");
     const containerRef = useRef<HTMLDivElement>(null);
     const { resolvedTheme } = useTheme();
@@ -82,4 +83,63 @@ export function ContactHeroSection() {
             </div>
         </div>
     );
+}
+
+function LiteContactHeroSection() {
+    const t = useTranslations("contact");
+    const { resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
+
+    return (
+        <div className="relative w-full min-h-[70vh] overflow-hidden">
+            <div className="absolute inset-0">
+                <Image
+                    src="/assets/images/me-coding.jpg"
+                    alt={t("hero.imageAlt")}
+                    fill
+                    className="object-cover scale-105"
+                    priority
+                    sizes="100vw"
+                />
+            </div>
+
+            <div className="absolute inset-0 bg-black/65" />
+
+            <motion.div
+                className="relative z-10 min-h-[70vh] flex flex-col items-center justify-center text-center px-6"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            >
+                <p
+                    className={cn(
+                        "text-xs font-mono uppercase tracking-[0.25em] mb-4",
+                        isDark ? "text-accent-yellow" : "text-accent-blue",
+                    )}
+                >
+                    {t("subtitle")}
+                </p>
+
+                <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+                    <SplitText type="chars" animation="wave" staggerDelay={0.03}>
+                        {t("title")}
+                    </SplitText>
+                </h1>
+
+                <div className="max-w-2xl">
+                    <RevealText direction="up" delay={0.2} duration={0.55}>
+                        <Text size="lg" className="text-white/80">
+                            {t("hero.description")}
+                        </Text>
+                    </RevealText>
+                </div>
+            </motion.div>
+        </div>
+    );
+}
+
+export function ContactHeroSection() {
+    const { useLiteAnimations } = useInteractionProfile();
+
+    return useLiteAnimations ? <LiteContactHeroSection /> : <RichContactHeroSection />;
 }
