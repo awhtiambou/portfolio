@@ -834,7 +834,13 @@
       "placeholder": "Your email",
       "submit": "Subscribe",
       "successMsg": "You're in! Thanks for subscribing.",
-      "errorMsg": "Please enter a valid email address."
+      "errorMsg": "Please enter a valid email address.",
+      "errors": {
+        "validation_failed": "Please enter a valid email address.",
+        "already_subscribed": "This email is already subscribed.",
+        "not_configured": "The newsletter form is not configured yet. Please contact me directly for now.",
+        "send_failed": "Something went wrong while subscribing. Please try again."
+      }
     }
   },
   "menu": {

@@ -184,6 +184,10 @@ export interface ContactFormData {
   message: string;
 }
 
+export interface NewsletterFormData {
+  email: string;
+}
+
 export interface SocialLink {
   name: string;
   url: string;

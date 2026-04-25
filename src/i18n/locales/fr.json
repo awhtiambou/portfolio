@@ -834,7 +834,13 @@
       "placeholder": "Votre email",
       "submit": "S'abonner",
       "successMsg": "Vous êtes inscrit ! Merci.",
-      "errorMsg": "Veuillez entrer une adresse email valide."
+      "errorMsg": "Veuillez entrer une adresse email valide.",
+      "errors": {
+        "validation_failed": "Veuillez entrer une adresse email valide.",
+        "already_subscribed": "Cet email est deja inscrit.",
+        "not_configured": "Le formulaire newsletter n'est pas encore configure. Veuillez me contacter directement pour le moment.",
+        "send_failed": "Une erreur s'est produite pendant l'inscription. Veuillez reessayer."
+      }
     }
   },
   "menu": {
