@@ -688,41 +688,51 @@
     "responsibilities": "Responsibilities",
     "items": {
       "kalfou": {
-        "position": "Co-founder & Lead Software Engineer",
+        "position": "Co-founder & Full-Stack Developer",
         "company": "Kalfou",
         "location": "Remote — Niger",
         "type": "Startup · Full-time",
-        "description": "Co-founding and engineering a multi-service delivery super-app for Niger, covering food, groceries, pharmacy and peer-to-peer shipping. Building the full system from scratch — backend, mobile apps, and web dashboards.",
-        "r0": "Architecting a modular .NET 8 backend with Clean Architecture across 12+ domain modules (Orders, Delivery, Payments, Messaging, Notifications…)",
+        "description": "Co-founded a mobile-first multi-service platform for Niger — food delivery, ride-hailing, e-commerce, and peer-to-peer shipping. Building the full system from scratch — backend, mobile apps, and web dashboards.",
+        "r0": "Architecting a modular .NET 8 / ASP.NET Core backend with Clean Architecture, PostgreSQL, and Entity Framework Core, exposing REST APIs and real-time messaging via SignalR",
         "r1": "Building 3 cross-platform Flutter apps (Customer, Driver, Merchant) sharing a common design system and package",
-        "r2": "Developing 2 React web dashboards (Admin, Owner) with real-time data via SignalR",
+        "r2": "Developing web applications and dashboards in React / Next.js / TypeScript; contributing to mobile clients in Flutter",
         "r3": "Designing PostgreSQL schemas, AWS S3 media storage, and Firebase push-notification pipelines",
-        "r4": "Setting up Git monorepo workflow, CI/CD pipelines, and Docker containerisation",
+        "r4": "Setting up Git/GitHub workflows, Swagger documentation, and Dockerised environments",
         "r5": "Leading product decisions, sprint planning, and cross-functional coordination with co-founder"
       },
-      "uqac": {
+      "liara": {
         "position": "Research Assistant — Computer Vision & Mixed Reality",
-        "company": "Université du Québec à Chicoutimi (UQAC)",
+        "company": "Laboratoire LIARA — UQAC",
         "location": "Chicoutimi, QC, Canada",
         "type": "Research Internship · LIARA Lab",
-        "description": "Research internship at LIARA (Laboratoire d'Intelligence Ambiante pour la Reconnaissance d'Activités), focusing on automatic 3D object segmentation and reconstruction from Microsoft HoloLens 2 sensor data for mixed reality applications in smart environments.",
-        "r0": "Designed and implemented a segmentation pipeline comparing YOLO, Mask R-CNN and SAM, achieving up to 80% precision on a custom HoloLens 2 dataset",
+        "description": "Applied research at LIARA (Laboratoire d'Intelligence Ambiante pour la Reconnaissance d'Activités), focusing on automatic 3D object segmentation and reconstruction from Microsoft HoloLens 2 RGB-D data for mixed reality applications in smart environments.",
+        "r0": "Developed a segmentation pipeline comparing YOLO, Mask R-CNN and SAM, achieving up to 80% precision on a custom HoloLens 2 dataset",
         "r1": "Implemented 3D reconstruction via OccupancyNet, generating meshes for 200+ segmented objects",
         "r2": "Integrated the reconstruction system into a HoloLens 2 mixed reality application tested in real conditions",
-        "r3": "Co-authored a scientific paper submitted to UCAml 2025 — 17th International Conference on Ubiquitous Computing and Ambient Intelligence (Springer LNNS)",
+        "r3": "Co-authored a peer-reviewed paper submitted to UCAml 2025 — 17th International Conference on Ubiquitous Computing and Ambient Intelligence (Springer LNNS)",
         "r4": "Collaborated with LIARA researchers on dataset creation, model evaluation, and experiment design"
       },
-      "monastir": {
-        "position": "Software Engineering Intern — Capstone Project",
-        "company": "Université de Monastir",
+      "wevioo": {
+        "position": "Software Developer I — AI Specialization",
+        "company": "Wevioo",
+        "location": "Tunis, Tunisia",
+        "type": "Full-time",
+        "description": "Contributed to the development of a business process automation platform for an international client, building robust REST APIs and integrating AI-powered microservices for automated data extraction and processing.",
+        "r0": "Developed robust REST APIs with .NET for a business process automation platform serving an international client",
+        "r1": "Collaborated on the integration of FastAPI microservices for automatic data extraction and processing",
+        "r2": "Designed PostgreSQL data extraction and migration scripts; configured CI/CD pipelines with GitHub Actions for containerised Docker environments",
+        "r3": "Actively participated in Agile/Scrum rituals within a multidisciplinary team"
+      },
+      "docstream": {
+        "position": "Software Engineering Intern — Full-Stack Capstone Project",
+        "company": "DocStream Solutions",
         "location": "Monastir, Tunisia",
         "type": "Final-Year Internship",
-        "description": "Designed and delivered Tiamshop, a full-stack e-commerce platform for electronics, as my Bachelor's capstone project. Awarded Best Project of the cohort (18.5/20) by the academic jury.",
-        "r0": "Built a RESTful backend with ASP.NET Core and a SQL Server database managing 1,000+ entries and 70+ product references",
-        "r1": "Developed a React + TypeScript storefront with Redux Toolkit, Tailwind CSS and Material-UI",
-        "r2": "Implemented JWT authentication, role-based access (Customer / Admin / Delivery), and Mailgun email flows",
-        "r3": "Organised development across 6 Scrum sprints, writing documentation and presenting to an academic jury",
-        "r4": "Deployed on Azure App Service (backend) and Netlify (frontend) with GitHub Actions CI/CD"
+        "description": "Designed and delivered Tiamshop, a full-stack e-commerce platform for electronics, as my Bachelor's capstone project. Awarded Best Project of the cohort (17/20) by the academic jury.",
+        "r0": "Designed and delivered Tiamshop, an e-commerce platform with 70+ products and a SQL Server database managing 1,000+ entries",
+        "r1": "Developed a RESTful backend in ASP.NET Core (C#) and a responsive React / TypeScript / Tailwind CSS interface",
+        "r2": "Set up Jest test coverage for the frontend; deployed via Netlify and Azure DevOps",
+        "r3": "Organised development across 6 Agile/Scrum sprints, writing documentation and presenting to an academic jury; rated 17/20 — best project of the cohort"
       },
       "tiamtech": {
         "position": "Freelance Web Developer",

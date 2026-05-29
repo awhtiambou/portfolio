@@ -12,7 +12,7 @@ export const projects: Project[] = [
     slug: "kalfou-transportation-ecosystem",
     title: "Kalfou",
     description: "$t:kalfou-transportation-ecosystem.description",
-    image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2670&auto=format&fit=crop",
+    image: "/assets/images/projects/kalfou/kalfou-female-driver.png",
     sections: [
       {
         label: "$t:kalfou-transportation-ecosystem.sections.vision.label",
@@ -74,7 +74,7 @@ export const projects: Project[] = [
                 caption: "$t:kalfou-transportation-ecosystem.sections.architecture.img0.caption",
               },
               {
-                src: "https://images.unsplash.com/photo-1551817958-11e0f7bbea7d?q=80&w=2670&auto=format&fit=crop",
+                src: "/assets/images/projects/kalfou/client-mobile-app.png",
                 alt: "$t:kalfou-transportation-ecosystem.sections.architecture.img1.alt",
                 caption: "$t:kalfou-transportation-ecosystem.sections.architecture.img1.caption",
               },

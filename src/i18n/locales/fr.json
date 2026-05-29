@@ -688,41 +688,51 @@
     "responsibilities": "Responsabilités",
     "items": {
       "kalfou": {
-        "position": "Co-fondateur & Ingénieur logiciel",
+        "position": "Co-fondateur & Développeur Full-Stack",
         "company": "Kalfou",
         "location": "Télétravail — Niger",
         "type": "Startup · Temps plein",
-        "description": "Co-fondation et développement d'une super-application de livraison multi-services pour le Niger — nourriture, épicerie, pharmacie et envoi de colis P2P. Construction complète du système depuis zéro : backend, applications mobiles et tableaux de bord web.",
-        "r0": "Architecture d'un backend .NET 8 modulaire (Clean Architecture) couvrant 12+ modules métier (Commandes, Livraison, Paiements, Messagerie, Notifications…)",
+        "description": "Co-fondation d'une plateforme multi-services mobile-first pour le Niger — livraison de repas, covoiturage, e-commerce et envoi de colis P2P. Construction complète du système depuis zéro : backend, applications mobiles et tableaux de bord web.",
+        "r0": "Architecture d'un backend .NET 8 modulaire (Clean Architecture) avec PostgreSQL et Entity Framework Core, exposant des API REST et une messagerie en temps réel via SignalR",
         "r1": "Développement de 3 applications Flutter multiplateformes (Client, Chauffeur, Marchand) partageant un système de design et un package commun",
-        "r2": "Création de 2 tableaux de bord web React (Admin, Propriétaire) avec données en temps réel via SignalR",
+        "r2": "Création d'applications web et tableaux de bord en React / Next.js / TypeScript ; contribution aux clients mobiles en Flutter",
         "r3": "Conception des schémas PostgreSQL, stockage média AWS S3 et pipelines de notifications Firebase",
-        "r4": "Mise en place du workflow monorepo Git, CI/CD et conteneurisation Docker",
+        "r4": "Mise en place des workflows Git/GitHub, documentation Swagger et environnements Docker conteneurisés",
         "r5": "Pilotage des décisions produit, planification des sprints et coordination avec le co-fondateur"
       },
-      "uqac": {
-        "position": "Assistant de Recherche — Vision par ordinateur & réalité mixte",
-        "company": "Université du Québec à Chicoutimi (UQAC)",
+      "liara": {
+        "position": "Assistant de Recherche — Vision par Ordinateur & Réalité Mixte",
+        "company": "Laboratoire LIARA — UQAC",
         "location": "Chicoutimi, QC, Canada",
         "type": "Stage de recherche · Labo LIARA",
-        "description": "Stage de recherche au LIARA (Laboratoire d'Intelligence Ambiante pour la Reconnaissance d'Activités), axé sur la segmentation et reconstruction 3D automatique d'objets à partir des données du Microsoft HoloLens 2, pour des applications de réalité mixte en environnements intelligents.",
-        "r0": "Conception et implémentation d'un pipeline de segmentation comparant YOLO, Mask R-CNN et SAM, atteignant jusqu'à 80 % de précision sur un dataset HoloLens 2 personnalisé",
+        "description": "Recherche appliquée au LIARA (Laboratoire d'Intelligence Ambiante pour la Reconnaissance d'Activités), axée sur la segmentation et reconstruction 3D automatique d'objets à partir de données RGB-D du Microsoft HoloLens 2 pour des applications de réalité mixte en environnements intelligents.",
+        "r0": "Développement d'un pipeline de segmentation comparant YOLO, Mask R-CNN et SAM, atteignant jusqu'à 80 % de précision sur un dataset HoloLens 2 personnalisé",
         "r1": "Implémentation de la reconstruction 3D via OccupancyNet, générant des maillages pour 200+ objets segmentés",
         "r2": "Intégration du système dans une application de réalité mixte HoloLens 2 testée en conditions réelles",
-        "r3": "Co-rédaction d'un article scientifique soumis à UCAml 2025 — 17e Conférence internationale sur l'informatique ubiquitaire (Springer LNNS)",
+        "r3": "Co-rédaction d'un article évalué par les pairs soumis à UCAml 2025 — 17e Conférence internationale sur l'informatique ubiquitaire (Springer LNNS)",
         "r4": "Collaboration avec les chercheurs du LIARA pour la création de datasets, l'évaluation des modèles et la conception des expériences"
       },
-      "monastir": {
-        "position": "Stagiaire en Génie Logiciel — Projet de fin d'études",
-        "company": "Université de Monastir",
+      "wevioo": {
+        "position": "Développeur Logiciel I — Spécialisation IA",
+        "company": "Wevioo",
+        "location": "Tunis, Tunisie",
+        "type": "Temps plein",
+        "description": "Participation au développement d'une plateforme d'automatisation des processus métiers pour un client international, en concevant des API REST robustes et en intégrant des microservices IA pour l'extraction automatisée de données.",
+        "r0": "Développement d'API REST robustes avec .NET pour une plateforme d'automatisation des processus métiers d'un client international",
+        "r1": "Intégration de microservices FastAPI pour l'extraction et le traitement automatiques de données",
+        "r2": "Conception de scripts d'extraction et migration de données PostgreSQL ; configuration de pipelines CI/CD avec GitHub Actions pour des environnements Docker conteneurisés",
+        "r3": "Participation active aux rituels Agile/Scrum au sein d'une équipe pluridisciplinaire"
+      },
+      "docstream": {
+        "position": "Stagiaire en Génie Logiciel — Projet de fin d'études Full-Stack",
+        "company": "DocStream Solutions",
         "location": "Monastir, Tunisie",
         "type": "Stage de fin d'études",
-        "description": "Conception et livraison de Tiamshop, une plateforme e-commerce full-stack spécialisée en électronique, comme projet de fin de licence. Primé Meilleur Projet de la promotion (18,5/20) par le jury académique.",
-        "r0": "Développement d'un backend RESTful avec ASP.NET Core et une base de données SQL Server gérant 1 000+ entrées et 70+ références produits",
-        "r1": "Création d'une vitrine React + TypeScript avec Redux Toolkit, Tailwind CSS et Material-UI",
-        "r2": "Implémentation de l'authentification JWT, du contrôle d'accès par rôle (Client / Admin / Livreur) et des flux email Mailgun",
-        "r3": "Organisation du développement en 6 sprints Scrum, rédaction de la documentation et présentation au jury académique",
-        "r4": "Déploiement sur Azure App Service (backend) et Netlify (frontend) avec CI/CD GitHub Actions"
+        "description": "Conception et livraison de Tiamshop, une plateforme e-commerce full-stack spécialisée en électronique, comme projet de fin de licence. Primé Meilleur Projet de la promotion (17/20) par le jury académique.",
+        "r0": "Conception et livraison de Tiamshop, une plateforme e-commerce avec 70+ produits et une base SQL Server gérant 1 000+ entrées",
+        "r1": "Développement d'un backend RESTful en ASP.NET Core (C#) et d'une interface responsive React / TypeScript / Tailwind CSS",
+        "r2": "Mise en place d'une couverture de tests Jest pour le frontend ; déploiement via Netlify et Azure DevOps",
+        "r3": "Organisation du développement en 6 sprints Agile/Scrum, rédaction de la documentation et présentation au jury académique ; noté 17/20 — meilleur projet de la cohorte"
       },
       "tiamtech": {
         "position": "Développeur web",

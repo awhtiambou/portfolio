@@ -19,36 +19,35 @@ export const experiences = [
   },
 
   {
-    key: "uqac",
+    key: "liara",
     logo: "/assets/images/experiences/uqac.png",
-    url: "https://www.uqac.ca",
+    url: "https://liara.uqac.ca",
     startDate: "2024-12",
     endDate: "2025-07",
     current: false,
     responsibilityKeys: [
-      "uqac.r0", "uqac.r1", "uqac.r2",
-      "uqac.r3", "uqac.r4",
+      "liara.r0", "liara.r1", "liara.r2",
+      "liara.r3", "liara.r4",
     ],
     technologies: [
       "Python", "PyTorch", "YOLO", "Mask R-CNN", "SAM",
       "OccupancyNet", "OpenCV", "C#", "HoloLens 2", "Unity", "MRTK",
     ],
   },
-
   {
-    key: "monastir",
+    key: "docstream",
     logo: "/assets/images/experiences/u-monastir.jpg",
-    url: "https://www.enim.rnu.tn",
+    url: "https://docstream.tn",
     startDate: "2022-10",
     endDate: "2023-05",
     current: false,
     responsibilityKeys: [
-      "monastir.r0", "monastir.r1", "monastir.r2",
-      "monastir.r3", "monastir.r4",
+      "docstream.r0", "docstream.r1", "docstream.r2", "docstream.r3",
     ],
     technologies: [
       "ASP.NET Core", "C#", "React", "TypeScript",
-      "SQL Server", "Tailwind CSS", "Redux Toolkit", "Scrum",
+      "SQL Server", "Tailwind CSS", "Redux Toolkit",
+      "Jest", "Azure DevOps", "Netlify", "Scrum",
     ],
   },
 
@@ -64,6 +63,21 @@ export const experiences = [
     ],
     technologies: [
       "React", "TypeScript", "Tailwind CSS", "C#", "ASP.NET Core", "Wix", "Figma",
+    ],
+  },
+  {
+    key: "wevioo",
+    logo: "",
+    url: "https://www.wevioo.com",
+    startDate: "2023-08",
+    endDate: "2023-12",
+    current: false,
+    responsibilityKeys: [
+      "wevioo.r0", "wevioo.r1", "wevioo.r2", "wevioo.r3",
+    ],
+    technologies: [
+      "ASP.NET Core", "C#", "FastAPI", "REST APIs",
+      "PostgreSQL", "GitHub Actions", "Docker", "Agile",
     ],
   },
 ] as const;

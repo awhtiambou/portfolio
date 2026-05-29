@@ -79,13 +79,19 @@ function ExperienceRow({ exp, index, isLast }: RowProps) {
           <div className="flex items-start gap-4">
 
             <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden
-              border border-white/10 bg-background-secondary">
-              <Image
-                src={exp.logo}
-                alt={item.company}
-                width={56} height={56}
-                className="w-full h-full object-cover"
-              />
+              border border-white/10 bg-background-secondary flex items-center justify-center">
+              {exp.logo ? (
+                <Image
+                  src={exp.logo}
+                  alt={item.company}
+                  width={56} height={56}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-xl font-heading font-bold text-text-muted select-none">
+                  {(item.company as string).charAt(0)}
+                </span>
+              )}
             </div>
 
             <div className="flex-1 min-w-0">
