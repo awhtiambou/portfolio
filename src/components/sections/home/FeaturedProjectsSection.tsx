@@ -141,7 +141,12 @@ function FeaturedProjectRow({ project, index }: { project: FeaturedProject; inde
                 isDark ? "text-white/60" : "text-gray-600"
               )}
             >
-              {project.categories.map((cat: string) => categoryLabels[cat]).join(" • ")}
+              {project.categories.map((cat: string, i: number) => (
+                <span key={cat}>
+                  {i > 0 && <span className="mx-1.5 opacity-40" aria-hidden>/</span>}
+                  {categoryLabels[cat]}
+                </span>
+              ))}
             </p>
 
             <div className="flex flex-wrap items-center gap-2 mb-6">

@@ -7,6 +7,18 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import type { Blog, BlogElement, BlogSection } from "@/types/blog";
 import { cn } from "@/lib/utils";
 import { FiClock, FiCalendar, FiArrowUpRight, FiChevronRight } from "react-icons/fi";
+import {
+    HiOutlineInformationCircle,
+    HiOutlineExclamationTriangle,
+    HiOutlineCheckCircle,
+    HiOutlineLightBulb,
+    HiOutlineExclamationCircle,
+    HiOutlineBeaker,
+    HiMiniChevronRight,
+    HiMiniCheck,
+    HiMiniArrowRight,
+    HiArrowTopRightOnSquare,
+} from "react-icons/hi2";
 import { useTranslations, useLocale } from "next-intl";
 
 const CONTENT_WIDTH = "app-container";
@@ -149,8 +161,6 @@ function StatGridElement({ el }: { el: Extract<BlogElement, { type: "stat-grid" 
 }
 
 function ListElement({ el }: { el: Extract<BlogElement, { type: "list" }> }) {
-    const icons: Record<string, string | null> = { bullet: "•", numbered: null, check: "✓", arrow: "→" };
-    const icon = icons[el.variant ?? "bullet"];
     if (el.variant === "numbered") {
         return (
             <ol className="space-y-3 list-none">
@@ -163,12 +173,13 @@ function ListElement({ el }: { el: Extract<BlogElement, { type: "list" }> }) {
             </ol>
         );
     }
+    const Icon = el.variant === "check" ? HiMiniCheck : el.variant === "arrow" ? HiMiniArrowRight : HiMiniChevronRight;
     const iconCls = el.variant === "check" ? "text-emerald-400" : el.variant === "arrow" ? "text-accent-blue" : "text-text-muted";
     return (
         <ul className="space-y-2.5">
             {el.items.map((item, i) => (
                 <li key={i} className="flex gap-3">
-                    <span className={`flex-shrink-0 mt-1.5 text-xs leading-none ${iconCls}`}>{icon}</span>
+                    <Icon className={`flex-shrink-0 mt-1.5 w-3.5 h-3.5 ${iconCls}`} aria-hidden />
                     <span className="font-body text-text-secondary leading-relaxed text-base"><InlineText text={item} /></span>
                 </li>
             ))}
@@ -247,22 +258,24 @@ function CodeElement({ el }: { el: Extract<BlogElement, { type: "code" }> }) {
 }
 
 function CalloutElement({ el }: { el: Extract<BlogElement, { type: "callout" }> }) {
-    const styles = {
-        info: { bar: "bg-blue-500", bg: "bg-blue-500/8", text: "text-blue-400", icon: "ℹ️" },
-        warning: { bar: "bg-amber-400", bg: "bg-amber-400/8", text: "text-amber-400", icon: "⚠️" },
-        success: { bar: "bg-emerald-500", bg: "bg-emerald-500/8", text: "text-emerald-400", icon: "✅" },
-        tip: { bar: "bg-purple-500", bg: "bg-purple-500/8", text: "text-purple-400", icon: "💡" },
-        danger: { bar: "bg-red-500", bg: "bg-red-500/8", text: "text-red-400", icon: "🚨" },
-        insight: { bar: "bg-cyan-500", bg: "bg-cyan-500/8", text: "text-cyan-400", icon: "🔬" },
+    const config = {
+        info:    { bar: "bg-blue-500",    bg: "bg-blue-500/8",    text: "text-blue-400",    Icon: HiOutlineInformationCircle },
+        warning: { bar: "bg-amber-400",   bg: "bg-amber-400/8",   text: "text-amber-400",   Icon: HiOutlineExclamationTriangle },
+        success: { bar: "bg-emerald-500", bg: "bg-emerald-500/8", text: "text-emerald-400", Icon: HiOutlineCheckCircle },
+        tip:     { bar: "bg-purple-500",  bg: "bg-purple-500/8",  text: "text-purple-400",  Icon: HiOutlineLightBulb },
+        danger:  { bar: "bg-red-500",     bg: "bg-red-500/8",     text: "text-red-400",     Icon: HiOutlineExclamationCircle },
+        insight: { bar: "bg-cyan-500",    bg: "bg-cyan-500/8",    text: "text-cyan-400",    Icon: HiOutlineBeaker },
     }[el.variant ?? "info"];
+    const { Icon } = config;
 
     return (
-        <div className={`flex gap-4 rounded-xl ${styles.bg} border border-white/5 p-5`}>
-            <div className={`w-1 flex-shrink-0 rounded-full ${styles.bar}`} />
+        <div className={`flex gap-4 rounded-xl ${config.bg} border border-white/5 p-5`}>
+            <div className={`w-1 flex-shrink-0 rounded-full ${config.bar}`} />
             <div className="min-w-0">
                 {el.title && (
-                    <p className={`font-body font-semibold text-sm mb-1.5 ${styles.text}`}>
-                        {styles.icon} {el.title}
+                    <p className={`font-body font-semibold text-sm mb-1.5 ${config.text} flex items-center gap-1.5`}>
+                        <Icon className="w-4 h-4 flex-shrink-0" aria-hidden />
+                        {el.title}
                     </p>
                 )}
                 <p className="font-body text-text-secondary text-sm leading-relaxed">
@@ -361,7 +374,7 @@ function LinkListElement({ el }: { el: Extract<BlogElement, { type: "link-list" 
                 <li key={i}>
                     <a href={link.href} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined}
                         className="group flex items-start gap-3 p-4 rounded-xl border border-white/5 bg-background-secondary hover:border-white/20 transition-all">
-                        <span className="text-text-primary font-medium group-hover:underline">{link.label} ↗</span>
+                        <span className="text-text-primary font-medium group-hover:underline flex items-center gap-1.5">{link.label} <HiArrowTopRightOnSquare className="w-3.5 h-3.5 flex-shrink-0" aria-hidden /></span>
                         {link.description && <span className="text-text-muted text-sm">{link.description}</span>}
                     </a>
                 </li>

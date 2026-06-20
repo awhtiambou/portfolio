@@ -81,7 +81,7 @@ export function ExperienceSection() {
                     </CardHeader>
                     <CardContent>
                       <p className="text-text-secondary text-sm mb-3">
-                        {exp.startDate} - {exp.current ? "Present" : exp.endDate} • {exp.location}
+                        {exp.startDate} - {exp.current ? "Present" : exp.endDate}<span className="mx-1.5 opacity-40" aria-hidden>/</span>{exp.location}
                       </p>
                       <p className="text-text-secondary mb-4">{exp.description}</p>
                       <div className="flex flex-wrap gap-2">

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
-import { FiArrowLeft, FiArrowRight, FiLinkedin } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight, FiLinkedin, FiChevronDown } from "react-icons/fi";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { testimonials, getRelationshipText, truncateText } from "@/data/testimonials";
@@ -133,10 +133,11 @@ function TestimonialCard({ testimonial, locale, isActive, isDark }: TestimonialC
                             >
                                 {isExpanded ? t("seeLess") : t("seeMore")}
                                 <motion.span
+                                    className="inline-flex"
                                     animate={{ rotate: isExpanded ? 180 : 0 }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    →
+                                    <FiChevronDown className="w-4 h-4" aria-hidden />
                                 </motion.span>
                             </motion.button>
                         )}

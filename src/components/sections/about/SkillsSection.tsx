@@ -16,6 +16,7 @@ import {
     FaDocker
 } from "react-icons/fa";
 import { SiPython } from "react-icons/si";
+import { HiMiniArrowRight } from "react-icons/hi2";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { skillCategoryConfig, getSkillsByCategory, masteredTechnologies } from "@/data/skills";
@@ -386,7 +387,7 @@ export function SkillsSection() {
                                 "text-xs mt-6",
                                 isDark ? "text-white/30" : "text-gray-400"
                             )}>
-                                Click or swipe to shuffle →
+                                Click or swipe to shuffle <HiMiniArrowRight className="inline w-3.5 h-3.5" aria-hidden />
                             </p>
                         </motion.div>
 

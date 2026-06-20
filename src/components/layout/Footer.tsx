@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { CiCoffeeCup } from "react-icons/ci";
 import { PiHandHeartLight } from "react-icons/pi";
+import { HiMiniArrowRight } from "react-icons/hi2";
 import { OutlinedInput, TransitionLink } from "@/components/ui";
 import { SocialIcon, socialIconsList } from "@/components/ui/icons/SocialIcons";
 import { profile } from "@/data/profile";
@@ -121,11 +122,11 @@ function NewsletterForm({ t }: { t: ReturnType<typeof useTranslations> }) {
 function AnimatedArrow() {
   return (
     <motion.span
-      className="inline-block ml-3"
+      className="inline-flex ml-3"
       animate={{ x: [0, 4, 0] }}
       transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
     >
-      →
+      <HiMiniArrowRight className="w-6 h-6" aria-hidden />
     </motion.span>
   );
 }

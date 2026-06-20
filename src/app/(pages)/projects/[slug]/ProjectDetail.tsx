@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import type { ProjectCategory, ProjectSection, ProjectElement } from "@/types";
 import { useTranslations } from "next-intl";
+import { HiArrowLongLeft, HiMiniChevronRight, HiMiniCheck, HiArrowTopRightOnSquare } from "react-icons/hi2";
 
 // Matches the app's header/nav width convention.
 const CONTENT_WIDTH = "app-container";
@@ -165,13 +166,6 @@ function StatGridElement({ el }: { el: Extract<ProjectElement, { type: "stat-gri
 }
 
 function ListElement({ el }: { el: Extract<ProjectElement, { type: "list" }> }) {
-    const icons = {
-        bullet: "•",
-        numbered: null,
-        check: "✓",
-    };
-    const icon = icons[el.variant ?? "bullet"];
-
     if (el.variant === "numbered") {
         return (
             <ol className="space-y-3 list-none">
@@ -187,13 +181,14 @@ function ListElement({ el }: { el: Extract<ProjectElement, { type: "list" }> }) 
         );
     }
 
+    const Icon = el.variant === "check" ? HiMiniCheck : HiMiniChevronRight;
+    const iconCls = el.variant === "check" ? "text-emerald-400" : "text-text-muted";
+
     return (
         <ul className="space-y-2">
             {el.items.map((item, i) => (
                 <li key={i} className="flex gap-3">
-                    <span className={`flex-shrink-0 mt-1.5 text-xs ${el.variant === "check" ? "text-emerald-400" : "text-text-muted"}`}>
-                        {icon}
-                    </span>
+                    <Icon className={`flex-shrink-0 mt-1.5 w-3.5 h-3.5 ${iconCls}`} aria-hidden />
                     <span className="text-text-secondary leading-relaxed"><InlineText text={item} /></span>
                 </li>
             ))}
@@ -212,7 +207,7 @@ function LinkListElement({ el }: { el: Extract<ProjectElement, { type: "link-lis
                         rel="noopener noreferrer"
                         className="group flex items-start gap-3 p-4 rounded-xl border border-white/5 bg-background-secondary hover:border-white/20 transition-all"
                     >
-                        <span className="text-text-primary font-medium group-hover:underline">{link.label} ↗</span>
+                        <span className="text-text-primary font-medium group-hover:underline flex items-center gap-1.5">{link.label} <HiArrowTopRightOnSquare className="w-3.5 h-3.5 flex-shrink-0" aria-hidden /></span>
                         {link.description && (
                             <span className="text-text-muted text-sm">{link.description}</span>
                         )}
@@ -292,7 +287,7 @@ function VideoElement({ el }: { el: Extract<ProjectElement, { type: "video" }> }
 }
 
 
-function Element({ el, isFullwidthSection }: { el: ProjectElement; isFullwidthSection?: boolean }) {
+function Element({ el }: { el: ProjectElement }) {
     switch (el.type) {
         case "text": return <TextElement el={el} />;
         case "image": return <ImageElement el={el} />;
@@ -317,7 +312,7 @@ function Section({ section }: { section: ProjectSection }) {
             <Reveal>
                 <div className="space-y-0">
                     {section.elements.map((el, i) => (
-                        <Element key={i} el={el} isFullwidthSection />
+                        <Element key={i} el={el} />
                     ))}
                 </div>
             </Reveal>
@@ -676,7 +671,8 @@ export function ProjectDetail({
             <div className={`${CONTENT_WIDTH} pb-24 text-left`}>
                 <Link href="/projects"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-text-secondary hover:text-text-primary hover:border-white/40 transition-all text-sm font-medium">
-                    ← {t("projects.viewAllProjects")}
+                    <HiArrowLongLeft />
+                    {t("projects.viewAllProjects")}
                 </Link>
             </div>
 

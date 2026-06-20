@@ -366,7 +366,12 @@ function MobileProjectCard({ project, index }: { project: ReturnType<typeof getF
                 isDark ? "text-white/70" : "text-gray-600"
               )}
             >
-              {project.categories.map((cat) => categoryLabels[cat]).join(" • ")}
+              {project.categories.map((cat, i) => (
+                <span key={cat}>
+                  {i > 0 && <span className="mx-1.5 opacity-40" aria-hidden>/</span>}
+                  {categoryLabels[cat]}
+                </span>
+              ))}
             </span>
 
             <span

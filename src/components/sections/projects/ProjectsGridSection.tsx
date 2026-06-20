@@ -119,7 +119,12 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                         </div>
 
                         <span className="text-color-foreground text-center md:text-left text-base md:text-lg font-accent" style={{ fontWeight: 600 }}>
-                            {project.categories.map(cat => categoryLabels[cat]).join(" • ")}
+                            {project.categories.map((cat, i) => (
+                                <span key={cat}>
+                                    {i > 0 && <span className="mx-1.5 opacity-40" aria-hidden>/</span>}
+                                    {categoryLabels[cat]}
+                                </span>
+                            ))}
                         </span>
                         <span className="text-sm text-color-foreground font-accent mt-2" style={{ fontWeight: 400 }}>{project.technologies.slice(0, 4).join(", ")}</span>
 
