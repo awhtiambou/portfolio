@@ -782,7 +782,7 @@ export const projects: Project[] = [
               { label: "$t:le-decryptage-news-platform.sections.impact.stat0.label", value: "2", note: "$t:le-decryptage-news-platform.sections.impact.stat0.note" },
               { label: "$t:le-decryptage-news-platform.sections.impact.stat1.label", value: "8+", note: "$t:le-decryptage-news-platform.sections.impact.stat1.note" },
               { label: "$t:le-decryptage-news-platform.sections.impact.stat2.label", value: "100%", note: "$t:le-decryptage-news-platform.sections.impact.stat2.note" },
-              { label: "$t:le-decryptage-news-platform.sections.impact.stat3.label", value: "↗", note: "$t:le-decryptage-news-platform.sections.impact.stat3.note" },
+              { label: "$t:le-decryptage-news-platform.sections.impact.stat3.label", value: "Live", note: "$t:le-decryptage-news-platform.sections.impact.stat3.note" },
             ],
           },
         ],
@@ -887,6 +887,139 @@ export const projects: Project[] = [
     endDate: "2024-06",
     status: "completed",
     githubUrl: "https://github.com/awhtiambou/thoraxvision",
+  },
+  {
+    id: "proj-8",
+    slug: "cadence-transit-rag-mcp",
+    title: "Cadence",
+    description: "$t:cadence-transit-rag-mcp.description",
+    image: "/assets/images/projects/cadence/chat_ui.png",
+    sections: [
+      {
+        label: "$t:cadence-transit-rag-mcp.sections.overview.label",
+        heading: "$t:cadence-transit-rag-mcp.sections.overview.heading",
+        elements: [
+          { type: "text", content: "$t:cadence-transit-rag-mcp.sections.overview.text" },
+          {
+            type: "stat-grid",
+            stats: [
+              { label: "$t:cadence-transit-rag-mcp.sections.overview.stat0.label", value: "RAG + Agent", note: "$t:cadence-transit-rag-mcp.sections.overview.stat0.note" },
+              { label: "$t:cadence-transit-rag-mcp.sections.overview.stat1.label", value: "MCP", note: "$t:cadence-transit-rag-mcp.sections.overview.stat1.note" },
+              { label: "$t:cadence-transit-rag-mcp.sections.overview.stat2.label", value: "7.1M", note: "$t:cadence-transit-rag-mcp.sections.overview.stat2.note" },
+              { label: "$t:cadence-transit-rag-mcp.sections.overview.stat3.label", value: "k=3", note: "$t:cadence-transit-rag-mcp.sections.overview.stat3.note" },
+            ],
+          },
+        ],
+      },
+      {
+        fullwidth: true,
+        elements: [
+          { type: "image-fullwidth", src: "/assets/images/projects/cadence/chat_ui.png", alt: "$t:cadence-transit-rag-mcp.sections.coverImage.alt", height: "h-[65vh]" },
+        ],
+      },
+      {
+        label: "$t:cadence-transit-rag-mcp.sections.retrieval.label",
+        heading: "$t:cadence-transit-rag-mcp.sections.retrieval.heading",
+        elements: [
+          { type: "text", content: "$t:cadence-transit-rag-mcp.sections.retrieval.text" },
+          {
+            type: "list",
+            variant: "check",
+            items: [
+              "$t:cadence-transit-rag-mcp.sections.retrieval.list.0",
+              "$t:cadence-transit-rag-mcp.sections.retrieval.list.1",
+              "$t:cadence-transit-rag-mcp.sections.retrieval.list.2",
+            ],
+          },
+        ],
+      },
+      {
+        label: "$t:cadence-transit-rag-mcp.sections.evaluation.label",
+        heading: "$t:cadence-transit-rag-mcp.sections.evaluation.heading",
+        elements: [
+          { type: "text", content: "$t:cadence-transit-rag-mcp.sections.evaluation.text" },
+          {
+            type: "list",
+            variant: "numbered",
+            items: [
+              "$t:cadence-transit-rag-mcp.sections.evaluation.list.0",
+              "$t:cadence-transit-rag-mcp.sections.evaluation.list.1",
+              "$t:cadence-transit-rag-mcp.sections.evaluation.list.2",
+            ],
+          },
+          {
+            type: "callout",
+            variant: "success",
+            title: "$t:cadence-transit-rag-mcp.sections.evaluation.callout.title",
+            content: "$t:cadence-transit-rag-mcp.sections.evaluation.callout.content",
+          },
+          {
+            type: "image-grid",
+            cols: 2,
+            images: [
+              { src: "/assets/images/projects/cadence/eval.png", alt: "$t:cadence-transit-rag-mcp.sections.evaluation.img0.alt", caption: "$t:cadence-transit-rag-mcp.sections.evaluation.img0.caption" },
+              { src: "/assets/images/projects/cadence/k_sweep.png", alt: "$t:cadence-transit-rag-mcp.sections.evaluation.img1.alt", caption: "$t:cadence-transit-rag-mcp.sections.evaluation.img1.caption" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "$t:cadence-transit-rag-mcp.sections.agentic.label",
+        heading: "$t:cadence-transit-rag-mcp.sections.agentic.heading",
+        elements: [
+          { type: "text", content: "$t:cadence-transit-rag-mcp.sections.agentic.text" },
+          {
+            type: "list",
+            variant: "bullet",
+            items: [
+              "$t:cadence-transit-rag-mcp.sections.agentic.list.0",
+              "$t:cadence-transit-rag-mcp.sections.agentic.list.1",
+              "$t:cadence-transit-rag-mcp.sections.agentic.list.2",
+            ],
+          },
+          {
+            type: "callout",
+            variant: "info",
+            title: "$t:cadence-transit-rag-mcp.sections.agentic.callout.title",
+            content: "$t:cadence-transit-rag-mcp.sections.agentic.callout.content",
+          },
+          {
+            type: "image",
+            src: "/assets/images/projects/cadence/claude_mcp.png",
+            alt: "$t:cadence-transit-rag-mcp.sections.agentic.img.alt",
+            size: "large",
+            caption: "$t:cadence-transit-rag-mcp.sections.agentic.img.caption",
+          },
+        ],
+      },
+      {
+        label: "$t:cadence-transit-rag-mcp.sections.delivery.label",
+        heading: "$t:cadence-transit-rag-mcp.sections.delivery.heading",
+        elements: [
+          { type: "text", content: "$t:cadence-transit-rag-mcp.sections.delivery.text" },
+          {
+            type: "link-list",
+            links: [
+              {
+                label: "$t:cadence-transit-rag-mcp.sections.delivery.link0.label",
+                href: "https://github.com/awhtiambou/cadence",
+                description: "$t:cadence-transit-rag-mcp.sections.delivery.link0.description",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    technologies: [
+      "Python", "FastAPI", "Azure OpenAI", "Chroma", "RAG", "MCP", "SQLite",
+      "tiktoken", "sentence-transformers", "React", "TypeScript", "Vite", "Tailwind CSS", "GTFS",
+    ],
+    categories: ["ai", "ml", "backend", "web"],
+    featured: true,
+    startDate: "2026-06",
+    endDate: "2026-06",
+    status: "completed",
+    githubUrl: "https://github.com/awhtiambou/cadence",
   },
 ];
 

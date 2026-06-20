@@ -552,6 +552,69 @@
             }
           }
         }
+      },
+      "cadence-transit-rag-mcp": {
+        "title": "Cadence",
+        "description": "An agentic, retrieval-augmented assistant over public-transit data: it answers GTFS specification questions with grounded, cited responses and queries a live STM Montréal feed, then exposes everything as an MCP server.",
+        "sections": {
+          "overview": {
+            "label": "Overview",
+            "heading": "Talk to your transit data — spec knowledge and live schedules",
+            "text": "Cadence is an agentic RAG system over public-transit data. It answers questions about the **GTFS specification** with grounded, cited responses, queries a **real STM Montréal feed** (7.1M `stop_times` rows) for live schedules, and exposes every capability as an **MCP server** any LLM client can use.",
+            "stat0": { "label": "Core", "note": "Grounded spec RAG + tool-using agent" },
+            "stat1": { "label": "Protocol", "note": "Tools exposed via Model Context Protocol" },
+            "stat2": { "label": "Live data", "note": "STM stop_times rows queried in SQLite" },
+            "stat3": { "label": "Tuned", "note": "Retrieval depth chosen by precision/recall eval" }
+          },
+          "coverImage": { "alt": "Cadence chat interface answering a transit question" },
+          "retrieval": {
+            "label": "Retrieval",
+            "heading": "Grounded RAG with a self-contained chunking pipeline",
+            "text": "The GTFS spec is chunked with a header-aware splitter that keeps each field definition intact and prefixes every chunk with its breadcrumb, so retrieved passages stay self-contained. Embeddings come from Azure OpenAI and are stored in Chroma; answers are grounded in retrieved context with an explicit \"I don't know\" guardrail.",
+            "list": {
+              "0": "Header-aware Markdown chunking with token overlap, so field definitions are never cut mid-way.",
+              "1": "Azure OpenAI embeddings + Chroma cosine retrieval, behind a provider-agnostic client.",
+              "2": "Grounded, cited generation with an out-of-scope guardrail (faithfulness 1.00 on the eval set)."
+            }
+          },
+          "evaluation": {
+            "label": "Evaluation",
+            "heading": "Decisions driven by measurement, not assumptions",
+            "text": "An LLM-as-judge evaluation harness (faithfulness, answer relevancy, context precision, context sufficiency) was built before tuning, so every retrieval change is justified by numbers.",
+            "list": {
+              "0": "Implemented a cross-encoder reranker, measured it, and disabled it — it lowered precision on this structured corpus.",
+              "1": "Swept retrieval depth k and selected k=3: full context sufficiency at the best precision.",
+              "2": "Kept the reranker in the codebase as an evidence-based, opt-in component."
+            },
+            "callout": {
+              "title": "Measurement over intuition",
+              "content": "Two cross-encoder rerankers were tested and rejected on evidence (precision fell from 0.57 to 0.36–0.44), and k was tuned on the precision/recall tradeoff — rigor that separates shipping from guessing."
+            },
+            "img0": { "alt": "Cadence evaluation run output", "caption": "LLM-as-judge metrics & reranking experiment" },
+            "img1": { "alt": "Cadence k-sweep results", "caption": "Retrieval depth precision/recall tradeoff" }
+          },
+          "agentic": {
+            "label": "Agentic + MCP",
+            "heading": "One agent, real data, a standard protocol",
+            "text": "A tool-calling agent decides per question whether to consult the GTFS spec (RAG) or query live STM data, and fuses multi-tool answers. The same tools are exposed through an MCP server, so external clients like Claude Desktop become the agent.",
+            "list": {
+              "0": "Function-calling agent routes between spec RAG and structured transit tools.",
+              "1": "Transit tools run parameterized SQL over the STM feed — injection-safe, no schema hallucination.",
+              "2": "An MCP server (FastMCP) exposes the tools to any MCP-compatible LLM client."
+            },
+            "callout": {
+              "title": "Interoperability in action",
+              "content": "The exact tools that power the in-app agent are callable from Claude Desktop via MCP — query Montréal departures or the GTFS spec directly inside a chat."
+            },
+            "img": { "alt": "Cadence tools used inside Claude Desktop via MCP", "caption": "The same tools, used inside Claude Desktop via MCP" }
+          },
+          "delivery": {
+            "label": "Stack & Delivery",
+            "heading": "Full-stack and reproducible",
+            "text": "A FastAPI backend serves the agent; a frontend provides a modern chat UI that surfaces which tools each answer used.",
+            "link0": { "label": "GitHub repository", "description": "Full Cadence source code" }
+          }
+        }
       }
     }
   },
